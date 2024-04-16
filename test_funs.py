@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from funs import acosd
+from utils.funs import *
 
 class TestAngleCalculations(unittest.TestCase):
     
