@@ -12,9 +12,11 @@ from inputs import *
 
 def main():
     # Initialize phi angles for each wedge, gamma, and cumulative distances
-    phix, phiy, gamma, cum_dist = initialize()
-    history_phix = []  # List to store history of phix
-    history_phiy = []  # List to store history of phiy
+    phix, phiy, thetax, thetay, gamma, cum_dist = initialize()
+    history_phix = []  # List to store history of phi_x
+    history_phiy = []  # List to store history of phi_y
+    history_thetax = [] # List to store history of theta_x
+    history_thetay = [] # List to store history of theta_y
     all_x_coords = []
     all_y_coords = []
     all_z_coords = []
@@ -29,13 +31,12 @@ def main():
         # Store historical values
         history_phix.append(phix.copy())
         history_phiy.append(phiy.copy())
-
-        # Calculate cumulative distances
-        update_cumulative_distances(phix, phiy, gamma, cum_dist)
+        history_phix.append(thetax.copy())
+        history_phiy.append(thetay.copy())
 
         # Perform X, Y, and Z calculations within the loop to use updated phi values
-        x_coords = calc_x(phix, gamma, cum_dist)
-        y_coords = calc_y(phiy, gamma, cum_dist)
+        x_coords, thetax = calc_x(phix, gamma, cum_dist, thetax)
+        y_coords, thetay = calc_y(phiy, gamma, cum_dist, thetay)
         z_coords = calc_z(phix, phiy, gamma, cum_dist)
 
         # Collect coordinate data at each time step
@@ -43,20 +44,26 @@ def main():
         all_y_coords.append(y_coords)
         all_z_coords.append(z_coords)
 
+        # Store the updated angles into their history
+        history_thetax.append(thetax.copy())
+        history_thetay.append(thetay.copy())
+
     # Save all the data
-    save_data(history_phix, history_phiy, all_x_coords, all_y_coords, all_z_coords)
+    save_data(history_phix, history_phiy, history_thetax, history_thetay, all_x_coords, all_y_coords, all_z_coords)
 
     # Plot the results
-    plot(all_x_coords, all_y_coords, all_z_coords, history_phix, history_phiy)
+    plot(all_x_coords, all_y_coords, all_z_coords, history_phix, history_phiy, history_thetax, history_thetay)
 
 
 def initialize():
     phix = np.array(STARTPHIX, dtype=float)
     phiy = np.array(STARTPHIY, dtype=float)
+    thetax = np.array(STARTTHETAX, dtype=float)
+    thetay = np.array(STARTTHETAY, dtype=float)
     gamma = np.zeros(WEDGENUM)
-    cum_dist = np.zeros(WEDGENUM + 1)
-    print("Initial conditions:", dict(phix=phix, phiy=phiy))
-    return phix, phiy, gamma, cum_dist
+    cum_dist = np.cumsum([0] + int_dist)
+    print("Initial conditions:", dict(phix=phix, phiy=phiy, thetax=thetax, thetay=thetay))
+    return phix, phiy, thetax, thetay, gamma, cum_dist
 
 def update_angles_and_vectors(current_time, phix, phiy, gamma):
     # Reinitialize phix and phiy to START values at each time step
@@ -94,15 +101,7 @@ def update_phi(cos_angle_nx, cos_angle_ny):
     phiy = 90 - acosd(cos_angle_ny)
     return phix, phiy
 
-def update_cumulative_distances(phix, phiy, gamma, cum_dist):
-    sumk = 0
-    for i in range(WEDGENUM):
-        sumk += int_dist[i]
-        cum_dist[i] = sumk
-    cum_dist[WEDGENUM] = sumk + int_dist[-1]
-
-
-def save_data(history_phix, history_phiy, x_coords, y_coords, z_coords):
+def save_data(history_phix, history_phiy, history_thetax, history_thetay, x_coords, y_coords, z_coords):
     data_directory = "data"
     os.makedirs(data_directory, exist_ok=True)  # Ensure the directory exists
     filepath = os.path.join(data_directory, "simulation_data.pkl")
@@ -111,6 +110,8 @@ def save_data(history_phix, history_phiy, x_coords, y_coords, z_coords):
     data = {
         "history_phix": history_phix,
         "history_phiy": history_phiy,
+        "history_thetax": history_thetax,
+        "history_thetay": history_thetay,
         "x_coords": x_coords,
         "y_coords": y_coords,
         "z_coords": z_coords
@@ -121,7 +122,6 @@ def save_data(history_phix, history_phiy, x_coords, y_coords, z_coords):
         pickle.dump(data, file)
 
     print(f"Data saved to {filepath}")
-
 
 if __name__ == "__main__":
     main()
