@@ -3,9 +3,11 @@ import os
 import pickle
 
 from utils.funs import *
+from utils.saving import save_data
 from calcs.calc_x import calc_x
 from calcs.calc_y import calc_y
 from calcs.calc_z import calc_z
+from calcs.init_coords import initialize_coordinates
 from visuals.plot import plot
 from inputs import *
 
@@ -13,43 +15,49 @@ from inputs import *
 def main():
     # Initialize phi angles for each wedge, gamma, and cumulative distances
     phix, phiy, thetax, thetay, gamma, cum_dist = initialize()
-    history_phix = []  # List to store history of phi_x
-    history_phiy = []  # List to store history of phi_y
-    history_thetax = [] # List to store history of theta_x
-    history_thetay = [] # List to store history of theta_y
-    all_x_coords = []
-    all_y_coords = []
-    all_z_coords = []
+
+    # Get initial coordinates and Px, Py, Pz values
+    ((orig_coordx, new_coordx), (orig_coordy, new_coordy), (orig_coordz, new_coordz), px0, py0, pz0) = initialize_coordinates(RX, RY, thetax, thetay, phix, phiy, int_dist)
+
+    # Initialize history storage
+    history_phix = [phix]
+    history_phiy = [phiy]
+    history_thetax = [thetax]
+    history_thetay = [thetay]
+    all_x_coords = [orig_coordx, new_coordx]  # Collect both initial sets of coordinates
+    all_y_coords = [orig_coordy, new_coordy]
+    all_z_coords = [orig_coordz, new_coordz]
+    Px = [px0]  # Start with the initial Px
+    Py = [py0]  # Start with the initial Py
+    Pz = [pz0]  # Start with the initial Pz
 
     # Main simulation loop
     for idx, current_time in enumerate(time):
         print(f"\nTime step {idx+1}/{len(time)} at time {current_time:.2f} sec")
 
-        # Update angles and vectors for each wedge
-        update_angles_and_vectors(current_time, phix, phiy, gamma)
+        if(1):
+            print(all_x_coords)
+            exit()
 
-        # Store historical values
-        history_phix.append(phix.copy())
-        history_phiy.append(phiy.copy())
-        history_phix.append(thetax.copy())
-        history_phiy.append(thetay.copy())
+        # Update angles and vectors for each wedge as it spins and creates a new wedge angle
+        update_angles_and_vectors(current_time, phix, phiy, gamma)
 
         # Perform X, Y, and Z calculations within the loop to use updated phi values
         x_coords, thetax = calc_x(phix, gamma, cum_dist, thetax)
         y_coords, thetay = calc_y(phiy, gamma, cum_dist, thetay)
         z_coords = calc_z(phix, phiy, gamma, cum_dist)
 
-        # Collect coordinate data at each time step
+        # Collect coordinate data at each time step and tore the updated angles and phis into their history
         all_x_coords.append(x_coords)
         all_y_coords.append(y_coords)
         all_z_coords.append(z_coords)
-
-        # Store the updated angles into their history
         history_thetax.append(thetax.copy())
         history_thetay.append(thetay.copy())
+        history_phix.append(phix.copy())
+        history_phiy.append(phiy.copy())
 
     # Save all the data
-    save_data(history_phix, history_phiy, history_thetax, history_thetay, all_x_coords, all_y_coords, all_z_coords)
+    save_data(history_phix, history_phiy, history_thetax, history_thetay, all_x_coords, all_y_coords, all_z_coords, Px, Py, Pz)
 
     # Plot the results
     plot(all_x_coords, all_y_coords, all_z_coords, history_phix, history_phiy, history_thetax, history_thetay)
@@ -58,8 +66,8 @@ def main():
 def initialize():
     phix = np.array(STARTPHIX, dtype=float)
     phiy = np.array(STARTPHIY, dtype=float)
-    thetax = np.array(STARTTHETAX, dtype=float)
-    thetay = np.array(STARTTHETAY, dtype=float)
+    thetax = float(STARTTHETAX)
+    thetay = float(STARTTHETAY)
     gamma = np.zeros(WEDGENUM)
     cum_dist = np.cumsum([0] + int_dist)
     print("Initial conditions:", dict(phix=phix, phiy=phiy, thetax=thetax, thetay=thetay))
@@ -101,27 +109,6 @@ def update_phi(cos_angle_nx, cos_angle_ny):
     phiy = 90 - acosd(cos_angle_ny)
     return phix, phiy
 
-def save_data(history_phix, history_phiy, history_thetax, history_thetay, x_coords, y_coords, z_coords):
-    data_directory = "data"
-    os.makedirs(data_directory, exist_ok=True)  # Ensure the directory exists
-    filepath = os.path.join(data_directory, "simulation_data.pkl")
-
-    # Collect all data into a dictionary
-    data = {
-        "history_phix": history_phix,
-        "history_phiy": history_phiy,
-        "history_thetax": history_thetax,
-        "history_thetay": history_thetay,
-        "x_coords": x_coords,
-        "y_coords": y_coords,
-        "z_coords": z_coords
-    }
-
-    # Write the data to a file using pickle
-    with open(filepath, 'wb') as file:
-        pickle.dump(data, file)
-
-    print(f"Data saved to {filepath}")
 
 if __name__ == "__main__":
     main()
