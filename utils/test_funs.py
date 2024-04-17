@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from utils.funs import *
+from funs import *
 
 class TestAngleCalculations(unittest.TestCase):
     

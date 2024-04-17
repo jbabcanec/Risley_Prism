@@ -1,20 +1,28 @@
 import numpy as np
 import os
 import pickle
-from inputs import *
+
 from utils.funs import *
+from calcs.calc_x import calc_x
+from calcs.calc_y import calc_y
+from calcs.calc_z import calc_z
+from visuals.plot import plot
+from inputs import *
 
 
 def main():
-    # Initialize phi angles for each wedge
+    # Initialize phi angles for each wedge, gamma, and cumulative distances
     phix, phiy, gamma, cum_dist = initialize()
     history_phix = []  # List to store history of phix
     history_phiy = []  # List to store history of phiy
+    all_x_coords = []
+    all_y_coords = []
+    all_z_coords = []
 
     # Main simulation loop
     for idx, current_time in enumerate(time):
         print(f"\nTime step {idx+1}/{len(time)} at time {current_time:.2f} sec")
-        
+
         # Update angles and vectors for each wedge
         update_angles_and_vectors(current_time, phix, phiy, gamma)
 
@@ -25,16 +33,22 @@ def main():
         # Calculate cumulative distances
         update_cumulative_distances(phix, phiy, gamma, cum_dist)
 
-    # Perform X, Y, and Z calculations
-    x_coords = calc_x(phix, gamma)
-    y_coords = calc_y(phiy, gamma)
-    z_coords = calc_z(phix, phiy, gamma)
+        # Perform X, Y, and Z calculations within the loop to use updated phi values
+        x_coords = calc_x(phix, gamma, cum_dist)
+        y_coords = calc_y(phiy, gamma, cum_dist)
+        z_coords = calc_z(phix, phiy, gamma, cum_dist)
+
+        # Collect coordinate data at each time step
+        all_x_coords.append(x_coords)
+        all_y_coords.append(y_coords)
+        all_z_coords.append(z_coords)
 
     # Save all the data
-    save_data(history_phix, history_phiy, x_coords, y_coords, z_coords)
+    save_data(history_phix, history_phiy, all_x_coords, all_y_coords, all_z_coords)
 
     # Plot the results
-    plot(x_coords, y_coords, z_coords, history_phix, history_phiy)
+    plot(all_x_coords, all_y_coords, all_z_coords, history_phix, history_phiy)
+
 
 def initialize():
     phix = np.array(STARTPHIX, dtype=float)
@@ -87,21 +101,6 @@ def update_cumulative_distances(phix, phiy, gamma, cum_dist):
         cum_dist[i] = sumk
     cum_dist[WEDGENUM] = sumk + int_dist[-1]
 
-def calc_x(phix, gamma):
-    # Placeholder function for X calculations
-    pass
-
-def calc_y(phiy, gamma):
-    # Placeholder function for Y calculations
-    pass
-
-def calc_z(phix, phiy, gamma):
-    # Placeholder function for Z calculations
-    pass
-
-def plot(x_coords, y_coords, z_coords, history_phix, history_phiy):
-    # Placeholder function for plotting
-    pass
 
 def save_data(history_phix, history_phiy, x_coords, y_coords, z_coords):
     data_directory = "data"

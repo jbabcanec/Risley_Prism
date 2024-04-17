@@ -18,6 +18,6 @@ STARTPHIX = [15, 20, 25]             # Initial phi for each interface
 STARTPHIY = [0, 0, 0]             	 # assuming wedges are never starting at an oblique angle
 
 D = 5                                # Wedge diameter
-int_dist = [2, 3, 4]				 # Optical axis distance between interfaces
+int_dist = [2, 3, 4]				 # Optical axis distance between interfaces, called k in MATLAB code, K is the cumulative distance in MATLAB
 int_dist.append(5)        			 # Distance from last wedge to workpiece
 ref_ind = [1.1, 1.2, 1.3, 1.4]  	 # Refractive index before each interface

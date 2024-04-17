@@ -15,3 +15,7 @@ def tand(angle):
 def acosd(value):
     """Compute angle from cosine value in degrees."""
     return np.degrees(np.arccos(value))
+
+def cotd(angle):
+    """Compute cotangent of an angle in degrees."""
+    return 1 / np.tan(np.radians(angle))

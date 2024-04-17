@@ -65,9 +65,12 @@ We propose the derived generalized equation of Snell's Law's for vectors. The LA
 
 **Normalize the vectors N and Si​**:
 
+Normal of Tangent Plane
 $$
 N = \frac{1}{\sqrt{\tan(\phi_x)^2 + 1}} \begin{bmatrix} \tan(\phi_x) \\ 0 \\ -1 \end{bmatrix}
 $$
+
+Input Vector
 $$
 s_i = \frac{1}{\sqrt{\tan(\theta_x)^2 + 1}} \begin{bmatrix} \tan(\theta_x) \\ 0 \\ 1 \end{bmatrix}
 $$
