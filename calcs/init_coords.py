@@ -9,8 +9,8 @@ def initialize_coordinates(rx, ry, thetax, thetay, phix, phiy, int_dist):
     orig_coordz = np.array([0, 0, 0])   # Initial z coordinates
 
     # X calculations
-    x1, x2 = rx, rx + np.tan(np.radians(thetax))
-    x3, x4 = 0, 1 if phix[0] == 0 else 1 / cotd(phix[0])
+    x1, x2 = rx, rx + tand(thetax)
+    x3, x4 = 0, 1 if phix[0] == 0 else cotd(phix[0])
     z1, z2 = 0, 1
     z3, z4 = int_dist[0], int_dist[0] + (1 if phix[0] != 0 else 0)
 
@@ -19,15 +19,17 @@ def initialize_coordinates(rx, ry, thetax, thetay, phix, phiy, int_dist):
     new_coordx = np.array([Px, 0, Pz])  # Calculated x position
 
     # Y calculations
-    y1, y2 = ry, ry + np.tan(np.radians(thetay))
-    y3, y4 = 0, 1 if phiy[0] == 0 else 1 / cotd(phiy[0])
+    y1, y2 = ry, ry + tand(thetay)
+    y3, y4 = 0, 1 if phiy[0] == 0 else cotd(phiy[0])
     z1, z2 = 0, 1
     z3, z4 = int_dist[0], int_dist[0] + (1 if phiy[0] != 0 else 0)
+
+    # Helps Debug
+    # print(f"x1: {x1}, x2: {x2}, x3: {x3}, x4: {x4}")
+    # print(f"y1: {y1}, y2: {y2}, y3: {y3}, y4: {y4}")
+    # print(f"z1: {z1}, z2: {z2}, z3: {z3}, z4: {z4}")
 
     Py = ((y1 * z2 - z1 * y2) * (y3 - y4) - (y1 - y2) * (y3 * z4 - z3 * y4)) / ((y1 - y2) * (z3 - z4) - (z1 - z2) * (y3 - y4))
     new_coordy = np.array([0, Py, Pz])  # Calculated y position
 
-    # The z coordinates follow the calculated positions from the x coordinates
-    new_coordz = np.array([0, 0, Pz])  # Calculated z position based on x calculations
-
-    return (orig_coordx, new_coordx), (orig_coordy, new_coordy), (orig_coordz, new_coordz), Px, Py, Pz
+    return (orig_coordx, new_coordx), (orig_coordy, new_coordy), (orig_coordz), Px, Py, Pz

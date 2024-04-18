@@ -17,7 +17,7 @@ def main():
     phix, phiy, thetax, thetay, gamma, cum_dist = initialize()
 
     # Get initial coordinates and Px, Py, Pz values
-    ((orig_coordx, new_coordx), (orig_coordy, new_coordy), (orig_coordz, new_coordz), px0, py0, pz0) = initialize_coordinates(RX, RY, thetax, thetay, phix, phiy, int_dist)
+    ((orig_coordx, new_coordx), (orig_coordy, new_coordy), (orig_coordz), px0, py0, pz0) = initialize_coordinates(RX, RY, thetax, thetay, phix, phiy, int_dist)
 
     # Initialize history storage
     history_phix = [phix]
@@ -26,17 +26,17 @@ def main():
     history_thetay = [thetay]
     all_x_coords = [orig_coordx, new_coordx]  # Collect both initial sets of coordinates
     all_y_coords = [orig_coordy, new_coordy]
-    all_z_coords = [orig_coordz, new_coordz]
-    Px = [px0]  # Start with the initial Px
-    Py = [py0]  # Start with the initial Py
-    Pz = [pz0]  # Start with the initial Pz
+    all_z_coords = [orig_coordz]
+    Px = [px0]  # Start with the initial P's
+    Py = [py0]
+    Pz = [pz0]
 
     # Main simulation loop
     for idx, current_time in enumerate(time):
         print(f"\nTime step {idx+1}/{len(time)} at time {current_time:.2f} sec")
 
         if(1):
-            print(all_x_coords)
+            print(f"Px: {Px}, Py: {Py}, Pz: {Pz}")
             exit()
 
         # Update angles and vectors for each wedge as it spins and creates a new wedge angle
