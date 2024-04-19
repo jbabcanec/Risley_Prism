@@ -17,51 +17,48 @@ def main():
     phix, phiy, thetax, thetay, gamma, cum_dist = initialize()
 
     # Get initial coordinates and Px, Py, Pz values
-    ((orig_coordx, new_coordx), (orig_coordy, new_coordy), (orig_coordz), px0, py0, pz0) = initialize_coordinates(RX, RY, thetax, thetay, phix, phiy, int_dist)
+    ((orig_coordx, new_coordx), (orig_coordy, new_coordy), (orig_coordz), PX0, PY0, PZ0) = initialize_coordinates(RX, RY, thetax, thetay, phix, phiy, int_dist)
 
     # Initialize history storage
-    history_phix = [phix]
-    history_phiy = [phiy]
-    history_thetax = [thetax]
-    history_thetay = [thetay]
-    all_x_coords = [orig_coordx, new_coordx]  # Collect both initial sets of coordinates
-    all_y_coords = [orig_coordy, new_coordy]
-    all_z_coords = [orig_coordz]
-    Px = [px0]  # Start with the initial P's
-    Py = [py0]
-    Pz = [pz0]
+    history_phix = {'0': phix.copy()}
+    history_phiy = {'0': phiy.copy()}
+    history_thetax = {'0': thetax}
+    history_thetay = {'0': thetay}
+    all_x_coords = {'0': [orig_coordx, new_coordx]}
+    all_y_coords = {'0': [orig_coordy, new_coordy]}
+    all_z_coords = {'0': [orig_coordz]}
 
     # Main simulation loop
     for idx, current_time in enumerate(time):
         print(f"\nTime step {idx+1}/{len(time)} at time {current_time:.2f} sec")
 
         if(1):
-            print(f"Px: {Px}, Py: {Py}, Pz: {Pz}")
+            print(idx)
+            print(f"Phis: {phix}, Thetas: {thetax}, {thetay}")
             exit()
 
         # Update angles and vectors for each wedge as it spins and creates a new wedge angle
         update_angles_and_vectors(current_time, phix, phiy, gamma)
 
-        # Perform X, Y, and Z calculations within the loop to use updated phi values
-        x_coords, thetax = calc_x(phix, gamma, cum_dist, thetax)
-        y_coords, thetay = calc_y(phiy, gamma, cum_dist, thetay)
+        # Perform X, Y, and Z calculations within the loop to use updated phi values, thetax,y will be a vector
+        x_coords, thetax = calc_x(phix, gamma, cum_dist, thetax, PX0, PZ0)
+        y_coords, thetay = calc_y(phiy, gamma, cum_dist, thetay, PY0, PZ0)
         z_coords = calc_z(phix, phiy, gamma, cum_dist)
 
-        # Collect coordinate data at each time step and tore the updated angles and phis into their history
-        all_x_coords.append(x_coords)
-        all_y_coords.append(y_coords)
-        all_z_coords.append(z_coords)
-        history_thetax.append(thetax.copy())
-        history_thetay.append(thetay.copy())
-        history_phix.append(phix.copy())
-        history_phiy.append(phiy.copy())
+        # Collect coordinate data at each time step and store the updated angles and phis into their history
+        all_x_coords[str(idx)] = [x_coords] + all_x_coords['0']
+        all_y_coords[str(idx)] = [y_coords] + all_y_coords['0']
+        all_z_coords[str(idx)] = [z_coords] + all_z_coords['0']
+        history_thetax[str(idx)] = thetax
+        history_thetay[str(idx)] = thetay
+        history_phix[str(idx)] = phix.copy()
+        history_phiy[str(idx)] = phiy.copy()
 
     # Save all the data
-    save_data(history_phix, history_phiy, history_thetax, history_thetay, all_x_coords, all_y_coords, all_z_coords, Px, Py, Pz)
+    save_data(history_phix, history_phiy, history_thetax, history_thetay, all_x_coords, all_y_coords, all_z_coords)
 
     # Plot the results
     plot(all_x_coords, all_y_coords, all_z_coords, history_phix, history_phiy, history_thetax, history_thetay)
-
 
 def initialize():
     phix = np.array(STARTPHIX, dtype=float)
