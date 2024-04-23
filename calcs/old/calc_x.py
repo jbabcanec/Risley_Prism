@@ -6,6 +6,7 @@ def calc_x(phix, gamma, cum_dist, thetax, px, pz):
     x_coords = {}
     # Start with the initial theta value for the first wedge, then calculate subsequent values.
     new_thetax = np.zeros(len(phix))  # Ensures we have space for each wedge, including workpiece
+    print(thetax)
     new_thetax[0] = thetax  # Initial thetax used for the first calculation
 
     # Initialize px and pz for subsequent wedges based on initial values

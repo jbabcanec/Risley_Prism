@@ -4,10 +4,9 @@ import pickle
 
 from utils.funs import *
 from utils.saving import save_data
-from calcs.calc_x import calc_x
-from calcs.calc_y import calc_y
-from calcs.calc_z import calc_z
 from calcs.init_coords import initialize_coordinates
+from calcs.calc_proj_coord import calc_proj_coord
+from calcs.calc_z_coord import calc_z_coord
 from visuals.plot import plot
 from inputs import *
 
@@ -35,16 +34,15 @@ def main():
         # Update angles and vectors for each wedge as it spins and creates a new wedge angle
         update_angles_and_vectors(current_time, phix, phiy, gamma)
 
-        # Perform X, Y, and Z calculations within the loop to use updated phi values, thetax,y will be a vector
-        x_coords, thetax = calc_x(phix, gamma, cum_dist, thetax, PX0, PZ0)
+        x_coords, new_thetax = calc_proj_coord(phix, cum_dist, thetax, PX0, PZ0, 'x')
+        y_coords, new_thetay = calc_proj_coord(phiy, cum_dist, thetay, PY0, PZ0, 'y')
 
         if(1):
             print(f"iteration: {idx}")
-            print(f"xcoord: {x_coords}, Thetas: {thetax}")
+            print(f"ycogen: {y_coords}, Thetas: {thetay}")
             exit()
 
-        y_coords, thetay = calc_y(phiy, gamma, cum_dist, thetay, PY0, PZ0)
-        z_coords = calc_z(phix, phiy, gamma, cum_dist)
+        z_coords = calc_z_coord(phix, phiy, gamma, cum_dist)
 
         # Collect coordinate data at each time step and store the updated angles and phis into their history
         all_x_coords[str(idx)] = [x_coords] + all_x_coords['0']
@@ -67,7 +65,7 @@ def initialize():
     thetax = float(STARTTHETAX)
     thetay = float(STARTTHETAY)
     gamma = np.zeros(WEDGENUM + 1) # Adding final 0 gamma for workpiece
-    cum_dist = np.cumsum([0] + int_dist)
+    cum_dist = np.cumsum(int_dist)
     print("Initial conditions:", dict(phix=phix, phiy=phiy, thetax=thetax, thetay=thetay))
     return phix, phiy, thetax, thetay, gamma, cum_dist
 
