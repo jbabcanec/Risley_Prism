@@ -32,16 +32,17 @@ def main():
     for idx, current_time in enumerate(time):
         print(f"\nTime step {idx+1}/{len(time)} at time {current_time:.2f} sec")
 
-        if(1):
-            print(idx)
-            print(f"Phis: {phix}, Thetas: {thetax}, {thetay}")
-            exit()
-
         # Update angles and vectors for each wedge as it spins and creates a new wedge angle
         update_angles_and_vectors(current_time, phix, phiy, gamma)
 
         # Perform X, Y, and Z calculations within the loop to use updated phi values, thetax,y will be a vector
         x_coords, thetax = calc_x(phix, gamma, cum_dist, thetax, PX0, PZ0)
+
+        if(1):
+            print(f"iteration: {idx}")
+            print(f"xcoord: {x_coords}, Thetas: {thetax}")
+            exit()
+
         y_coords, thetay = calc_y(phiy, gamma, cum_dist, thetay, PY0, PZ0)
         z_coords = calc_z(phix, phiy, gamma, cum_dist)
 
@@ -61,19 +62,19 @@ def main():
     plot(all_x_coords, all_y_coords, all_z_coords, history_phix, history_phiy, history_thetax, history_thetay)
 
 def initialize():
-    phix = np.array(STARTPHIX, dtype=float)
-    phiy = np.array(STARTPHIY, dtype=float)
+    phix = np.array(STARTPHIX + [0.0], dtype=float)  # Adding 0.0 for workpiece
+    phiy = np.array(STARTPHIY + [0.0], dtype=float)
     thetax = float(STARTTHETAX)
     thetay = float(STARTTHETAY)
-    gamma = np.zeros(WEDGENUM)
+    gamma = np.zeros(WEDGENUM + 1) # Adding final 0 gamma for workpiece
     cum_dist = np.cumsum([0] + int_dist)
     print("Initial conditions:", dict(phix=phix, phiy=phiy, thetax=thetax, thetay=thetay))
     return phix, phiy, thetax, thetay, gamma, cum_dist
 
 def update_angles_and_vectors(current_time, phix, phiy, gamma):
     # Reinitialize phix and phiy to START values at each time step
-    phix[:] = STARTPHIX
-    phiy[:] = STARTPHIY
+    phix[:] = STARTPHIX + [0.0]
+    phiy[:] = STARTPHIY + [0.0]
     for i in range(WEDGENUM):
         update_individual_wedge(i, current_time, phix, phiy, gamma)
 

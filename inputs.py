@@ -6,7 +6,7 @@ TIMELIM = 10  # Amount of time in seconds
 INC = 100     # Number of time-steps
 
 # Hardcoded inputs
-time = np.linspace(0, TIMELIM, INC)  # Time array
+time = np.linspace(0, TIMELIM, INC)  # Time array, don't touch
 N = [1, 1, 1]                  		 # Rotations per second for each wedge
 STARTTHETAX = 30             		 # Initial laser angle with respect to x-axis for each interface
 STARTTHETAY = 45              		 # Initial laser angle with respect to y-axis for each interface

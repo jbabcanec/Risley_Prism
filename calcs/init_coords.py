@@ -24,11 +24,6 @@ def initialize_coordinates(rx, ry, thetax, thetay, phix, phiy, int_dist):
     z1, z2 = 0, 1
     z3, z4 = int_dist[0], int_dist[0] + (1 if phiy[0] != 0 else 0)
 
-    # Helps Debug
-    # print(f"x1: {x1}, x2: {x2}, x3: {x3}, x4: {x4}")
-    # print(f"y1: {y1}, y2: {y2}, y3: {y3}, y4: {y4}")
-    # print(f"z1: {z1}, z2: {z2}, z3: {z3}, z4: {z4}")
-
     Py = ((y1 * z2 - z1 * y2) * (y3 - y4) - (y1 - y2) * (y3 * z4 - z3 * y4)) / ((y1 - y2) * (z3 - z4) - (z1 - z2) * (y3 - y4))
     new_coordy = np.array([0, Py, Pz])  # Calculated y position
 
