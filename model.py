@@ -14,6 +14,7 @@ from inputs import *
 def main():
     # Initialize phi angles for each wedge, gamma, and cumulative distances
     phix, phiy, thetax, thetay, gamma, cum_dist = initialize()
+    time = np.linspace(0, TIMELIM, INC)
 
     # Get initial coordinates and Px, Py, Pz values
     ((orig_coordx, new_coordx), (orig_coordy, new_coordy), (orig_coordz), PX0, PY0, PZ0) = initialize_coordinates(RX, RY, thetax, thetay, phix, phiy, int_dist)
@@ -65,7 +66,7 @@ def initialize():
     thetax = float(STARTTHETAX)
     thetay = float(STARTTHETAY)
     gamma = np.zeros(WEDGENUM + 1) # Adding final 0 gamma for workpiece
-    cum_dist = np.cumsum(int_dist)
+    cum_dist = np.cumsum(int_dist) # K is the cumulative distance in MATLAB
     print("Initial conditions:", dict(phix=phix, phiy=phiy, thetax=thetax, thetay=thetay))
     return phix, phiy, thetax, thetay, gamma, cum_dist
 
@@ -78,13 +79,13 @@ def update_angles_and_vectors(current_time, phix, phiy, gamma):
 
 def update_individual_wedge(i, current_time, phix, phiy, gamma):
     gamma[i] = (360 * N[i] * current_time) % 360
-    n1, nx, ny = compute_vectors(gamma[i], phix[i])
+    n1, nx, ny = compute_vectors(gamma[i], phix[i], phiy[i])
     cos_angle_nx, cos_angle_ny = compute_angles(n1, nx, ny)
     print_wedge_status(i, gamma, n1, cos_angle_nx, cos_angle_ny)
     phix[i], phiy[i] = update_phi(cos_angle_nx, cos_angle_ny)
 
-def compute_vectors(gamma, phi):
-    n1 = np.array([cosd(gamma) * tand(phi), sind(gamma) * tand(phi), -1])
+def compute_vectors(gamma, phix, phiy):
+    n1 = np.array([cosd(gamma + phiy) * tand(phix), sind(gamma + phiy) * tand(phix), -1])
     nx = np.array([1, 0, 0])
     ny = np.array([0, 1, 0])
     return n1, nx, ny
