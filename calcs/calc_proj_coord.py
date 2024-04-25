@@ -2,7 +2,7 @@ import numpy as np
 from utils.funs import *
 from inputs import ref_ind
 
-def calc_proj_coord(idx, phi, cum_dist, theta, p, pz, all_coords, axis):
+def calc_proj_coord(phi, cum_dist, theta, p, pz, all_coords, axis):
     coords = {}
     new_theta = np.zeros(len(phi))  # This ensures we have space for each wedge, including workpiece
     new_theta[0] = theta  # Initial theta used for the first calculation
@@ -14,11 +14,11 @@ def calc_proj_coord(idx, phi, cum_dist, theta, p, pz, all_coords, axis):
     # Compute new angles and positions for each wedge
     for i in range(len(phi) - 1):  # Exclude the last element which is the workpiece
         # Normalizing the vectors
-        N_hat = np.array([tand(phi[i]), 0, -1])
+        N_hat = [tand(phi[i]), 0, -1]
         N_hat = N_hat / np.linalg.norm(N_hat)
-        s_i = np.array([tand(new_theta[i]), 0, 1])  # Use updated theta for each wedge
+        s_i = [tand(new_theta[i]), 0, 1]  # Use updated theta for each wedge
         s_i = s_i / np.linalg.norm(s_i)
-        z_hat = np.array([0, 0, 1])
+        z_hat = [0, 0, 1]
 
         # Governing equation of refraction
         s_f = (ref_ind[i] / ref_ind[i + 1]) * np.cross(N_hat, np.cross(-N_hat, s_i)) - \
@@ -41,8 +41,8 @@ def calc_proj_coord(idx, phi, cum_dist, theta, p, pz, all_coords, axis):
         pz_next = ((p1 * z2 - z1 * p2) * (z3 - z4) - (z1 - z2) * (p3 * z4 - z3 * p4)) / \
                     ((p1 - p2) * (z3 - z4) - (z1 - z2) * (p3 - p4))
 
-        new_coord = (0, p_next, pz_next) if axis == 'y' else (p_next, 0, pz_next)
-        all_coords[idx].append(new_coord)
+        new_coord = [0, p_next, pz_next] if axis == 'y' else [p_next, 0, pz_next]
+        all_coords['0'].append(new_coord) # The starting points are always constant
 
         print("\n-------------------------")
         print(f"Iteration {i+1} on Coord {axis}:")
