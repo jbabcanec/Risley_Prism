@@ -17,7 +17,7 @@ def main():
     time = np.linspace(0, TIMELIM, INC)
 
     # Get initial coordinates and Px, Py, Pz values
-    ((orig_coordx, new_coordx), (orig_coordy, new_coordy), (orig_coordz), PX0, PY0, PZ0) = initialize_coordinates(RX, RY, thetax, thetay, phix, phiy, int_dist)
+    ((orig_coordx, new_coordx), (orig_coordy, new_coordy), (orig_coordz), PX0, PY0, PZ_X0, PZ_Y0) = initialize_coordinates(RX, RY, thetax, thetay, phix, phiy, int_dist)
 
     # Initialize history storage
     history_phix = {'0': phix.copy()}
@@ -28,6 +28,9 @@ def main():
     all_y_coords = {'0': [orig_coordy, new_coordy]}
     all_z_coords = {'0': [orig_coordz]}
 
+    print(all_x_coords)
+    print(all_y_coords)
+
     # Main simulation loop
     for idx, current_time in enumerate(time):
         print(f"\nTime step {idx+1}/{len(time)} at time {current_time:.2f} sec")
@@ -35,15 +38,15 @@ def main():
         # Update angles and vectors for each wedge as it spins and creates a new wedge angle
         update_angles_and_vectors(current_time, phix, phiy, gamma)
 
-        x_coords, new_thetax = calc_proj_coord(phix, cum_dist, thetax, PX0, PZ0, 'x')
-        y_coords, new_thetay = calc_proj_coord(phiy, cum_dist, thetay, PY0, PZ0, 'y')
+        x_coords, new_thetax = calc_proj_coord(str(idx), phix, cum_dist, thetax, PX0, PZ_X0, all_x_coords, 'x')
+        y_coords, new_thetay = calc_proj_coord(str(idx), phiy, cum_dist, thetay, PY0, PZ_Y0, all_y_coords, 'y')
+        z_coords = calc_z_coord(str(idx), phix, phiy, gamma, cum_dist, x_coords, y_coords)
 
         if(1):
-            print(f"iteration: {idx}")
-            print(f"ycogen: {y_coords}, Thetas: {thetay}")
+            print(f'x_coords: {x_coords}')
+            print(f'y_coords: {y_coords}')
+            print(f'z_coords: {z_coords}')
             exit()
-
-        z_coords = calc_z_coord(phix, phiy, gamma, cum_dist)
 
         # Collect coordinate data at each time step and store the updated angles and phis into their history
         all_x_coords[str(idx)] = [x_coords] + all_x_coords['0']

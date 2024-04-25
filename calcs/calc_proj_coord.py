@@ -2,7 +2,7 @@ import numpy as np
 from utils.funs import *
 from inputs import ref_ind
 
-def calc_proj_coord(phi, cum_dist, theta, p, pz, axis):
+def calc_proj_coord(idx, phi, cum_dist, theta, p, pz, all_coords, axis):
     coords = {}
     new_theta = np.zeros(len(phi))  # This ensures we have space for each wedge, including workpiece
     new_theta[0] = theta  # Initial theta used for the first calculation
@@ -41,7 +41,8 @@ def calc_proj_coord(phi, cum_dist, theta, p, pz, axis):
         pz_next = ((p1 * z2 - z1 * p2) * (z3 - z4) - (z1 - z2) * (p3 * z4 - z3 * p4)) / \
                     ((p1 - p2) * (z3 - z4) - (z1 - z2) * (p3 - p4))
 
-        coords[i + 1] = (0, p_next, pz_next) if axis == 'y' else (p_next, 0, pz_next)
+        new_coord = (0, p_next, pz_next) if axis == 'y' else (p_next, 0, pz_next)
+        all_coords[idx].append(new_coord)
 
         print("\n-------------------------")
         print(f"Iteration {i+1} on Coord {axis}:")
@@ -54,5 +55,7 @@ def calc_proj_coord(phi, cum_dist, theta, p, pz, axis):
         print(f"    {axis}1: {p1}, {axis}2: {p2}, {axis}3: {p3}, {axis}4: {p4}")
         print(f"    z1: {z1}, z2: {z2}, z3: {z3}, z4: {z4}")
         print(f"    Next positions p{axis}_next, pz_next: {p_next}, {pz_next}")
+        print(f'    p{axis} = {p_next}')
+        print(f'    pz = {p_next}')
 
-    return coords, new_theta
+    return all_coords, new_theta
