@@ -8,6 +8,7 @@ from calcs.init_coords import initialize_coordinates
 from calcs.calc_proj_coord import calc_proj_coord
 from calcs.calc_z_coord import calc_z_coord
 from visuals.plot import plot
+from visuals.axes_options import set_axes_equal
 from inputs import *
 
 def main():
@@ -49,6 +50,18 @@ def main():
         history_thetay[str(idx)] = new_thetay.tolist()
         history_phix[str(idx)] = phix
         history_phiy[str(idx)] = phiy
+
+        print(f'------------')
+        print(f'Final Data for loop {idx}')
+        print(f'------------')
+        print(f'    Laser coords: {Laser_coords}')
+        print(f'    All Thetax: {history_thetax}')
+        print(f'    All Thetay: {history_thetay}')
+        print(f'    All Phix: {history_phix}')
+        print(f'    All Phiy: {history_phiy}')
+        print(f'    Wedge distances: {int_dist}')
+
+        plot(Laser_coords, history_phix, history_phiy, history_thetax, history_thetay, int_dist)
 
         exit()
 
