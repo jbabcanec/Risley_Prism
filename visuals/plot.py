@@ -1,7 +1,11 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
+from mpl_toolkits.mplot3d.art3d import Poly3DCollection
+
 from visuals.axes_options import set_axes_equal
+from visuals.wedge_options import create_wedge
+
 
 def plot(Laser_coords, history_phix, history_phiy, history_thetax, history_thetay, int_dist):
     # Create a 3D plot
@@ -13,15 +17,35 @@ def plot(Laser_coords, history_phix, history_phiy, history_thetax, history_theta
         # Extract x, y, z coordinates
         x_coords, y_coords, z_coords = zip(*coords)
         
-        # Plot the points with proper orientation according to LHR
-        ax.scatter(y_coords, z_coords, x_coords, marker='o', linestyle='dotted', label=f'Loop {key}')
+        # Plot the points more bold
+        ax.scatter(y_coords, z_coords, x_coords, s=25, marker='o', label=f'Loop {key}')  # Increased marker size
+
+        # Connect points with a line
+        ax.plot(y_coords, z_coords, x_coords, linestyle='-', color='blue')  # Add this line to connect the points
+
+        # Add dotted lines from each point down to the Z-plane
+        for (x, y, z) in zip(x_coords, y_coords, z_coords):
+            ax.plot([0, y], [z, z], [0, x], 'grey', linestyle='dotted', linewidth=1)  # Adjust color and style if needed
+
+    # Calculate the sum of all components of int_dist
+    total_z = sum(int_dist)
     
+    # Add a line from the origin (0, 0, 0) to (0, 0, total_z)
+    ax.plot([0, 0], [0, total_z], [0, 0], 'lightcoral', linestyle='-', linewidth=1, label='Principal Axis')
+
+    # Add wedges at each position
+    DX, DY = 10, 10  # Dimensions of each wedge
+    y_positions = np.cumsum(int_dist)  # Compute positions for wedges
+
+    for y, phix, phiy in zip(y_positions, history_phix['0'], history_phiy['0']):
+        wedge = create_wedge(DX, DY, y, phi_x=phix, phi_y=phiy)
+        poly = Poly3DCollection([wedge], color='cyan', alpha=0.5, edgecolor='black')
+        ax.add_collection3d(poly)
+
     # Set labels according to the left hand rule
-    ax.set_xlabel('Y axis (Middle Finger - Right Arm)')
-    ax.set_ylabel('Z axis (Index Finger - Facing)')
-    ax.set_zlabel('X axis (Thumb - Up)')
-    
-    # Rotate the view to look down Z-axis with X-axis vertical and Y-axis to the right
+    ax.set_xlabel('Y axis')
+    ax.set_ylabel('Z axis')
+    ax.set_zlabel('X axis')
     ax.view_init(elev=30, azim=135+180)  # Isometric view
     
     # Make the axes to scale
