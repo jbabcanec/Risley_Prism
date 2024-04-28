@@ -16,17 +16,14 @@ def main():
     phix, phiy, thetax, thetay, gamma, cum_dist = initialize()
     time = np.linspace(0, TIMELIM, INC)
 
-    # Get initial coordinates and Px, Py, Pz values
-    ((orig_coordx, new_coordx), (orig_coordy, new_coordy), (orig_coordz), PX0, PY0, PZ_X0, PZ_Y0) = initialize_coordinates(RX, RY, thetax, thetay, phix, phiy, int_dist)
-
     # Initialize history storage
     history_phix = {'0': phix}
     history_phiy = {'0': phiy}
     history_thetax = {}
     history_thetay = {}
-    all_x_coords = {'0': [orig_coordx, new_coordx]}
-    all_y_coords = {'0': [orig_coordy, new_coordy]}
-    all_z_coords = {'0': [orig_coordz]}
+    all_x_coords = {}
+    all_y_coords = {}
+    all_z_coords = {}
     Laser_coords = {}
 
     # Main calculation loop
@@ -35,9 +32,14 @@ def main():
 
         # Update angles and vectors for each wedge as it spins and creates a new wedge angle
         update_angles_and_vectors(current_time, phix, phiy, gamma)
+        ((orig_coordx, new_coordx), (orig_coordy, new_coordy), (orig_coordz), PX0, PY0, PZ_X0, PZ_Y0) = initialize_coordinates(RX, RY, thetax, thetay, phix, phiy, int_dist)
 
-        x_coords, new_thetax = calc_proj_coord(phix, cum_dist, thetax, PX0, PZ_X0, all_x_coords, 'x')
-        y_coords, new_thetay = calc_proj_coord(phiy, cum_dist, thetay, PY0, PZ_Y0, all_y_coords, 'y')
+        x_coords, new_thetax = calc_proj_coord(str(idx), orig_coordx, new_coordx, phix, cum_dist, thetax, PX0, PZ_X0, 'x')
+        y_coords, new_thetay = calc_proj_coord(str(idx), orig_coordy, new_coordy, phiy, cum_dist, thetay, PY0, PZ_Y0, 'y')
+
+        print(f'ycoords for loop {idx}: {y_coords}')
+        exit()
+
         z_coords = calc_z_coord(str(idx), phix, phiy, gamma, cum_dist, x_coords, y_coords)
 
         # Collect coordinate data at each time step and store the updated angles and phis into their history
@@ -51,7 +53,7 @@ def main():
         history_phix[str(idx)] = phix
         history_phiy[str(idx)] = phiy
 
-        print(f'------------')
+        print(f'\n------------')
         print(f'Final Data for loop {idx}')
         print(f'------------')
         print(f'    Laser coords: {Laser_coords}')
@@ -61,15 +63,14 @@ def main():
         print(f'    All Phiy: {history_phiy}')
         print(f'    Wedge distances: {int_dist}')
 
-        plot(Laser_coords, history_phix, history_phiy, history_thetax, history_thetay, int_dist)
+        #plot(Laser_coords, history_phix, history_phiy, history_thetax, history_thetay, int_dist)
 
-        exit()
 
     # Save all the data
     save_data(history_phix, history_phiy, history_thetax, history_thetay, all_x_coords, all_y_coords, all_z_coords)
 
     # Plot the results
-    plot(all_x_coords, all_y_coords, all_z_coords, history_phix, history_phiy, history_thetax, history_thetay)
+    #plot(all_x_coords, all_y_coords, all_z_coords, history_phix, history_phiy, history_thetax, history_thetay)
 
 def initialize():
     phix = STARTPHIX + [0.0]  # Adding 0.0 for workpiece

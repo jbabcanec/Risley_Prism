@@ -2,8 +2,8 @@ import numpy as np
 from utils.funs import *
 from inputs import ref_ind
 
-def calc_proj_coord(phi, cum_dist, theta, p, pz, all_coords, axis):
-    coords = {}
+def calc_proj_coord(idx, orig_coord, new_coord, phi, cum_dist, theta, p, pz, axis):
+    coords = {idx: [orig_coord, new_coord]}
     new_theta = np.zeros(len(phi))  # This ensures we have space for each wedge, including workpiece
     new_theta[0] = theta  # Initial theta used for the first calculation
 
@@ -42,7 +42,8 @@ def calc_proj_coord(phi, cum_dist, theta, p, pz, all_coords, axis):
                     ((p1 - p2) * (z3 - z4) - (z1 - z2) * (p3 - p4))
 
         new_coord = [0, p_next, pz_next] if axis == 'y' else [p_next, 0, pz_next]
-        all_coords['0'].append(new_coord) # The starting points are always constant
+        print(f'i: {i}')
+        coords[idx].append(new_coord)
 
         print("\n-------------------------")
         print(f"Iteration {i+1} on Coord {axis}:")
@@ -58,4 +59,4 @@ def calc_proj_coord(phi, cum_dist, theta, p, pz, all_coords, axis):
         print(f'    p{axis} = {p_next}')
         print(f'    pz = {p_next}')
 
-    return all_coords, new_theta
+    return coords, new_theta

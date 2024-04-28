@@ -74,4 +74,4 @@ history_thetax = {'0': [10.0, 7.792820795621765, 5.493482858375487, 3.9712478744
 history_thetay = {'0': [5.0, 4.582401846600678, 4.229240896997841, 3.92666009251296]}
 int_dist = [6, 6, 6, 6]
 
-plot(Laser_coords, history_phix, history_phiy, history_thetax, history_thetay, int_dist)
+#plot(Laser_coords, history_phix, history_phiy, history_thetax, history_thetay, int_dist)

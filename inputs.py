@@ -15,8 +15,8 @@ STARTPHIY = [0, 0, 0]           	# Angles from wedges' y-axis projection & z-axi
 RX = 0                   			# Initial laser height with respect on x-axis		# (-inf,+inf)	# unit length
 RY = 0    							# Initial laser height with respect on y-axis		# (-inf,+inf)	# unit length
 
-DX = 5                       		# Wedge diameter in x direction						# (0,+inf)		# unit length
-DY = 5								# Wedge diameter in y direction						# (0,+inf)		# unit length				
+DX = 10                       		# Wedge diameter in x direction						# (0,+inf)		# unit length
+DY = 10								# Wedge diameter in y direction						# (0,+inf)		# unit length				
 int_dist = [6, 6, 6]				# Optical axis distance between interfaces 			# (0*,+inf)		# unit length
 int_dist.append(6)        			# Distance from last wedge to workpiece 			# (0*,+inf)		# unit length
 ref_ind = [1.1, 1.2, 1.3, 1.4] 		# Refractive index before each interface 			# [1,+inf)		# unitless
