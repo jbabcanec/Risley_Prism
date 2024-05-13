@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
-def create_wedge(dx, dy, y_center, phi_x=0, phi_y=0):
+def create_wedge(dx, dy, y_center, phi_x, phi_y):
     # Define corners of the wedge on the XZ plane at origin
     corners = np.array([
         [-dx/2, 0, -dy/2],

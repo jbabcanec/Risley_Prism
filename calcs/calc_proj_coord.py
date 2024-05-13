@@ -12,7 +12,7 @@ def calc_proj_coord(idx, orig_coord, new_coord, phi, cum_dist, theta, p, pz, axi
     pz_next = pz
 
     # Compute new angles and positions for each wedge
-    for i in range(len(phi) - 1):  # Exclude the last element which is the workpiece
+    for i in range(len(phi) - 1):
         # Normalizing the vectors
         N_hat = [tand(phi[i]), 0, -1]
         N_hat = N_hat / np.linalg.norm(N_hat)
@@ -42,7 +42,6 @@ def calc_proj_coord(idx, orig_coord, new_coord, phi, cum_dist, theta, p, pz, axi
                     ((p1 - p2) * (z3 - z4) - (z1 - z2) * (p3 - p4))
 
         new_coord = [0, p_next, pz_next] if axis == 'y' else [p_next, 0, pz_next]
-        print(f'i: {i}')
         coords[idx].append(new_coord)
 
         print("\n-------------------------")

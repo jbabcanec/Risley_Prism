@@ -36,16 +36,14 @@ def main():
 
         x_coords, new_thetax = calc_proj_coord(str(idx), orig_coordx, new_coordx, phix, cum_dist, thetax, PX0, PZ_X0, 'x')
         y_coords, new_thetay = calc_proj_coord(str(idx), orig_coordy, new_coordy, phiy, cum_dist, thetay, PY0, PZ_Y0, 'y')
+        z_coords = calc_z_coord(str(idx), orig_coordz, phix, phiy, gamma, cum_dist, x_coords, y_coords)
 
-        print(f'ycoords for loop {idx}: {y_coords}')
-        exit()
-
-        z_coords = calc_z_coord(str(idx), phix, phiy, gamma, cum_dist, x_coords, y_coords)
+        print(f'zcoords for loop {idx}: {z_coords}')
 
         # Collect coordinate data at each time step and store the updated angles and phis into their history
         all_x_coords[str(idx)] = x_coords[str(idx)]
         all_y_coords[str(idx)] = y_coords[str(idx)]
-        all_z_coords[str(idx)] = all_z_coords['0'] + z_coords
+        all_z_coords[str(idx)] = z_coords[str(idx)]
         Laser_coords[idx] = [[x[0], y[1], z[2]] for x, y, z in zip(all_x_coords[str(idx)], all_y_coords[str(idx)], all_z_coords[str(idx)])]
 
         history_thetax[str(idx)] = new_thetax.tolist()
@@ -63,8 +61,9 @@ def main():
         print(f'    All Phiy: {history_phiy}')
         print(f'    Wedge distances: {int_dist}')
 
-        #plot(Laser_coords, history_phix, history_phiy, history_thetax, history_thetay, int_dist)
+        exit()
 
+        #plot(Laser_coords, history_phix, history_phiy, history_thetax, history_thetay, int_dist)
 
     # Save all the data
     save_data(history_phix, history_phiy, history_thetax, history_thetay, all_x_coords, all_y_coords, all_z_coords)
