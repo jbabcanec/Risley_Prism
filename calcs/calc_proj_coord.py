@@ -1,6 +1,6 @@
 import numpy as np
 from utils.funs import *
-from inputs import ref_ind
+from inputs import *
 
 def calc_proj_coord(idx, orig_coord, new_coord, phi, cum_dist, theta, p, pz, axis):
     coords = {idx: [orig_coord, new_coord]}
@@ -44,18 +44,19 @@ def calc_proj_coord(idx, orig_coord, new_coord, phi, cum_dist, theta, p, pz, axi
         new_coord = [0, p_next, pz_next] if axis == 'y' else [p_next, 0, pz_next]
         coords[idx].append(new_coord)
 
-        print("\n-------------------------")
-        print(f"Iteration {i+1} on Coord {axis}:")
-        print("-------------------------")
-        print(f"    Normalized normal vector N_hat: {N_hat}")
-        print(f"    Initial direction vector s_i: {s_i}")
-        print(f"    Final direction vector s_f before normalization: {s_f}")
-        print(f"    Updated angle new_theta{axis}{i + 1}: {new_theta[i + 1]}")
-        print(f"    cum_dist: {cum_dist}, cum_dist[{i + 1}]: {cum_dist[i + 1]}")
-        print(f"    {axis}1: {p1}, {axis}2: {p2}, {axis}3: {p3}, {axis}4: {p4}")
-        print(f"    z1: {z1}, z2: {z2}, z3: {z3}, z4: {z4}")
-        print(f"    Next positions p{axis}_next, pz_next: {p_next}, {pz_next}")
-        print(f'    p{axis} = {p_next}')
-        print(f'    pz = {p_next}')
+        if printit == 'on':
+            print("\n-------------------------")
+            print(f"Iteration {i+1} on Coord {axis}:")
+            print("-------------------------")
+            print(f"    Normalized normal vector N_hat: {N_hat}")
+            print(f"    Initial direction vector s_i: {s_i}")
+            print(f"    Final direction vector s_f before normalization: {s_f}")
+            print(f"    Updated angle new_theta{axis}{i + 1}: {new_theta[i + 1]}")
+            print(f"    cum_dist: {cum_dist}, cum_dist[{i + 1}]: {cum_dist[i + 1]}")
+            print(f"    {axis}1: {p1}, {axis}2: {p2}, {axis}3: {p3}, {axis}4: {p4}")
+            print(f"    z1: {z1}, z2: {z2}, z3: {z3}, z4: {z4}")
+            print(f"    Next positions p{axis}_next, pz_next: {p_next}, {pz_next}")
+            print(f'    p{axis} = {p_next}')
+            print(f'    pz = {p_next}')
 
     return coords, new_theta

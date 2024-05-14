@@ -4,6 +4,7 @@ import pickle
 
 from utils.funs import *
 from utils.saving import save_data
+from utils.format import *
 from calcs.init_coords import initialize_coordinates
 from calcs.calc_proj_coord import calc_proj_coord
 from calcs.calc_z_coord import calc_z_coord
@@ -14,11 +15,12 @@ from inputs import *
 def main():
     # Initialize phi angles for each wedge, gamma, and cumulative distances
     phix, phiy, thetax, thetay, gamma, cum_dist = initialize()
-    time = np.linspace(0, TIMELIM, INC)
+    time = np.arange(0, TIMELIM + 1, TIMELIM // INC)
+    print(f'time: {time}')
 
     # Initialize history storage
-    history_phix = {'0': phix}
-    history_phiy = {'0': phiy}
+    history_phix = {}
+    history_phiy = {}
     history_thetax = {}
     history_thetay = {}
     all_x_coords = {}
@@ -38,8 +40,6 @@ def main():
         y_coords, new_thetay = calc_proj_coord(str(idx), orig_coordy, new_coordy, phiy, cum_dist, thetay, PY0, PZ_Y0, 'y')
         z_coords = calc_z_coord(str(idx), orig_coordz, phix, phiy, gamma, cum_dist, x_coords, y_coords)
 
-        print(f'zcoords for loop {idx}: {z_coords}')
-
         # Collect coordinate data at each time step and store the updated angles and phis into their history
         all_x_coords[str(idx)] = x_coords[str(idx)]
         all_y_coords[str(idx)] = y_coords[str(idx)]
@@ -48,28 +48,23 @@ def main():
 
         history_thetax[str(idx)] = new_thetax.tolist()
         history_thetay[str(idx)] = new_thetay.tolist()
-        history_phix[str(idx)] = phix
-        history_phiy[str(idx)] = phiy
+        history_phix[str(idx)] = phix.copy()
+        history_phiy[str(idx)] = phiy.copy()
 
-        print(f'\n------------')
-        print(f'Final Data for loop {idx}')
-        print(f'------------')
-        print(f'    Laser coords: {Laser_coords}')
-        print(f'    All Thetax: {history_thetax}')
-        print(f'    All Thetay: {history_thetay}')
-        print(f'    All Phix: {history_phix}')
-        print(f'    All Phiy: {history_phiy}')
-        print(f'    Wedge distances: {int_dist}')
-
-        exit()
-
-        #plot(Laser_coords, history_phix, history_phiy, history_thetax, history_thetay, int_dist)
+    # Round n' print
+    print(f'\n------------')
+    print(f'    Laser coords:\n{format_dict(round_dict_values(Laser_coords, 2))}')
+    print(f'    All Thetax:\n{format_dict(round_dict_values(history_thetax, 2))}')
+    print(f'    All Thetay:\n{format_dict(round_dict_values(history_thetay, 2))}')
+    print(f'    All Phix:\n{format_dict(round_dict_values(history_phix, 2))}')
+    print(f'    All Phiy:\n{format_dict(round_dict_values(history_phiy, 2))}')
+    print(f'\n------------')
 
     # Save all the data
-    save_data(history_phix, history_phiy, history_thetax, history_thetay, all_x_coords, all_y_coords, all_z_coords)
+    save_data(history_phix, history_phiy, history_thetax, history_thetay, Laser_coords)
 
     # Plot the results
-    #plot(all_x_coords, all_y_coords, all_z_coords, history_phix, history_phiy, history_thetax, history_thetay)
+    #plot(Laser_coords, history_phix, history_phiy, history_thetax, history_thetay, int_dist)
 
 def initialize():
     phix = STARTPHIX + [0.0]  # Adding 0.0 for workpiece
