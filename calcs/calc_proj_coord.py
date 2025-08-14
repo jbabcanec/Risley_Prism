@@ -57,6 +57,6 @@ def calc_proj_coord(idx, orig_coord, new_coord, phi, cum_dist, theta, p, pz, axi
             print(f"    z1: {z1}, z2: {z2}, z3: {z3}, z4: {z4}")
             print(f"    Next positions p{axis}_next, pz_next: {p_next}, {pz_next}")
             print(f'    p{axis} = {p_next}')
-            print(f'    pz = {p_next}')
+            print(f'    pz = {pz_next}')
 
     return coords, new_theta

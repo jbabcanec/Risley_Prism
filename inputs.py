@@ -21,7 +21,8 @@ int_dist = [6, 6, 6]				# Optical axis distance between interfaces 			# (0*,+inf
 int_dist.append(6)        			# Distance from last wedge to workpiece 			# (0*,+inf)		# unit length
 ref_ind = [1.1, 1.2, 1.3, 1.4] 		# Refractive index before each interface 			# [1,+inf)		# unitless
 
-printit = 'off'						# Prints data in console
+printit = 'off'						# Prints optional data in console
+plotit = 'off'						# Plots the output
 
 # * Because in a realstic scenario you dont want the wedge intersecting with the work piece, 
 # this value should technically be greater than (D/2)*cos(phi_last). Therefore any succesive 

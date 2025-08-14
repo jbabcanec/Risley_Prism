@@ -13,10 +13,20 @@ from visuals.axes_options import set_axes_equal
 from inputs import *
 
 def main():
-    # Initialize phi angles for each wedge, gamma, and cumulative distances
-    phix, phiy, thetax, thetay, gamma, cum_dist = initialize()
-    time = np.arange(0, TIMELIM + 1, TIMELIM // INC)
-    print(f'time: {time}')
+    try:
+        # Validate inputs before starting simulation
+        validate_inputs()
+        
+        # Initialize phi angles for each wedge, gamma, and cumulative distances
+        phix, phiy, thetax, thetay, gamma, cum_dist = initialize()
+        time = np.arange(0, TIMELIM, TIMELIM / INC)
+        print(f'time: {time}')
+    except ValueError as e:
+        print(f"Input validation error: {e}")
+        return
+    except Exception as e:
+        print(f"Initialization error: {e}")
+        return
 
     # Initialize history storage
     history_phix = {}
@@ -44,7 +54,11 @@ def main():
         all_x_coords[str(idx)] = x_coords[str(idx)]
         all_y_coords[str(idx)] = y_coords[str(idx)]
         all_z_coords[str(idx)] = z_coords[str(idx)]
-        Laser_coords[idx] = [[x[0], y[1], z[2]] for x, y, z in zip(all_x_coords[str(idx)], all_y_coords[str(idx)], all_z_coords[str(idx)])]
+        # Extract coordinates properly - each coord is a 3-element list [x, y, z]
+        Laser_coords[idx] = [[x[0] if isinstance(x, list) else x, 
+                             y[1] if isinstance(y, list) else y, 
+                             z[2] if isinstance(z, list) else z] 
+                            for x, y, z in zip(all_x_coords[str(idx)], all_y_coords[str(idx)], all_z_coords[str(idx)])]
 
         history_thetax[str(idx)] = new_thetax.tolist()
         history_thetay[str(idx)] = new_thetay.tolist()
@@ -60,11 +74,42 @@ def main():
     print(f'    All Phiy:\n{format_dict(round_dict_values(history_phiy, 2))}')
     print(f'\n------------')
 
+    # Extract workpiece projections for quick visualization
+    workpiece_projections = []
+    for idx in range(len(time)):
+        if str(idx) in Laser_coords and Laser_coords[idx]:
+            final_pos = Laser_coords[idx][-1]  # Last position (at workpiece)
+            workpiece_projections.append([final_pos[0], final_pos[1], idx*0.1])  # x, y, time
+    
+    # Display workpiece projection summary
+    print(f'\n{"="*60}')
+    print("WORKPIECE LASER PROJECTIONS")
+    print(f'{"="*60}')
+    print("Time (s) | X-Position | Y-Position | Distance from Center")
+    print(f'{"-"*60}')
+    
+    for i, (x, y, t) in enumerate(workpiece_projections[::10]):  # Show every 10th point
+        dist = np.sqrt(x**2 + y**2)
+        print(f"{t:8.1f} | {x:10.2f} | {y:10.2f} | {dist:18.2f}")
+    
+    print(f'{"-"*60}')
+    if workpiece_projections:
+        x_vals = [p[0] for p in workpiece_projections]
+        y_vals = [p[1] for p in workpiece_projections]
+        x_range = max(x_vals) - min(x_vals)
+        y_range = max(y_vals) - min(y_vals)
+        scan_area = x_range * y_range
+        print(f"Scan range: X = {x_range:.2f}, Y = {y_range:.2f}")
+        print(f"Total scan area: {scan_area:.2f} square units")
+        print(f"Center position: ({np.mean(x_vals):.2f}, {np.mean(y_vals):.2f})")
+    print(f'{"="*60}')
+
     # Save all the data
     save_data(history_phix, history_phiy, history_thetax, history_thetay, Laser_coords)
 
     # Plot the results
-    #plot(Laser_coords, history_phix, history_phiy, history_thetax, history_thetay, int_dist)
+    if plotit == 'on':
+        plot(Laser_coords, history_phix, history_phiy, history_thetax, history_thetay, int_dist)
 
 def initialize():
     phix = STARTPHIX + [0.0]  # Adding 0.0 for workpiece
@@ -91,14 +136,23 @@ def update_individual_wedge(i, current_time, phix, phiy, gamma):
     phix[i], phiy[i] = update_phi(cos_angle_nx, cos_angle_ny)
 
 def compute_vectors(gamma, phix, phiy):
-    n1 = [cosd(gamma + phiy) * tand(phix), sind(gamma + phiy) * tand(phix), -1]
+    # Precompute trigonometric values for efficiency
+    gamma_rad = np.radians(gamma + phiy)
+    phix_tan = tand(phix)
+    cos_gamma = np.cos(gamma_rad)
+    sin_gamma = np.sin(gamma_rad)
+    
+    n1 = [cos_gamma * phix_tan, sin_gamma * phix_tan, -1]
     nx = [1, 0, 0]
     ny = [0, 1, 0]
     return n1, nx, ny
 
 def compute_angles(n1, nx, ny):
-    cos_angle_nx = np.dot(n1, nx) / (np.linalg.norm(n1) * np.linalg.norm(nx))
-    cos_angle_ny = np.dot(n1, ny) / (np.linalg.norm(n1) * np.linalg.norm(ny))
+    # Cache the norm of n1 since it's used twice
+    n1_norm = np.linalg.norm(n1)
+    # nx and ny are unit vectors, so their norms are 1
+    cos_angle_nx = np.dot(n1, nx) / n1_norm
+    cos_angle_ny = np.dot(n1, ny) / n1_norm
     return cos_angle_nx, cos_angle_ny
 
 def print_wedge_status(i, gamma, n1, cos_angle_nx, cos_angle_ny):
@@ -108,9 +162,49 @@ def print_wedge_status(i, gamma, n1, cos_angle_nx, cos_angle_ny):
     print(f"  Cosine angles - nx: {cos_angle_nx:.4f}, ny: {cos_angle_ny:.4f}")
 
 def update_phi(cos_angle_nx, cos_angle_ny):
+    # Clamp values to [-1, 1] to avoid numerical errors in arccos
+    cos_angle_nx = np.clip(cos_angle_nx, -1, 1)
+    cos_angle_ny = np.clip(cos_angle_ny, -1, 1)
+    
     phix = 90 - acosd(cos_angle_nx)
     phiy = 90 - acosd(cos_angle_ny)
     return phix, phiy
+
+def validate_inputs():
+    """Validate input parameters to ensure simulation stability."""
+    if WEDGENUM <= 0:
+        raise ValueError("WEDGENUM must be positive")
+    
+    if TIMELIM <= 0 or INC <= 0:
+        raise ValueError("TIMELIM and INC must be positive")
+    
+    if len(STARTPHIX) != WEDGENUM or len(STARTPHIY) != WEDGENUM:
+        raise ValueError(f"STARTPHIX and STARTPHIY must have {WEDGENUM} elements")
+    
+    if len(N) != WEDGENUM:
+        raise ValueError(f"N (rotation speeds) must have {WEDGENUM} elements")
+    
+    if len(int_dist) != WEDGENUM + 1:
+        raise ValueError(f"int_dist must have {WEDGENUM + 1} elements")
+    
+    if len(ref_ind) != WEDGENUM + 1:
+        raise ValueError(f"ref_ind must have {WEDGENUM + 1} elements")
+    
+    # Check for valid phi ranges
+    for i, phi in enumerate(STARTPHIX):
+        if not (-90 < phi < 90):
+            raise ValueError(f"STARTPHIX[{i}] = {phi} must be in range (-90, 90) degrees")
+    
+    for i, phi in enumerate(STARTPHIY):
+        if not (-90 <= phi <= 90):
+            raise ValueError(f"STARTPHIY[{i}] = {phi} must be in range [-90, 90] degrees")
+    
+    # Check for valid refractive indices
+    for i, n in enumerate(ref_ind):
+        if n < 1.0:
+            raise ValueError(f"ref_ind[{i}] = {n} must be >= 1.0")
+    
+    print("Input validation passed!")
 
 
 if __name__ == "__main__":
