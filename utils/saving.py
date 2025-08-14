@@ -120,18 +120,35 @@ def save_workpiece_images(workpiece_projections, output_directory):
     cmap = cm.get_cmap('viridis')
     norm = colors.Normalize(vmin=min(times), vmax=max(times))
     
-    scatter = ax1.scatter(x_vals, y_vals, c=times, cmap=cmap, s=30, alpha=0.8, edgecolors='white', linewidth=0.5)
+    # Calculate appropriate plot bounds with padding for better visibility
+    x_range = max(x_vals) - min(x_vals)
+    y_range = max(y_vals) - min(y_vals)
+    padding_factor = 0.25  # 25% padding around the pattern
+    
+    x_padding = max(x_range * padding_factor, 0.15)  # Minimum 0.15 units padding
+    y_padding = max(y_range * padding_factor, 0.15)
+    
+    x_min = min(x_vals) - x_padding
+    x_max = max(x_vals) + x_padding
+    y_min = min(y_vals) - y_padding
+    y_max = max(y_vals) + y_padding
+    
+    scatter = ax1.scatter(x_vals, y_vals, c=times, cmap=cmap, s=50, alpha=0.9, edgecolors='white', linewidth=0.8)
     
     # Add 95% containment circle
     circle = Circle((center_x, center_y), effective_diameter/2, 
-                   fill=False, color='red', linestyle='--', linewidth=2, alpha=0.8)
+                   fill=False, color='red', linestyle='--', linewidth=2.5, alpha=0.8)
     ax1.add_patch(circle)
     
     # Mark center
-    ax1.plot(center_x, center_y, 'r+', markersize=12, markeredgewidth=3)
+    ax1.plot(center_x, center_y, 'r+', markersize=15, markeredgewidth=3)
     
-    # Connect points to show scan path
-    ax1.plot(x_vals, y_vals, 'k-', alpha=0.3, linewidth=1)
+    # Connect points to show scan path - thicker for visibility
+    ax1.plot(x_vals, y_vals, 'k-', alpha=0.5, linewidth=1.5)
+    
+    # Set tight bounds for better zoom on the pattern
+    ax1.set_xlim(x_min, x_max)
+    ax1.set_ylim(y_min, y_max)
     
     ax1.set_xlabel('X Position (units)', fontsize=12, weight='bold')
     ax1.set_ylabel('Y Position (units)', fontsize=12, weight='bold')
@@ -175,6 +192,11 @@ def save_workpiece_images(workpiece_projections, output_directory):
     
     # Plot 4: Histogram of Positions
     ax4.hist2d(x_vals, y_vals, bins=15, cmap='Blues', alpha=0.7)
+    
+    # Set tight bounds for better zoom on the pattern (same as ax1)
+    ax4.set_xlim(x_min, x_max)
+    ax4.set_ylim(y_min, y_max)
+    
     ax4.set_xlabel('X Position (units)', fontsize=12, weight='bold')
     ax4.set_ylabel('Y Position (units)', fontsize=12, weight='bold')
     ax4.set_title('Beam Position Density', fontsize=14, weight='bold')
@@ -182,9 +204,9 @@ def save_workpiece_images(workpiece_projections, output_directory):
     
     # Add the same circle and center to histogram
     circle2 = Circle((center_x, center_y), effective_diameter/2, 
-                    fill=False, color='red', linestyle='--', linewidth=2, alpha=0.8)
+                    fill=False, color='red', linestyle='--', linewidth=2.5, alpha=0.8)
     ax4.add_patch(circle2)
-    ax4.plot(center_x, center_y, 'r+', markersize=12, markeredgewidth=3)
+    ax4.plot(center_x, center_y, 'r+', markersize=15, markeredgewidth=3)
     
     plt.tight_layout()
     
@@ -196,22 +218,39 @@ def save_workpiece_images(workpiece_projections, output_directory):
     # Create a simple, clean workpiece projection plot
     fig2, ax = plt.subplots(1, 1, figsize=(10, 8))
     
-    # Clean 2D projection with professional styling
-    scatter = ax.scatter(x_vals, y_vals, c=times, cmap='viridis', s=50, alpha=0.8, 
-                        edgecolors='white', linewidth=0.8)
+    # Calculate appropriate plot bounds with padding for better visibility
+    x_range = max(x_vals) - min(x_vals)
+    y_range = max(y_vals) - min(y_vals)
+    padding_factor = 0.3  # 30% padding around the pattern
     
-    # Connect points to show scan trajectory
-    ax.plot(x_vals, y_vals, 'k-', alpha=0.4, linewidth=1.5)
+    x_padding = max(x_range * padding_factor, 0.2)  # Minimum 0.2 units padding
+    y_padding = max(y_range * padding_factor, 0.2)
+    
+    x_min = min(x_vals) - x_padding
+    x_max = max(x_vals) + x_padding
+    y_min = min(y_vals) - y_padding
+    y_max = max(y_vals) + y_padding
+    
+    # Clean 2D projection with professional styling - larger points for better visibility
+    scatter = ax.scatter(x_vals, y_vals, c=times, cmap='viridis', s=80, alpha=0.9, 
+                        edgecolors='white', linewidth=1.0)
+    
+    # Connect points to show scan trajectory - thicker line for visibility
+    ax.plot(x_vals, y_vals, 'k-', alpha=0.6, linewidth=2.0)
     
     # Add 95% containment circle
     circle = Circle((center_x, center_y), effective_diameter/2, 
-                   fill=False, color='red', linestyle='--', linewidth=2.5)
+                   fill=False, color='red', linestyle='--', linewidth=3.0)
     ax.add_patch(circle)
     
-    # Mark center and start/end points
-    ax.plot(center_x, center_y, 'r+', markersize=15, markeredgewidth=3, label='Center')
-    ax.plot(x_vals[0], y_vals[0], 'go', markersize=10, label='Start (t=0s)')
-    ax.plot(x_vals[-1], y_vals[-1], 'ro', markersize=10, label='End (t=9.9s)')
+    # Mark center and start/end points - larger markers
+    ax.plot(center_x, center_y, 'r+', markersize=20, markeredgewidth=4, label='Center')
+    ax.plot(x_vals[0], y_vals[0], 'go', markersize=12, label=f'Start (t={times[0]:.1f}s)')
+    ax.plot(x_vals[-1], y_vals[-1], 'ro', markersize=12, label=f'End (t={times[-1]:.1f}s)')
+    
+    # Set tight bounds for better zoom on the pattern
+    ax.set_xlim(x_min, x_max)
+    ax.set_ylim(y_min, y_max)
     
     ax.set_xlabel('X Position (units)', fontsize=14, weight='bold')
     ax.set_ylabel('Y Position (units)', fontsize=14, weight='bold')

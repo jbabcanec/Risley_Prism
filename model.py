@@ -19,7 +19,8 @@ def main(example_name=None):
         
         # Initialize phi angles for each wedge, gamma, and cumulative distances
         phix, phiy, thetax, thetay, gamma, cum_dist = initialize()
-        time = np.arange(0, TIMELIM, TIMELIM / INC)
+        import inputs  # Get fresh values for time calculation
+        time = np.arange(0, inputs.TIMELIM, inputs.TIMELIM / inputs.INC)
         print(f'time: {time}')
     except ValueError as e:
         print(f"Input validation error: {e}")
@@ -44,7 +45,7 @@ def main(example_name=None):
 
         # Update angles and vectors for each wedge as it spins and creates a new wedge angle
         update_angles_and_vectors(current_time, phix, phiy, gamma)
-        ((orig_coordx, new_coordx), (orig_coordy, new_coordy), (orig_coordz), PX0, PY0, PZ_X0, PZ_Y0) = initialize_coordinates(RX, RY, thetax, thetay, phix, phiy, int_dist)
+        ((orig_coordx, new_coordx), (orig_coordy, new_coordy), (orig_coordz), PX0, PY0, PZ_X0, PZ_Y0) = initialize_coordinates(inputs.RX, inputs.RY, thetax, thetay, phix, phiy, inputs.int_dist)
 
         x_coords, new_thetax = calc_proj_coord(str(idx), orig_coordx, new_coordx, phix, cum_dist, thetax, PX0, PZ_X0, 'x')
         y_coords, new_thetay = calc_proj_coord(str(idx), orig_coordy, new_coordy, phiy, cum_dist, thetay, PY0, PZ_Y0, 'y')
@@ -108,28 +109,31 @@ def main(example_name=None):
     save_data(history_phix, history_phiy, history_thetax, history_thetay, Laser_coords, example_name)
 
     # Plot the results
-    if plotit == 'on':
-        plot(Laser_coords, history_phix, history_phiy, history_thetax, history_thetay, int_dist)
+    if inputs.plotit == 'on':
+        plot(Laser_coords, history_phix, history_phiy, history_thetax, history_thetay, inputs.int_dist)
 
 def initialize():
-    phix = STARTPHIX + [0.0]  # Adding 0.0 for workpiece
-    phiy = STARTPHIY + [0.0]
-    thetax = float(STARTTHETAX)
-    thetay = float(STARTTHETAY)
-    gamma = np.zeros(WEDGENUM + 1) # Adding final 0 gamma for workpiece
-    cum_dist = np.cumsum(int_dist) # K is the cumulative distance in MATLAB
+    import inputs  # Get fresh values
+    phix = inputs.STARTPHIX + [0.0]  # Adding 0.0 for workpiece
+    phiy = inputs.STARTPHIY + [0.0]
+    thetax = float(inputs.STARTTHETAX)
+    thetay = float(inputs.STARTTHETAY)
+    gamma = np.zeros(inputs.WEDGENUM + 1) # Adding final 0 gamma for workpiece
+    cum_dist = np.cumsum(inputs.int_dist) # K is the cumulative distance in MATLAB
     print("Initial conditions:", dict(phix=phix, phiy=phiy, thetax=thetax, thetay=thetay))
     return phix, phiy, thetax, thetay, gamma, cum_dist
 
 def update_angles_and_vectors(current_time, phix, phiy, gamma):
+    import inputs  # Get fresh values
     # Reinitialize phix and phiy to START values at each time step
-    phix[:] = STARTPHIX + [0.0]
-    phiy[:] = STARTPHIY + [0.0]
-    for i in range(WEDGENUM):
+    phix[:] = inputs.STARTPHIX + [0.0]
+    phiy[:] = inputs.STARTPHIY + [0.0]
+    for i in range(inputs.WEDGENUM):
         update_individual_wedge(i, current_time, phix, phiy, gamma)
 
 def update_individual_wedge(i, current_time, phix, phiy, gamma):
-    gamma[i] = (360 * N[i] * current_time) % 360
+    import inputs  # Get fresh values
+    gamma[i] = (360 * inputs.N[i] * current_time) % 360
     n1, nx, ny = compute_vectors(gamma[i], phix[i], phiy[i])
     cos_angle_nx, cos_angle_ny = compute_angles(n1, nx, ny)
     print_wedge_status(i, gamma, n1, cos_angle_nx, cos_angle_ny)
@@ -172,35 +176,37 @@ def update_phi(cos_angle_nx, cos_angle_ny):
 
 def validate_inputs():
     """Validate input parameters to ensure simulation stability."""
-    if WEDGENUM <= 0:
+    import inputs  # Get fresh values
+    
+    if inputs.WEDGENUM <= 0:
         raise ValueError("WEDGENUM must be positive")
     
-    if TIMELIM <= 0 or INC <= 0:
+    if inputs.TIMELIM <= 0 or inputs.INC <= 0:
         raise ValueError("TIMELIM and INC must be positive")
     
-    if len(STARTPHIX) != WEDGENUM or len(STARTPHIY) != WEDGENUM:
-        raise ValueError(f"STARTPHIX and STARTPHIY must have {WEDGENUM} elements")
+    if len(inputs.STARTPHIX) != inputs.WEDGENUM or len(inputs.STARTPHIY) != inputs.WEDGENUM:
+        raise ValueError(f"STARTPHIX and STARTPHIY must have {inputs.WEDGENUM} elements")
     
-    if len(N) != WEDGENUM:
-        raise ValueError(f"N (rotation speeds) must have {WEDGENUM} elements")
+    if len(inputs.N) != inputs.WEDGENUM:
+        raise ValueError(f"N (rotation speeds) must have {inputs.WEDGENUM} elements")
     
-    if len(int_dist) != WEDGENUM + 1:
-        raise ValueError(f"int_dist must have {WEDGENUM + 1} elements")
+    if len(inputs.int_dist) != inputs.WEDGENUM + 1:
+        raise ValueError(f"int_dist must have {inputs.WEDGENUM + 1} elements")
     
-    if len(ref_ind) != WEDGENUM + 1:
-        raise ValueError(f"ref_ind must have {WEDGENUM + 1} elements")
+    if len(inputs.ref_ind) != inputs.WEDGENUM + 1:
+        raise ValueError(f"ref_ind must have {inputs.WEDGENUM + 1} elements")
     
     # Check for valid phi ranges
-    for i, phi in enumerate(STARTPHIX):
+    for i, phi in enumerate(inputs.STARTPHIX):
         if not (-90 < phi < 90):
             raise ValueError(f"STARTPHIX[{i}] = {phi} must be in range (-90, 90) degrees")
     
-    for i, phi in enumerate(STARTPHIY):
+    for i, phi in enumerate(inputs.STARTPHIY):
         if not (-90 <= phi <= 90):
             raise ValueError(f"STARTPHIY[{i}] = {phi} must be in range [-90, 90] degrees")
     
     # Check for valid refractive indices
-    for i, n in enumerate(ref_ind):
+    for i, n in enumerate(inputs.ref_ind):
         if n < 1.0:
             raise ValueError(f"ref_ind[{i}] = {n} must be >= 1.0")
     

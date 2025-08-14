@@ -1,6 +1,6 @@
 import numpy as np
 from utils.funs import *
-from inputs import *
+import inputs
 
 def calc_proj_coord(idx, orig_coord, new_coord, phi, cum_dist, theta, p, pz, axis):
     coords = {idx: [orig_coord, new_coord]}
@@ -21,8 +21,8 @@ def calc_proj_coord(idx, orig_coord, new_coord, phi, cum_dist, theta, p, pz, axi
         z_hat = [0, 0, 1]
 
         # Governing equation of refraction
-        s_f = (ref_ind[i] / ref_ind[i + 1]) * np.cross(N_hat, np.cross(-N_hat, s_i)) - \
-              N_hat * np.sqrt(1 - ((ref_ind[i] / ref_ind[i + 1]) ** 2) * np.dot(np.cross(N_hat, s_i), np.cross(N_hat, s_i)))
+        s_f = (inputs.ref_ind[i] / inputs.ref_ind[i + 1]) * np.cross(N_hat, np.cross(-N_hat, s_i)) - \
+              N_hat * np.sqrt(1 - ((inputs.ref_ind[i] / inputs.ref_ind[i + 1]) ** 2) * np.dot(np.cross(N_hat, s_i), np.cross(N_hat, s_i)))
         new_theta[i + 1] = np.sign(s_f[0]) * acosd(np.dot(z_hat, s_f) / (np.linalg.norm(s_f) * np.linalg.norm(z_hat)))
 
         # Calculate new coordinates
@@ -44,7 +44,7 @@ def calc_proj_coord(idx, orig_coord, new_coord, phi, cum_dist, theta, p, pz, axi
         new_coord = [0, p_next, pz_next] if axis == 'y' else [p_next, 0, pz_next]
         coords[idx].append(new_coord)
 
-        if printit == 'on':
+        if inputs.printit == 'on':
             print("\n-------------------------")
             print(f"Iteration {i+1} on Coord {axis}:")
             print("-------------------------")

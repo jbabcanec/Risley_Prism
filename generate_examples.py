@@ -39,28 +39,53 @@ def restore_original_inputs():
         print("Restored original inputs")
 
 def update_inputs(**kwargs):
-    """Update inputs.py with new parameter values."""
-    with open("inputs.py", "r") as f:
-        content = f.read()
-    
+    """Update inputs module directly in memory."""
     for param, value in kwargs.items():
-        if isinstance(value, list):
-            value_str = str(value)
-        elif isinstance(value, str):
-            value_str = f"'{value}'"
+        if hasattr(inputs, param):
+            setattr(inputs, param, value)
+            print(f"Updated {param} = {value}")
         else:
-            value_str = str(value)
-        
-        # Find and replace the parameter
-        lines = content.split('\n')
-        for i, line in enumerate(lines):
-            if line.strip().startswith(f"{param} ="):
-                lines[i] = f"{param} = {value_str}"
-                break
-        content = '\n'.join(lines)
+            print(f"Warning: {param} not found in inputs module")
     
-    with open("inputs.py", "w") as f:
-        f.write(content)
+    # Special handling for lists that need proper lengths
+    if 'WEDGENUM' in kwargs:
+        wedgenum = kwargs['WEDGENUM']
+        # Update dependent arrays
+        if len(inputs.STARTPHIX) != wedgenum:
+            if 'STARTPHIX' not in kwargs:
+                # Extend or truncate STARTPHIX to match WEDGENUM
+                current = inputs.STARTPHIX[:]
+                while len(current) < wedgenum:
+                    current.append(5.0)  # Default angle
+                inputs.STARTPHIX = current[:wedgenum]
+        
+        if len(inputs.STARTPHIY) != wedgenum:
+            if 'STARTPHIY' not in kwargs:
+                current = inputs.STARTPHIY[:]
+                while len(current) < wedgenum:
+                    current.append(0.0)  # Default angle
+                inputs.STARTPHIY = current[:wedgenum]
+        
+        if len(inputs.N) != wedgenum:
+            if 'N' not in kwargs:
+                current = inputs.N[:]
+                while len(current) < wedgenum:
+                    current.append(1.0)  # Default speed
+                inputs.N = current[:wedgenum]
+        
+        # Update int_dist and ref_ind to have correct lengths
+        if 'int_dist' not in kwargs:
+            current = inputs.int_dist[:]
+            while len(current) < wedgenum + 1:  # +1 for workpiece distance
+                current.append(6.0)  # Default distance
+            inputs.int_dist = current[:wedgenum + 1]
+        
+        if 'ref_ind' not in kwargs:
+            current = inputs.ref_ind[:]
+            while len(current) < wedgenum + 1:  # +1 for final medium
+                current.append(current[-1] + 0.05)  # Increment refractive index
+            inputs.ref_ind = current[:wedgenum + 1]
+            print(f"Extended ref_ind to: {inputs.ref_ind}")
 
 def generate_rosette_pattern():
     """Generate complex rosette pattern with 4 wedges at different speeds."""
