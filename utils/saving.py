@@ -1,9 +1,17 @@
 import numpy as np
 import os
 import pickle
+from datetime import datetime
 
-def save_data(history_phix, history_phiy, history_thetax, history_thetay, Laser_coords):
-    output_directory = "output"
+def save_data(history_phix, history_phiy, history_thetax, history_thetay, Laser_coords, example_name=None):
+    # Create timestamped output directory
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    if example_name:
+        folder_name = f"{timestamp}_{example_name}"
+    else:
+        folder_name = f"{timestamp}_simulation"
+    
+    output_directory = os.path.join("output", "examples", folder_name)
     os.makedirs(output_directory, exist_ok=True)  # Ensure the directory exists
     filepath = os.path.join(output_directory, "simulation_data.pkl")
 

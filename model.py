@@ -12,7 +12,7 @@ from visuals.plot import plot
 from visuals.axes_options import set_axes_equal
 from inputs import *
 
-def main():
+def main(example_name=None):
     try:
         # Validate inputs before starting simulation
         validate_inputs()
@@ -105,7 +105,7 @@ def main():
     print(f'{"="*60}')
 
     # Save all the data
-    save_data(history_phix, history_phiy, history_thetax, history_thetay, Laser_coords)
+    save_data(history_phix, history_phiy, history_thetax, history_thetay, Laser_coords, example_name)
 
     # Plot the results
     if plotit == 'on':
