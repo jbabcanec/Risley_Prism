@@ -100,8 +100,8 @@ def generate_rosette_pattern():
         STARTPHIY=[0.0, 2.0, -1.0, 3.0],   # Some Y deflection
         int_dist=[4, 5, 4, 3, 6],  # Distance between wedges + to workpiece
         ref_ind=[1.1, 1.15, 1.2, 1.25, 1.3],  # Refractive indices
-        TIMELIM=15.0,
-        INC=180,
+        TIMELIM=20.0,  # Longer time for complete patterns
+        INC=800,  # HIGH RESOLUTION - 800 time steps
         plotit='off'
     )
     
@@ -121,8 +121,8 @@ def generate_counter_spiral():
         STARTPHIY=[1.0, -2.0, 3.0, -1.0, 2.0],   # Complex Y patterns
         int_dist=[3, 4, 3, 5, 4, 7],  
         ref_ind=[1.05, 1.1, 1.15, 1.2, 1.25, 1.3],  
-        TIMELIM=20.0,
-        INC=200,
+        TIMELIM=25.0,  # Longer time for spiral completion
+        INC=1000,  # HIGH RESOLUTION - 1000 time steps
         plotit='off'
     )
     
@@ -142,8 +142,8 @@ def generate_harmonic_pattern():
         STARTPHIY=[0.0, 1.0, 0.0, -1.0, 2.0, -0.5],   
         int_dist=[2, 3, 2, 4, 3, 2, 8],  
         ref_ind=[1.08, 1.12, 1.16, 1.2, 1.24, 1.28, 1.32],  
-        TIMELIM=12.0,
-        INC=150,
+        TIMELIM=15.0,  # Complete harmonic cycles
+        INC=900,  # HIGH RESOLUTION - 900 time steps
         plotit='off'
     )
     
@@ -163,8 +163,8 @@ def generate_chaos_pattern():
         STARTPHIY=[1.1, -1.7, 2.3, -0.7, 1.3],   
         int_dist=[3, 5, 2, 4, 6, 5],  
         ref_ind=[1.07, 1.13, 1.19, 1.23, 1.29, 1.31],  
-        TIMELIM=25.0,  # Long time to see complex patterns
-        INC=250,
+        TIMELIM=30.0,  # Long observation for chaos
+        INC=1000,  # HIGH RESOLUTION - 1000 time steps
         plotit='off'
     )
     
@@ -184,8 +184,8 @@ def generate_precision_dense():
         STARTPHIY=[0.0, 0.5, -0.5, 1.0],   
         int_dist=[6, 6, 6, 6, 10],  # Longer optical path
         ref_ind=[1.05, 1.08, 1.11, 1.14, 1.17],  
-        TIMELIM=30.0,  # Very long observation
-        INC=300,       # High resolution
+        TIMELIM=40.0,  # Precision observation time
+        INC=1500,  # ULTRA HIGH RESOLUTION - 1500 time steps
         plotit='off'
     )
     

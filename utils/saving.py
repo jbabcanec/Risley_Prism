@@ -133,7 +133,9 @@ def save_workpiece_images(workpiece_projections, output_directory):
     y_min = min(y_vals) - y_padding
     y_max = max(y_vals) + y_padding
     
-    scatter = ax1.scatter(x_vals, y_vals, c=times, cmap=cmap, s=50, alpha=0.9, edgecolors='white', linewidth=0.8)
+    # Dynamic point sizing for analysis plot
+    analysis_point_size = max(10, min(50, 2000 // len(x_vals))) 
+    scatter = ax1.scatter(x_vals, y_vals, c=times, cmap=cmap, s=analysis_point_size, alpha=0.8, edgecolors='white', linewidth=0.5)
     
     # Add 95% containment circle
     circle = Circle((center_x, center_y), effective_diameter/2, 
@@ -231,12 +233,14 @@ def save_workpiece_images(workpiece_projections, output_directory):
     y_min = min(y_vals) - y_padding
     y_max = max(y_vals) + y_padding
     
-    # Clean 2D projection with professional styling - larger points for better visibility
-    scatter = ax.scatter(x_vals, y_vals, c=times, cmap='viridis', s=80, alpha=0.9, 
-                        edgecolors='white', linewidth=1.0)
+    # Clean 2D projection with professional styling - optimized for high-resolution data
+    point_size = max(20, min(100, 5000 // len(x_vals)))  # Dynamic sizing based on data density
+    scatter = ax.scatter(x_vals, y_vals, c=times, cmap='viridis', s=point_size, alpha=0.8, 
+                        edgecolors='white', linewidth=0.8)
     
-    # Connect points to show scan trajectory - thicker line for visibility
-    ax.plot(x_vals, y_vals, 'k-', alpha=0.6, linewidth=2.0)
+    # Connect points to show scan trajectory - adjusted for data density
+    line_width = max(0.5, min(2.0, 200 / len(x_vals)))  # Thinner lines for dense data
+    ax.plot(x_vals, y_vals, 'k-', alpha=0.4, linewidth=line_width)
     
     # Add 95% containment circle
     circle = Circle((center_x, center_y), effective_diameter/2, 
