@@ -65,30 +65,80 @@ We propose the derived generalized equation of Snell's Law's for vectors. The LA
 
 **Normalize the vectors N and Si​**:
 
-Normal of Tangent Plane
-$
-N = \frac{1}{\sqrt{\tan(\phi_x)^2 + 1}} \begin{bmatrix} \tan(\phi_x) \\ 0 \\ -1 \end{bmatrix}
-$
+Normal of Tangent Plane:
 
-Input Vector
-$
-s_i = \frac{1}{\sqrt{\tan(\theta_x)^2 + 1}} \begin{bmatrix} \tan(\theta_x) \\ 0 \\ 1 \end{bmatrix}
-$
+$$N = \frac{1}{\sqrt{\tan(\phi_x)^2 + 1}} \begin{bmatrix} \tan(\phi_x) \\ 0 \\ -1 \end{bmatrix}$$
+
+Input Vector:
+
+$$s_i = \frac{1}{\sqrt{\tan(\theta_x)^2 + 1}} \begin{bmatrix} \tan(\theta_x) \\ 0 \\ 1 \end{bmatrix}$$
 
 Governing equation:
-$
-s_f = \left(\frac{n_i}{n_{i+1}}\right) \left(N \times \left(-N \times s_i\right)\right) - N \left(\sqrt{1 - \left(\frac{n_i}{n_{i+1}}\right)^2 \left((N \times s_i) \cdot (N \times s_i)\right)}\right)
-$
 
+$$s_f = \left(\frac{n_i}{n_{i+1}}\right) \left(N \times \left(-N \times s_i\right)\right) - N \left(\sqrt{1 - \left(\frac{n_i}{n_{i+1}}\right)^2 \left((N \times s_i) \cdot (N \times s_i)\right)}\right)$$
 
 Output angle equation:
-$
-\theta_{x_{i+1}} = \left(\frac{\left|s_f\right|}{s_f}\right) \cdot \cos^{-1}\left(\frac{\hat{z} \cdot s_f}{\|s_f\| \cdot \|\hat{\bold{z}}\|}\right)
-$
 
+$$\theta_{x_{i+1}} = \left(\frac{\left|s_f\right|}{s_f}\right) \cdot \cos^{-1}\left(\frac{\hat{z} \cdot s_f}{\|s_f\| \cdot \|\hat{\bold{z}}\|}\right)$$
+
+## Simulation Results
+
+The simulation generates comprehensive workpiece projection analysis with professional visualization:
+
+### Workpiece Laser Projection
+![Workpiece Projection](output/workpiece_projection.png)
+
+The simulation shows the laser scan pattern on the workpiece with detailed statistics including scan area (2.53 sq units), effective diameter (9.96 units), and temporal progression over 9.9 seconds with 100 scan positions.
+
+### Advanced Analysis Dashboard
+![Workpiece Analysis](output/workpiece_projection_analysis.png)
+
+Comprehensive analysis includes:
+- **Scan Pattern Visualization**: Color-coded temporal progression showing beam trajectory
+- **Position vs Time**: X and Y coordinate evolution showing sinusoidal rotation patterns  
+- **Displacement Analysis**: Distance from center with 95% radius calculations
+- **Density Mapping**: 2D histogram showing beam position distribution
 
 ## Visualization
 
-  
+The simulation outputs multiple visualization formats:
+- **3D scatter plots** of laser positions with temporal color coding
+- **Workpiece projection analysis** with statistical overlays  
+- **Time-series analysis** of beam displacement and rotation
+- **Professional styling** with dark themes and enhanced wedge rendering
 
-The simulation outputs a 3D scatter plot of the final position of the laser on the workpiece for each time step, visualized using matplotlib's 3D plotting capabilities.
+## Installation & Usage
+
+### Requirements
+- Python 3.8+
+- NumPy
+- Matplotlib
+- SciPy
+
+### Running the Simulation
+```bash
+python model.py
+```
+
+### Configuration
+Edit `inputs.py` to modify simulation parameters:
+- Wedge angles and refractive indices
+- Rotation speeds and directions
+- Time step resolution
+- Visualization options
+
+### Output Files
+The simulation generates comprehensive output in the `output/` directory:
+- `workpiece_projection.png` - Main scan pattern visualization
+- `workpiece_projection_analysis.png` - Multi-panel analysis dashboard
+- `workpiece_projections.csv` - Raw coordinate data with timestamps
+- `workpiece_analysis.txt` - Statistical summary of scan metrics
+- `simulation_data.pkl` - Complete simulation state for analysis
+
+## Technical Features
+
+- **High-Performance Ray Tracing**: Optimized vector calculations with trigonometric caching
+- **Robust Input Validation**: Comprehensive parameter checking and error handling
+- **Advanced Analytics**: Statistical analysis of scan patterns and beam coverage
+- **Professional Visualization**: Publication-quality plots with temporal color coding
+- **Flexible Configuration**: Easy parameter adjustment for different optical setups
