@@ -6,6 +6,9 @@ and the expected MATLAB behavior using a single time step.
 
 import numpy as np
 import sys
+import os
+# Add parent directory to path
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import inputs
 
 # Import Python simulation components
@@ -193,6 +196,7 @@ def matlab_single_step(time_val):
     
     # Y refraction calculations through wedges (MATLAB lines 170-200)
     Py = [None, Py_1]  # Py_0 undefined, Py_1 calculated
+    Pz_y = [None, Pz_1_y]  # Separate Z tracking for Y
     thetay = [thetay_1]  # thetay_1
     
     phiy.append(0)  # phiy_{wedgenum+1} = 0
@@ -226,8 +230,8 @@ def matlab_single_step(time_val):
         y1 = Py[i+1]
         y2 = Py[i+1] + tand(thetay_new)
         y3 = 0
-        z1 = Pz[i+1]  # Use Z from X calculations
-        z2 = Pz[i+1] + 1
+        z1 = Pz_y[i+1]  # Use Y's own Z tracking
+        z2 = Pz_y[i+1] + 1
         z3 = K[i+1]
         
         if phiy[i+1] == 0:
@@ -238,9 +242,12 @@ def matlab_single_step(time_val):
             z4 = K[i+1] + 1
         
         Py_new = ((y1*z2 - z1*y2)*(y3 - y4) - (y1 - y2)*(y3*z4 - z3*y4)) / ((y1 - y2)*(z3 - z4) - (z1 - z2)*(y3 - y4))
-        Py.append(Py_new)
+        Pz_y_new = ((y1*z2 - z1*y2)*(z3 - z4) - (z1 - z2)*(y3*z4 - z3*y4)) / ((y1 - y2)*(z3 - z4) - (z1 - z2)*(y3 - y4))
         
-        print(f"Y Wedge {i+1}: thetay = {thetay_new:.6f}, Py = {Py_new:.6f}")
+        Py.append(Py_new)
+        Pz_y.append(Pz_y_new)
+        
+        print(f"Y Wedge {i+1}: thetay = {thetay_new:.6f}, Py = {Py_new:.6f}, Pz_y = {Pz_y_new:.6f}")
     
     # Return final workpiece position
     final_x = Px[-1]  # Px_{wedgenum+1}
