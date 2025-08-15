@@ -1,0 +1,80 @@
+🎯 COMPREHENSIVE HYBRID NN+GA SYSTEM ANALYSIS
+================================================================================
+Analysis Date: 2025-08-15 01:02:27
+Session: 20250815_010044
+Source Training: training_20250815_003405
+
+📚 TRAINING DATA ANALYSIS
+--------------------------------------------------
+Training Samples: 5,000
+Wedge Distribution:
+  1 wedges:  861 samples ( 17.2%)
+  2 wedges:  780 samples ( 15.6%)
+  3 wedges:  862 samples ( 17.2%)
+  4 wedges:  787 samples ( 15.7%)
+  5 wedges:  885 samples ( 17.7%)
+  6 wedges:  825 samples ( 16.5%)
+✅ WELL BALANCED: Ratio 1.1:1
+
+🧠 NEURAL NETWORK ANALYSIS
+--------------------------------------------------
+Training Status: ✅ TRAINED
+Epochs Trained: 51
+Final Training Loss: 0.044327
+Final Validation Loss: 0.043098
+Loss Quality: 🟢 EXCELLENT (< 0.05)
+✅ NO OVERFITTING: Val/Train ratio = 0.97
+NN Wedge Count Accuracy: 28.1%
+NN Performance: 🔴 POOR
+
+⚡ HYBRID SYSTEM PERFORMANCE
+--------------------------------------------------
+Hybrid Mode: ✅ ACTIVE
+Total Runtime: 11717.6s
+Neural Network Time: 1.440s (0.0%)
+Genetic Algorithm Time: 11716.2s (100.0%)
+Throughput: 0.13 samples/sec
+Average per Sample: 7.8s
+Speed Rating: 🔴 SLOW
+NN Standalone Accuracy: 28.1%
+GA Final Accuracy: 30.3%
+NN Helped GA: 18.7%
+
+🎯 DETAILED ACCURACY ANALYSIS
+--------------------------------------------------
+Overall Accuracy: 30.3% (455/1500)
+
+Performance by Wedge Count:
+  1 wedges:   9.5% (24/253) | Avg Cost: 0.092
+    Correct samples avg cost: 0.082
+    Incorrect samples avg cost: 0.093
+  2 wedges:  30.3% (72/238) | Avg Cost: 0.140
+    Correct samples avg cost: 0.133
+    Incorrect samples avg cost: 0.143
+  3 wedges:  31.0% (80/258) | Avg Cost: 0.162
+    Correct samples avg cost: 0.165
+    Incorrect samples avg cost: 0.161
+  4 wedges:  37.6% (91/242) | Avg Cost: 0.190
+    Correct samples avg cost: 0.187
+    Incorrect samples avg cost: 0.191
+  5 wedges:  41.5% (107/258) | Avg Cost: 0.210
+    Correct samples avg cost: 0.205
+    Incorrect samples avg cost: 0.213
+  6 wedges:  32.3% (81/251) | Avg Cost: 0.244
+    Correct samples avg cost: 0.237
+    Incorrect samples avg cost: 0.247
+
+🔧 OPTIMIZATION INSIGHTS & RECOMMENDATIONS
+--------------------------------------------------
+🔍 BOTTLENECK: Genetic Algorithm dominates runtime (>95%)
+   → Reduce GA population sizes or generations
+   → Improve neural network to need less GA refinement
+🔍 ISSUE: Neural network wedge prediction accuracy < 50%
+   → Increase training data size
+   → Try different network architecture
+   → Check data quality and balance
+
+📊 PERFORMANCE TARGETS:
+   Current Overall Accuracy: 30.3%
+   → Target: 70% (Optimize hybrid system balance)
+
