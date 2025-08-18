@@ -1,0 +1,135 @@
+{
+  "session_info": {
+    "timestamp": "20250817_160604",
+    "samples_tested": 12,
+    "model_type": "SuperNeuralNetwork"
+  },
+  "performance": {
+    "overall_accuracy": 0.6666666666666666,
+    "total_tested": 12,
+    "correct_predictions": 8,
+    "by_wedge_count": {
+      "1": {
+        "total": 2,
+        "correct": 2,
+        "accuracy": 1.0
+      },
+      "2": {
+        "total": 2,
+        "correct": 2,
+        "accuracy": 1.0
+      },
+      "3": {
+        "total": 2,
+        "correct": 1,
+        "accuracy": 0.5
+      },
+      "4": {
+        "total": 2,
+        "correct": 1,
+        "accuracy": 0.5
+      },
+      "5": {
+        "total": 2,
+        "correct": 1,
+        "accuracy": 0.5
+      },
+      "6": {
+        "total": 2,
+        "correct": 1,
+        "accuracy": 0.5
+      }
+    }
+  },
+  "timing": {
+    "use_hybrid": true,
+    "total_time": 10.0,
+    "throughput_samples_per_sec": 1.2
+  },
+  "detailed_results": [
+    {
+      "sample_id": 0,
+      "true_wedges": 1,
+      "predicted_wedges": 1,
+      "cost": 0.10233938839120868,
+      "correct": true
+    },
+    {
+      "sample_id": 1,
+      "true_wedges": 1,
+      "predicted_wedges": 1,
+      "cost": 0.06133086313052989,
+      "correct": true
+    },
+    {
+      "sample_id": 2,
+      "true_wedges": 2,
+      "predicted_wedges": 2,
+      "cost": 0.1289568801514222,
+      "correct": true
+    },
+    {
+      "sample_id": 3,
+      "true_wedges": 2,
+      "predicted_wedges": 2,
+      "cost": 0.10476960620088126,
+      "correct": true
+    },
+    {
+      "sample_id": 4,
+      "true_wedges": 3,
+      "predicted_wedges": 3,
+      "cost": 0.18822794658028213,
+      "correct": true
+    },
+    {
+      "sample_id": 5,
+      "true_wedges": 3,
+      "predicted_wedges": 4,
+      "cost": 0.25076068215916164,
+      "correct": false
+    },
+    {
+      "sample_id": 6,
+      "true_wedges": 4,
+      "predicted_wedges": 6,
+      "cost": 0.18590512805741105,
+      "correct": false
+    },
+    {
+      "sample_id": 7,
+      "true_wedges": 4,
+      "predicted_wedges": 4,
+      "cost": 0.22794254505346964,
+      "correct": true
+    },
+    {
+      "sample_id": 8,
+      "true_wedges": 5,
+      "predicted_wedges": 5,
+      "cost": 0.19817221979097605,
+      "correct": true
+    },
+    {
+      "sample_id": 9,
+      "true_wedges": 5,
+      "predicted_wedges": 3,
+      "cost": 0.2291926432459661,
+      "correct": false
+    },
+    {
+      "sample_id": 10,
+      "true_wedges": 6,
+      "predicted_wedges": 6,
+      "cost": 0.18651390323031086,
+      "correct": true
+    },
+    {
+      "sample_id": 11,
+      "true_wedges": 6,
+      "predicted_wedges": 5,
+      "cost": 0.1873494695726772,
+      "correct": false
+    }
+  ]
+}

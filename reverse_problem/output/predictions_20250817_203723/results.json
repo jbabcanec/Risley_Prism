@@ -1,0 +1,55 @@
+{
+  "session_info": {
+    "timestamp": "20250817_203723",
+    "samples_tested": 100,
+    "model_type": "SuperNeuralNetwork"
+  },
+  "performance": {
+    "overall_accuracy": 0.6,
+    "nn_accuracy": 0.6,
+    "correct_predictions": 60,
+    "total_tested": 100,
+    "by_wedge_count": {
+      "1": {
+        "accuracy": 0.7647058823529411,
+        "correct": 13,
+        "total": 17
+      },
+      "2": {
+        "accuracy": 0.8823529411764706,
+        "correct": 15,
+        "total": 17
+      },
+      "3": {
+        "accuracy": 0.5,
+        "correct": 9,
+        "total": 18
+      },
+      "4": {
+        "accuracy": 0.375,
+        "correct": 6,
+        "total": 16
+      },
+      "5": {
+        "accuracy": 0.4375,
+        "correct": 7,
+        "total": 16
+      },
+      "6": {
+        "accuracy": 0.625,
+        "correct": 10,
+        "total": 16
+      }
+    }
+  },
+  "timing": {
+    "total_time": 0.8455989360809326,
+    "throughput": 118.25937301135507,
+    "nn_avg_ms": 4.6180033683776855,
+    "ga_avg_ms": 3.8359498977661133
+  },
+  "cache": {
+    "hits": 0,
+    "rate": 0.0
+  }
+}

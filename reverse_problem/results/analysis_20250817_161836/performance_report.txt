@@ -1,0 +1,65 @@
+🎯 COMPREHENSIVE HYBRID NN+GA SYSTEM ANALYSIS
+================================================================================
+Analysis Date: 2025-08-17 16:18:39
+Session: 20250817_161830
+Source Training: super_training_20250817_155516
+
+📚 TRAINING DATA ANALYSIS
+--------------------------------------------------
+
+🧠 NEURAL NETWORK ANALYSIS
+--------------------------------------------------
+Training Status: ✅ TRAINED
+Epochs Trained: 13
+Final Training Loss: 0.000000
+Final Validation Loss: 0.000000
+Loss Quality: 🟢 EXCELLENT (< 0.05)
+NN Wedge Count Accuracy: 80.0%
+NN Performance: 🟢 EXCELLENT
+
+⚡ HYBRID SYSTEM PERFORMANCE
+--------------------------------------------------
+Hybrid Mode: ✅ ACTIVE
+Total Runtime: 112.1s
+Neural Network Time: 0.289s (0.3%)
+Genetic Algorithm Time: 111.8s (99.7%)
+Throughput: 0.27 samples/sec
+Average per Sample: 3.7s
+Speed Rating: 🔴 SLOW
+NN Standalone Accuracy: 80.0%
+GA Final Accuracy: 60.0%
+NN Helped GA: 56.7%
+
+🎯 DETAILED ACCURACY ANALYSIS
+--------------------------------------------------
+Overall Accuracy: 60.0% (18/30)
+
+Performance by Wedge Count:
+  1 wedges: 100.0% ( 5/ 5) | Avg Cost: 0.063
+  2 wedges:  80.0% ( 4/ 5) | Avg Cost: 0.136
+    Correct samples avg cost: 0.141
+    Incorrect samples avg cost: 0.114
+  3 wedges:  60.0% ( 3/ 5) | Avg Cost: 0.158
+    Correct samples avg cost: 0.164
+    Incorrect samples avg cost: 0.149
+  4 wedges:   0.0% ( 0/ 5) | Avg Cost: 0.203
+  5 wedges:  60.0% ( 3/ 5) | Avg Cost: 0.173
+    Correct samples avg cost: 0.183
+    Incorrect samples avg cost: 0.157
+  6 wedges:  60.0% ( 3/ 5) | Avg Cost: 0.304
+    Correct samples avg cost: 0.343
+    Incorrect samples avg cost: 0.246
+
+🔧 OPTIMIZATION INSIGHTS & RECOMMENDATIONS
+--------------------------------------------------
+🔍 BOTTLENECK: Genetic Algorithm dominates runtime (>95%)
+   → Reduce GA population sizes or generations
+   → Improve neural network to need less GA refinement
+🔍 ISSUE: High cost variance suggests inconsistent optimization
+   → Check GA parameter settings
+   → Verify pattern complexity normalization
+
+📊 PERFORMANCE TARGETS:
+   Current Overall Accuracy: 60.0%
+   → Target: 80% (Fine-tune parameters)
+

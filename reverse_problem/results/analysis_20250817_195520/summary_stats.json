@@ -1,0 +1,15 @@
+{
+  "analysis_timestamp": "2025-08-17T19:55:23.652157",
+  "overall_accuracy_percent": 65.0,
+  "total_samples_tested": 60,
+  "correct_predictions": 39,
+  "neural_network_trained": true,
+  "neural_network_epochs": 28,
+  "neural_network_validation_loss": 0,
+  "neural_network_wedge_accuracy_percent": 65.0,
+  "hybrid_mode_active": true,
+  "throughput_samples_per_sec": 93.42,
+  "training_samples_used": 0,
+  "best_performing_wedge_count": "1",
+  "worst_performing_wedge_count": "3"
+}

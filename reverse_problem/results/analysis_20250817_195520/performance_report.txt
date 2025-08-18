@@ -1,0 +1,61 @@
+🎯 COMPREHENSIVE HYBRID NN+GA SYSTEM ANALYSIS
+================================================================================
+Analysis Date: 2025-08-17 19:55:23
+Session: 20250817_195514
+Source Training: super_training_20250817_195433
+
+📚 TRAINING DATA ANALYSIS
+--------------------------------------------------
+
+🧠 NEURAL NETWORK ANALYSIS
+--------------------------------------------------
+Training Status: ✅ TRAINED
+Epochs Trained: 28
+Final Training Loss: 0.000000
+Final Validation Loss: 0.000000
+Loss Quality: 🟢 EXCELLENT (< 0.05)
+NN Wedge Count Accuracy: 65.0%
+NN Performance: 🟡 GOOD
+
+⚡ HYBRID SYSTEM PERFORMANCE
+--------------------------------------------------
+Hybrid Mode: ✅ ACTIVE
+Total Runtime: 0.6s
+Neural Network Time: 0.374s (58.2%)
+Genetic Algorithm Time: 0.3s (41.8%)
+Throughput: 93.42 samples/sec
+Average per Sample: 0.0s
+Speed Rating: 🟢 FAST
+NN Standalone Accuracy: 65.0%
+GA Final Accuracy: 65.0%
+NN Helped GA: 65.0%
+
+🎯 DETAILED ACCURACY ANALYSIS
+--------------------------------------------------
+Overall Accuracy: 65.0% (39/60)
+
+Performance by Wedge Count:
+  1 wedges: 100.0% (10/10) | Avg Cost: 0.106
+  2 wedges:  70.0% ( 7/10) | Avg Cost: 0.114
+    Correct samples avg cost: 0.112
+    Incorrect samples avg cost: 0.118
+  3 wedges:  40.0% ( 4/10) | Avg Cost: 0.113
+    Correct samples avg cost: 0.115
+    Incorrect samples avg cost: 0.111
+  4 wedges:  50.0% ( 5/10) | Avg Cost: 0.120
+    Correct samples avg cost: 0.121
+    Incorrect samples avg cost: 0.119
+  5 wedges:  50.0% ( 5/10) | Avg Cost: 0.120
+    Correct samples avg cost: 0.120
+    Incorrect samples avg cost: 0.121
+  6 wedges:  80.0% ( 8/10) | Avg Cost: 0.124
+    Correct samples avg cost: 0.124
+    Incorrect samples avg cost: 0.125
+
+🔧 OPTIMIZATION INSIGHTS & RECOMMENDATIONS
+--------------------------------------------------
+
+📊 PERFORMANCE TARGETS:
+   Current Overall Accuracy: 65.0%
+   → Target: 80% (Fine-tune parameters)
+

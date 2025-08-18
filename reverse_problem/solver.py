@@ -24,12 +24,29 @@ sys.path.insert(0, current_dir)
 
 from core.genetic_algorithm import solve_reverse_problem
 from core.neural_network import NeuralPredictor
+try:
+    from core.super_neural_network import SuperNeuralPredictor
+    SUPER_NN_AVAILABLE = True
+except ImportError:
+    SUPER_NN_AVAILABLE = False
+
+try:
+    from core.transformer_nn import TransformerNeuralPredictor
+    TRANSFORMER_NN_AVAILABLE = True
+except ImportError:
+    TRANSFORMER_NN_AVAILABLE = False
+
+try:
+    from core.turbo_optimizer import TurboOptimizer, TurboConfig
+    TURBO_OPTIMIZER_AVAILABLE = True
+except ImportError:
+    TURBO_OPTIMIZER_AVAILABLE = False
 
 
 class StateOfTheArtSolver:
-    """Clean reverse problem solver with intelligent wedge selection."""
+    """Supercharged reverse problem solver with all advanced features."""
     
-    def __init__(self):
+    def __init__(self, use_super_nn=True, use_transformer=True, use_turbo=True):
         # Quality thresholds: if cost > threshold, try more wedges
         # 6-wedge has NO threshold (always accepts as fallback)
         self.quality_thresholds = {
@@ -42,18 +59,75 @@ class StateOfTheArtSolver:
         
         # Neural network predictor for hybrid approach
         self.neural_predictor = None
-        self._try_load_neural_predictor()
+        self.use_super_nn = use_super_nn and SUPER_NN_AVAILABLE
+        self.use_transformer = use_transformer and TRANSFORMER_NN_AVAILABLE
+        
+        # Turbo optimizer for supercharged performance
+        self.turbo_optimizer = None
+        self.use_turbo = use_turbo and TURBO_OPTIMIZER_AVAILABLE
+        
+        self._initialize_components()
     
-    def _try_load_neural_predictor(self):
-        """Try to load trained neural network predictor."""
+    def _initialize_components(self):
+        """Initialize all supercharged components."""
+        self._load_neural_predictor()
+        self._initialize_turbo_optimizer()
+    
+    def _load_neural_predictor(self):
+        """Load the most advanced neural network available."""
         try:
-            predictor = NeuralPredictor()
-            if predictor.load():
-                self.neural_predictor = predictor
-            else:
-                self.neural_predictor = None
-        except:
+            # Priority 1: Transformer neural network (most advanced)
+            if self.use_transformer:
+                transformer_predictor = TransformerNeuralPredictor()
+                if transformer_predictor.load():
+                    self.neural_predictor = transformer_predictor
+                    print("   🔮 Using TRANSFORMER neural network (next-gen)")
+                    return
+            
+            # Priority 2: Super neural network
+            if self.use_super_nn:
+                super_predictor = SuperNeuralPredictor()
+                if super_predictor.load():
+                    self.neural_predictor = super_predictor
+                    print("   🚀 Using SUPER-POWERED neural network")
+                    return
+            
+            # Priority 3: Standard neural network fallback
+            standard_predictor = NeuralPredictor()
+            if standard_predictor.load():
+                self.neural_predictor = standard_predictor
+                print("   🧠 Using standard neural network")
+                return
+            
             self.neural_predictor = None
+            print("   ⚠️ No neural network loaded")
+            
+        except Exception as e:
+            print(f"   ❌ Neural network initialization failed: {e}")
+            self.neural_predictor = None
+    
+    def _initialize_turbo_optimizer(self):
+        """Initialize turbo optimizer for supercharged performance."""
+        if not self.use_turbo:
+            return
+        
+        try:
+            # Configure turbo optimizer for maximum performance
+            config = TurboConfig(
+                use_gpu=True,
+                cache_size=50000,  # Large cache for pattern memoization
+                adaptive_ga=True,
+                multi_objective=True,
+                real_time_learning=True,
+                performance_target=0.001
+            )
+            
+            self.turbo_optimizer = TurboOptimizer(config)
+            print("   ⚡ Turbo optimizer initialized (GPU-accelerated)")
+            
+        except Exception as e:
+            print(f"   ⚠️ Turbo optimizer failed to initialize: {e}")
+            self.turbo_optimizer = None
     
     def get_neural_initial_guess(self, pattern):
         """Get initial parameter guess from neural network."""
@@ -159,7 +233,7 @@ class StateOfTheArtSolver:
         return np.clip(complexity, 0.1, 1.0)
     
     def intelligent_wedge_selection(self, pattern, verbose=True):
-        """State-of-the-art intelligent wedge selection with neural network guidance."""
+        """Supercharged intelligent wedge selection with all advanced features."""
         
         pattern_complexity = self.calculate_pattern_complexity(pattern)
         if verbose:
@@ -173,9 +247,19 @@ class StateOfTheArtSolver:
                 nn_prediction = self.neural_predictor.predict(pattern)
                 nn_suggestion = nn_prediction['wedgenum']
                 if verbose:
-                    print(f"   Neural network suggests: {nn_suggestion} wedges")
+                    predictor_type = "Transformer" if self.use_transformer else ("Super" if self.use_super_nn else "Standard")
+                    print(f"   {predictor_type} NN suggests: {nn_suggestion} wedges")
+                    
+                    # Show confidence if available (from advanced networks)
+                    if 'prediction_confidence' in nn_prediction:
+                        conf = nn_prediction['prediction_confidence']
+                        overall_conf = conf.get('overall_confidence', 0.5)
+                        print(f"   NN confidence: {overall_conf:.1%}")
+                    
                     print(f"   NN provides initial parameter guess")
-            except:
+            except Exception as e:
+                if verbose:
+                    print(f"   ⚠️ Neural network prediction failed: {e}")
                 nn_prediction = None
                 nn_suggestion = None
         
@@ -201,35 +285,46 @@ class StateOfTheArtSolver:
         
         # Test candidates in order
         for wedges in wedge_candidates:
-            # Efficient GA parameters for hybrid system
-            pop_size = 30 + 10 * wedges  # Smaller populations since NN provides good starting point
-            generations = 15 + 5 * wedges  # Fewer generations needed with NN guidance
-            
             if verbose:
                 print(f"   Testing {wedges} wedges...")
             
-            # Convert pattern to format expected by GA (with time component)
-            # Pattern might be numpy array or list from loaded data
+            # Convert pattern to proper format
             if isinstance(pattern, list):
                 pattern = np.array(pattern)
             
-            if len(pattern.shape) == 2 and pattern.shape[1] == 2:  # x,y only
-                # Add time component for GA compatibility
-                time_vals = np.linspace(0, 2.0, len(pattern))
-                target_pattern_with_time = [(pattern[i,0], pattern[i,1], time_vals[i]) 
-                                           for i in range(len(pattern))]
+            # Use turbo optimizer if available, otherwise fall back to standard GA
+            if self.turbo_optimizer is not None:
+                try:
+                    # Supercharged optimization with all enhancements
+                    result = self.turbo_optimizer.turbo_optimize(
+                        pattern=pattern,
+                        wedge_count=wedges,
+                        neural_prediction=nn_prediction
+                    )
+                    
+                    recovered_params = result['parameters']
+                    cost = result['cost']
+                    info = {
+                        'generations': result.get('generations_used', 0),
+                        'population_size': result.get('population_size', 0),
+                        'from_cache': result.get('from_cache', False),
+                        'difficulty_predicted': result.get('difficulty_predicted', 0),
+                        'turbo_enhanced': True
+                    }
+                    
+                    if verbose and result.get('from_cache', False):
+                        print(f"      ⚡ Result from cache (instant)")
+                    elif verbose:
+                        print(f"      ⚡ Turbo optimization completed")
+                
+                except Exception as e:
+                    if verbose:
+                        print(f"      ⚠️ Turbo optimization failed: {e}, falling back to standard GA")
+                    # Fall back to standard GA
+                    recovered_params, cost, info = self._run_standard_ga(pattern, wedges, nn_prediction)
             else:
-                target_pattern_with_time = [(row[0], row[1], row[2]) for row in pattern]
-            
-            # Run optimization
-            recovered_params, cost, info = solve_reverse_problem(
-                target_pattern=target_pattern_with_time,
-                wedge_count=wedges,
-                population_size=pop_size,
-                generations=generations,
-                parallel=False,
-                verbose=False
-            )
+                # Standard GA optimization
+                recovered_params, cost, info = self._run_standard_ga(pattern, wedges, nn_prediction)
             
             # Adaptive complexity penalty
             base_penalty = 0.001
@@ -269,6 +364,33 @@ class StateOfTheArtSolver:
             print(f"   ✅ Selected {best_wedges} wedges with cost {best_cost:.3f}")
         
         return best_wedges, best_cost, best_params, best_info
+    
+    def _run_standard_ga(self, pattern, wedges, nn_prediction):
+        """Run standard genetic algorithm optimization as fallback."""
+        # Efficient GA parameters for hybrid system
+        pop_size = 30 + 10 * wedges  # Smaller populations since NN provides good starting point
+        generations = 15 + 5 * wedges  # Fewer generations needed with NN guidance
+        
+        # Convert pattern to format expected by GA (with time component)
+        if len(pattern.shape) == 2 and pattern.shape[1] == 2:  # x,y only
+            # Add time component for GA compatibility
+            time_vals = np.linspace(0, 2.0, len(pattern))
+            target_pattern_with_time = [(pattern[i,0], pattern[i,1], time_vals[i]) 
+                                       for i in range(len(pattern))]
+        else:
+            target_pattern_with_time = [(row[0], row[1], row[2]) for row in pattern]
+        
+        # Run optimization
+        recovered_params, cost, info = solve_reverse_problem(
+            target_pattern=target_pattern_with_time,
+            wedge_count=wedges,
+            population_size=pop_size,
+            generations=generations,
+            parallel=False,
+            verbose=False
+        )
+        
+        return recovered_params, cost, info
     
     def test_recovery(self, pattern, true_wedge_count, verbose=True):
         """Test parameter recovery using intelligent wedge selection."""

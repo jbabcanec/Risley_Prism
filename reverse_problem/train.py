@@ -1,108 +1,149 @@
 #!/usr/bin/env python3
 """
-TRAIN - Generate training data and train neural network for Risley prism reverse problem
-
-Usage: python3 train.py [num_samples]
-Output: input/training_TIMESTAMP/ with samples and metadata
-        weights/pattern_predictor.pth with trained neural network
+TRAIN - Supercharged Neural Network Training
 """
 
-import sys
-import os
-import json
 import numpy as np
+import json
+import time
+import os
 from datetime import datetime
 from solver import StateOfTheArtSolver
-from core.neural_network import NeuralPredictor
+from core.super_neural_network import SuperNeuralPredictor
 
-def main():
-    """Generate training data."""
-    # Get number of samples
-    if len(sys.argv) > 1:
-        num_samples = int(sys.argv[1])
-    else:
-        try:
-            num_samples = int(input("Number of training samples: "))
-        except (ValueError, KeyboardInterrupt):
-            num_samples = 1000
+def train():
+    """Train the supercharged neural network system."""
     
-    print(f"🏋️ TRAINING: Generating {num_samples} samples")
+    print("NEURAL NETWORK TRAINING")
+    print("=" * 60)
     
-    # Create timestamped training session
-    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    session_dir = f"input/training_{timestamp}"
-    os.makedirs(session_dir, exist_ok=True)
+    # Configuration
+    num_samples = 3000  # Balanced across wedge counts
+    validation_split = 0.2
+    epochs = 50
+    batch_size = 64
     
-    # Generate samples
-    solver = StateOfTheArtSolver()
+    print(f"Configuration:")
+    print(f"  Samples: {num_samples}")
+    print(f"  Validation: {int(validation_split*100)}%")
+    print(f"  Epochs: {epochs}")
+    print(f"  Batch size: {batch_size}")
+    print()
+    
+    # Initialize solver
+    print("Initializing system...")
+    solver = StateOfTheArtSolver(use_super_nn=False)
+    
+    # Generate training data
+    print("Generating training data...")
     samples = []
+    samples_per_wedge = num_samples // 6
     
-    print("Generating samples...")
-    for i in range(num_samples):
-        # Random wedge configuration
-        wedge_count = np.random.randint(1, 7)
-        params = solver.generate_parameters(wedge_count)
-        pattern = solver.forward_simulate(params)
-        
-        sample = {
-            'id': i,
-            'wedge_count': wedge_count,
-            'parameters': params,
-            'pattern': pattern.tolist(),
-            'complexity': solver.calculate_pattern_complexity(pattern)
-        }
-        samples.append(sample)
-        
-        if (i + 1) % 100 == 0:
-            print(f"  Generated {i + 1}/{num_samples}")
+    for wedge_count in range(1, 7):
+        for i in range(samples_per_wedge):
+            # Generate parameters with variation
+            params = solver.generate_parameters(wedge_count)
+            
+            # Add variation for robustness
+            if np.random.random() < 0.3:  # 30% with extreme values
+                params['rotation_speeds'] = [np.random.uniform(-5.0, 5.0) 
+                                            for _ in range(wedge_count)]
+                params['phi_x'] = [np.random.uniform(-25.0, 25.0) 
+                                  for _ in range(wedge_count)]
+                params['phi_y'] = [np.random.uniform(-25.0, 25.0) 
+                                  for _ in range(wedge_count)]
+            
+            # Simulate pattern
+            pattern = solver.forward_simulate(params)
+            
+            # Store sample
+            sample = {
+                'id': len(samples),
+                'wedge_count': wedge_count,
+                'parameters': params,
+                'pattern': pattern.tolist(),
+                'complexity': solver.calculate_pattern_complexity(pattern)
+            }
+            samples.append(sample)
+            
+            if (len(samples) % 500) == 0:
+                print(f"  Generated {len(samples)}/{num_samples} samples...")
     
-    # Save samples as individual files
-    for sample in samples:
-        with open(f"{session_dir}/sample_{sample['id']:05d}.json", 'w') as f:
-            json.dump(sample, f, indent=2)
-    
-    # Save session metadata
-    metadata = {
-        'session_id': timestamp,
-        'total_samples': num_samples,
-        'wedge_distribution': {str(i): sum(1 for s in samples if s['wedge_count'] == i) for i in range(1, 7)},
-        'generation_time': datetime.now().isoformat()
-    }
-    
-    with open(f"{session_dir}/metadata.json", 'w') as f:
-        json.dump(metadata, f, indent=2)
-    
-    print(f"✅ Training data complete!")
-    print(f"📁 Data saved: {session_dir}")
-    print(f"📊 Distribution: {metadata['wedge_distribution']}")
+    print(f"  Generated {len(samples)} total samples")
+    print()
     
     # Train neural network
-    print(f"\n🧠 Training neural network on {num_samples} samples...")
+    print("Training neural network...")
+    predictor = SuperNeuralPredictor()
+    predictor.config.epochs = epochs
+    predictor.config.early_stopping_patience = 15
+    predictor.config.batch_size = batch_size
     
-    # Ensure weights directory exists
-    os.makedirs("weights", exist_ok=True)
+    start_time = time.time()
+    results = predictor.train(samples, validation_split=validation_split)
+    training_time = time.time() - start_time
     
-    # Initialize neural network predictor
-    predictor = NeuralPredictor()
+    print()
+    print("TRAINING COMPLETE")
+    print("-" * 60)
+    print(f"Time: {training_time:.1f}s")
+    print(f"Best accuracy: {results['best_val_acc']:.1%}")
+    print(f"Best loss: {results['best_val_loss']:.4f}")
+    print(f"Model saved: weights/super_pattern_predictor.pth")
     
-    # Train on generated samples
-    training_results = predictor.train(samples)
+    # Save training session
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    session_dir = f'input/training_{timestamp}'
+    os.makedirs(session_dir, exist_ok=True)
     
-    print(f"✅ Neural network training complete!")
-    print(f"💾 Model weights saved to: weights/pattern_predictor.pth")
-    print(f"📊 Final validation loss: {training_results['best_val_loss']:.6f}")
-    print(f"🔄 Epochs trained: {training_results['epochs_trained']}")
-    
-    # Save training results
-    training_info = {
+    # Save metadata
+    metadata = {
         'session_id': timestamp,
-        'training_samples': num_samples,
-        'neural_network_results': training_results,
-        'training_complete': datetime.now().isoformat()
+        'total_samples': len(samples),
+        'training_time': training_time,
+        'model_type': 'SuperNeuralNetwork',
+        'epochs_trained': results.get('epochs_trained', epochs),
+        'best_val_accuracy': results['best_val_acc'],
+        'best_val_loss': results['best_val_loss'],
+        'configuration': {
+            'epochs': epochs,
+            'batch_size': batch_size,
+            'validation_split': validation_split
+        },
+        'wedge_distribution': {
+            str(i): sum(1 for s in samples if s['wedge_count'] == i) 
+            for i in range(1, 7)
+        }
     }
     
-    with open(f"{session_dir}/training_results.json", 'w') as f:
-        json.dump(training_info, f, indent=2)
+    with open(f'{session_dir}/metadata.json', 'w') as f:
+        json.dump(metadata, f, indent=2)
+    
+    # Save sample subset for validation
+    sample_indices = np.random.choice(len(samples), 
+                                    min(100, len(samples)), 
+                                    replace=False)
+    for idx in sample_indices:
+        with open(f'{session_dir}/sample_{idx:05d}.json', 'w') as f:
+            json.dump(samples[idx], f, indent=2)
+    
+    print(f"Session saved: {session_dir}")
+    print()
+    
+    # Performance summary
+    print("PERFORMANCE SUMMARY")
+    print("-" * 60)
+    
+    if results['best_val_acc'] >= 0.7:
+        print("Status: EXCELLENT - High accuracy achieved")
+    elif results['best_val_acc'] >= 0.5:
+        print("Status: GOOD - Significant learning achieved")
+    else:
+        print("Status: BASELINE - Further optimization needed")
+    
+    print(f"Recommendation: {'Ready for deployment' if results['best_val_acc'] >= 0.6 else 'Continue training with more data'}")
+    
+    return metadata
 
 if __name__ == "__main__":
-    main()
+    train()

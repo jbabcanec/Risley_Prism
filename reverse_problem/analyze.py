@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-ANALYZE - Comprehensive analysis of hybrid NN+GA system performance
+ANALYZE - Enhanced analysis of Super Neural Network + GA system performance
 
 Usage: python3 analyze.py
 Input: Latest prediction results from output/ + training data from input/
-Output: Detailed analysis with improvement tracking and optimization suggestions
+Output: Detailed analysis with improvement tracking, modern dashboard, and optimization suggestions
 """
 
 import os
@@ -16,13 +16,17 @@ from datetime import datetime
 from collections import defaultdict
 
 def load_latest_predictions():
-    """Load latest prediction results."""
+    """Load latest prediction results (prioritize super predictions)."""
+    # Check for super predictions first
+    super_prediction_dirs = glob.glob("output/super_predictions_*")
     prediction_dirs = glob.glob("output/predictions_*")
-    if not prediction_dirs:
-        print("❌ No prediction results found. Run predict.py first.")
+    
+    all_dirs = super_prediction_dirs + prediction_dirs
+    if not all_dirs:
+        print("❌ No prediction results found. Run super_predict.py or predict.py first.")
         return None, None
     
-    latest_dir = max(prediction_dirs, key=os.path.getmtime)
+    latest_dir = max(all_dirs, key=os.path.getmtime)
     
     with open(f"{latest_dir}/results.json", 'r') as f:
         data = json.load(f)
@@ -30,12 +34,16 @@ def load_latest_predictions():
     return data, latest_dir
 
 def load_training_info():
-    """Load training data and neural network info."""
+    """Load training data and neural network info (prioritize super training)."""
+    # Check for super training first
+    super_training_dirs = glob.glob("input/super_training_*")
     training_dirs = glob.glob("input/training_*")
-    if not training_dirs:
+    
+    all_dirs = super_training_dirs + training_dirs
+    if not all_dirs:
         return None, None
     
-    latest_training = max(training_dirs, key=os.path.getmtime)
+    latest_training = max(all_dirs, key=os.path.getmtime)
     
     # Load training metadata
     metadata_file = f"{latest_training}/metadata.json"
@@ -55,8 +63,19 @@ def load_training_info():
     return metadata, training_results
 
 def load_neural_network_info():
-    """Load neural network training information."""
+    """Load neural network training information (try super NN first)."""
     try:
+        # Try super neural network first
+        from core.super_neural_network import SuperNeuralPredictor
+        predictor = SuperNeuralPredictor()
+        info = predictor.get_training_info()
+        if info.get('trained', False):
+            return info
+    except:
+        pass
+    
+    try:
+        # Fall back to standard neural network
         from core.neural_network import NeuralPredictor
         predictor = NeuralPredictor()
         return predictor.get_training_info()
@@ -140,7 +159,7 @@ def print_comprehensive_analysis(data, training_metadata, training_results, nn_i
     print("=" * 80)
     print(f"Analysis Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print(f"Session: {session['timestamp']}")
-    print(f"Source Training: {session['source_training']}")
+    print(f"Source Training: {session.get('source_training', 'Unknown')}")
     print()
     
     # =============================================================================
@@ -499,7 +518,7 @@ def create_comprehensive_plots(data, training_metadata, nn_info):
 
 def main():
     """Main comprehensive analysis function."""
-    print("🔍 COMPREHENSIVE RISLEY PRISM ANALYSIS")
+    print("🔍 ENHANCED RISLEY PRISM ANALYSIS")
     print("=" * 60)
     
     # Load all data
@@ -511,6 +530,10 @@ def main():
     nn_info = load_neural_network_info()
     
     print(f"📁 Analyzing: {os.path.basename(prediction_dir)}")
+    
+    # Detect model type
+    model_type = "Super Neural Network" if "super_predictions" in prediction_dir else "Standard NN"
+    print(f"🧠 Model Type: {model_type}")
     print()
     
     # Create results directory with timestamp
@@ -531,6 +554,17 @@ def main():
     
     print(f"✅ Dashboard saved: {dashboard_file}")
     plt.close(fig)
+    
+    # Generate clean dashboard
+    print("GENERATING CLEAN DASHBOARD...")
+    try:
+        from dashboard.clean_dashboard import CleanDashboard
+        clean_dashboard = CleanDashboard()
+        clean_dashboard.create_dashboard()
+        clean_dashboard.generate_report()
+        print("Dashboard saved: dashboard/performance_dashboard.png")
+    except Exception as e:
+        print(f"Could not generate dashboard: {e}")
     
     # Save comprehensive analysis report
     analysis_data = {

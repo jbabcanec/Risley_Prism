@@ -1,0 +1,1378 @@
+{
+  "session_info": {
+    "timestamp": "20250817_195536",
+    "test_samples": 96,
+    "configurations_tested": 6,
+    "optimizations_implemented": 9,
+    "target_accuracy": 0.85,
+    "target_speedup": 10.0
+  },
+  "optimizations_status": {
+    "1_gpu_acceleration": "\u2705 Implemented",
+    "2_advanced_neural_networks": "\u2705 Implemented",
+    "3_intelligent_ga_adaptation": "\u2705 Implemented",
+    "4_pattern_caching": "\u2705 Implemented",
+    "5_multi_objective_optimization": "\u2705 Implemented",
+    "6_real_time_learning": "\u2705 Implemented",
+    "7_ensemble_methods": "\u2705 Implemented",
+    "8_quantum_algorithms": "\u2705 Implemented",
+    "9_dynamic_architecture_selection": "\u2705 Implemented"
+  },
+  "performance_results": {
+    "Baseline (Standard)": {
+      "accuracy": 0.375,
+      "total_time": 0.24518823623657227,
+      "avg_time_per_sample": 0.009818543990453085,
+      "throughput": 97.88397831959347,
+      "feature_usage": {
+        "cache_hits": 0,
+        "neural_predictions": 0,
+        "quantum_optimizations": 0,
+        "ensemble_predictions": 0,
+        "dynamic_selections": 0
+      },
+      "by_complexity": {
+        "simple": {
+          "accuracy": 0.3333333333333333,
+          "count": 6
+        },
+        "medium": {
+          "accuracy": 0.3333333333333333,
+          "count": 6
+        },
+        "complex": {
+          "accuracy": 0.5,
+          "count": 6
+        },
+        "extreme": {
+          "accuracy": 0.3333333333333333,
+          "count": 6
+        }
+      },
+      "detailed_results": [
+        {
+          "sample_id": 0,
+          "true_wedges": 1,
+          "predicted_wedges": 1,
+          "complexity": "simple",
+          "correct": true,
+          "time": 0.14646387100219727
+        },
+        {
+          "sample_id": 4,
+          "true_wedges": 2,
+          "predicted_wedges": 2,
+          "complexity": "simple",
+          "correct": true,
+          "time": 0.0038950443267822266
+        },
+        {
+          "sample_id": 8,
+          "true_wedges": 3,
+          "predicted_wedges": 2,
+          "complexity": "simple",
+          "correct": false,
+          "time": 0.004068851470947266
+        },
+        {
+          "sample_id": 12,
+          "true_wedges": 4,
+          "predicted_wedges": 2,
+          "complexity": "simple",
+          "correct": false,
+          "time": 0.0038640499114990234
+        },
+        {
+          "sample_id": 16,
+          "true_wedges": 5,
+          "predicted_wedges": 3,
+          "complexity": "simple",
+          "correct": false,
+          "time": 0.0038580894470214844
+        },
+        {
+          "sample_id": 20,
+          "true_wedges": 6,
+          "predicted_wedges": 2,
+          "complexity": "simple",
+          "correct": false,
+          "time": 0.003706216812133789
+        },
+        {
+          "sample_id": 24,
+          "true_wedges": 1,
+          "predicted_wedges": 2,
+          "complexity": "medium",
+          "correct": false,
+          "time": 0.003970623016357422
+        },
+        {
+          "sample_id": 28,
+          "true_wedges": 2,
+          "predicted_wedges": 2,
+          "complexity": "medium",
+          "correct": true,
+          "time": 0.003780841827392578
+        },
+        {
+          "sample_id": 32,
+          "true_wedges": 3,
+          "predicted_wedges": 2,
+          "complexity": "medium",
+          "correct": false,
+          "time": 0.003798961639404297
+        },
+        {
+          "sample_id": 36,
+          "true_wedges": 4,
+          "predicted_wedges": 3,
+          "complexity": "medium",
+          "correct": false,
+          "time": 0.0037970542907714844
+        },
+        {
+          "sample_id": 40,
+          "true_wedges": 5,
+          "predicted_wedges": 3,
+          "complexity": "medium",
+          "correct": false,
+          "time": 0.0038919448852539062
+        },
+        {
+          "sample_id": 44,
+          "true_wedges": 6,
+          "predicted_wedges": 6,
+          "complexity": "medium",
+          "correct": true,
+          "time": 0.004293680191040039
+        },
+        {
+          "sample_id": 48,
+          "true_wedges": 1,
+          "predicted_wedges": 2,
+          "complexity": "complex",
+          "correct": false,
+          "time": 0.0037932395935058594
+        },
+        {
+          "sample_id": 52,
+          "true_wedges": 2,
+          "predicted_wedges": 3,
+          "complexity": "complex",
+          "correct": false,
+          "time": 0.0037078857421875
+        },
+        {
+          "sample_id": 56,
+          "true_wedges": 3,
+          "predicted_wedges": 3,
+          "complexity": "complex",
+          "correct": true,
+          "time": 0.004032135009765625
+        },
+        {
+          "sample_id": 60,
+          "true_wedges": 4,
+          "predicted_wedges": 4,
+          "complexity": "complex",
+          "correct": true,
+          "time": 0.0036940574645996094
+        },
+        {
+          "sample_id": 64,
+          "true_wedges": 5,
+          "predicted_wedges": 6,
+          "complexity": "complex",
+          "correct": false,
+          "time": 0.003854990005493164
+        },
+        {
+          "sample_id": 68,
+          "true_wedges": 6,
+          "predicted_wedges": 6,
+          "complexity": "complex",
+          "correct": true,
+          "time": 0.0037827491760253906
+        },
+        {
+          "sample_id": 72,
+          "true_wedges": 1,
+          "predicted_wedges": 3,
+          "complexity": "extreme",
+          "correct": false,
+          "time": 0.004263877868652344
+        },
+        {
+          "sample_id": 76,
+          "true_wedges": 2,
+          "predicted_wedges": 2,
+          "complexity": "extreme",
+          "correct": true,
+          "time": 0.003732919692993164
+        },
+        {
+          "sample_id": 80,
+          "true_wedges": 3,
+          "predicted_wedges": 6,
+          "complexity": "extreme",
+          "correct": false,
+          "time": 0.0038089752197265625
+        },
+        {
+          "sample_id": 84,
+          "true_wedges": 4,
+          "predicted_wedges": 5,
+          "complexity": "extreme",
+          "correct": false,
+          "time": 0.0038039684295654297
+        },
+        {
+          "sample_id": 88,
+          "true_wedges": 5,
+          "predicted_wedges": 6,
+          "complexity": "extreme",
+          "correct": false,
+          "time": 0.004006147384643555
+        },
+        {
+          "sample_id": 92,
+          "true_wedges": 6,
+          "predicted_wedges": 6,
+          "complexity": "extreme",
+          "correct": true,
+          "time": 0.003774881362915039
+        }
+      ]
+    },
+    "Neural Enhanced": {
+      "accuracy": 0.375,
+      "total_time": 0.0972900390625,
+      "avg_time_per_sample": 0.0036353468894958496,
+      "throughput": 246.68506900878293,
+      "feature_usage": {
+        "cache_hits": 0,
+        "neural_predictions": 24,
+        "quantum_optimizations": 0,
+        "ensemble_predictions": 0,
+        "dynamic_selections": 0
+      },
+      "by_complexity": {
+        "simple": {
+          "accuracy": 0.3333333333333333,
+          "count": 6
+        },
+        "medium": {
+          "accuracy": 0.3333333333333333,
+          "count": 6
+        },
+        "complex": {
+          "accuracy": 0.5,
+          "count": 6
+        },
+        "extreme": {
+          "accuracy": 0.3333333333333333,
+          "count": 6
+        }
+      },
+      "detailed_results": [
+        {
+          "sample_id": 0,
+          "true_wedges": 1,
+          "predicted_wedges": 1,
+          "complexity": "simple",
+          "correct": true,
+          "time": 0.003503084182739258
+        },
+        {
+          "sample_id": 4,
+          "true_wedges": 2,
+          "predicted_wedges": 2,
+          "complexity": "simple",
+          "correct": true,
+          "time": 0.003511667251586914
+        },
+        {
+          "sample_id": 8,
+          "true_wedges": 3,
+          "predicted_wedges": 2,
+          "complexity": "simple",
+          "correct": false,
+          "time": 0.003644227981567383
+        },
+        {
+          "sample_id": 12,
+          "true_wedges": 4,
+          "predicted_wedges": 2,
+          "complexity": "simple",
+          "correct": false,
+          "time": 0.0034880638122558594
+        },
+        {
+          "sample_id": 16,
+          "true_wedges": 5,
+          "predicted_wedges": 3,
+          "complexity": "simple",
+          "correct": false,
+          "time": 0.003525972366333008
+        },
+        {
+          "sample_id": 20,
+          "true_wedges": 6,
+          "predicted_wedges": 2,
+          "complexity": "simple",
+          "correct": false,
+          "time": 0.0035219192504882812
+        },
+        {
+          "sample_id": 24,
+          "true_wedges": 1,
+          "predicted_wedges": 2,
+          "complexity": "medium",
+          "correct": false,
+          "time": 0.003593921661376953
+        },
+        {
+          "sample_id": 28,
+          "true_wedges": 2,
+          "predicted_wedges": 2,
+          "complexity": "medium",
+          "correct": true,
+          "time": 0.0035338401794433594
+        },
+        {
+          "sample_id": 32,
+          "true_wedges": 3,
+          "predicted_wedges": 2,
+          "complexity": "medium",
+          "correct": false,
+          "time": 0.0035140514373779297
+        },
+        {
+          "sample_id": 36,
+          "true_wedges": 4,
+          "predicted_wedges": 3,
+          "complexity": "medium",
+          "correct": false,
+          "time": 0.0035037994384765625
+        },
+        {
+          "sample_id": 40,
+          "true_wedges": 5,
+          "predicted_wedges": 3,
+          "complexity": "medium",
+          "correct": false,
+          "time": 0.0036089420318603516
+        },
+        {
+          "sample_id": 44,
+          "true_wedges": 6,
+          "predicted_wedges": 6,
+          "complexity": "medium",
+          "correct": true,
+          "time": 0.0036411285400390625
+        },
+        {
+          "sample_id": 48,
+          "true_wedges": 1,
+          "predicted_wedges": 2,
+          "complexity": "complex",
+          "correct": false,
+          "time": 0.0034749507904052734
+        },
+        {
+          "sample_id": 52,
+          "true_wedges": 2,
+          "predicted_wedges": 3,
+          "complexity": "complex",
+          "correct": false,
+          "time": 0.003498077392578125
+        },
+        {
+          "sample_id": 56,
+          "true_wedges": 3,
+          "predicted_wedges": 3,
+          "complexity": "complex",
+          "correct": true,
+          "time": 0.0036818981170654297
+        },
+        {
+          "sample_id": 60,
+          "true_wedges": 4,
+          "predicted_wedges": 4,
+          "complexity": "complex",
+          "correct": true,
+          "time": 0.003651142120361328
+        },
+        {
+          "sample_id": 64,
+          "true_wedges": 5,
+          "predicted_wedges": 6,
+          "complexity": "complex",
+          "correct": false,
+          "time": 0.003602743148803711
+        },
+        {
+          "sample_id": 68,
+          "true_wedges": 6,
+          "predicted_wedges": 6,
+          "complexity": "complex",
+          "correct": true,
+          "time": 0.0035889148712158203
+        },
+        {
+          "sample_id": 72,
+          "true_wedges": 1,
+          "predicted_wedges": 3,
+          "complexity": "extreme",
+          "correct": false,
+          "time": 0.0035419464111328125
+        },
+        {
+          "sample_id": 76,
+          "true_wedges": 2,
+          "predicted_wedges": 2,
+          "complexity": "extreme",
+          "correct": true,
+          "time": 0.003799915313720703
+        },
+        {
+          "sample_id": 80,
+          "true_wedges": 3,
+          "predicted_wedges": 6,
+          "complexity": "extreme",
+          "correct": false,
+          "time": 0.004018068313598633
+        },
+        {
+          "sample_id": 84,
+          "true_wedges": 4,
+          "predicted_wedges": 5,
+          "complexity": "extreme",
+          "correct": false,
+          "time": 0.00406193733215332
+        },
+        {
+          "sample_id": 88,
+          "true_wedges": 5,
+          "predicted_wedges": 6,
+          "complexity": "extreme",
+          "correct": false,
+          "time": 0.004006862640380859
+        },
+        {
+          "sample_id": 92,
+          "true_wedges": 6,
+          "predicted_wedges": 6,
+          "complexity": "extreme",
+          "correct": true,
+          "time": 0.003731250762939453
+        }
+      ]
+    },
+    "Turbo Optimized": {
+      "accuracy": 0.375,
+      "total_time": 0.0949099063873291,
+      "avg_time_per_sample": 0.0035420755545298257,
+      "throughput": 252.8713904959041,
+      "feature_usage": {
+        "cache_hits": 24,
+        "neural_predictions": 24,
+        "quantum_optimizations": 0,
+        "ensemble_predictions": 0,
+        "dynamic_selections": 0
+      },
+      "by_complexity": {
+        "simple": {
+          "accuracy": 0.3333333333333333,
+          "count": 6
+        },
+        "medium": {
+          "accuracy": 0.3333333333333333,
+          "count": 6
+        },
+        "complex": {
+          "accuracy": 0.5,
+          "count": 6
+        },
+        "extreme": {
+          "accuracy": 0.3333333333333333,
+          "count": 6
+        }
+      },
+      "detailed_results": [
+        {
+          "sample_id": 0,
+          "true_wedges": 1,
+          "predicted_wedges": 1,
+          "complexity": "simple",
+          "correct": true,
+          "time": 0.003547191619873047
+        },
+        {
+          "sample_id": 4,
+          "true_wedges": 2,
+          "predicted_wedges": 2,
+          "complexity": "simple",
+          "correct": true,
+          "time": 0.003467082977294922
+        },
+        {
+          "sample_id": 8,
+          "true_wedges": 3,
+          "predicted_wedges": 2,
+          "complexity": "simple",
+          "correct": false,
+          "time": 0.003547191619873047
+        },
+        {
+          "sample_id": 12,
+          "true_wedges": 4,
+          "predicted_wedges": 2,
+          "complexity": "simple",
+          "correct": false,
+          "time": 0.0035190582275390625
+        },
+        {
+          "sample_id": 16,
+          "true_wedges": 5,
+          "predicted_wedges": 3,
+          "complexity": "simple",
+          "correct": false,
+          "time": 0.0034101009368896484
+        },
+        {
+          "sample_id": 20,
+          "true_wedges": 6,
+          "predicted_wedges": 2,
+          "complexity": "simple",
+          "correct": false,
+          "time": 0.0033931732177734375
+        },
+        {
+          "sample_id": 24,
+          "true_wedges": 1,
+          "predicted_wedges": 2,
+          "complexity": "medium",
+          "correct": false,
+          "time": 0.003368377685546875
+        },
+        {
+          "sample_id": 28,
+          "true_wedges": 2,
+          "predicted_wedges": 2,
+          "complexity": "medium",
+          "correct": true,
+          "time": 0.0035398006439208984
+        },
+        {
+          "sample_id": 32,
+          "true_wedges": 3,
+          "predicted_wedges": 2,
+          "complexity": "medium",
+          "correct": false,
+          "time": 0.0033621788024902344
+        },
+        {
+          "sample_id": 36,
+          "true_wedges": 4,
+          "predicted_wedges": 3,
+          "complexity": "medium",
+          "correct": false,
+          "time": 0.0038568973541259766
+        },
+        {
+          "sample_id": 40,
+          "true_wedges": 5,
+          "predicted_wedges": 3,
+          "complexity": "medium",
+          "correct": false,
+          "time": 0.0035588741302490234
+        },
+        {
+          "sample_id": 44,
+          "true_wedges": 6,
+          "predicted_wedges": 6,
+          "complexity": "medium",
+          "correct": true,
+          "time": 0.003735065460205078
+        },
+        {
+          "sample_id": 48,
+          "true_wedges": 1,
+          "predicted_wedges": 2,
+          "complexity": "complex",
+          "correct": false,
+          "time": 0.003381967544555664
+        },
+        {
+          "sample_id": 52,
+          "true_wedges": 2,
+          "predicted_wedges": 3,
+          "complexity": "complex",
+          "correct": false,
+          "time": 0.0034351348876953125
+        },
+        {
+          "sample_id": 56,
+          "true_wedges": 3,
+          "predicted_wedges": 3,
+          "complexity": "complex",
+          "correct": true,
+          "time": 0.0034897327423095703
+        },
+        {
+          "sample_id": 60,
+          "true_wedges": 4,
+          "predicted_wedges": 4,
+          "complexity": "complex",
+          "correct": true,
+          "time": 0.003618955612182617
+        },
+        {
+          "sample_id": 64,
+          "true_wedges": 5,
+          "predicted_wedges": 6,
+          "complexity": "complex",
+          "correct": false,
+          "time": 0.0036089420318603516
+        },
+        {
+          "sample_id": 68,
+          "true_wedges": 6,
+          "predicted_wedges": 6,
+          "complexity": "complex",
+          "correct": true,
+          "time": 0.0035889148712158203
+        },
+        {
+          "sample_id": 72,
+          "true_wedges": 1,
+          "predicted_wedges": 3,
+          "complexity": "extreme",
+          "correct": false,
+          "time": 0.0034661293029785156
+        },
+        {
+          "sample_id": 76,
+          "true_wedges": 2,
+          "predicted_wedges": 2,
+          "complexity": "extreme",
+          "correct": true,
+          "time": 0.0036051273345947266
+        },
+        {
+          "sample_id": 80,
+          "true_wedges": 3,
+          "predicted_wedges": 6,
+          "complexity": "extreme",
+          "correct": false,
+          "time": 0.003731966018676758
+        },
+        {
+          "sample_id": 84,
+          "true_wedges": 4,
+          "predicted_wedges": 5,
+          "complexity": "extreme",
+          "correct": false,
+          "time": 0.0035619735717773438
+        },
+        {
+          "sample_id": 88,
+          "true_wedges": 5,
+          "predicted_wedges": 6,
+          "complexity": "extreme",
+          "correct": false,
+          "time": 0.003567934036254883
+        },
+        {
+          "sample_id": 92,
+          "true_wedges": 6,
+          "predicted_wedges": 6,
+          "complexity": "extreme",
+          "correct": true,
+          "time": 0.003648042678833008
+        }
+      ]
+    },
+    "Ensemble Powered": {
+      "accuracy": 0.375,
+      "total_time": 0.10619974136352539,
+      "avg_time_per_sample": 0.004039754470189412,
+      "throughput": 225.98925093279811,
+      "feature_usage": {
+        "cache_hits": 24,
+        "neural_predictions": 24,
+        "quantum_optimizations": 0,
+        "ensemble_predictions": 24,
+        "dynamic_selections": 0
+      },
+      "by_complexity": {
+        "simple": {
+          "accuracy": 0.3333333333333333,
+          "count": 6
+        },
+        "medium": {
+          "accuracy": 0.3333333333333333,
+          "count": 6
+        },
+        "complex": {
+          "accuracy": 0.5,
+          "count": 6
+        },
+        "extreme": {
+          "accuracy": 0.3333333333333333,
+          "count": 6
+        }
+      },
+      "detailed_results": [
+        {
+          "sample_id": 0,
+          "true_wedges": 1,
+          "predicted_wedges": 1,
+          "complexity": "simple",
+          "correct": true,
+          "time": 0.00471806526184082
+        },
+        {
+          "sample_id": 4,
+          "true_wedges": 2,
+          "predicted_wedges": 2,
+          "complexity": "simple",
+          "correct": true,
+          "time": 0.0038270950317382812
+        },
+        {
+          "sample_id": 8,
+          "true_wedges": 3,
+          "predicted_wedges": 2,
+          "complexity": "simple",
+          "correct": false,
+          "time": 0.0037920475006103516
+        },
+        {
+          "sample_id": 12,
+          "true_wedges": 4,
+          "predicted_wedges": 2,
+          "complexity": "simple",
+          "correct": false,
+          "time": 0.004030942916870117
+        },
+        {
+          "sample_id": 16,
+          "true_wedges": 5,
+          "predicted_wedges": 3,
+          "complexity": "simple",
+          "correct": false,
+          "time": 0.00459599494934082
+        },
+        {
+          "sample_id": 20,
+          "true_wedges": 6,
+          "predicted_wedges": 2,
+          "complexity": "simple",
+          "correct": false,
+          "time": 0.004322052001953125
+        },
+        {
+          "sample_id": 24,
+          "true_wedges": 1,
+          "predicted_wedges": 2,
+          "complexity": "medium",
+          "correct": false,
+          "time": 0.004024028778076172
+        },
+        {
+          "sample_id": 28,
+          "true_wedges": 2,
+          "predicted_wedges": 2,
+          "complexity": "medium",
+          "correct": true,
+          "time": 0.00438380241394043
+        },
+        {
+          "sample_id": 32,
+          "true_wedges": 3,
+          "predicted_wedges": 2,
+          "complexity": "medium",
+          "correct": false,
+          "time": 0.003818988800048828
+        },
+        {
+          "sample_id": 36,
+          "true_wedges": 4,
+          "predicted_wedges": 3,
+          "complexity": "medium",
+          "correct": false,
+          "time": 0.004045963287353516
+        },
+        {
+          "sample_id": 40,
+          "true_wedges": 5,
+          "predicted_wedges": 3,
+          "complexity": "medium",
+          "correct": false,
+          "time": 0.003975868225097656
+        },
+        {
+          "sample_id": 44,
+          "true_wedges": 6,
+          "predicted_wedges": 6,
+          "complexity": "medium",
+          "correct": true,
+          "time": 0.004163026809692383
+        },
+        {
+          "sample_id": 48,
+          "true_wedges": 1,
+          "predicted_wedges": 2,
+          "complexity": "complex",
+          "correct": false,
+          "time": 0.0038611888885498047
+        },
+        {
+          "sample_id": 52,
+          "true_wedges": 2,
+          "predicted_wedges": 3,
+          "complexity": "complex",
+          "correct": false,
+          "time": 0.0038459300994873047
+        },
+        {
+          "sample_id": 56,
+          "true_wedges": 3,
+          "predicted_wedges": 3,
+          "complexity": "complex",
+          "correct": true,
+          "time": 0.0040819644927978516
+        },
+        {
+          "sample_id": 60,
+          "true_wedges": 4,
+          "predicted_wedges": 4,
+          "complexity": "complex",
+          "correct": true,
+          "time": 0.003993034362792969
+        },
+        {
+          "sample_id": 64,
+          "true_wedges": 5,
+          "predicted_wedges": 6,
+          "complexity": "complex",
+          "correct": false,
+          "time": 0.004012107849121094
+        },
+        {
+          "sample_id": 68,
+          "true_wedges": 6,
+          "predicted_wedges": 6,
+          "complexity": "complex",
+          "correct": true,
+          "time": 0.003977060317993164
+        },
+        {
+          "sample_id": 72,
+          "true_wedges": 1,
+          "predicted_wedges": 3,
+          "complexity": "extreme",
+          "correct": false,
+          "time": 0.003968000411987305
+        },
+        {
+          "sample_id": 76,
+          "true_wedges": 2,
+          "predicted_wedges": 2,
+          "complexity": "extreme",
+          "correct": true,
+          "time": 0.00379180908203125
+        },
+        {
+          "sample_id": 80,
+          "true_wedges": 3,
+          "predicted_wedges": 6,
+          "complexity": "extreme",
+          "correct": false,
+          "time": 0.003920793533325195
+        },
+        {
+          "sample_id": 84,
+          "true_wedges": 4,
+          "predicted_wedges": 5,
+          "complexity": "extreme",
+          "correct": false,
+          "time": 0.0038270950317382812
+        },
+        {
+          "sample_id": 88,
+          "true_wedges": 5,
+          "predicted_wedges": 6,
+          "complexity": "extreme",
+          "correct": false,
+          "time": 0.004038095474243164
+        },
+        {
+          "sample_id": 92,
+          "true_wedges": 6,
+          "predicted_wedges": 6,
+          "complexity": "extreme",
+          "correct": true,
+          "time": 0.003939151763916016
+        }
+      ]
+    },
+    "Quantum Enhanced": {
+      "accuracy": 0.375,
+      "total_time": 0.10058808326721191,
+      "avg_time_per_sample": 0.003771960735321045,
+      "throughput": 238.59685183824487,
+      "feature_usage": {
+        "cache_hits": 24,
+        "neural_predictions": 24,
+        "quantum_optimizations": 0,
+        "ensemble_predictions": 0,
+        "dynamic_selections": 0
+      },
+      "by_complexity": {
+        "simple": {
+          "accuracy": 0.3333333333333333,
+          "count": 6
+        },
+        "medium": {
+          "accuracy": 0.3333333333333333,
+          "count": 6
+        },
+        "complex": {
+          "accuracy": 0.5,
+          "count": 6
+        },
+        "extreme": {
+          "accuracy": 0.3333333333333333,
+          "count": 6
+        }
+      },
+      "detailed_results": [
+        {
+          "sample_id": 0,
+          "true_wedges": 1,
+          "predicted_wedges": 1,
+          "complexity": "simple",
+          "correct": true,
+          "time": 0.0036401748657226562
+        },
+        {
+          "sample_id": 4,
+          "true_wedges": 2,
+          "predicted_wedges": 2,
+          "complexity": "simple",
+          "correct": true,
+          "time": 0.0043828487396240234
+        },
+        {
+          "sample_id": 8,
+          "true_wedges": 3,
+          "predicted_wedges": 2,
+          "complexity": "simple",
+          "correct": false,
+          "time": 0.004049062728881836
+        },
+        {
+          "sample_id": 12,
+          "true_wedges": 4,
+          "predicted_wedges": 2,
+          "complexity": "simple",
+          "correct": false,
+          "time": 0.004122734069824219
+        },
+        {
+          "sample_id": 16,
+          "true_wedges": 5,
+          "predicted_wedges": 3,
+          "complexity": "simple",
+          "correct": false,
+          "time": 0.003651857376098633
+        },
+        {
+          "sample_id": 20,
+          "true_wedges": 6,
+          "predicted_wedges": 2,
+          "complexity": "simple",
+          "correct": false,
+          "time": 0.0035011768341064453
+        },
+        {
+          "sample_id": 24,
+          "true_wedges": 1,
+          "predicted_wedges": 2,
+          "complexity": "medium",
+          "correct": false,
+          "time": 0.004323005676269531
+        },
+        {
+          "sample_id": 28,
+          "true_wedges": 2,
+          "predicted_wedges": 2,
+          "complexity": "medium",
+          "correct": true,
+          "time": 0.004031181335449219
+        },
+        {
+          "sample_id": 32,
+          "true_wedges": 3,
+          "predicted_wedges": 2,
+          "complexity": "medium",
+          "correct": false,
+          "time": 0.003492116928100586
+        },
+        {
+          "sample_id": 36,
+          "true_wedges": 4,
+          "predicted_wedges": 3,
+          "complexity": "medium",
+          "correct": false,
+          "time": 0.0034770965576171875
+        },
+        {
+          "sample_id": 40,
+          "true_wedges": 5,
+          "predicted_wedges": 3,
+          "complexity": "medium",
+          "correct": false,
+          "time": 0.003676891326904297
+        },
+        {
+          "sample_id": 44,
+          "true_wedges": 6,
+          "predicted_wedges": 6,
+          "complexity": "medium",
+          "correct": true,
+          "time": 0.0035991668701171875
+        },
+        {
+          "sample_id": 48,
+          "true_wedges": 1,
+          "predicted_wedges": 2,
+          "complexity": "complex",
+          "correct": false,
+          "time": 0.003445863723754883
+        },
+        {
+          "sample_id": 52,
+          "true_wedges": 2,
+          "predicted_wedges": 3,
+          "complexity": "complex",
+          "correct": false,
+          "time": 0.003448963165283203
+        },
+        {
+          "sample_id": 56,
+          "true_wedges": 3,
+          "predicted_wedges": 3,
+          "complexity": "complex",
+          "correct": true,
+          "time": 0.0037450790405273438
+        },
+        {
+          "sample_id": 60,
+          "true_wedges": 4,
+          "predicted_wedges": 4,
+          "complexity": "complex",
+          "correct": true,
+          "time": 0.0036199092864990234
+        },
+        {
+          "sample_id": 64,
+          "true_wedges": 5,
+          "predicted_wedges": 6,
+          "complexity": "complex",
+          "correct": false,
+          "time": 0.0036079883575439453
+        },
+        {
+          "sample_id": 68,
+          "true_wedges": 6,
+          "predicted_wedges": 6,
+          "complexity": "complex",
+          "correct": true,
+          "time": 0.004498958587646484
+        },
+        {
+          "sample_id": 72,
+          "true_wedges": 1,
+          "predicted_wedges": 3,
+          "complexity": "extreme",
+          "correct": false,
+          "time": 0.004383087158203125
+        },
+        {
+          "sample_id": 76,
+          "true_wedges": 2,
+          "predicted_wedges": 2,
+          "complexity": "extreme",
+          "correct": true,
+          "time": 0.003500699996948242
+        },
+        {
+          "sample_id": 80,
+          "true_wedges": 3,
+          "predicted_wedges": 6,
+          "complexity": "extreme",
+          "correct": false,
+          "time": 0.0036280155181884766
+        },
+        {
+          "sample_id": 84,
+          "true_wedges": 4,
+          "predicted_wedges": 5,
+          "complexity": "extreme",
+          "correct": false,
+          "time": 0.0035190582275390625
+        },
+        {
+          "sample_id": 88,
+          "true_wedges": 5,
+          "predicted_wedges": 6,
+          "complexity": "extreme",
+          "correct": false,
+          "time": 0.0036537647247314453
+        },
+        {
+          "sample_id": 92,
+          "true_wedges": 6,
+          "predicted_wedges": 6,
+          "complexity": "extreme",
+          "correct": true,
+          "time": 0.0035283565521240234
+        }
+      ]
+    },
+    "ULTIMATE (All Features)": {
+      "accuracy": 0.375,
+      "total_time": 0.12434911727905273,
+      "avg_time_per_sample": 0.0047744810581207275,
+      "throughput": 193.004988898646,
+      "feature_usage": {
+        "cache_hits": 24,
+        "neural_predictions": 24,
+        "quantum_optimizations": 0,
+        "ensemble_predictions": 24,
+        "dynamic_selections": 24
+      },
+      "by_complexity": {
+        "simple": {
+          "accuracy": 0.3333333333333333,
+          "count": 6
+        },
+        "medium": {
+          "accuracy": 0.3333333333333333,
+          "count": 6
+        },
+        "complex": {
+          "accuracy": 0.5,
+          "count": 6
+        },
+        "extreme": {
+          "accuracy": 0.3333333333333333,
+          "count": 6
+        }
+      },
+      "detailed_results": [
+        {
+          "sample_id": 0,
+          "true_wedges": 1,
+          "predicted_wedges": 1,
+          "complexity": "simple",
+          "correct": true,
+          "time": 0.0046939849853515625
+        },
+        {
+          "sample_id": 4,
+          "true_wedges": 2,
+          "predicted_wedges": 2,
+          "complexity": "simple",
+          "correct": true,
+          "time": 0.0044820308685302734
+        },
+        {
+          "sample_id": 8,
+          "true_wedges": 3,
+          "predicted_wedges": 2,
+          "complexity": "simple",
+          "correct": false,
+          "time": 0.004487752914428711
+        },
+        {
+          "sample_id": 12,
+          "true_wedges": 4,
+          "predicted_wedges": 2,
+          "complexity": "simple",
+          "correct": false,
+          "time": 0.0052912235260009766
+        },
+        {
+          "sample_id": 16,
+          "true_wedges": 5,
+          "predicted_wedges": 3,
+          "complexity": "simple",
+          "correct": false,
+          "time": 0.00512385368347168
+        },
+        {
+          "sample_id": 20,
+          "true_wedges": 6,
+          "predicted_wedges": 2,
+          "complexity": "simple",
+          "correct": false,
+          "time": 0.005132198333740234
+        },
+        {
+          "sample_id": 24,
+          "true_wedges": 1,
+          "predicted_wedges": 2,
+          "complexity": "medium",
+          "correct": false,
+          "time": 0.0047838687896728516
+        },
+        {
+          "sample_id": 28,
+          "true_wedges": 2,
+          "predicted_wedges": 2,
+          "complexity": "medium",
+          "correct": true,
+          "time": 0.004864931106567383
+        },
+        {
+          "sample_id": 32,
+          "true_wedges": 3,
+          "predicted_wedges": 2,
+          "complexity": "medium",
+          "correct": false,
+          "time": 0.004486083984375
+        },
+        {
+          "sample_id": 36,
+          "true_wedges": 4,
+          "predicted_wedges": 3,
+          "complexity": "medium",
+          "correct": false,
+          "time": 0.004308938980102539
+        },
+        {
+          "sample_id": 40,
+          "true_wedges": 5,
+          "predicted_wedges": 3,
+          "complexity": "medium",
+          "correct": false,
+          "time": 0.0044651031494140625
+        },
+        {
+          "sample_id": 44,
+          "true_wedges": 6,
+          "predicted_wedges": 6,
+          "complexity": "medium",
+          "correct": true,
+          "time": 0.0047588348388671875
+        },
+        {
+          "sample_id": 48,
+          "true_wedges": 1,
+          "predicted_wedges": 2,
+          "complexity": "complex",
+          "correct": false,
+          "time": 0.004812955856323242
+        },
+        {
+          "sample_id": 52,
+          "true_wedges": 2,
+          "predicted_wedges": 3,
+          "complexity": "complex",
+          "correct": false,
+          "time": 0.004365682601928711
+        },
+        {
+          "sample_id": 56,
+          "true_wedges": 3,
+          "predicted_wedges": 3,
+          "complexity": "complex",
+          "correct": true,
+          "time": 0.004509925842285156
+        },
+        {
+          "sample_id": 60,
+          "true_wedges": 4,
+          "predicted_wedges": 4,
+          "complexity": "complex",
+          "correct": true,
+          "time": 0.005254983901977539
+        },
+        {
+          "sample_id": 64,
+          "true_wedges": 5,
+          "predicted_wedges": 6,
+          "complexity": "complex",
+          "correct": false,
+          "time": 0.005354166030883789
+        },
+        {
+          "sample_id": 68,
+          "true_wedges": 6,
+          "predicted_wedges": 6,
+          "complexity": "complex",
+          "correct": true,
+          "time": 0.004968881607055664
+        },
+        {
+          "sample_id": 72,
+          "true_wedges": 1,
+          "predicted_wedges": 3,
+          "complexity": "extreme",
+          "correct": false,
+          "time": 0.005082130432128906
+        },
+        {
+          "sample_id": 76,
+          "true_wedges": 2,
+          "predicted_wedges": 2,
+          "complexity": "extreme",
+          "correct": true,
+          "time": 0.0044040679931640625
+        },
+        {
+          "sample_id": 80,
+          "true_wedges": 3,
+          "predicted_wedges": 6,
+          "complexity": "extreme",
+          "correct": false,
+          "time": 0.0044438838958740234
+        },
+        {
+          "sample_id": 84,
+          "true_wedges": 4,
+          "predicted_wedges": 5,
+          "complexity": "extreme",
+          "correct": false,
+          "time": 0.005411863327026367
+        },
+        {
+          "sample_id": 88,
+          "true_wedges": 5,
+          "predicted_wedges": 6,
+          "complexity": "extreme",
+          "correct": false,
+          "time": 0.004630088806152344
+        },
+        {
+          "sample_id": 92,
+          "true_wedges": 6,
+          "predicted_wedges": 6,
+          "complexity": "extreme",
+          "correct": true,
+          "time": 0.004470109939575195
+        }
+      ]
+    }
+  },
+  "achievement_status": {
+    "accuracy_target": false,
+    "speed_target": false,
+    "overall_success": false
+  }
+}

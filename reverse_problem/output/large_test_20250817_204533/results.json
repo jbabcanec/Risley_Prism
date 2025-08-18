@@ -1,0 +1,87 @@
+{
+  "session_info": {
+    "timestamp": "20250817_204533",
+    "samples_tested": 1000,
+    "test_type": "large_scale",
+    "model_type": "SuperNeuralNetwork"
+  },
+  "performance": {
+    "overall_accuracy": 0.44,
+    "nn_accuracy": 0.44,
+    "correct_predictions": 440,
+    "total_tested": 1000,
+    "by_wedge_count": {
+      "1": {
+        "accuracy": 0.8023952095808383,
+        "nn_accuracy": 0.8023952095808383,
+        "correct": 134,
+        "total": 167
+      },
+      "2": {
+        "accuracy": 0.608433734939759,
+        "nn_accuracy": 0.608433734939759,
+        "correct": 101,
+        "total": 166
+      },
+      "3": {
+        "accuracy": 0.2710843373493976,
+        "nn_accuracy": 0.2710843373493976,
+        "correct": 45,
+        "total": 166
+      },
+      "4": {
+        "accuracy": 0.11976047904191617,
+        "nn_accuracy": 0.11976047904191617,
+        "correct": 20,
+        "total": 167
+      },
+      "5": {
+        "accuracy": 0.18072289156626506,
+        "nn_accuracy": 0.18072289156626506,
+        "correct": 30,
+        "total": 166
+      },
+      "6": {
+        "accuracy": 0.6547619047619048,
+        "nn_accuracy": 0.6547619047619048,
+        "correct": 110,
+        "total": 168
+      }
+    },
+    "by_complexity": {
+      "Simple": {
+        "accuracy": 0.2777777777777778,
+        "correct": 70,
+        "total": 252
+      },
+      "Moderate": {
+        "accuracy": 0.58984375,
+        "correct": 151,
+        "total": 256
+      },
+      "Complex": {
+        "accuracy": 0.4796747967479675,
+        "correct": 118,
+        "total": 246
+      },
+      "Extreme": {
+        "accuracy": 0.4105691056910569,
+        "correct": 101,
+        "total": 246
+      }
+    }
+  },
+  "timing": {
+    "total_time": 7.578995943069458,
+    "throughput": 131.94359879746878,
+    "nn_avg_ms": 3.7272255420684814,
+    "nn_std_ms": 3.3702578229245455,
+    "ga_avg_ms": 3.848867893218994,
+    "ga_std_ms": 0.22150791335540718
+  },
+  "cache": {
+    "hits": 0,
+    "rate": 0.0,
+    "estimated_time_saved": 0
+  }
+}

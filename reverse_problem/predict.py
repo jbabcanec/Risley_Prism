@@ -1,178 +1,136 @@
 #!/usr/bin/env python3
 """
-PREDICT - Make predictions using hybrid neural network + genetic algorithm
-
-Usage: python3 predict.py [test_fraction]
-Input: Latest training session from input/ + trained weights from weights/
-Output: output/predictions_TIMESTAMP/ with results and speed comparison
+PREDICT - Supercharged System Testing
 """
 
-import sys
-import os
-import json
-import glob
 import numpy as np
-from datetime import datetime
-import multiprocessing as mp
-from concurrent.futures import ProcessPoolExecutor, as_completed
+import json
 import time
+import os
+from datetime import datetime
 from solver import StateOfTheArtSolver
-from core.neural_network import NeuralPredictor
 
-def load_latest_training():
-    """Load latest training session."""
-    training_dirs = glob.glob("input/training_*")
-    if not training_dirs:
-        print("❌ No training data found. Run train.py first.")
-        return None, None
+def predict(num_samples=100, verbose=True):
+    """Test the supercharged prediction system."""
     
-    latest_dir = max(training_dirs, key=os.path.getmtime)
+    print("PREDICTION TESTING")
+    print("=" * 60)
     
-    # Load metadata
-    with open(f"{latest_dir}/metadata.json", 'r') as f:
-        metadata = json.load(f)
+    # Initialize solver
+    print("Initializing system...")
+    solver = StateOfTheArtSolver(use_super_nn=True)
     
-    # Load all samples
-    sample_files = glob.glob(f"{latest_dir}/sample_*.json")
-    samples = []
-    for file in sorted(sample_files):
-        with open(file, 'r') as f:
-            samples.append(json.load(f))
+    if solver.neural_predictor is None:
+        print("ERROR: No trained model found")
+        print("Run train.py first to train the neural network")
+        return None
     
-    return samples, metadata, latest_dir
-
-def process_batch(batch_data):
-    """Process a batch of samples using hybrid NN+GA approach."""
-    batch_samples, batch_start, use_hybrid = batch_data
-    solver = StateOfTheArtSolver()
+    print("  Neural network: LOADED")
+    print("  Turbo optimizer: ACTIVE")
+    print()
+    
+    # Generate test samples
+    print(f"Generating {num_samples} test samples...")
+    test_samples = []
+    samples_per_wedge = num_samples // 6
+    
+    for wedge_count in range(1, 7):
+        for i in range(samples_per_wedge):
+            params = solver.generate_parameters(wedge_count)
+            pattern = solver.forward_simulate(params)
+            
+            # Add noise to some samples
+            if np.random.random() < 0.2:  # 20% with noise
+                noise = np.random.normal(0, 0.05, pattern.shape)
+                pattern += noise
+            
+            test_samples.append({
+                'id': len(test_samples),
+                'true_wedges': wedge_count,
+                'pattern': pattern,
+                'parameters': params
+            })
+    
+    # Pad if needed
+    while len(test_samples) < num_samples:
+        wedge_count = np.random.randint(1, 7)
+        params = solver.generate_parameters(wedge_count)
+        pattern = solver.forward_simulate(params)
+        test_samples.append({
+            'id': len(test_samples),
+            'true_wedges': wedge_count,
+            'pattern': pattern,
+            'parameters': params
+        })
+    
+    print(f"  Generated {len(test_samples)} samples")
+    print()
+    
+    # Run predictions
+    print("Running predictions...")
     results = []
+    correct_predictions = 0
     
-    # Try to load neural network predictor
-    predictor = None
-    if use_hybrid:
-        try:
-            predictor = NeuralPredictor()
-            if predictor.load():
-                pass  # Successfully loaded
-            else:
-                predictor = None
-        except:
-            predictor = None
+    # Timing
+    nn_times = []
+    ga_times = []
+    total_start = time.time()
     
-    for i, sample in enumerate(batch_samples):
-        pattern = np.array(sample['pattern'])
+    for i, sample in enumerate(test_samples):
+        if verbose and (i + 1) % 20 == 0:
+            print(f"  Progress: {i+1}/{len(test_samples)}")
         
-        nn_time = 0
-        ga_time = 0
-        nn_prediction = None
+        pattern = sample['pattern']
+        true_wedges = sample['true_wedges']
         
-        if predictor is not None:
-            # Neural network prediction (fast initial guess)
-            nn_start = time.time()
-            try:
-                nn_prediction = predictor.predict(pattern)
-                nn_time = time.time() - nn_start
-            except:
-                nn_prediction = None
-                nn_time = 0
+        # Get neural network prediction
+        nn_start = time.time()
+        nn_prediction = solver.get_neural_initial_guess(pattern)
+        nn_time = time.time() - nn_start
+        nn_times.append(nn_time)
         
-        # Genetic algorithm refinement
+        # Run full optimization
         ga_start = time.time()
-        recovery = solver.test_recovery(pattern, sample['wedge_count'], verbose=False)
+        predicted_wedges, cost, params, info = solver.intelligent_wedge_selection(
+            pattern, verbose=False
+        )
         ga_time = time.time() - ga_start
+        ga_times.append(ga_time)
         
+        # Check accuracy
+        is_correct = predicted_wedges == true_wedges
+        if is_correct:
+            correct_predictions += 1
+        
+        # Store result
         result = {
             'sample_id': sample['id'],
-            'true_wedges': sample['wedge_count'],
-            'predicted_wedges': recovery['predicted_wedge_count'],
-            'cost': recovery['final_cost'],
-            'correct': recovery['predicted_wedge_count'] == sample['wedge_count'],
-            'timing': {
-                'nn_time': nn_time,
-                'ga_time': ga_time,
-                'total_time': nn_time + ga_time,
-                'speedup': ga_time / (nn_time + ga_time) if (nn_time + ga_time) > 0 else 1.0
-            },
-            'nn_prediction': nn_prediction
+            'true_wedges': true_wedges,
+            'predicted_wedges': predicted_wedges,
+            'cost': cost,
+            'correct': is_correct,
+            'nn_prediction': nn_prediction['wedgenum'] if nn_prediction else None,
+            'from_cache': info.get('from_cache', False) if info else False
         }
         results.append(result)
     
-    return results
-
-def main():
-    """Run predictions on training data."""
-    # Get test fraction
-    test_fraction = float(sys.argv[1]) if len(sys.argv) > 1 else 0.3
+    total_time = time.time() - total_start
     
-    # Check if neural network weights exist
-    weights_exist = os.path.exists("weights/pattern_predictor.pth")
-    use_hybrid = weights_exist
+    # Calculate metrics
+    accuracy = correct_predictions / len(test_samples)
     
-    if use_hybrid:
-        print(f"🔮 PREDICTING: Testing {test_fraction:.0%} with hybrid NN+GA approach")
-        print(f"🧠 Using trained neural network for initial predictions")
-    else:
-        print(f"🔮 PREDICTING: Testing {test_fraction:.0%} with GA-only approach")
-        print(f"⚠️  No trained weights found. Run train.py first for hybrid approach.")
+    # NN accuracy
+    nn_correct = sum(1 for r in results 
+                    if r['nn_prediction'] and r['nn_prediction'] == r['true_wedges'])
+    nn_accuracy = nn_correct / len(test_samples)
     
-    # Load training data
-    samples, metadata, training_dir = load_latest_training()
-    if not samples:
-        return
+    # Cache performance
+    cache_hits = sum(1 for r in results if r['from_cache'])
+    cache_rate = cache_hits / len(results)
     
-    print(f"📊 Loaded {len(samples)} samples from {os.path.basename(training_dir)}")
-    
-    # Select test samples
-    test_count = max(10, int(len(samples) * test_fraction))
-    selected_indices = np.random.choice(len(samples), test_count, replace=False)
-    test_samples = [samples[i] for i in selected_indices]
-    
-    # Setup parallel processing
-    num_cores = mp.cpu_count()
-    batch_size = max(1, len(test_samples) // (num_cores * 2))
-    batches = []
-    for i in range(0, len(test_samples), batch_size):
-        batch = test_samples[i:i+batch_size]
-        batches.append((batch, i, use_hybrid))
-    
-    print(f"🧠 Testing {len(test_samples)} samples with {num_cores} cores...")
-    
-    # Process in parallel
-    start_time = time.time()
-    all_results = []
-    
-    with ProcessPoolExecutor(max_workers=num_cores) as executor:
-        future_to_batch = {executor.submit(process_batch, batch): i for i, batch in enumerate(batches)}
-        
-        completed = 0
-        for future in as_completed(future_to_batch):
-            batch_results = future.result()
-            all_results.extend(batch_results)
-            completed += 1
-            
-            progress = (completed / len(batches)) * 100
-            elapsed = time.time() - start_time
-            rate = len(all_results) / elapsed if elapsed > 0 else 0
-            print(f"\r⚡ Progress: {progress:.1f}% | {rate:.1f} samples/sec", end="", flush=True)
-    
-    print()  # New line
-    
-    # Calculate results
-    correct = sum(1 for r in all_results if r['correct'])
-    accuracy = correct / len(all_results)
-    
-    # Timing analysis
-    if use_hybrid and all_results:
-        total_nn_time = sum(r['timing']['nn_time'] for r in all_results)
-        total_ga_time = sum(r['timing']['ga_time'] for r in all_results)
-        total_time = sum(r['timing']['total_time'] for r in all_results)
-        avg_speedup = np.mean([r['timing']['speedup'] for r in all_results])
-    else:
-        total_nn_time = total_ga_time = total_time = avg_speedup = 0
-    
-    # Group by wedge count
+    # Accuracy by wedge count
     by_wedge = {}
-    for result in all_results:
+    for result in results:
         w = result['true_wedges']
         if w not in by_wedge:
             by_wedge[w] = {'total': 0, 'correct': 0}
@@ -180,79 +138,88 @@ def main():
         if result['correct']:
             by_wedge[w]['correct'] += 1
     
-    # Create output directory
-    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    output_dir = f"output/predictions_{timestamp}"
-    os.makedirs(output_dir, exist_ok=True)
+    print()
+    print("RESULTS")
+    print("-" * 60)
+    print(f"Overall Accuracy: {accuracy:.1%} ({correct_predictions}/{len(test_samples)})")
+    print(f"NN Accuracy: {nn_accuracy:.1%}")
+    print(f"Cache Hit Rate: {cache_rate:.1%}")
+    print(f"Throughput: {len(test_samples)/total_time:.1f} samples/sec")
+    print()
+    
+    print("Accuracy by Wedge Count:")
+    for w in sorted(by_wedge.keys()):
+        stats = by_wedge[w]
+        acc = stats['correct'] / stats['total'] if stats['total'] > 0 else 0
+        print(f"  {w} wedges: {acc:6.1%} ({stats['correct']:2}/{stats['total']:2})")
+    
+    print()
+    print("Timing Analysis:")
+    print(f"  Neural Network: {np.mean(nn_times)*1000:.1f}ms avg")
+    print(f"  Optimization: {np.mean(ga_times)*1000:.1f}ms avg") 
+    print(f"  Total: {total_time:.1f}s")
     
     # Save results
-    results_data = {
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    output_dir = f'output/predictions_{timestamp}'
+    os.makedirs(output_dir, exist_ok=True)
+    
+    # Summary
+    summary = {
         'session_info': {
             'timestamp': timestamp,
-            'source_training': os.path.basename(training_dir),
-            'test_fraction': test_fraction,
-            'samples_tested': len(all_results)
+            'samples_tested': len(test_samples),
+            'model_type': 'SuperNeuralNetwork'
         },
         'performance': {
             'overall_accuracy': accuracy,
-            'total_tested': len(all_results),
-            'correct_predictions': correct,
-            'by_wedge_count': {str(k): {
-                'total': v['total'],
-                'correct': v['correct'],
-                'accuracy': v['correct'] / v['total']
-            } for k, v in by_wedge.items()}
+            'nn_accuracy': nn_accuracy,
+            'correct_predictions': correct_predictions,
+            'total_tested': len(test_samples),
+            'by_wedge_count': {
+                str(w): {
+                    'accuracy': stats['correct']/stats['total'] if stats['total'] > 0 else 0,
+                    'correct': stats['correct'],
+                    'total': stats['total']
+                }
+                for w, stats in by_wedge.items()
+            }
         },
         'timing': {
-            'use_hybrid': use_hybrid,
-            'total_nn_time': total_nn_time,
-            'total_ga_time': total_ga_time,
             'total_time': total_time,
-            'average_speedup': avg_speedup,
-            'nn_percentage': total_nn_time / total_time * 100 if total_time > 0 else 0,
-            'ga_percentage': total_ga_time / total_time * 100 if total_time > 0 else 100
+            'throughput': len(test_samples) / total_time,
+            'nn_avg_ms': np.mean(nn_times) * 1000,
+            'ga_avg_ms': np.mean(ga_times) * 1000
         },
-        'detailed_results': all_results
+        'cache': {
+            'hits': cache_hits,
+            'rate': cache_rate
+        }
     }
     
-    # Convert numpy types to python types for JSON serialization
-    def convert_numpy_types(obj):
-        if isinstance(obj, np.integer):
-            return int(obj)
-        elif isinstance(obj, np.floating):
-            return float(obj)
-        elif isinstance(obj, np.bool_):
-            return bool(obj)
-        elif isinstance(obj, np.ndarray):
-            return obj.tolist()
-        elif isinstance(obj, dict):
-            return {k: convert_numpy_types(v) for k, v in obj.items()}
-        elif isinstance(obj, list):
-            return [convert_numpy_types(item) for item in obj]
-        return obj
+    with open(f'{output_dir}/results.json', 'w') as f:
+        json.dump(summary, f, indent=2)
     
-    with open(f"{output_dir}/results.json", 'w') as f:
-        json.dump(convert_numpy_types(results_data), f, indent=2)
+    print(f"Results saved: {output_dir}")
+    print()
     
-    # Print summary
-    elapsed = time.time() - start_time
-    print(f"⚡ Completed in {elapsed:.1f}s ({len(all_results)/elapsed:.1f} samples/sec)")
-    print(f"🎯 Overall Accuracy: {accuracy:.1%} ({correct}/{len(all_results)})")
-    print(f"📁 Results saved: {output_dir}")
+    # Performance assessment
+    print("PERFORMANCE ASSESSMENT")
+    print("-" * 60)
     
-    # Show timing results for hybrid approach
-    if use_hybrid and total_time > 0:
-        print(f"\n⏱️ Hybrid Performance:")
-        print(f"   Neural Network: {total_nn_time:.2f}s ({total_nn_time/total_time*100:.1f}%)")
-        print(f"   Genetic Algorithm: {total_ga_time:.2f}s ({total_ga_time/total_time*100:.1f}%)")
-        print(f"   Average speedup: {avg_speedup:.1f}x")
+    if accuracy >= 0.8:
+        print("Status: EXCELLENT")
+    elif accuracy >= 0.6:
+        print("Status: GOOD")
+    elif accuracy >= 0.4:
+        print("Status: IMPROVING")
+    else:
+        print("Status: NEEDS OPTIMIZATION")
     
-    # Show per-wedge results
-    print(f"\n📊 Accuracy by wedge count:")
-    for w in sorted(by_wedge.keys()):
-        stats = by_wedge[w]
-        acc = stats['correct'] / stats['total']
-        print(f"   {w} wedges: {acc:.1%} ({stats['correct']}/{stats['total']})")
+    improvement = ((accuracy - 0.3) / 0.3) * 100 if accuracy > 0.3 else 0
+    print(f"Improvement over baseline: {improvement:+.1f}%")
+    
+    return summary
 
 if __name__ == "__main__":
-    main()
+    predict()

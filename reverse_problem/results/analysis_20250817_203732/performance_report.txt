@@ -1,0 +1,46 @@
+🎯 COMPREHENSIVE HYBRID NN+GA SYSTEM ANALYSIS
+================================================================================
+Analysis Date: 2025-08-17 20:37:33
+Session: 20250817_203723
+Source Training: Unknown
+
+📚 TRAINING DATA ANALYSIS
+--------------------------------------------------
+Training Samples: 3,000
+Wedge Distribution:
+  1 wedges:  500 samples ( 16.7%)
+  2 wedges:  500 samples ( 16.7%)
+  3 wedges:  500 samples ( 16.7%)
+  4 wedges:  500 samples ( 16.7%)
+  5 wedges:  500 samples ( 16.7%)
+  6 wedges:  500 samples ( 16.7%)
+✅ WELL BALANCED: Ratio 1.0:1
+
+🧠 NEURAL NETWORK ANALYSIS
+--------------------------------------------------
+Training Status: ✅ TRAINED
+Epochs Trained: 31
+Final Training Loss: 0.000000
+Final Validation Loss: 0.000000
+Loss Quality: 🟢 EXCELLENT (< 0.05)
+
+⚡ HYBRID SYSTEM PERFORMANCE
+--------------------------------------------------
+Hybrid Mode: ❌ DISABLED
+Recommendation: Train neural network with train.py
+
+🎯 DETAILED ACCURACY ANALYSIS
+--------------------------------------------------
+Overall Accuracy: 60.0% (60/100)
+
+Performance by Wedge Count:
+
+🔧 OPTIMIZATION INSIGHTS & RECOMMENDATIONS
+--------------------------------------------------
+🔍 RECOMMENDATION: Medium training set
+   → Current: 3000 samples, try 5000+ for excellent NN performance
+
+📊 PERFORMANCE TARGETS:
+   Current Overall Accuracy: 60.0%
+   → Target: 80% (Fine-tune parameters)
+

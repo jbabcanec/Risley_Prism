@@ -1,0 +1,12 @@
+{
+  "total_selections": 24,
+  "cache_hit_rate": 0.0,
+  "average_performance_improvement": -0.25,
+  "most_used_architectures": {
+    "transformer+turbo": 23,
+    "standard_nn+turbo": 1
+  },
+  "unique_patterns_analyzed": 24,
+  "learning_enabled": true,
+  "historical_data_points": 144
+}
