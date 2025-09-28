@@ -1,0 +1,19 @@
+RISLEY PRISM WORKPIECE PROJECTION ANALYSIS
+==================================================
+
+Total scan positions: 60
+Time range: 0.0 to 5.9 seconds
+
+SCAN AREA STATISTICS:
+  X range: 5.693 units
+  Y range: 5.574 units
+  Total scan area: 31.731 square units
+  Center position: (12.752, 6.872)
+  Effective diameter (95%): 34.016 units
+  Maximum displacement: 17.033 units
+  Mean displacement: 14.613 units
+  Standard deviation: 1.991 units
+
+POSITION EXTREMES:
+  Min X: 9.856, Max X: 15.548
+  Min Y: 3.552, Max Y: 9.126
