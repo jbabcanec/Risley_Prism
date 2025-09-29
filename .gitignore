@@ -1,0 +1,87 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific
+*/_old/
+**/_old/
+*.pkl
+*.pickle
+*.h5
+*.hdf5
+*.npy
+*.npz
+
+# Training data and models
+*/weights/
+*/trained_model*/
+*/datasets/
+*/training_cache*.pkl
+*/synthetic_dataset*.pkl
+*/fast_dataset*.pkl
+*/checkpoint*/
+*/logs/
+*/tensorboard/
+
+# Output files (keep examples)
+output/simulation*/
+output/temp*/
+!output/examples/
+
+# Reverse problem specific
+reverse_problem/_old/
+reverse_problem/input/*.pkl
+reverse_problem/output/*.pkl
+reverse_problem/weights/*.pth
+reverse_problem/results/*.png
+reverse_problem_v2/*.pkl
+reverse_problem_v2/datasets/
+reverse_problem_v2/trained_*/
+reverse_problem_v2/output/
+
+# Documentation build
+docs/_build/
+docs/_static/
+docs/_templates/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Cache
+.cache/
+.pytest_cache/
