@@ -1,403 +1,269 @@
 #!/usr/bin/env python3
 """
-Neural Network for Initial Parameter Estimation
-Uses physical features extracted from patterns to estimate Risley parameters.
+PyTorch Neural Network for the inverse Risley prism problem.
+
+Works with physical prism parameters (PrismParameters):
+  - n_prisms: 1-3 physical wedge prisms
+  - rotation_speeds: one per prism (both faces rotate in lockstep)
+  - wedge_angles_x, wedge_angles_y: exit-face tilt per prism
 """
 
+import torch
+import torch.nn as nn
 import numpy as np
-import pickle
 import os
 from typing import Dict, List, Tuple, Optional
-from dataclasses import dataclass
 
 
-class NeuralNetwork:
-    """Simple feedforward neural network for pattern-to-parameter mapping."""
+class RisleyNet(nn.Module):
+    def __init__(self, input_dim: int = 600, prism_counts: List[int] = None):
+        super().__init__()
+        if prism_counts is None:
+            prism_counts = [2, 3]
+        self.prism_counts = prism_counts
 
-    def __init__(self, input_dim: int, hidden_dims: List[int], output_dim: int):
-        """
-        Initialize network architecture.
+        self.backbone = nn.Sequential(
+            nn.Linear(input_dim, 768), nn.BatchNorm1d(768), nn.ReLU(), nn.Dropout(0.15),
+            nn.Linear(768, 512), nn.BatchNorm1d(512), nn.ReLU(), nn.Dropout(0.15),
+            nn.Linear(512, 256), nn.BatchNorm1d(256), nn.ReLU(), nn.Dropout(0.1),
+            nn.Linear(256, 128), nn.BatchNorm1d(128), nn.ReLU(),
+        )
+        self.classifier = nn.Sequential(
+            nn.Linear(128, 64), nn.ReLU(), nn.Linear(64, len(prism_counts)))
 
-        Args:
-            input_dim: Number of input features
-            hidden_dims: List of hidden layer sizes
-            output_dim: Number of output parameters
-        """
-        self.input_dim = input_dim
-        self.hidden_dims = hidden_dims
-        self.output_dim = output_dim
+        # Per-prism-count regression heads: output 3*n_prisms values
+        self.reg_heads = nn.ModuleDict()
+        for np_ in prism_counts:
+            self.reg_heads[str(np_)] = nn.Sequential(
+                nn.Linear(128, 256), nn.BatchNorm1d(256), nn.ReLU(), nn.Dropout(0.1),
+                nn.Linear(256, 128), nn.ReLU(), nn.Dropout(0.05),
+                nn.Linear(128, 3 * np_),  # speeds + angles_x + angles_y
+            )
 
-        # Initialize weights
-        self.weights = []
-        self.biases = []
-
-        dims = [input_dim] + hidden_dims + [output_dim]
-        for i in range(len(dims) - 1):
-            # Xavier initialization
-            w = np.random.randn(dims[i], dims[i+1]) * np.sqrt(2.0 / dims[i])
-            b = np.zeros((1, dims[i+1]))
-            self.weights.append(w)
-            self.biases.append(b)
-
-    def relu(self, x: np.ndarray) -> np.ndarray:
-        """ReLU activation function."""
-        return np.maximum(0, x)
-
-    def relu_derivative(self, x: np.ndarray) -> np.ndarray:
-        """Derivative of ReLU."""
-        return (x > 0).astype(float)
-
-    def sigmoid(self, x: np.ndarray) -> np.ndarray:
-        """Sigmoid activation for output layer."""
-        return 1 / (1 + np.exp(-np.clip(x, -500, 500)))
-
-    def forward(self, X: np.ndarray) -> Tuple[np.ndarray, List[np.ndarray]]:
-        """
-        Forward pass through the network.
-
-        Returns:
-            output: Network predictions
-            activations: List of activations at each layer (for backprop)
-        """
-        activations = [X]
-        current = X
-
-        # Hidden layers with ReLU
-        for i in range(len(self.weights) - 1):
-            z = current @ self.weights[i] + self.biases[i]
-            current = self.relu(z)
-            activations.append(current)
-
-        # Output layer (no activation for regression)
-        output = current @ self.weights[-1] + self.biases[-1]
-        activations.append(output)
-
-        return output, activations
-
-    def backward(self, X: np.ndarray, y: np.ndarray,
-                 learning_rate: float = 0.001) -> float:
-        """
-        Backward pass with gradient descent.
-
-        Returns:
-            loss: Mean squared error
-        """
-        batch_size = X.shape[0]
-
-        # Forward pass
-        predictions, activations = self.forward(X)
-
-        # Calculate loss
-        loss = np.mean((predictions - y) ** 2)
-
-        # Backward pass
-        delta = 2 * (predictions - y) / batch_size
-
-        for i in range(len(self.weights) - 1, -1, -1):
-            # Gradient for weights and biases
-            dW = activations[i].T @ delta
-            db = np.sum(delta, axis=0, keepdims=True)
-
-            # Update weights
-            self.weights[i] -= learning_rate * dW
-            self.biases[i] -= learning_rate * db
-
-            # Propagate error backward
-            if i > 0:
-                delta = delta @ self.weights[i].T
-                delta *= self.relu_derivative(activations[i])
-
-        return loss
-
-    def train(self, X_train: np.ndarray, y_train: np.ndarray,
-              X_val: Optional[np.ndarray] = None,
-              y_val: Optional[np.ndarray] = None,
-              epochs: int = 100, batch_size: int = 32,
-              learning_rate: float = 0.001, verbose: bool = True) -> Dict:
-        """
-        Train the neural network.
-
-        Returns:
-            history: Training history
-        """
-        history = {'train_loss': [], 'val_loss': []}
-        n_samples = X_train.shape[0]
-
-        for epoch in range(epochs):
-            # Shuffle training data
-            indices = np.random.permutation(n_samples)
-            X_shuffled = X_train[indices]
-            y_shuffled = y_train[indices]
-
-            # Mini-batch training
-            epoch_losses = []
-            for i in range(0, n_samples, batch_size):
-                batch_X = X_shuffled[i:i+batch_size]
-                batch_y = y_shuffled[i:i+batch_size]
-                loss = self.backward(batch_X, batch_y, learning_rate)
-                epoch_losses.append(loss)
-
-            train_loss = np.mean(epoch_losses)
-            history['train_loss'].append(train_loss)
-
-            # Validation
-            if X_val is not None and y_val is not None:
-                val_pred, _ = self.forward(X_val)
-                val_loss = np.mean((val_pred - y_val) ** 2)
-                history['val_loss'].append(val_loss)
-
-            # Progress
-            if verbose and (epoch + 1) % 10 == 0:
-                msg = f"Epoch {epoch+1}/{epochs} - Loss: {train_loss:.6f}"
-                if X_val is not None:
-                    msg += f" - Val Loss: {val_loss:.6f}"
-                print(msg)
-
-        return history
-
-    def predict(self, X: np.ndarray) -> np.ndarray:
-        """Make predictions."""
-        predictions, _ = self.forward(X)
-        return predictions
-
-    def save(self, filepath: str):
-        """Save network weights."""
-        model_data = {
-            'architecture': {
-                'input_dim': self.input_dim,
-                'hidden_dims': self.hidden_dims,
-                'output_dim': self.output_dim
-            },
-            'weights': self.weights,
-            'biases': self.biases
-        }
-        with open(filepath, 'wb') as f:
-            pickle.dump(model_data, f)
-
-    def load(self, filepath: str):
-        """Load network weights."""
-        with open(filepath, 'rb') as f:
-            model_data = pickle.load(f)
-
-        self.input_dim = model_data['architecture']['input_dim']
-        self.hidden_dims = model_data['architecture']['hidden_dims']
-        self.output_dim = model_data['architecture']['output_dim']
-        self.weights = model_data['weights']
-        self.biases = model_data['biases']
+    def forward(self, x):
+        feat = self.backbone(x)
+        logits = self.classifier(feat)
+        reg_outs = {np_: self.reg_heads[str(np_)](feat) for np_ in self.prism_counts}
+        return logits, reg_outs
 
 
-class RisleyNeuralPredictor:
-    """
-    Neural predictor specifically for Risley prism parameters.
-    Handles feature normalization and parameter denormalization.
-    """
+class PrismPredictor:
+    SPEED_SCALE = 3.5
+    ANGLE_SCALE = 16.0
+    N_POINTS = 200
 
     def __init__(self):
-        self.network = None
-        self.feature_scaler = None
-        self.param_scaler = None
-        self.feature_names = None
+        self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+        self.model: RisleyNet = None
+        self.input_mean: np.ndarray = None
+        self.input_std: np.ndarray = None
+        self.prism_counts: List[int] = None
+        self.pc_to_idx: Dict[int, int] = None
 
-    def prepare_features(self, features_list: List[Dict]) -> np.ndarray:
-        """Convert feature dictionaries to numpy array."""
-        if not features_list:
-            return np.array([])
+    @staticmethod
+    def _build_features(patterns: np.ndarray) -> np.ndarray:
+        N, T, _ = patterns.shape
+        raw = np.concatenate([patterns[:, :, 0], patterns[:, :, 1]], axis=1)
+        xc = patterns[:, :, 0] - patterns[:, :, 0].mean(axis=1, keepdims=True)
+        yc = patterns[:, :, 1] - patterns[:, :, 1].mean(axis=1, keepdims=True)
+        fft = np.concatenate([
+            np.abs(np.fft.rfft(xc, axis=1))[:, 1:],
+            np.abs(np.fft.rfft(yc, axis=1))[:, 1:],
+        ], axis=1)
+        return np.concatenate([raw, fft], axis=1).astype(np.float32)
 
-        # Get feature names from first dict
-        if self.feature_names is None:
-            self.feature_names = sorted(features_list[0].keys())
+    @classmethod
+    def _build_features_single(cls, pattern: np.ndarray) -> np.ndarray:
+        return cls._build_features(pattern[np.newaxis])[0]
 
-        # Convert to array
-        X = np.array([[f[name] for name in self.feature_names]
-                      for f in features_list])
+    def _expand(self, np_: int, compact: np.ndarray) -> np.ndarray:
+        s  = compact[:np_]       * self.SPEED_SCALE
+        ax = compact[np_:2*np_]  * self.ANGLE_SCALE
+        ay = compact[2*np_:]     * self.ANGLE_SCALE
+        out = np.zeros(9, dtype=np.float32)
+        out[:np_], out[3:3+np_], out[6:6+np_] = s, ax, ay
+        return out
 
-        return X
+    # ── training ──────────────────────────────────────────────────────
+    def train(self, patterns, prism_counts_arr, params_array, *,
+              prism_counts=None, epochs=200, batch_size=512,
+              lr=1e-3, val_split=0.12):
 
-    def prepare_parameters(self, params_list: List) -> np.ndarray:
-        """
-        Convert RisleyParameters to array format.
-        Format: [wedge_count, speeds..., phi_x..., phi_y...]
-        """
-        max_wedges = 6
-        y = []
+        if prism_counts is None:
+            prism_counts = sorted(set(prism_counts_arr.tolist()))
+        self.prism_counts = prism_counts
+        self.pc_to_idx = {pc: i for i, pc in enumerate(prism_counts)}
 
-        for params in params_list:
-            row = [params.wedge_count]
+        N = len(patterns)
+        X = self._build_features(patterns)
+        self.input_mean = X.mean(axis=0)
+        self.input_std = X.std(axis=0)
+        self.input_std[self.input_std < 1e-8] = 1.0
+        X = (X - self.input_mean) / self.input_std
 
-            # Pad speeds
-            speeds = params.rotation_speeds + [0] * (max_wedges - len(params.rotation_speeds))
-            row.extend(speeds)
+        Y_class = np.array([self.pc_to_idx[pc] for pc in prism_counts_arr], dtype=np.int64)
 
-            # Pad angles
-            phi_x = params.phi_x + [0] * (max_wedges - len(params.phi_x))
-            phi_y = params.phi_y + [0] * (max_wedges - len(params.phi_y))
-            row.extend(phi_x)
-            row.extend(phi_y)
+        n_val = int(N * val_split)
+        idx = np.random.permutation(N)
+        vi, ti = idx[:n_val], idx[n_val:]
+        dev = self.device
 
-            y.append(row)
+        X_tr  = torch.tensor(X[ti],       dtype=torch.float32).to(dev)
+        X_va  = torch.tensor(X[vi],       dtype=torch.float32).to(dev)
+        Yc_tr = torch.tensor(Y_class[ti], dtype=torch.long).to(dev)
+        Yc_va = torch.tensor(Y_class[vi], dtype=torch.long).to(dev)
+        Pc_tr = torch.tensor(prism_counts_arr[ti], dtype=torch.long).to(dev)
+        Pc_va = torch.tensor(prism_counts_arr[vi], dtype=torch.long).to(dev)
+        Yp_tr = torch.tensor(params_array[ti], dtype=torch.float32).to(dev)
+        Yp_va = torch.tensor(params_array[vi], dtype=torch.float32).to(dev)
 
-        return np.array(y)
-
-    def normalize_features(self, X: np.ndarray, fit: bool = False) -> np.ndarray:
-        """Normalize features to [0, 1] range."""
-        if fit or self.feature_scaler is None:
-            self.feature_scaler = {
-                'min': np.min(X, axis=0),
-                'max': np.max(X, axis=0)
-            }
-            # Avoid division by zero
-            range_vals = self.feature_scaler['max'] - self.feature_scaler['min']
-            range_vals[range_vals == 0] = 1
-            self.feature_scaler['range'] = range_vals
-
-        X_norm = (X - self.feature_scaler['min']) / self.feature_scaler['range']
-        return X_norm
-
-    def normalize_parameters(self, y: np.ndarray, fit: bool = False) -> np.ndarray:
-        """Normalize parameters for training."""
-        if fit or self.param_scaler is None:
-            # Different ranges for different parameters
-            self.param_scaler = {
-                'wedge_range': [1, 6],
-                'speed_range': [-10, 10],
-                'angle_range': [-45, 45]
-            }
-
-        y_norm = np.zeros_like(y)
-
-        # Normalize wedge count (index 0)
-        y_norm[:, 0] = (y[:, 0] - self.param_scaler['wedge_range'][0]) / \
-                       (self.param_scaler['wedge_range'][1] - self.param_scaler['wedge_range'][0])
-
-        # Normalize speeds (indices 1-6)
-        y_norm[:, 1:7] = (y[:, 1:7] - self.param_scaler['speed_range'][0]) / \
-                          (self.param_scaler['speed_range'][1] - self.param_scaler['speed_range'][0])
-
-        # Normalize angles (indices 7-19)
-        y_norm[:, 7:] = (y[:, 7:] - self.param_scaler['angle_range'][0]) / \
-                        (self.param_scaler['angle_range'][1] - self.param_scaler['angle_range'][0])
-
-        return y_norm
-
-    def denormalize_parameters(self, y_norm: np.ndarray) -> np.ndarray:
-        """Denormalize parameters after prediction."""
-        y = np.zeros_like(y_norm)
-
-        # Denormalize wedge count
-        y[:, 0] = y_norm[:, 0] * (self.param_scaler['wedge_range'][1] -
-                                  self.param_scaler['wedge_range'][0]) + \
-                  self.param_scaler['wedge_range'][0]
-        y[:, 0] = np.round(np.clip(y[:, 0], 1, 6)).astype(int)
-
-        # Denormalize speeds
-        y[:, 1:7] = y_norm[:, 1:7] * (self.param_scaler['speed_range'][1] -
-                                       self.param_scaler['speed_range'][0]) + \
-                    self.param_scaler['speed_range'][0]
-
-        # Denormalize angles
-        y[:, 7:] = y_norm[:, 7:] * (self.param_scaler['angle_range'][1] -
-                                     self.param_scaler['angle_range'][0]) + \
-                   self.param_scaler['angle_range'][0]
-
-        return y
-
-    def train(self, features_list: List[Dict], params_list: List,
-              validation_split: float = 0.2, epochs: int = 200) -> Dict:
-        """
-        Train the neural network on pattern features.
-        """
-        # Prepare data
-        X = self.prepare_features(features_list)
-        y = self.prepare_parameters(params_list)
-
-        # Normalize
-        X = self.normalize_features(X, fit=True)
-        y = self.normalize_parameters(y, fit=True)
-
-        # Split data
-        n_samples = X.shape[0]
-        n_train = int(n_samples * (1 - validation_split))
-        indices = np.random.permutation(n_samples)
-
-        X_train = X[indices[:n_train]]
-        y_train = y[indices[:n_train]]
-        X_val = X[indices[n_train:]]
-        y_val = y[indices[n_train:]]
-
-        # Create network
         input_dim = X.shape[1]
-        output_dim = y.shape[1]
-        hidden_dims = [128, 64, 32]  # Architecture tuned for this problem
+        self.model = RisleyNet(input_dim, prism_counts).to(dev)
+        opt = torch.optim.Adam(self.model.parameters(), lr=lr, weight_decay=1e-5)
+        sched = torch.optim.lr_scheduler.ReduceLROnPlateau(opt, patience=8, factor=0.5, min_lr=1e-6)
+        ce = nn.CrossEntropyLoss()
 
-        self.network = NeuralNetwork(input_dim, hidden_dims, output_dim)
+        history = {'train_loss': [], 'val_loss': [], 'val_acc': []}
+        best_val, best_state, patience = float('inf'), None, 0
+        print(f"  Training {len(ti)} / val {len(vi)} -- features {input_dim} -- prisms={prism_counts}")
 
-        # Train
-        print(f"Training neural network on {n_train} samples...")
-        history = self.network.train(
-            X_train, y_train, X_val, y_val,
-            epochs=epochs, batch_size=32,
-            learning_rate=0.001, verbose=True
-        )
+        for epoch in range(epochs):
+            self.model.train()
+            perm = torch.randperm(len(X_tr), device=dev)
+            ep_loss, nb = 0.0, 0
 
+            for s in range(0, len(X_tr), batch_size):
+                bi = perm[s:s + batch_size]
+                logits, reg_outs = self.model(X_tr[bi])
+                loss_cls = ce(logits, Yc_tr[bi])
+
+                loss_reg = torch.tensor(0.0, device=dev)
+                nh = 0
+                bpc, bp = Pc_tr[bi], Yp_tr[bi]
+                for pc in prism_counts:
+                    m = (bpc == pc)
+                    if not m.any(): continue
+                    pred = reg_outs[pc][m]
+                    tp = bp[m]
+                    tgt = torch.cat([
+                        tp[:, :pc]     / self.SPEED_SCALE,
+                        tp[:, 3:3+pc]  / self.ANGLE_SCALE,
+                        tp[:, 6:6+pc]  / self.ANGLE_SCALE,
+                    ], dim=1)
+                    loss_reg = loss_reg + ((pred - tgt)**2).mean()
+                    nh += 1
+                if nh: loss_reg /= nh
+
+                loss = loss_cls + 30.0 * loss_reg
+                opt.zero_grad(); loss.backward()
+                nn.utils.clip_grad_norm_(self.model.parameters(), 1.0)
+                opt.step()
+                ep_loss += loss.item(); nb += 1
+
+            self.model.eval()
+            with torch.no_grad():
+                vl, vr = self.model(X_va)
+                v_cls = ce(vl, Yc_va).item()
+                v_reg, vn = 0.0, 0
+                for pc in prism_counts:
+                    m = (Pc_va == pc)
+                    if not m.any(): continue
+                    pred = vr[pc][m]; tp = Yp_va[m]
+                    tgt = torch.cat([tp[:,:pc]/self.SPEED_SCALE, tp[:,3:3+pc]/self.ANGLE_SCALE, tp[:,6:6+pc]/self.ANGLE_SCALE], dim=1)
+                    v_reg += ((pred-tgt)**2).mean().item(); vn += 1
+                if vn: v_reg /= vn
+                v_loss = v_cls + 30.0 * v_reg
+                v_acc = (vl.argmax(1) == Yc_va).float().mean().item()
+
+            t_loss = ep_loss / nb
+            history['train_loss'].append(t_loss)
+            history['val_loss'].append(v_loss)
+            history['val_acc'].append(v_acc)
+            sched.step(v_loss)
+
+            if v_loss < best_val:
+                best_val = v_loss
+                best_state = {k: v.cpu().clone() for k, v in self.model.state_dict().items()}
+                patience = 0
+            else:
+                patience += 1
+
+            if (epoch+1) % 10 == 0:
+                print(f"  Epoch {epoch+1:3d}/{epochs}  t={t_loss:.4f} v={v_loss:.4f} acc={v_acc:.1%} lr={opt.param_groups[0]['lr']:.1e}")
+            if patience >= 25:
+                print(f"  Early stopping at epoch {epoch+1}"); break
+
+        if best_state:
+            self.model.load_state_dict(best_state); self.model.to(dev)
+        print(f"  Best val loss: {best_val:.4f}")
         return history
 
-    def predict(self, features: Dict) -> Dict:
-        """
-        Predict parameters from pattern features.
+    # ── inference ─────────────────────────────────────────────────────
+    def predict(self, pattern, n_prisms=None):
+        if self.model is None: raise ValueError("Not trained")
+        feat = self._build_features_single(pattern)
+        expected = self.input_mean.shape[0]
+        if len(feat) != expected:
+            from scipy.interpolate import interp1d
+            t_o, t_n = np.linspace(0,1,len(pattern)), np.linspace(0,1,self.N_POINTS)
+            resampled = np.column_stack([interp1d(t_o,pattern[:,0])(t_n), interp1d(t_o,pattern[:,1])(t_n)])
+            feat = self._build_features_single(resampled)
 
-        Returns:
-            Dictionary with predicted parameters
-        """
-        if self.network is None:
-            raise ValueError("Network not trained yet")
+        feat = ((feat - self.input_mean) / self.input_std).astype(np.float32)
+        x = torch.tensor(feat).unsqueeze(0).to(self.device)
+        self.model.eval()
+        with torch.no_grad():
+            logits, reg_outs = self.model(x)
 
-        # Prepare features
-        X = self.prepare_features([features])
-        X = self.normalize_features(X)
+        probs = torch.softmax(logits, 1).cpu().numpy()[0]
+        if n_prisms is None:
+            cls_idx = logits.argmax(1).item()
+            n_prisms = self.prism_counts[cls_idx]
 
-        # Predict
-        y_norm = self.network.predict(X)
-        y = self.denormalize_parameters(y_norm)
-
-        # Extract parameters
-        wedge_count = int(y[0, 0])
-        speeds = y[0, 1:1+wedge_count].tolist()
-        phi_x = y[0, 7:7+wedge_count].tolist()
-        phi_y = y[0, 13:13+wedge_count].tolist()
-
+        compact = reg_outs[n_prisms][0].cpu().numpy()
+        p9 = self._expand(n_prisms, compact)
         return {
-            'wedge_count': wedge_count,
-            'rotation_speeds': speeds,
-            'phi_x': phi_x,
-            'phi_y': phi_y
+            'n_prisms': n_prisms,
+            'rotation_speeds': p9[:n_prisms].tolist(),
+            'wedge_angles_x': p9[3:3+n_prisms].tolist(),
+            'wedge_angles_y': p9[6:6+n_prisms].tolist(),
+            'class_probs': {pc: float(probs[i]) for i, pc in enumerate(self.prism_counts)},
         }
 
-    def save(self, directory: str):
-        """Save the trained model."""
-        os.makedirs(directory, exist_ok=True)
+    def predict_batch(self, patterns, n_prisms=None):
+        N = len(patterns)
+        X = self._build_features(patterns).astype(np.float32)
+        X = (X - self.input_mean) / self.input_std
+        x = torch.tensor(X).to(self.device)
+        self.model.eval()
+        with torch.no_grad():
+            logits, reg_outs = self.model(x)
 
-        # Save network
-        self.network.save(os.path.join(directory, 'network.pkl'))
+        if n_prisms is not None:
+            pred_np = np.full(N, n_prisms, dtype=np.int32)
+        else:
+            cls_idx = logits.argmax(1).cpu().numpy()
+            pred_np = np.array([self.prism_counts[i] for i in cls_idx], dtype=np.int32)
 
-        # Save scalers and metadata
-        metadata = {
-            'feature_scaler': self.feature_scaler,
-            'param_scaler': self.param_scaler,
-            'feature_names': self.feature_names
-        }
-        with open(os.path.join(directory, 'metadata.pkl'), 'wb') as f:
-            pickle.dump(metadata, f)
+        params = np.zeros((N, 9), dtype=np.float32)
+        for pc in self.prism_counts:
+            mask = pred_np == pc
+            if not mask.any(): continue
+            compact = reg_outs[pc][torch.tensor(mask)].cpu().numpy()
+            for j, idx in enumerate(np.where(mask)[0]):
+                params[idx] = self._expand(pc, compact[j])
+        return pred_np, params
 
-    def load(self, directory: str):
-        """Load a trained model."""
-        # Load network
-        self.network = NeuralNetwork(0, [], 0)  # Dummy init
-        self.network.load(os.path.join(directory, 'network.pkl'))
+    def save(self, path):
+        os.makedirs(path, exist_ok=True)
+        torch.save({'state_dict': self.model.state_dict(), 'input_mean': self.input_mean,
+                     'input_std': self.input_std, 'input_dim': self.model.backbone[0].in_features,
+                     'prism_counts': self.prism_counts}, os.path.join(path, 'model.pt'))
 
-        # Load metadata
-        with open(os.path.join(directory, 'metadata.pkl'), 'rb') as f:
-            metadata = pickle.load(f)
-
-        self.feature_scaler = metadata['feature_scaler']
-        self.param_scaler = metadata['param_scaler']
-        self.feature_names = metadata['feature_names']
+    def load(self, path):
+        data = torch.load(os.path.join(path, 'model.pt'), map_location=self.device, weights_only=False)
+        self.input_mean = data['input_mean']; self.input_std = data['input_std']
+        self.prism_counts = data['prism_counts']
+        self.pc_to_idx = {pc: i for i, pc in enumerate(self.prism_counts)}
+        self.model = RisleyNet(data['input_dim'], self.prism_counts).to(self.device)
+        self.model.load_state_dict(data['state_dict']); self.model.eval()
