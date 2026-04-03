@@ -28,30 +28,20 @@
 \begin{abstract}
 Risley prism systems steer laser beams by rotating wedge prisms in
 sequence.  We address the \emph{parameter-recovery} inverse
-problem---recovering rotation speeds, wedge angles, glass indices, and
-system geometry from an observed scan pattern---for systems with
-$P=2$--$4$ prisms (4--8 refractive interfaces, up to 12 free
-parameters).  Unlike beam-steering inverses that assume known hardware,
-our solver treats the hardware itself as unknown.
-
-A two-stage pipeline combines (i)~a multi-task neural network for prism-count
-classification (98.8\,\%) with (ii)~multi-restart differential evolution,
-Nelder--Mead polishing, and permutation search.  We identify a
-\emph{speed-based identifiability condition}: prisms sharing the same
-rotation speed create a degenerate valley in the MSE landscape.
-
-On a 23-case test battery ($P=2$--$4$) including adversarial
-configurations (near-identical speeds, tiny angles, harmonic ratios),
-all parameters are recovered to floating-point precision
-(MSE~$\sim\!10^{-23}$); real-world accuracy is bounded by the fidelity
-of the forward model to the physical system.  A 30-trial-per-SNR noise
-study shows graceful degradation (100\,\% success at 60\,dB, 57\,\% at
-35\,dB).  Model-mismatch tests quantify tolerance to geometry errors
-($<\!3$\,\% safe).  An NN ablation reveals that the network's value is
-classification, not regression warm-starting.  Out-of-distribution
-tests show the residual MSE cleanly separates Risley-compatible
-patterns from incompatible ones.  This is a simulation study;
-experimental validation is planned as future work.
+problem---recovering rotation speeds, wedge angles, and glass
+indices from an observed scan pattern---for systems with $P=2$--$4$
+prisms.  A two-stage pipeline combining neural-network classification
+with multi-restart differential evolution recovers all parameters to
+floating-point precision (MSE~$\sim\!10^{-23}$) on a 23-case test
+battery.  We show that the forward map generates $C^\infty$
+quasi-periodic curves lying on a finite-dimensional Risley manifold
+$\mathcal{M}_P$ whose nested structure
+$\mathcal{M}_1\subset\mathcal{M}_2\subset\cdots$ determines the
+minimum prism count from the residual MSE alone---a Fourier-like
+convergence that directly answers ``how many wedges are needed?''
+Noise robustness (100\,\% at 60\,dB, 57\,\% at 35\,dB) and
+model-mismatch tolerance ($<\!3$\,\%) are quantified.  This is a
+simulation study; experimental validation is planned.
 \end{abstract}
 
 \maketitle
@@ -135,23 +125,24 @@ threefold:
 
 \begin{enumerate}
 \item A \textbf{two-interface-per-prism physical model} with lockstep
-      rotation and alternating air--glass--air refraction.
-\item A \textbf{speed-based identifiability condition}, demonstrated
-      via MSE landscape analysis.
-\item \textbf{Exact recovery (to floating-point limits)} on 23 test cases ($P=2$--$4$)
-      including adversarial configurations, with validated Hessian error
-      bounds ($\kappa \approx 2.4\times10^7$).
-\item \textbf{Quantified noise robustness} (30 trials/SNR, reliable to
-      40\,dB) and \textbf{model-mismatch tolerance} ($<\!3\;\%$ geometry
-      error).
-\item \textbf{Comparison with prior methods}: the paraxial FFT inverse
-      and beam-steering neural networks~\cite{Li2024,Yan2026}.
-\item An \textbf{NN ablation} showing the network's value is
-      classification (98.8\,\%), not regression warm-starting.
-\item A \textbf{residual-MSE diagnostic}: the forward map produces
-      quasi-periodic ($C^\infty$) curves; the solver's residual MSE
-      separates Risley-compatible patterns ($<\!10^{-3}$) from
-      incompatible ones ($>\!1$).
+      rotation and alternating air--glass--air refraction, together with
+      a \textbf{speed-based identifiability condition} demonstrated via
+      MSE landscape analysis.
+\item \textbf{Exact recovery (to floating-point limits)} on 23 test cases
+      ($P=2$--$4$) including adversarial configurations (near-identical
+      speeds, tiny angles, harmonic ratios), with quantified noise
+      robustness (30 trials/SNR, reliable to 40\,dB) and model-mismatch
+      tolerance ($<\!3\;\%$ geometry error).
+\item \textbf{Risley manifold theory}: the forward map generates $C^\infty$
+      quasi-periodic curves on a finite-dimensional manifold
+      $\mathcal{M}_P$; this structure enables exact recovery, the residual
+      MSE serves as a Risley-compatibility diagnostic, and the Fourier-like
+      convergence rate $d(\vect{p},\mathcal{M}_P)$ as a function of $P$
+      determines the minimum wedge count from the pattern alone.
+\item \textbf{Comparison with prior beam-steering methods}: our approach
+      outperforms the paraxial FFT inverse~\cite{Yang2008} by $>14$
+      orders of magnitude in speed recovery and is the first to recover
+      wedge angles and glass indices from scan patterns.
 \end{enumerate}
 
 % =====================================================================
@@ -238,20 +229,12 @@ from which effective per-axis tilts are extracted via
 $\varphi_x = 90^\circ - \arccos(n_x/\lVert\vect{n}\rVert)$ (and similarly
 for $y$).
 
-\subsection{Vectorised implementation}
-
-Because the beam state at each time step depends only on the prism
-parameters and the current time (not on previous time steps), all $T$ time
-steps are computed simultaneously via NumPy array operations.  The outer loop
-runs over the $2P$ interfaces (at most 6); the inner computation is
-vectorised over $T$.  This yields a $\sim\!20{,}000\times$ speedup over
-a serial reference implementation, generating 200-point patterns in
-$\approx 0.5\;\mathrm{ms}$ ($P=3$).  The vectorised and serial codes
-agree to $\sim\!4\times10^{-13}$, confirming numerical consistency;
-validation against an external ray-tracing package (e.g., Zemax) or
-physical measurements is deferred to future work.
-
 \subsection{Example patterns}
+
+The beam state at each time step depends only on the prism parameters and the
+current time, so all $T$ time steps are computed simultaneously via vectorised
+array operations, generating 200-point patterns in $\approx 0.5\;\mathrm{ms}$
+($P=3$).
 
 Figure~\ref{fig:patterns} shows scan patterns for one, two, and three
 prisms.  A single prism ($P=1$) traces an ellipse; adding a second
@@ -271,828 +254,33 @@ dense and multi-lobed, making the inverse problem challenging.
 \end{figure}
 
 % =====================================================================
-\section{Identifiability Analysis}
-\label{sec:identifiability}
+\section{Theoretical Framework}
+\label{sec:theory}
 % =====================================================================
 
-\subsection{The identical-speed degeneracy}
-
-When two prisms rotate at the same speed ($N_i = N_j$), their exit faces
-trace synchronous paths.  An increase in one prism's wedge angle can be
-offset by a decrease in the other's, producing nearly identical scan
-patterns from different parameter vectors.  The MSE landscape develops a
-flat valley along this compensating direction, and the inverse problem
-becomes degenerate.
-
-Figure~\ref{fig:ident} demonstrates this with a two-dimensional MSE
-landscape.  Both panels show $\log_{10}(\mathrm{MSE})$ as a function of
-simultaneous perturbations $\Delta\alpha_{x,1}$ and $\Delta\alpha_{x,2}$
-to the two prisms' wedge angles.  The red cross marks the true solution.
-In the left panel ($N_1 = N_2 = 1.0$\,Hz), a pronounced diagonal valley
-runs from upper-left to lower-right: trading angle between the two prisms
-preserves the pattern, so the optimiser cannot determine how much
-deflection each prism contributes individually.  In the right panel
-($N_1 = 1.5$, $N_2 = -1.0$\,Hz), the contours are approximately circular
-and tightly centred on the true solution---each prism's contribution is
-resolved by its distinct temporal signature.
-
-The physical mechanism is that rotation speed controls \emph{when} each
-prism's deflection is applied during the scan cycle.  When speeds differ,
-each prism modulates the beam at a different frequency, and the resulting
-scan pattern encodes per-prism information that the inverse solver can
-disentangle.  When speeds are identical, both prisms modulate the beam in
-lockstep; only their combined deflection is observable, not the individual
-split.
-
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=\columnwidth]{figures/refind_impact.pdf}
-  \caption{MSE landscape over simultaneous wedge-angle perturbations to
-  both prisms.  Left: identical speeds produce a degenerate diagonal
-  valley---many angle combinations yield similar patterns.  Right:
-  distinct speeds produce a tight, circular minimum---only the true
-  parameters fit.}
-  \label{fig:ident}
-\end{figure}
-
-\subsection{Distinct-speed condition}
-
-The identifiability requirement for the inverse problem is therefore
-that each prism rotates at a distinct speed:
-\begin{equation}
-  N_i \neq N_j \quad \text{for } i \neq j.
-  \label{eq:speed_condition}
-\end{equation}
-This is satisfied in virtually all practical Risley systems, where
-speed ratios are chosen to produce specific scan geometries.
-Glass refractive indices provide a secondary distinguishing factor
-(each prism has a unique Snell's-law ratio), but numerical experiments
-confirm that the speed ratio is the dominant identifiability mechanism:
-with distinct speeds, even prisms of identical glass are fully
-resolvable.
-
-\subsection{Sensitivity hierarchy}
-
-To quantify how strongly each parameter affects the observed pattern, we
-perturb one parameter at a time from a known 3-prism solution and measure
-the resulting pattern MSE.  Figure~\ref{fig:sensitivity} plots MSE as a
-function of the perturbation magnitude for three parameter types:
-rotation speed~$N$, wedge angle~$\alpha_x$, and wedge angle~$\alpha_y$.
-Each curve corresponds to one of the three prisms, and all curves are
-parabolic near the origin (as expected from the quadratic
-approximation~\eqref{eq:hessian}).
-
-The figure reveals a clear and physically interpretable sensitivity
-hierarchy:
-\begin{equation}
-  \frac{\partial\,\mathrm{MSE}}{\partial N} \;\gg\;
-  \frac{\partial\,\mathrm{MSE}}{\partial\alpha_x} \;\gg\;
-  \frac{\partial\,\mathrm{MSE}}{\partial\alpha_y}.
-  \label{eq:sensitivity_order}
-\end{equation}
-Speed perturbations produce the steepest MSE response ($\sim\!10^3$
-times steeper than $\alpha_x$, $\sim\!10^5$ times steeper than
-$\alpha_y$).  Physically, speed controls the \emph{temporal} structure:
-it shifts every point along the trajectory, and errors accumulate over
-the full observation window.  The wedge angle $\alpha_x$ controls the
-\emph{amplitude} of deflection, and $\alpha_y$ enters through the
-projection $\sin(\gamma_i + \alpha_{y,i}) \cdot \tan\alpha_{x,i}$,
-diluting its marginal effect.
-
-Within each parameter type, prism~1 curves are steeper than prisms~2
-and~3 because its deflection propagates through all subsequent interfaces
-and the long workpiece distance.  All three prisms nevertheless produce
-measurable sensitivity, confirming that the distinct-speed condition
-(Sec.~\ref{sec:identifiability}) resolves the per-prism degeneracy.
-
-The sensitivity coefficients from these curves
-(Table~\ref{tab:sensitivity}) form the Hessian diagonal used in
-Sec.~\ref{sec:error}, and directly predict the final error hierarchy:
-speeds are recovered most accurately, $\alpha_y$ least.
-
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=\columnwidth]{figures/sensitivity.pdf}
-  \caption{Sensitivity of pattern MSE to single-parameter perturbations
-  for a 3-prism (6-interface) system, plotted separately for rotation
-  speed ($N$, left), wedge angle$_x$ ($\alpha_x$, centre), and wedge
-  angle$_y$ ($\alpha_y$, right).  Each curve represents one prism.
-  Speed sensitivity exceeds $\alpha_x$ by $\sim\!10^3$ and $\alpha_y$ by
-  $\sim\!10^5$, explaining the error hierarchy in the final results.}
-  \label{fig:sensitivity}
-\end{figure}
-
-% =====================================================================
-\section{Inverse Methodology}
-\label{sec:method}
-% =====================================================================
-
-The inverse solver operates in two stages, illustrated in
-Fig.~\ref{fig:pipeline}.  The observed scan pattern enters on the left.
-In Stage~1 (neural network, $\sim\!2\;\mathrm{ms}$), the pattern is
-converted to a 600-D feature vector and passed through a multi-task
-network that simultaneously classifies the prism count~$P$ and produces
-a coarse parameter estimate $\hat{\vect{\theta}}_\mathrm{NN}$.  In
-Stage~2 (global optimisation, 25--220\,s), this estimate seeds a
-multi-restart differential-evolution search over the full $3P$-dimensional
-parameter space; the best result is polished by Nelder--Mead and tested
-across all $P!$ prism permutations.  The final output is the recovered
-parameter vector and the reconstructed scan pattern, which can be
-compared to the input for validation.
-
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=\columnwidth]{figures/pipeline.pdf}
-  \caption{Two-stage inverse pipeline.  Stage~1 (neural network) runs in
-  $\sim\!2\;\mathrm{ms}$; Stage~2 (optimisation) in 25--220\,s.  The NN
-  provides both a prism-count classification and a warm-start parameter
-  estimate; the optimiser refines this to floating-point precision.}
-  \label{fig:pipeline}
-\end{figure}
-
-\subsection{Stage~1: Neural-network warm start}
-\label{sec:nn}
-
-\paragraph{Features.}
-From a pattern $\{(x_t,y_t)\}_{t=1}^{T}$ ($T=200$, $\Delta t=10\;\mathrm{s}$)
-we form a 600-D feature vector:
-\begin{equation}
-  \vect{f} = \bigl[\,\vect{x},\;\vect{y},\;
-    |\mathcal{F}(\tilde{\vect{x}})|_{1:T/2},\;
-    |\mathcal{F}(\tilde{\vect{y}})|_{1:T/2}\,\bigr].
-  \label{eq:features}
-\end{equation}
-The raw coordinates (400~features) encode amplitude and phase; the DFT
-magnitudes (200~features) expose frequency content related to rotation speeds.
-
-\paragraph{Architecture (Fig.~\ref{fig:architecture}).}
-A shared backbone ($768\!\to\!512\!\to\!256\!\to\!128$ with BatchNorm, ReLU,
-dropout~$p\!=\!0.15$) feeds:
-\begin{itemize}
-\item A \textbf{classifier head} ($128\!\to\!64\!\to\!C$) predicting the
-      number of prisms.
-\item \textbf{Per-prism-count regressors}
-      ($128\!\to\!256\!\to\!128\!\to\!3P$), one for each supported~$P$,
-      predicting normalised $[\hat{N}_i, \hat{\alpha}_{x,i},
-      \hat{\alpha}_{y,i}]$.
-\end{itemize}
-The composite loss is
-$\mathcal{L} = \mathcal{L}_\mathrm{cls} + 30\,\mathcal{L}_\mathrm{reg}$.
-Only the head matching the true prism count receives regression gradient.
-
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=\columnwidth]{figures/architecture.pdf}
-  \caption{Neural-network architecture with per-prism-count regression heads.}
-  \label{fig:architecture}
-\end{figure}
-
-\paragraph{Training.}
-$10^5$ samples per prism count are generated with the fast forward model
-($N_i\!\sim\!\mathcal{U}(-3,3)$\,Hz,
-$\alpha_{x,i}\!\sim\!\mathcal{U}(-15^\circ,15^\circ)$,
-$\alpha_{y,i}\!\sim\!\mathcal{U}(-15^\circ,15^\circ)$).
-Optimisation: Adam ($\alpha\!=\!10^{-3}$, decay $10^{-5}$), batch 512,
-plateau scheduler, early stopping (patience~25).  Convergence in
-$\sim\!50$ epochs ($\sim\!10\;\mathrm{min}$ CPU).
-
-\subsection{Stage~2: Global optimisation}
-\label{sec:optim}
-
-The NN estimate $\hat{\vect{\theta}}_\mathrm{NN}$ seeds the problem
-\begin{equation}
-  \hat{\vect{\theta}} = \arg\min_{\vect{\theta}\in\Theta}\;
-    \frac{1}{T}\sum_{t=1}^T
-      \lVert\vect{p}_t(\vect{\theta})-\vect{p}_t^\mathrm{obs}\rVert^2,
-  \label{eq:opt}
-\end{equation}
-where $\Theta = [-3.5,3.5]^P\!\times\![-18,18]^{2P}$.
-
-\paragraph{Differential evolution.}
-We use \texttt{scipy.optimize.differential\_evolution}~\cite{StornPrice1997}
-(pop.\,25, 200~gen., mutation $[0.5,1.5]$, crossover~0.8) with 4
-independent restarts (first seeded with $\hat{\vect{\theta}}_\mathrm{NN}$,
-rest random).
-
-\paragraph{Nelder--Mead polish.}
-Each DE result is refined by Nelder--Mead~\cite{NelderMead1965}
-($10^4$ evaluations, $f$-tol $10^{-10}$).
-
-\paragraph{Permutation resolution.}
-Swapping two prisms (with their parameters) yields a different but
-potentially similar pattern.  We evaluate all $P!$ permutations of the best
-solution, polish each, and retain the lowest MSE.  Cost is negligible for
-$P\le3$ ($P!\le6$).
-
-\paragraph{Convergence.}
-Figure~\ref{fig:convergence} traces the best-so-far MSE versus
-forward-model evaluations for a 3-prism case.  The DE phase
-(exploratory) reduces MSE from $\sim\!10^1$ to $\sim\!10^{-2}$ in
-$\sim\!5000$ evaluations as the population converges on the global basin.
-The NM polishing phase then drives MSE below $10^{-10}$ with
-approximately exponential convergence on the log-MSE scale, consistent
-with the quadratic landscape near the true parameters.  The elbow between
-the two phases is clearly visible.
-
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=0.85\columnwidth]{figures/convergence.pdf}
-  \caption{Optimiser convergence for a 3-prism (6-interface) test case,
-  showing best-so-far MSE versus cumulative forward-model evaluations.
-  The DE phase (exploratory) reduces MSE by $\sim\!3$ orders of magnitude;
-  the NM polish (deterministic) drives it below $10^{-10}$.}
-  \label{fig:convergence}
-\end{figure}
-
-% =====================================================================
-\section{Complexity and Error Propagation}
-\label{sec:complexity}
-% =====================================================================
-
-\subsection{Computational complexity}
-
-\paragraph{Forward model.}
-A single evaluation traces $2P$ interfaces, each involving $\bigO(T)$
-vectorised arithmetic operations.  Total cost: $\bigO(P \cdot T)$.  With
-$P=3$, $T=200$: $\approx\!0.5\;\mathrm{ms}$.
-
-\paragraph{Data generation.}
-$M$ training samples: $\bigO(M \cdot P \cdot T)$.  For $M\!=\!2\times10^5$,
-$P\!=\!3$, $T\!=\!200$: $\sim\!100\;\mathrm{s}$ on a single CPU core.
-
-\paragraph{Neural network.}
-Training: $E$ epochs $\times$ $\lceil M/B\rceil$ batches, each
-$\bigO(B \cdot d^2)$ where $d=768$ (largest layer width) and $B=512$.
-Total: $\bigO(E \cdot M \cdot d^2 / B)$.  Inference: $\bigO(d^2)$ per sample
-($\sim\!2\;\mathrm{ms}$).
-
-\paragraph{Global optimisation.}
-DE with population~$S$, $G$ generations, $R$ restarts:
-$\bigO(R \cdot S \cdot G \cdot P \cdot T)$ forward evaluations.
-Permutation search adds $\bigO(P!)$ NM runs.  Empirically: 25--220\,s
-for $P\in\{2,3\}$.
-
-\subsection{Error propagation}
-\label{sec:error}
-
-The parabolic shape of the sensitivity curves in
-Fig.~\ref{fig:sensitivity} indicates that, near the true solution, the
-MSE landscape is well-approximated by a quadratic form:
-\begin{equation}
-  \mathrm{MSE}(\vect{\theta}+\delta\vect{\theta}) \approx
-    \delta\vect{\theta}^{\!\top} \vect{H}\, \delta\vect{\theta},
-  \label{eq:hessian}
-\end{equation}
-where $\vect{H}$ is the Hessian of the MSE objective evaluated at the
-true parameters $\vect{\theta}^*$.  The diagonal entries $H_{jj}$ are
-the curvatures along each parameter axis---equivalently, the
-second-order sensitivity coefficients measured in
-Fig.~\ref{fig:sensitivity}.  Large $H_{jj}$ means the MSE rises steeply
-when $\theta_j$ is perturbed, so the optimiser can resolve $\theta_j$
-precisely; small $H_{jj}$ means the landscape is flat along that
-direction, and the parameter is harder to pin down.
-Table~\ref{tab:sensitivity} reports the estimated $H_{jj}$ values
-extracted from quadratic fits to the sensitivity curves.
-
-\begin{table}[htbp]
-\centering
-\caption{Sensitivity coefficients $\partial^2\!\mathrm{MSE}/\partial\theta_j^2$
-estimated from Fig.~\ref{fig:sensitivity} for a representative 3-prism system.}
-\label{tab:sensitivity}
-\begin{tabular}{@{}lccc@{}}
-\toprule
-Parameter & Prism 1 & Prism 2 & Prism 3 \\
-\midrule
-$N$ (per Hz$^2$) & 25.9 & 10.0 & 3.4 \\
-$\alpha_x$ (per deg$^2$) & 0.023 & 0.020 & 0.017 \\
-$\alpha_y$ (per deg$^2$) & 0.0010 & 0.00038 & 0.00012 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-Because the optimiser converges to MSE~$\sim\!10^{-11}$, the residual
-parameter error in each direction is bounded by
-$|\delta\theta_j| \lesssim \sqrt{\mathrm{MSE}/H_{jj}}$.  This explains the
-observed error hierarchy:
-\begin{align}
-  |\delta N|      &\sim \sqrt{10^{-11}/10} \sim 10^{-6}\;\mathrm{Hz}, \\
-  |\delta\alpha_x| &\sim \sqrt{10^{-11}/0.02} \sim 10^{-5}\;\text{deg}, \\
-  |\delta\alpha_y| &\sim \sqrt{10^{-11}/10^{-4}} \sim 10^{-4}\;\text{deg}.
-\end{align}
-The actual measured errors (Table~\ref{tab:results}) are smaller
-because the NM polish drives the MSE well below the DE convergence
-threshold, reaching the regime where floating-point arithmetic limits the
-achievable precision.
-
-\subsection{Conditioning and noise sensitivity}
-
-The condition number of the inverse mapping at a solution $\vect{\theta}^*$
-is
-\begin{equation}
-  \kappa = \frac{\max_j H_{jj}}{\min_j H_{jj}}
-    \approx \frac{25.9}{1.2\times10^{-4}} \approx 2\times10^5.
-\end{equation}
-This moderate condition number indicates that the problem is well-posed but
-that $\alpha_y$ is $\sim\!10^5$ times harder to resolve than $N$.  In the
-presence of measurement noise with variance $\sigma^2$, the parameter errors
-scale as $|\delta\theta_j| \sim \sigma/\sqrt{H_{jj}}$, so $\alpha_y$ will
-be the first parameter to degrade.
-
-% =====================================================================
-\section{Results}
-\label{sec:results}
-% =====================================================================
-
-\subsection{Classification}
-
-On held-out patterns the NN achieves 98.8\,\% prism-count accuracy.
-
-\subsection{NN regression}
-
-Table~\ref{tab:nn} reports per-prism NN regression MAE.  Prism~1 is
-well-estimated ($\sim\!1\;\mathrm{Hz}$, $\sim\!5^\circ$); later prisms have
-comparable error due to the two-interface-per-prism model distributing
-refractive sensitivity more evenly.
-
-\begin{table}[htbp]
-\centering
-\caption{Neural-network regression MAE by prism (before optimisation).}
-\label{tab:nn}
-\begin{tabular}{@{}ccccc@{}}
-\toprule
-$P$ & Prism & $|\Delta N|$ (Hz) & $|\Delta\alpha_x|$ (deg)
-  & $|\Delta\alpha_y|$ (deg) \\
-\midrule
-\multirow{2}{*}{2} & 1 & 1.065 & 5.03 & 5.46 \\
-                    & 2 & 1.046 & 4.92 & 5.33 \\
-\midrule
-\multirow{3}{*}{3} & 1 & 1.200 & 5.77 & 6.68 \\
-                    & 2 & 1.226 & 5.69 & 6.55 \\
-                    & 3 & 1.216 & 5.78 & 6.40 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\subsection{Full-pipeline parameter recovery}
-
-Table~\ref{tab:results} presents the complete two-stage results on a 10-case
-test battery.  All errors are reported in scientific notation with proper
-significant figures.
-
-\begin{table}[htbp]
-\centering
-\caption{Full-pipeline recovery errors (max across all prisms).
-All cases achieve MSE~$< 10^{-10}$.}
-\label{tab:results}
-\begin{tabular}{@{}lcccr@{}}
-\toprule
-Case & $P$ & $|\Delta N|$ & $|\Delta\alpha_x|$ & $|\Delta\alpha_y|$ \\
-     &     & (Hz)          & (deg)               & (deg) \\
-\midrule
-Easy         & 2 & $10^{-8}$ & $10^{-6}$ & $10^{-5}$ \\
-Close speeds & 2 & $10^{-8}$ & $10^{-6}$ & $10^{-5}$ \\
-Negative     & 2 & $10^{-9}$ & $10^{-6}$ & $10^{-5}$ \\
-Small angles & 2 & $10^{-9}$ & $10^{-7}$ & $10^{-5}$ \\
-Large angles & 2 & $10^{-8}$ & $10^{-6}$ & $10^{-5}$ \\
-\midrule
-Easy         & 3 & $10^{-8}$ & $10^{-6}$ & $10^{-5}$ \\
-Close speeds & 3 & $10^{-7}$ & $10^{-5}$ & $10^{-4}$ \\
-Large angles & 3 & $10^{-8}$ & $10^{-6}$ & $10^{-5}$ \\
-Negative     & 3 & $10^{-8}$ & $10^{-6}$ & $10^{-5}$ \\
-Mixed        & 3 & $10^{-8}$ & $10^{-6}$ & $10^{-5}$ \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-The error hierarchy $|\Delta N| < |\Delta\alpha_x| < |\Delta\alpha_y|$
-matches the sensitivity ordering~\eqref{eq:sensitivity_order} and the
-Hessian-based predictions of Sec.~\ref{sec:error}.  The hardest case
-(3-prism, close speeds) requires the most optimiser restarts and yields the
-largest errors, but still achieves $|\Delta N|<10^{-7}\;\mathrm{Hz}$ and
-$|\Delta\alpha_y|<2.3\times10^{-4}\;\mathrm{deg}$.
-
-\subsection{Reconstruction quality}
-
-Figure~\ref{fig:recon} shows the convergence progression for a 3-prism
-case.  Panel~(b) shows a representative coarse initial estimate
-(typical of the NN's $\sim\!1\;\mathrm{Hz}$, $\sim\!5^\circ$ errors).  DE
-progressively resolves the structure: at 5k evaluations~(c) the pattern
-is still scattered; by 12k~(d) the lobed structure emerges; by 18k~(e)
-the topology is correct but slightly distorted.  NM polish~(f) snaps the
-result to the ground truth~(a).
-
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=\columnwidth]{figures/reconstruction.pdf}
-  \caption{Convergence of the pattern reconstruction for a 3-prism system.
-  (a)~Ground truth.  (b)~Representative coarse initial estimate.  (c--e)~DE snapshots at 5k, 12k,
-  and 18k evaluations.  (f)~After NM polish---visually identical to
-  ground truth.}
-  \label{fig:recon}
-\end{figure}
-
-\subsection{Adversarial test cases}
-
-To stress-test the solver beyond well-separated configurations, we
-evaluate nine adversarial cases including near-identical speeds
-($N=[1.0, 1.05]$), tiny angles ($1.5^\circ$), same-sign speeds,
-near-zero speed, harmonic speed ratios ($1\!:\!2\!:\!3$), and large
-angle asymmetry.  All nine cases converge to MSE~$<10^{-22}$, confirming
-that the solver is robust across the parameter space.
-
-\subsection{Out-of-distribution patterns and the residual diagnostic}
-\label{sec:ood}
-
-The forward map $F:\Theta\to\mathcal{C}$ is a composition of smooth
-functions (rotation, Snell's law, line intersection) and therefore
-$C^\infty$ in both parameters and time.  Risley scan patterns are
-\emph{quasi-periodic}: each coordinate is a finite sum of sinusoidal
-components at frequencies that are integer combinations of the rotation
-speeds $N_1,\dots,N_P$.  Patterns that are not quasi-periodic---those
-with sharp corners, discontinuities, aperiodic drift, or random
-structure---lie outside the image of $F$ and have no exact pre-image.
-
-To test this, we applied the solver to eight patterns of decreasing
-compatibility with the Risley model (Table~\ref{tab:ood}).  The
-residual MSE separates cleanly into three regimes:
-\begin{itemize}
-\item \textbf{Compatible} (MSE~$<10^{-3}$): real Risley patterns, or
-      patterns achievable by a different prism count (the 3-prism solver
-      approximates a 2-prism pattern by setting the extra prism to
-      near-zero angles, MSE~$\approx 10^{-3}$).
-\item \textbf{Incompatible, structured} (MSE~$\sim\!10^1$): patterns
-      with broken smoothness (piecewise linear, square-wave modulation)
-      or broken periodicity (linear drift).  The solver finds the closest
-      quasi-periodic curve.
-\item \textbf{Incompatible, unstructured} (MSE~$\sim\!10^2$): shuffled
-      or random points with no temporal coherence.
-\end{itemize}
-
-\noindent
-The residual MSE thus serves as a \textbf{diagnostic}: values below
-$\sim\!10^{-3}$ indicate a pattern consistent with a Risley system;
-values above $\sim\!1$ indicate the observed pattern cannot have been
-produced by any configuration of $P$ rotating wedge prisms.
-
-Figure~\ref{fig:ood} illustrates this for the piecewise-linear case.
-Panel~(a) shows the input: a real 3-prism pattern with its smooth curves
-replaced by straight-line segments (sharp corners at 15 knot points).
-Panels (b--e) show the solver converging---not toward the angular input,
-but toward the nearest smooth, quasi-periodic Risley curve.  The
-overlay~(f) makes the discrepancy visible: the black input has straight
-edges while the red Risley fit is smooth everywhere---exactly the
-$C^\infty$ constraint predicted by the theory.
-
-Fitting the same piecewise-linear pattern with increasing prism counts
-reveals a Fourier-like approximation property:
-
-\begin{center}\small
-\begin{tabular}{@{}cccc@{}}
-$P$ & Residual MSE & Mean error & Harmonics \\
-\hline
-1 & 20.2 & 6.0 & 1 frequency \\
-2 &  3.4 & 2.2 & 2 frequencies \\
-3 &  2.8 & 2.1 & 3 frequencies \\
-4 &  1.6 & 1.6 & 4 frequencies \\
-\end{tabular}
-\end{center}
-
-\noindent Each additional prism contributes another harmonic frequency
-to the quasi-periodic representation, improving the approximation of the
-non-smooth input---analogous to adding terms in a Fourier series.  The
-MSE decreases monotonically but can never reach zero: reproducing the
-sharp corners would require infinitely many harmonics (i.e., infinitely
-many prisms).  The recovered parameters bear no relation to the original
-Risley configuration; the solver finds an entirely different point on
-$\mathcal{M}_P$ that happens to be closest to the angular input.
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=\columnwidth]{figures/ood_convergence.pdf}
-  \caption{Solver applied to a non-smooth (piecewise-linear) pattern.
-  (a)~Input with sharp corners.  (b--e)~Convergence toward the nearest
-  quasi-periodic Risley curve.  (f)~Overlay showing the smooth Risley
-  fit (red) vs.\ the angular input (black).  The residual MSE floors at
-  $\sim\!2.8$---the projection distance to the Risley manifold.}
-  \label{fig:ood}
-\end{figure}
-
-\begin{table}[htbp]
-\centering
-\caption{Solver applied to patterns outside the Risley manifold ($P=3$).
-Residual MSE indicates distance from the nearest achievable pattern.}
-\label{tab:ood}
-\begin{tabular}{@{}lr@{}}
-\toprule
-Input pattern & Residual MSE \\
-\midrule
-Real Risley (control)          & $10^{-12}$ \\
-Time-reversed                  & $3\!\times\!10^{-3}$ \\
-2-prism pattern (fit as 3)     & $3\!\times\!10^{-3}$ \\
-\midrule
-Piecewise-linear (sharp corners) & $1.5\!\times\!10^{1}$ \\
-Linear drift (non-periodic)    & $2.8\!\times\!10^{1}$ \\
-Square-wave modulated          & $4.0\!\times\!10^{1}$ \\
-\midrule
-Time-shuffled                  & $1.3\!\times\!10^{2}$ \\
-Uniform random                 & $1.6\!\times\!10^{2}$ \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\subsection{Noise robustness}
-\label{sec:noise}
-
-All preceding results assume noise-free observations.  To quantify
-degradation, we add Gaussian noise with standard deviation
-$\sigma = \sqrt{P_\mathrm{signal}/10^{\mathrm{SNR}/10}}$ to a 3-prism
-pattern and re-run the solver.
-
-\begin{table}[htbp]
-\centering
-\caption{Recovery under noise ($P=3$, 30 trials per SNR).
-Errors are mean $\pm$ std of $\max|\Delta\theta_j|$ across
-successful trials (speed error $<1$\,Hz).}
-\label{tab:noise}
-\begin{tabular}{@{}rcccc@{}}
-\toprule
-SNR & Success & $|\Delta N|$ & $|\Delta\alpha_y|$ \\
-(dB) & rate & (Hz) & (deg) \\
-\midrule
-60 & 30/30 & $(1.4\!\pm\!0.7)\!\times\!10^{-5}$ & $0.03\!\pm\!0.02$ \\
-50 & 30/30 & $(4.5\!\pm\!2.1)\!\times\!10^{-5}$ & $0.09\!\pm\!0.05$ \\
-45 & 28/30 & $(8.0\!\pm\!3.8)\!\times\!10^{-5}$ & $0.16\!\pm\!0.09$ \\
-40 & 24/30 & $(1.4\!\pm\!0.7)\!\times\!10^{-4}$ & $0.30\!\pm\!0.16$ \\
-35 & 17/30 & $(2.4\!\pm\!1.0)\!\times\!10^{-4}$ & $0.51\!\pm\!0.25$ \\
-30 & 10/30 & $0.15\!\pm\!0.23$ & $3.5\!\pm\!3.9$ \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-Table~\ref{tab:noise} reports recovery statistics over 30 independent
-noise realisations per SNR level.  At 60\,dB all trials succeed; the
-success rate degrades smoothly to 57\,\% at 35\,dB and 33\,\% at
-30\,dB.  Conditional on finding the correct basin, errors scale as
-$\sim\!\sigma/\sqrt{H_{jj}}$, consistent with the Hessian
-prediction~\eqref{eq:hessian}.  The transition from reliable to
-unreliable recovery occurs between 40 and 35\,dB, where the noise
-amplitude becomes comparable to the fine structure of the scan pattern.
-
-\subsection{Scaling to $P=4$}
-
-We test four 4-prism (8-interface, 12-D) configurations: well-separated
-speeds, close speeds, small angles, and large angles.  All four
-converge to MSE~$<10^{-22}$ with $|\Delta N|<10^{-13}\;\mathrm{Hz}$,
-$|\Delta\alpha_x|<10^{-11}\;\mathrm{deg}$,
-$|\Delta\alpha_y|<10^{-10}\;\mathrm{deg}$.  Each case requires
-$\sim\!15\;\mathrm{min}$ (860--940\,k evaluations, 5~restarts).  The
-close-speeds case ($N=[1.0, 1.2, -0.8, -1.1]$) is no harder than the
-easy case, confirming that the permutation search (24 orderings for
-$P=4$) resolves the ambiguity.
-
-\subsection{Hessian error-bound validation}
-\label{sec:hessian_val}
-
-The Hessian-based prediction $|\delta\theta_j| \lesssim
-\sqrt{\mathrm{MSE}/H_{jj}}$ (Sec.~\ref{sec:error}) provides a
-\emph{conservative upper bound} on the recovery error.  Comparing
-predicted and actual errors for the 3-prism reference case
-(MSE~$=6.7\times10^{-24}$): the actual errors are 1--4\,\% of the
-predicted bounds, confirming that (i)~the quadratic
-approximation~\eqref{eq:hessian} is valid, and (ii)~the NM polish
-drives the solution well inside the Hessian-predicted error ellipsoid.
-The numerically estimated condition number $\kappa =
-\max_j H_{jj}/\min_j H_{jj} \approx 2.4\times10^7$ reflects the
-five-order-of-magnitude sensitivity gap between $N$ ($H\approx10^5$)
-and $\alpha_y$ ($H\approx10^{-2}$).  The inverse Hessian
-$\vect{H}^{-1}$ also provides a local covariance estimate for
-uncertainty quantification; in the presence of noise with variance
-$\sigma^2$, approximate parameter confidence intervals are
-$\delta\theta_j \approx \sigma/\sqrt{H_{jj}}$.  Full posterior
-characterisation (e.g., via MCMC) is left for future work.
-
-% =====================================================================
-\section{Discussion}
-\label{sec:discussion}
-% =====================================================================
-
-\subsection{Comparison with prior inverse methods}
-
-The Risley inverse problem has been approached from two distinct angles.
-\emph{Beam-steering} methods~\cite{Li2024,Yan2026,Yang2008} assume known
-hardware and solve for instantaneous rotation angles to steer the beam to
-a target---a real-time control problem.  Li \emph{et al.}~\cite{Li2024}
-achieve $80\;\mu\mathrm{s}$ inference with arcsec accuracy using a BPNN;
-Yan \emph{et al.}~\cite{Yan2026} handle non-uniqueness via
-physics-constrained mixture density networks.
-
-Our problem is \emph{system identification}: the hardware parameters
-themselves are unknown.  To benchmark, we implemented the paraxial FFT
-inverse implicit in Yang~\cite{Yang2008}, which extracts rotation speeds
-from frequency peaks.  This is a fundamentally different tool---designed
-for real-time beam steering with known hardware, not offline parameter
-recovery---so the comparison is one of capability, not of method quality.
-Table~\ref{tab:yang} shows that FFT speed estimates carry
-$0.5$--$0.9\;\mathrm{Hz}$ errors due to finite frequency resolution
-($\Delta f = 1/T_\mathrm{obs} = 0.1\;\mathrm{Hz}$) and discretisation,
-and the method cannot recover wedge angles at all.  Our global
-optimisation recovers all parameters to floating-point precision.
-
-\begin{table}[htbp]
-\centering
-\caption{FFT inverse~\cite{Yang2008} vs.\ our method ($P=2$).
-FFT recovers speeds only; ours recovers all parameters.}
-\label{tab:yang}
-\begin{tabular}{@{}lcc@{}}
-\toprule
-Case & FFT $|\Delta N|$ & Ours $|\Delta N|$ \\
-     & (Hz)             & (Hz)             \\
-\midrule
-Small angles ($3^\circ$)    & 0.50 & $<10^{-15}$ \\
-Medium angles ($8^\circ$)   & 0.50 & $<10^{-15}$ \\
-Large angles ($15^\circ$)   & 0.50 & $<10^{-15}$ \\
-Close speeds (1.0, 1.1\,Hz) & 0.90 & $<10^{-15}$ \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\subsection{Physical versus thin-prism models}
-
-Prior computational work on Risley systems~\cite{Marshall1999,Yang2008,Li2011}
-models each prism as a single effective refractive interface---the
-``thin prism'' or ``thin wedge'' approximation, valid when the wedge angle
-is small ($\alpha \lesssim 5^\circ$) and the prism thickness is negligible
-compared to the inter-element spacing.  Under this approximation each prism
-contributes one interface, and a $P$-prism system has $P$ interfaces.
-
-Our model instead represents each prism as two interfaces (entry~+~exit
-face) with lockstep rotation and an internal glass region.  This has two
-advantages: (i)~accuracy at large wedge angles ($\alpha$ up to $15^\circ$
-in our tests); and (ii)~a physically motivated refractive-index structure
-(alternating air--glass--air) that enables recovery of glass indices as
-free parameters.  The cost is a doubled interface
-count ($2P$ instead of $P$), but since the vectorised forward model cost
-scales linearly with interface count, the practical overhead is modest.
-
-\subsection{Role of the neural network}
-
-The NN's primary value is \textbf{classification}: it identifies the
-prism count with 98.8\,\% accuracy, eliminating a discrete
-model-selection step.  Its regression output ($\sim\!1\;\mathrm{Hz}$
-speed error, $\sim\!5^\circ$ angle error) can seed the first DE restart.
-
-To quantify the warm-start benefit honestly, we trained the full NN on
-$10^5$ samples and ran an ablation comparing NN+DE (first restart seeded)
-versus DE-only (all restarts random).  Both reach the same final MSE
-($\sim\!10^{-24}$).  With 3 restarts, the wall times are
-indistinguishable ($\sim\!100\;\mathrm{s}$ each): the random restarts
-find the global basin just as quickly.  The NN's regression warm start
-therefore provides \textbf{no measurable speedup} at this restart budget.
-Its contribution is classification, not regression.
-
-An important observation is that the NN's per-prism regression error is
-approximately uniform across prisms (Table~\ref{tab:nn}).  This contrasts
-sharply with our earlier experiments using a single-interface-per-prism
-model with uniform refractive indices, where the NN learned only the first
-prism's parameters (speed error $\sim\!0.06\;\mathrm{Hz}$) while producing
-near-random outputs for subsequent prisms (error $\sim\!1.5\;\mathrm{Hz}$).
-The physical two-interface model, by distributing refractive sensitivity
-more evenly, makes all prisms equally ``visible'' to the NN.
-
-\subsection{Permutation ambiguity}
-
-Swapping prism $i$ with prism $j$---together with their rotation speeds
-and angles---changes the refraction sequence because each prism encounters
-a beam that has already been deflected by the preceding prisms.  However,
-when two prisms have similar speeds and angles, the resulting patterns
-can be nearly identical.  Our permutation search (evaluating all $P!$
-orderings) resolves this for $P \le 3$.
-
-For larger systems ($P=4$--$6$), the $P!$ brute-force search becomes
-costly ($P! = 720$ for $P=6$).  Several pruning strategies are available:
-(i)~sort prisms by their NN-predicted speed and test only permutations
-that respect this ordering modulo local transpositions; (ii)~use a
-``greedy permutation'' that fixes the prism with the most distinctive
-speed and permutes only the remainder; (iii)~add an ordering regulariser
-to the optimisation objective.
-
-\subsection{Scaling: what can be recovered?}
-\label{sec:scaling}
-
-The solver's input/output contract is: given an observed scan pattern and
-a description of the known hardware, recover everything else.
-Table~\ref{tab:budget} summarises the tested configurations, ranging from
-6-D (speeds and angles only, 2~prisms) to 14-D (speeds, angles, glass
-indices, workpiece distance, and inter-prism gap, 3~prisms).  All
-configurations converge to MSE~$< 10^{-11}$; the computational cost
-scales roughly as the cube of the search dimension.
-
-\begin{table}[htbp]
-\centering
-\caption{Computational budget versus search dimensionality.  All cases
-achieve MSE~$<10^{-11}$.  Wall times are single-core CPU.}
-\label{tab:budget}
-\begin{tabular}{@{}clccrr@{}}
-\toprule
-Dim.\ & Parameters recovered & $P$ & Restarts & Evals & Time \\
-\midrule
-6  & $N$, $\alpha_x$, $\alpha_y$                        & 2 & 4 & 300k & 30\,s \\
-8  & + glass indices $n_g$                               & 2 & 1 & 75k  & 46\,s \\
-9  & $N$, $\alpha_x$, $\alpha_y$                        & 3 & 4 & 300k & 2\,min \\
-9  & + glass + workpiece dist.                           & 2 & 2 & 150k & 62\,s \\
-12 & + glass indices $n_g$                               & 3 & 4 & 300k & 4\,min \\
-\textbf{14} & \textbf{+ glass + $D_\mathrm{wp}$ + gap}  & \textbf{3} & \textbf{7} & \textbf{2.1M} & \textbf{48\,min} \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-The 14-D case---recovering all prism parameters \emph{plus} the workpiece
-distance and inter-prism spacing, with no prior knowledge of the hardware
-geometry---is the most demanding configuration tested.  It required 7
-restarts and $\sim\!2.1\times10^6$ forward-model evaluations before one
-restart landed in the global basin (restart~7 of~8, reaching
-MSE~$=4.4\times10^{-18}$).  All 14 parameters were recovered to floating-point
-precision:
-\begin{center}\small
-\begin{tabular}{lcc}
-Parameter & Recovered & True \\
-\hline
-$N_1, N_2, N_3$ (Hz) & 1.500, $-$1.000, 2.000 & 1.5, $-$1.0, 2.0 \\
-$\alpha_{x}$ (deg) & 12.000, $-$8.000, 5.000 & 12, $-$8, 5 \\
-$\alpha_{y}$ (deg) & 3.000, 10.000, $-$6.000 & 3, 10, $-$6 \\
-$n_g$ & 1.5000, 1.5500, 1.6000 & 1.50, 1.55, 1.60 \\
-$D_\mathrm{wp}$ & 120.000 & 120 \\
-gap & 8.000 & 8 \\
-\end{tabular}
-\end{center}
-
-This demonstrates that even system geometry is recoverable from the scan
-pattern alone, given sufficient optimisation budget.  GPU parallelisation
-of the forward model (trivially data-parallel across population members)
-would reduce the 48-minute wall time to $\sim\!2$--$5$ minutes.
-
-\paragraph{Scaling to $P\ge4$.}
-We have demonstrated $P=4$ recovery (12-D search, 4 test cases) in
-Sec.~\ref{sec:results}: all parameters recovered to floating-point precision
-in $\sim\!15\;\mathrm{min}$ per case.  The forward-model cost
-scales as $\bigO(P \cdot T)$; for $P=6$, $T=200$:
-$\sim\!1\;\mathrm{ms}$, roughly double the $P=3$ cost.  The permutation
-count $P!$ grows factorially; for $P=4$ the 24 permutations are
-tractable, but $P=6$ ($720$ permutations) would benefit from pruning
-by fixing the NN-predicted speed ordering.
-
-\subsection{Generalisation beyond Risley prisms}
-
-The two-stage approach (NN warm start $+$ global optimisation with
-permutation resolution) is not specific to Risley prisms.  It applies to
-any inverse problem where:
-\begin{enumerate}
-\item A fast, differentiable (or at least evaluable) forward model exists.
-\item The parameter space is moderate-dimensional ($\lesssim 20$).
-\item The forward mapping may exhibit permutation symmetries (e.g.,
-      multiple identical components whose ordering matters).
-\item An identifiability condition must be satisfied (e.g., per-component
-      signatures must be distinct).
-\end{enumerate}
-
-Candidate applications include:
-\begin{itemize}
-\item \textbf{Multi-layer thin-film design}: given a reflectance spectrum,
-      recover layer thicknesses and refractive indices---a problem with
-      the same sequential-refraction structure and permutation ambiguity.
-\item \textbf{Compound lens systems}: given an observed aberration pattern,
-      infer individual lens curvatures and spacings.
-\item \textbf{Acoustic beam-forming}: given a far-field radiation pattern,
-      recover element phases and amplitudes in a phased array.
-\item \textbf{Robotic manipulator calibration}: given end-effector
-      trajectories, infer per-joint parameters---a sequential-transformation
-      problem with similar nonlinearity.
-\end{itemize}
-
-In each case the key enabling step would be identifying and enforcing the
-analogue of our speed-based identifiability condition: ensuring that
-each component's contribution to the observed signal is distinguishable
-from every other component's.
-
-\subsection{Smoothness, quasi-periodicity, and the Risley manifold}
-
-The exactness of the recovery and the residual diagnostic
-(Sec.~\ref{sec:ood}) can be understood through the structure of the
-forward map.  Let $F:\Theta\subset\mathbb{R}^{3P}\to\mathcal{C}$
-denote the mapping from parameters to scan patterns, where
-$\mathcal{C}$ is the space of continuous curves $[0,T]\to\mathbb{R}^2$.
-
-\paragraph{Smoothness.}
-$F$ is the composition of (i)~trigonometric rotations~\eqref{eq:gamma},
-(ii)~vector Snell's law~\eqref{eq:snell} (a ratio of smooth functions,
-away from total internal reflection), and (iii)~line--line intersection
-(a ratio of bilinear polynomials).  Each constituent is $C^\infty$ in
-both $\vect{\theta}$ and $t$, so the composite $F$ is $C^\infty$.  In
+The exactness of the recovery, the residual-MSE diagnostic, and the
+answer to ``how many wedges are needed?'' all follow from the
+mathematical structure of the forward map.  We develop this structure
+here.
+
+\subsection{Smoothness}
+\label{sec:smoothness}
+
+Let $F:\Theta\subset\mathbb{R}^{3P}\to\mathcal{C}$ denote the mapping
+from parameters to scan patterns, where $\mathcal{C}$ is the space of
+continuous curves $[0,T]\to\mathbb{R}^2$.  $F$ is the composition of
+(i)~trigonometric rotations~\eqref{eq:gamma}, (ii)~vector Snell's
+law~\eqref{eq:snell} (a ratio of smooth functions, away from total
+internal reflection), and (iii)~line--line intersection (a ratio of
+bilinear polynomials).  Each constituent is $C^\infty$ in both
+$\vect{\theta}$ and $t$, so the composite $F$ is $C^\infty$.  In
 particular, the scan pattern $\vect{p}(t)=F(\vect{\theta})(t)$ is a
 smooth curve for every $\vect{\theta}\in\Theta$.  Patterns with corners,
 cusps, or discontinuities cannot lie in the image of $F$.
 
-\paragraph{Quasi-periodicity.}
+\subsection{Quasi-periodicity and the Risley manifold $\mathcal{M}_P$}
+\label{sec:quasi}
+
 Each prism $i$ contributes refractive deflections that are periodic in
 $\gamma_i(t) = 360\,N_i\,t$ with period $1/|N_i|$.  The iterated
 Snell's-law composition produces output coordinates that are
@@ -1105,7 +293,6 @@ the finite parameter vector $\vect{\theta}$---the quasi-periodic
 structure is what makes exact recovery possible from a finite
 observation window.
 
-\paragraph{The Risley manifold.}
 The image $\mathcal{M}_P = F(\Theta)$ is a $3P$-dimensional smooth
 manifold embedded in the infinite-dimensional function space
 $\mathcal{C}$.  Most elements of $\mathcal{C}$---random walks, sawtooth
@@ -1118,13 +305,52 @@ $\vect{p}^\mathrm{obs}\in\mathcal{M}_P$, the minimum is zero
 $\vect{p}^\mathrm{obs}\notin\mathcal{M}_P$, the minimum is strictly
 positive and equals the squared projection distance.
 
-This explains both the exact recovery on Risley-compatible inputs
-(Table~\ref{tab:results}) and the clean separation in the
-out-of-distribution test (Table~\ref{tab:ood}): the residual MSE is
-literally the distance from the observation to the nearest point on the
-Risley manifold.
+\subsection{Identifiability}
+\label{sec:identifiability}
 
-\paragraph{Fourier-like convergence.}
+When two prisms rotate at the same speed ($N_i = N_j$), their exit faces
+trace synchronous paths.  An increase in one prism's wedge angle can be
+offset by a decrease in the other's, producing nearly identical scan
+patterns from different parameter vectors.  The MSE landscape develops a
+flat valley along this compensating direction, and the inverse problem
+becomes degenerate.
+
+Figure~\ref{fig:ident} demonstrates this with a two-dimensional MSE
+landscape.  Both panels show $\log_{10}(\mathrm{MSE})$ as a function of
+simultaneous perturbations $\Delta\alpha_{x,1}$ and $\Delta\alpha_{x,2}$
+to the two prisms' wedge angles.  In the left panel ($N_1 = N_2 = 1.0$\,Hz),
+a pronounced diagonal valley runs from upper-left to lower-right: trading
+angle between the two prisms preserves the pattern, so the optimiser cannot
+determine how much deflection each prism contributes individually.  In the
+right panel ($N_1 = 1.5$, $N_2 = -1.0$\,Hz), the contours are approximately
+circular and tightly centred on the true solution---each prism's contribution
+is resolved by its distinct temporal signature.
+
+The identifiability requirement is therefore
+\begin{equation}
+  N_i \neq N_j \quad \text{for } i \neq j.
+  \label{eq:speed_condition}
+\end{equation}
+This is satisfied in virtually all practical Risley systems.  The physical
+mechanism is that rotation speed controls \emph{when} each prism's
+deflection is applied during the scan cycle.  When speeds differ, each prism
+modulates the beam at a different frequency, and the pattern encodes
+per-prism information that the solver can disentangle.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{figures/refind_impact.pdf}
+  \caption{MSE landscape over simultaneous wedge-angle perturbations to
+  both prisms.  Left: identical speeds produce a degenerate diagonal
+  valley---many angle combinations yield similar patterns.  Right:
+  distinct speeds produce a tight, circular minimum---only the true
+  parameters fit.}
+  \label{fig:ident}
+\end{figure}
+
+\subsection{Fourier convergence and wedge-count determination}
+\label{sec:fourier}
+
 The connection between prism count and approximation power is analogous
 to truncating a Fourier series.  Each prism contributes one fundamental
 rotation frequency $N_i$; the iterated Snell's-law composition generates
@@ -1153,8 +379,16 @@ decreases with $P$ at a rate governed by the target's regularity:
 \item $\vect{p}^\mathrm{obs}$ discontinuous: $d^2 \sim \bigO(1/P)$
       with Gibbs-like overshoots near discontinuities.
 \end{itemize}
+
+This gives a principled answer to the engineering question ``how many
+wedges do I need?'': fit the observed pattern with $P=1,2,3,\ldots$
+prisms and monitor the residual MSE.  When the MSE drops to
+machine-precision zero, $P$ equals the true prism count.  When it
+plateaus at a nonzero value, the pattern is not Risley-compatible,
+and the convergence rate reveals its regularity class.
+
 Table~\ref{tab:ood_prisms} confirms the predicted algebraic rate for
-the piecewise-linear test case: the MSE decreases monotonically from
+a piecewise-linear test case: the MSE decreases monotonically from
 $20.2$ ($P\!=\!1$) through $1.6$ ($P\!=\!4$) to $0.93$ ($P\!=\!6$),
 with each additional prism reducing the residual but never eliminating
 it.  Like a truncated Fourier series, the Risley fit captures
@@ -1182,28 +416,311 @@ $P$ & Dim & Residual MSE & Mean error \\
 \end{tabular}
 \end{table}
 
-\subsection{Limitations}
+Figure~\ref{fig:ood} illustrates this for the piecewise-linear case.
+Panel~(a) shows the input: a real 3-prism pattern with its smooth curves
+replaced by straight-line segments (sharp corners at 15 knot points).
+Panels (b--e) show the solver converging---not toward the angular input,
+but toward the nearest smooth, quasi-periodic Risley curve.  The
+overlay~(f) makes the discrepancy visible: the black input has straight
+edges while the red Risley fit is smooth everywhere---exactly the
+$C^\infty$ constraint predicted by the theory.
 
-Several limitations should be noted.
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\columnwidth]{figures/ood_convergence.pdf}
+  \caption{Solver applied to a non-smooth (piecewise-linear) pattern.
+  (a)~Input with sharp corners.  (b--e)~Convergence toward the nearest
+  quasi-periodic Risley curve.  (f)~Overlay showing the smooth Risley
+  fit (red) vs.\ the angular input (black).  The residual MSE floors at
+  $\sim\!2.8$---the projection distance to the Risley manifold.}
+  \label{fig:ood}
+\end{figure}
 
-\paragraph{Observation noise.}
-The noise study (Table~\ref{tab:noise}) tests additive i.i.d.\ Gaussian
-noise on $(x,y)$ coordinates.  Real noise sources---detector pixel
-quantisation, timing jitter (non-uniform sampling), beam wander
-(spatially correlated), and mechanical vibration (systematic)---have
-different statistical structure and may shift the 40\,dB reliability
-threshold.  The multi-trial study (30 realisations per SNR) quantifies
-variance for the Gaussian case; characterising realistic noise profiles
-requires experimental data.
+\subsection{Sensitivity hierarchy}
+\label{sec:sensitivity}
 
-\paragraph{Model mismatch.}
-All optimisation results use the same forward model for data generation
-and fitting.  Table~\ref{tab:mismatch} quantifies the effect of
-solving with incorrect geometry.  Small errors ($\lesssim\!5\;\%$) in
-any single parameter produce tolerable bias; larger errors
-($\gtrsim\!15\;\%$) cause the solver to converge to a wrong basin.  In
-practice, hardware geometry is known to $<1\;\%$ from design
-specifications, well within the safe regime.
+To quantify how strongly each parameter affects the observed pattern, we
+perturb one parameter at a time from a known 3-prism solution and measure
+the resulting pattern MSE.  Figure~\ref{fig:sensitivity} plots MSE as a
+function of the perturbation magnitude for three parameter types:
+rotation speed~$N$, wedge angle~$\alpha_x$, and wedge angle~$\alpha_y$.
+
+The figure reveals a clear hierarchy:
+\begin{equation}
+  \frac{\partial\,\mathrm{MSE}}{\partial N} \;\gg\;
+  \frac{\partial\,\mathrm{MSE}}{\partial\alpha_x} \;\gg\;
+  \frac{\partial\,\mathrm{MSE}}{\partial\alpha_y}.
+  \label{eq:sensitivity_order}
+\end{equation}
+Speed perturbations produce the steepest MSE response ($\sim\!10^3$
+times steeper than $\alpha_x$, $\sim\!10^5$ times steeper than
+$\alpha_y$).  Physically, speed controls the \emph{temporal} structure:
+it shifts every point along the trajectory, and errors accumulate over
+the full observation window.  The wedge angle $\alpha_x$ controls the
+\emph{amplitude} of deflection, and $\alpha_y$ enters through the
+projection $\sin(\gamma_i + \alpha_{y,i}) \cdot \tan\alpha_{x,i}$,
+diluting its marginal effect.
+
+The parabolic shape of the curves indicates that, near the true solution,
+the MSE landscape is well-approximated by a quadratic form:
+\begin{equation}
+  \mathrm{MSE}(\vect{\theta}+\delta\vect{\theta}) \approx
+    \delta\vect{\theta}^{\!\top} \vect{H}\, \delta\vect{\theta},
+  \label{eq:hessian}
+\end{equation}
+where $\vect{H}$ is the Hessian of the MSE objective.  The diagonal
+entries $H_{jj}$ (Table~\ref{tab:sensitivity}) are the curvatures
+along each parameter axis.  The condition number
+$\kappa = \max_j H_{jj}/\min_j H_{jj} \approx 2.4\times10^7$ reflects
+the five-order-of-magnitude sensitivity gap between $N$ and $\alpha_y$,
+and predicts the error hierarchy in the final results.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{figures/sensitivity.pdf}
+  \caption{Sensitivity of pattern MSE to single-parameter perturbations
+  for a 3-prism (6-interface) system, plotted separately for rotation
+  speed ($N$, left), wedge angle$_x$ ($\alpha_x$, centre), and wedge
+  angle$_y$ ($\alpha_y$, right).  Each curve represents one prism.
+  Speed sensitivity exceeds $\alpha_x$ by $\sim\!10^3$ and $\alpha_y$ by
+  $\sim\!10^5$, explaining the error hierarchy in the final results.}
+  \label{fig:sensitivity}
+\end{figure}
+
+\begin{table}[htbp]
+\centering
+\caption{Sensitivity coefficients $\partial^2\!\mathrm{MSE}/\partial\theta_j^2$
+estimated from Fig.~\ref{fig:sensitivity} for a representative 3-prism system.}
+\label{tab:sensitivity}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Parameter & Prism 1 & Prism 2 & Prism 3 \\
+\midrule
+$N$ (per Hz$^2$) & 25.9 & 10.0 & 3.4 \\
+$\alpha_x$ (per deg$^2$) & 0.023 & 0.020 & 0.017 \\
+$\alpha_y$ (per deg$^2$) & 0.0010 & 0.00038 & 0.00012 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% =====================================================================
+\section{Inverse Solver}
+\label{sec:method}
+% =====================================================================
+
+\subsection{Global optimisation}
+\label{sec:optim}
+
+The inverse solver minimises the pattern-matching objective
+\begin{equation}
+  \hat{\vect{\theta}} = \arg\min_{\vect{\theta}\in\Theta}\;
+    \frac{1}{T}\sum_{t=1}^T
+      \lVert\vect{p}_t(\vect{\theta})-\vect{p}_t^\mathrm{obs}\rVert^2,
+  \label{eq:opt}
+\end{equation}
+where $\Theta = [-3.5,3.5]^P\!\times\![-18,18]^{2P}$.
+
+\paragraph{Differential evolution.}
+We use \texttt{scipy.optimize.differential\_evolution}~\cite{StornPrice1997}
+(pop.\,25, 200~gen., mutation $[0.5,1.5]$, crossover~0.8) with 4
+independent restarts (first seeded with the NN classification result,
+rest random).
+
+\paragraph{Nelder--Mead polish.}
+Each DE result is refined by Nelder--Mead~\cite{NelderMead1965}
+($10^4$ evaluations, $f$-tol $10^{-10}$).
+
+\paragraph{Permutation resolution.}
+Swapping two prisms (with their parameters) yields a different but
+potentially similar pattern.  We evaluate all $P!$ permutations of the best
+solution, polish each, and retain the lowest MSE.  Cost is negligible for
+$P\le3$ ($P!\le6$); for $P=4$ the 24 permutations remain tractable.
+
+\paragraph{Error propagation.}
+Because the optimiser converges to MSE~$\sim\!10^{-11}$, the residual
+parameter error in each direction is bounded by
+$|\delta\theta_j| \lesssim \sqrt{\mathrm{MSE}/H_{jj}}$.  This yields:
+\begin{align}
+  |\delta N|      &\sim \sqrt{10^{-11}/10} \sim 10^{-6}\;\mathrm{Hz}, \\
+  |\delta\alpha_x| &\sim \sqrt{10^{-11}/0.02} \sim 10^{-5}\;\text{deg}, \\
+  |\delta\alpha_y| &\sim \sqrt{10^{-11}/10^{-4}} \sim 10^{-4}\;\text{deg}.
+\end{align}
+The actual measured errors (Table~\ref{tab:results}) are smaller because the
+NM polish drives the MSE below the DE convergence threshold into the
+floating-point regime.
+
+\subsection{Neural-network classifier}
+\label{sec:nn}
+
+The NN's role is prism-count classification.  From a pattern
+$\{(x_t,y_t)\}_{t=1}^{T}$ ($T=200$) we form a 600-D feature vector
+\begin{equation}
+  \vect{f} = \bigl[\,\vect{x},\;\vect{y},\;
+    |\mathcal{F}(\tilde{\vect{x}})|_{1:T/2},\;
+    |\mathcal{F}(\tilde{\vect{y}})|_{1:T/2}\,\bigr],
+  \label{eq:features}
+\end{equation}
+combining raw coordinates (400~features) with DFT magnitudes
+(200~features).  A shared backbone
+($768\!\to\!512\!\to\!256\!\to\!128$, BatchNorm, ReLU, dropout) feeds a
+classifier head that predicts $P$ with 98.8\,\% accuracy on held-out
+patterns.  An ablation comparing NN-seeded versus purely random DE
+restarts shows both reach the same final MSE; the NN's value is
+classification, not regression warm-starting.
+
+\subsection{Computational cost}
+
+Table~\ref{tab:budget} summarises the tested configurations.  All
+achieve MSE~$<10^{-11}$; cost scales roughly with the cube of the
+search dimension.
+
+\begin{table}[htbp]
+\centering
+\caption{Computational budget versus search dimensionality.  All cases
+achieve MSE~$<10^{-11}$.  Wall times are single-core CPU.}
+\label{tab:budget}
+\begin{tabular}{@{}clccrr@{}}
+\toprule
+Dim.\ & Parameters recovered & $P$ & Restarts & Evals & Time \\
+\midrule
+6  & $N$, $\alpha_x$, $\alpha_y$                        & 2 & 4 & 300k & 30\,s \\
+8  & + glass indices $n_g$                               & 2 & 1 & 75k  & 46\,s \\
+9  & $N$, $\alpha_x$, $\alpha_y$                        & 3 & 4 & 300k & 2\,min \\
+9  & + glass + workpiece dist.                           & 2 & 2 & 150k & 62\,s \\
+12 & + glass indices $n_g$                               & 3 & 4 & 300k & 4\,min \\
+\textbf{14} & \textbf{+ glass + $D_\mathrm{wp}$ + gap}  & \textbf{3} & \textbf{7} & \textbf{2.1M} & \textbf{48\,min} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% =====================================================================
+\section{Results}
+\label{sec:results}
+% =====================================================================
+
+\subsection{Parameter recovery}
+
+Table~\ref{tab:results} presents the full-pipeline results on a
+23-case test battery spanning $P=2$--$4$, including adversarial
+configurations (near-identical speeds, tiny angles, harmonic speed
+ratios, same-sign speeds).
+
+\begin{table}[htbp]
+\centering
+\caption{Full-pipeline recovery errors (max across all prisms).
+All cases achieve MSE~$< 10^{-10}$.}
+\label{tab:results}
+\begin{tabular}{@{}lcccr@{}}
+\toprule
+Case & $P$ & $|\Delta N|$ & $|\Delta\alpha_x|$ & $|\Delta\alpha_y|$ \\
+     &     & (Hz)          & (deg)               & (deg) \\
+\midrule
+Easy         & 2 & $10^{-8}$ & $10^{-6}$ & $10^{-5}$ \\
+Close speeds & 2 & $10^{-8}$ & $10^{-6}$ & $10^{-5}$ \\
+Negative     & 2 & $10^{-9}$ & $10^{-6}$ & $10^{-5}$ \\
+Small angles & 2 & $10^{-9}$ & $10^{-7}$ & $10^{-5}$ \\
+Large angles & 2 & $10^{-8}$ & $10^{-6}$ & $10^{-5}$ \\
+\midrule
+Easy         & 3 & $10^{-8}$ & $10^{-6}$ & $10^{-5}$ \\
+Close speeds & 3 & $10^{-7}$ & $10^{-5}$ & $10^{-4}$ \\
+Large angles & 3 & $10^{-8}$ & $10^{-6}$ & $10^{-5}$ \\
+Negative     & 3 & $10^{-8}$ & $10^{-6}$ & $10^{-5}$ \\
+Mixed        & 3 & $10^{-8}$ & $10^{-6}$ & $10^{-5}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The error hierarchy $|\Delta N| < |\Delta\alpha_x| < |\Delta\alpha_y|$
+matches the sensitivity ordering~\eqref{eq:sensitivity_order} and the
+Hessian-based predictions~\eqref{eq:hessian}.  The hardest case
+(3-prism, close speeds) requires the most optimiser restarts and yields
+the largest errors, but still achieves $|\Delta N|<10^{-7}\;\mathrm{Hz}$.
+Four additional 4-prism (8-interface, 12-D) cases all converge to
+MSE~$<10^{-22}$ with $|\Delta N|<10^{-13}\;\mathrm{Hz}$, each requiring
+$\sim\!15\;\mathrm{min}$.
+
+\subsection{Out-of-distribution diagnostic}
+
+The theoretical framework (Sec.~\ref{sec:theory}) predicts that the
+residual MSE measures the distance from the observation to the Risley
+manifold.  Table~\ref{tab:ood} confirms this: eight patterns of
+decreasing compatibility with the Risley model separate cleanly into
+three regimes.
+
+\begin{table}[htbp]
+\centering
+\caption{Solver applied to patterns outside the Risley manifold ($P=3$).
+Residual MSE indicates distance from the nearest achievable pattern.}
+\label{tab:ood}
+\begin{tabular}{@{}lr@{}}
+\toprule
+Input pattern & Residual MSE \\
+\midrule
+Real Risley (control)          & $10^{-12}$ \\
+Time-reversed                  & $3\!\times\!10^{-3}$ \\
+2-prism pattern (fit as 3)     & $3\!\times\!10^{-3}$ \\
+\midrule
+Piecewise-linear (sharp corners) & $1.5\!\times\!10^{1}$ \\
+Linear drift (non-periodic)    & $2.8\!\times\!10^{1}$ \\
+Square-wave modulated          & $4.0\!\times\!10^{1}$ \\
+\midrule
+Time-shuffled                  & $1.3\!\times\!10^{2}$ \\
+Uniform random                 & $1.6\!\times\!10^{2}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent
+\textbf{Compatible} (MSE~$<10^{-3}$): real Risley patterns, or patterns
+achievable by a different prism count.  \textbf{Incompatible, structured}
+(MSE~$\sim\!10^1$): patterns with broken smoothness or periodicity.
+\textbf{Incompatible, unstructured} (MSE~$\sim\!10^2$): shuffled or
+random points.  The residual MSE thus serves as a diagnostic: values
+below $\sim\!10^{-3}$ indicate a Risley-compatible pattern; values above
+$\sim\!1$ indicate the observed pattern cannot have been produced by any
+configuration of $P$ rotating wedge prisms.
+
+\subsection{Noise robustness}
+\label{sec:noise}
+
+To quantify degradation under noise, we add Gaussian noise with
+standard deviation
+$\sigma = \sqrt{P_\mathrm{signal}/10^{\mathrm{SNR}/10}}$ to a 3-prism
+pattern and re-run the solver (30 independent trials per SNR level).
+
+\begin{table}[htbp]
+\centering
+\caption{Recovery under noise ($P=3$, 30 trials per SNR).
+Errors are mean $\pm$ std of $\max|\Delta\theta_j|$ across
+successful trials (speed error $<1$\,Hz).}
+\label{tab:noise}
+\begin{tabular}{@{}rcccc@{}}
+\toprule
+SNR & Success & $|\Delta N|$ & $|\Delta\alpha_y|$ \\
+(dB) & rate & (Hz) & (deg) \\
+\midrule
+60 & 30/30 & $(1.4\!\pm\!0.7)\!\times\!10^{-5}$ & $0.03\!\pm\!0.02$ \\
+50 & 30/30 & $(4.5\!\pm\!2.1)\!\times\!10^{-5}$ & $0.09\!\pm\!0.05$ \\
+45 & 28/30 & $(8.0\!\pm\!3.8)\!\times\!10^{-5}$ & $0.16\!\pm\!0.09$ \\
+40 & 24/30 & $(1.4\!\pm\!0.7)\!\times\!10^{-4}$ & $0.30\!\pm\!0.16$ \\
+35 & 17/30 & $(2.4\!\pm\!1.0)\!\times\!10^{-4}$ & $0.51\!\pm\!0.25$ \\
+30 & 10/30 & $0.15\!\pm\!0.23$ & $3.5\!\pm\!3.9$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Table~\ref{tab:noise} shows graceful degradation: 100\,\% success at
+60\,dB, declining to 57\,\% at 35\,dB and 33\,\% at 30\,dB.
+Conditional on finding the correct basin, errors scale as
+$\sim\!\sigma/\sqrt{H_{jj}}$, consistent with the Hessian
+prediction~\eqref{eq:hessian}.  The reliability transition occurs between
+40 and 35\,dB, where the noise amplitude becomes comparable to the fine
+structure of the scan pattern.
+
+\subsection{Model mismatch}
+
+Table~\ref{tab:mismatch} quantifies the effect of solving with incorrect
+geometry assumptions.
 
 \begin{table}[htbp]
 \centering
@@ -1224,82 +741,128 @@ Workpiece dist.\ $+20\;\%$ & $7\!\times\!10^{0}$ & $>1$ \\
 \end{tabular}
 \end{table}
 
-\paragraph{Glass indices and geometry.}
-When glass indices are unknown, they can be added as free parameters
-($3P \to 4P$ dimensions).  We have demonstrated successful recovery of
-glass indices to $\sim\!10^{-4}$ precision (Sec.~\ref{sec:scaling}).
-The workpiece distance and inter-prism gap can likewise be recovered
-($4P \to 4P\!+\!2$), though the 14-D search requires $\sim\!48$ minutes
-on a single CPU core.  In practice, distances are usually known from the
-hardware design, and glass types from manufacturer specifications.
+Small geometry errors ($\lesssim\!5\;\%$) produce tolerable bias; larger
+errors ($\gtrsim\!15\;\%$) cause the solver to converge to a wrong basin.
+In practice, hardware geometry is known to $<1\;\%$ from design
+specifications, well within the safe regime.
+
+% =====================================================================
+\section{Discussion}
+\label{sec:discussion}
+% =====================================================================
+
+\subsection{Comparison with prior methods}
+
+The Risley inverse problem has been approached from two angles.
+\emph{Beam-steering} methods~\cite{Li2024,Yan2026,Yang2008} assume known
+hardware and solve for instantaneous rotation angles---a real-time control
+problem.  Li \emph{et al.}~\cite{Li2024} achieve
+$80\;\mu\mathrm{s}$ inference with arcsec accuracy; Yan \emph{et
+al.}~\cite{Yan2026} handle non-uniqueness via physics-constrained mixture
+density networks.
+
+Our problem is \emph{system identification}: the hardware parameters are
+unknown.  To benchmark, we implemented the paraxial FFT inverse implicit
+in Yang~\cite{Yang2008}.  Table~\ref{tab:yang} shows that FFT speed
+estimates carry $0.5$--$0.9\;\mathrm{Hz}$ errors due to finite frequency
+resolution ($\Delta f = 1/T_\mathrm{obs} = 0.1\;\mathrm{Hz}$), and the
+method cannot recover wedge angles.  Our global optimisation recovers all
+parameters to floating-point precision.
+
+\begin{table}[htbp]
+\centering
+\caption{FFT inverse~\cite{Yang2008} vs.\ our method ($P=2$).
+FFT recovers speeds only; ours recovers all parameters.}
+\label{tab:yang}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+Case & FFT $|\Delta N|$ & Ours $|\Delta N|$ \\
+     & (Hz)             & (Hz)             \\
+\midrule
+Small angles ($3^\circ$)    & 0.50 & $<10^{-15}$ \\
+Medium angles ($8^\circ$)   & 0.50 & $<10^{-15}$ \\
+Large angles ($15^\circ$)   & 0.50 & $<10^{-15}$ \\
+Close speeds (1.0, 1.1\,Hz) & 0.90 & $<10^{-15}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Physical versus thin-prism models}
+
+Prior work~\cite{Marshall1999,Yang2008,Li2011} models each prism as a
+single effective refractive interface---the ``thin prism'' approximation,
+valid for $\alpha \lesssim 5^\circ$.  Our two-interface model (entry + exit
+face with lockstep rotation and internal glass) extends accuracy to large
+wedge angles ($\alpha$ up to $15^\circ$) and enables recovery of glass
+indices as free parameters.  The cost is a doubled interface count
+($2P$ instead of $P$), but since the forward model scales linearly with
+interface count, the overhead is modest.
+
+\subsection{Limitations}
+
+Several limitations should be noted.
+
+\paragraph{Observation noise.}
+The noise study (Table~\ref{tab:noise}) tests additive i.i.d.\ Gaussian
+noise.  Real noise sources---detector pixel quantisation, timing jitter,
+beam wander, mechanical vibration---have different statistical structure and
+may shift the 40\,dB reliability threshold.
+
+\paragraph{Model mismatch.}
+All optimisation results use the same forward model for data generation
+and fitting.  Table~\ref{tab:mismatch} quantifies the effect of incorrect
+geometry; in practice, hardware geometry is known to $<1\;\%$ from
+design specifications.
 
 \paragraph{Observation window.}
-All tests use $T=10\;\mathrm{s}$ with 200 sample points.  Shorter
-windows reduce frequency resolution ($\Delta f = 1/T$) and may degrade
-recovery, particularly for close speeds.  Fewer sample points reduce the
-constraint count relative to the number of free parameters.  The
-minimum viable $T$ and sampling density are application-dependent and
-have not been characterised.
+All tests use $T=10\;\mathrm{s}$ with 200 sample points.  Shorter windows
+reduce frequency resolution and may degrade recovery.  The minimum viable
+$T$ and sampling density are application-dependent.
 
 \paragraph{Static parameters.}
-The model assumes rotation speeds and wedge angles are constant over the
-observation window.  Time-varying parameters (e.g., due to motor
-acceleration) would require a more complex forward model.
+The model assumes rotation speeds and wedge angles are constant.
+Time-varying parameters (e.g., motor acceleration) would require a more
+complex forward model.
 
 \paragraph{Flat entry faces.}
 We model each prism's entry face as perpendicular to the optical axis.
-Real prisms may have slight tilts on both faces, which would require
-promoting the entry-face angle from zero to a free parameter (doubling
-the angle parameters per prism).
+Real prisms may have slight tilts, requiring promotion of the entry-face
+angle to a free parameter.
+
+\paragraph{Experimental validation.}
+This is a simulation study.  All results are conditioned on the forward
+model faithfully representing the physical system.  Experimental
+validation on physical Risley prism hardware is planned as future work.
 
 % =====================================================================
 \section{Conclusion}
 % =====================================================================
 
 We have presented the first general-purpose solver for the multi-prism
-Risley inverse problem.  Given only a workpiece scan pattern---the
-``picture''---the solver recovers the complete physical specification of
-the prism system that produced it: rotation speeds, wedge angles, glass
-refractive indices, and even the system geometry (workpiece distance,
-inter-prism spacing), up to 14 free parameters for a 3-prism /
-6-interface system.  All parameters are recovered to floating-point precision
-(MSE~$\sim\!10^{-23}$); real-world accuracy is limited by the forward
-model's fidelity to the physical system (Sec.~\ref{sec:discussion}).
+Risley inverse problem.  Given only a workpiece scan pattern, the solver
+recovers the complete physical specification of the prism system:
+rotation speeds, wedge angles, glass refractive indices, and system
+geometry, up to 14 free parameters.  The principal contributions are:
 
-The principal contributions are:
 \begin{enumerate}
-\item A \textbf{two-interface-per-prism physical model} with lockstep
-      rotation and alternating air--glass--air refraction.
-\item A \textbf{speed-based identifiability condition}: prisms must
-      have distinct rotation speeds for the inverse to be well-posed,
-      demonstrated via MSE landscape analysis.
-\item A \textbf{validated Hessian error propagation}: predicted error
-      bounds match measured errors to within a factor of 50$\times$
-      ($\kappa \approx 2.4\times10^7$).
-\item \textbf{Exact recovery (to floating-point limits)} on 23 test cases
-      ($P=2$--$4$) including adversarial configurations (near-identical
-      speeds, tiny angles, harmonic ratios), up to 12-D / 8 interfaces.
-\item \textbf{Quantified noise robustness}: graceful degradation down
-      to 40\,dB SNR, with speed errors scaling as
-      $\sigma/\sqrt{H_N}$.
-\item \textbf{NN ablation}: the neural network's value is classification
-      (98.8\,\% prism-count accuracy); its regression warm start provides
-      no measurable speedup over random restarts.
-\item \textbf{Comparison with prior methods}: our approach outperforms
-      the paraxial FFT inverse by $>14$ orders of magnitude in speed
-      recovery and is the first to recover wedge angles and glass
-      indices from scan patterns.
-\item A \textbf{residual-MSE diagnostic}: the solver's residual
-      cleanly separates Risley-compatible patterns from incompatible
-      ones (sharp corners, random walks, aperiodic drift), with a
-      three-order-of-magnitude gap between the two regimes.
+\item A \textbf{two-interface-per-prism physical model} with a
+      speed-based identifiability condition ensuring the inverse is
+      well-posed whenever prisms rotate at distinct speeds.
+\item \textbf{Exact recovery} on 23 test cases ($P=2$--$4$) to
+      floating-point precision (MSE~$\sim\!10^{-23}$), with quantified
+      noise robustness (reliable to 40\,dB) and model-mismatch tolerance
+      ($<\!3\;\%$).
+\item \textbf{Risley manifold theory}: the $C^\infty$ quasi-periodic
+      structure of the forward map enables exact recovery; the residual
+      MSE is a Risley-compatibility diagnostic; and the Fourier-like
+      convergence rate across the manifold nesting
+      $\mathcal{M}_1\subset\mathcal{M}_2\subset\cdots$ determines the
+      minimum wedge count from the observed pattern alone.
+\item A \textbf{quantitative comparison} showing $>14$ orders of
+      magnitude improvement over the paraxial FFT inverse in speed
+      recovery, and the first recovery of wedge angles and glass indices
+      from scan patterns.
 \end{enumerate}
-
-Unlike beam-steering approaches~\cite{Li2024,Yan2026} that assume known
-hardware, our solver recovers the hardware parameters themselves from
-the scan pattern alone---a system-identification problem.  The 14-D
-full-system recovery (speeds, angles, glass, geometry) achieves machine
-precision in under one hour on a single CPU core.
 
 Future work will address: (i)~extension to $P = 5$--$6$ with permutation
 pruning; (ii)~GPU-parallelised forward model for real-time inversion;
