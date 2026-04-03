@@ -138,16 +138,16 @@ def run_model_mismatch():
     # Generate data with perturbed geometry, solve assuming default
     default_geo = SystemGeometry()
     mismatches = [
-        ("Exact geometry", SystemGeometry()),
-        ("thickness 3.0→3.1", SystemGeometry(prism_thickness=3.1)),
-        ("thickness 3.0→3.5", SystemGeometry(prism_thickness=3.5)),
-        ("gap 6.0→6.5", SystemGeometry(inter_prism_gap=6.5)),
-        ("gap 6.0→8.0", SystemGeometry(inter_prism_gap=8.0)),
-        ("workpiece 100→105", SystemGeometry(workpiece_distance=105.0)),
-        ("workpiece 100→120", SystemGeometry(workpiece_distance=120.0)),
-        ("beam angle 10→11", SystemGeometry(beam_angle_x=11.0)),
-        ("all perturbed", SystemGeometry(prism_thickness=3.2, inter_prism_gap=6.3,
-                                          workpiece_distance=103.0, beam_angle_x=10.5)),
+        ("Exact geometry",      SystemGeometry()),
+        ("thickness 3.0->3.1",  SystemGeometry(prism_thickness=3.1)),
+        ("thickness 3.0->3.5",  SystemGeometry(prism_thickness=3.5)),
+        ("gap 6.0->6.5",        SystemGeometry(inter_prism_gap=6.5)),
+        ("gap 6.0->8.0",        SystemGeometry(inter_prism_gap=8.0)),
+        ("workpiece 100->105",  SystemGeometry(workpiece_distance=105.0)),
+        ("workpiece 100->120",  SystemGeometry(workpiece_distance=120.0)),
+        ("beam angle 10->11",   SystemGeometry(beam_angle_x=11.0)),
+        ("all perturbed",       SystemGeometry(prism_thickness=3.2, inter_prism_gap=6.3,
+                                               workpiece_distance=103.0, beam_angle_x=10.5)),
     ]
 
     results = []
@@ -168,14 +168,15 @@ def run_model_mismatch():
 
         bounds = [(-3.5, 3.5)]*3 + [(-18, 18)]*3 + [(-18, 18)]*3
         best_x, best_mse = None, float('inf')
-        for r in range(3):
-            res = differential_evolution(obj, bounds, seed=42+r, maxiter=150,
-                                         popsize=20, tol=1e-12, polish=False)
+        n_r = 5  # more restarts for reliability
+        for r in range(n_r):
+            res = differential_evolution(obj, bounds, seed=42+r, maxiter=200,
+                                         popsize=25, tol=1e-12, polish=False)
             if res.fun < best_mse:
                 best_x, best_mse = res.x.copy(), res.fun
         if best_x is not None:
             res_nm = minimize(obj, best_x, method='Nelder-Mead',
-                              options={'maxiter': 10000, 'fatol': 1e-12})
+                              options={'maxiter': 15000, 'fatol': 1e-12})
             if res_nm.fun < best_mse:
                 best_x, best_mse = res_nm.x.copy(), res_nm.fun
 
@@ -329,9 +330,23 @@ def run_real_nn_ablation():
 # MAIN
 # ═══════════════════════════════════════════════════════════════
 if __name__ == '__main__':
+    # Force UTF-8 output on Windows
+    import io
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+
     all_results = {}
 
-    all_results['multitrial_noise'] = run_multitrial_noise()
+    # Noise study already completed — load from partial results if available
+    noise_file = os.path.join(os.path.dirname(__file__), 'analysis_results_v2_noise.json')
+    if os.path.exists(noise_file):
+        with open(noise_file) as f:
+            all_results['multitrial_noise'] = json.load(f)
+        print("Loaded noise results from cache.")
+    else:
+        all_results['multitrial_noise'] = run_multitrial_noise()
+        with open(noise_file, 'w') as f:
+            json.dump(all_results['multitrial_noise'], f, indent=2, default=str)
+
     all_results['model_mismatch'] = run_model_mismatch()
     all_results['p4_extended'] = run_p4_extended()
     all_results['real_nn_ablation'] = run_real_nn_ablation()
