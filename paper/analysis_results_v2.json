@@ -1,0 +1,239 @@
+{
+  "multitrial_noise": [
+    {
+      "snr_db": 60,
+      "sigma": 0.0214,
+      "n_trials": 30,
+      "n_success": 30,
+      "success_rate": 1.0,
+      "speed_mean": 1.41e-05,
+      "speed_std": 6.69e-06,
+      "angx_mean": 0.000783,
+      "angx_std": 0.000371,
+      "angy_mean": 0.0273,
+      "angy_std": 0.0156,
+      "mse_mean": 0.00041,
+      "mse_std": 1e-05
+    },
+    {
+      "snr_db": 50,
+      "sigma": 0.0676,
+      "n_trials": 30,
+      "n_success": 30,
+      "success_rate": 1.0,
+      "speed_mean": 4.46e-05,
+      "speed_std": 2.12e-05,
+      "angx_mean": 0.00247,
+      "angx_std": 0.00117,
+      "angy_mean": 0.0862,
+      "angy_std": 0.0492,
+      "mse_mean": 0.0041,
+      "mse_std": 0.0001
+    },
+    {
+      "snr_db": 45,
+      "sigma": 0.1202,
+      "n_trials": 30,
+      "n_success": 28,
+      "success_rate": 0.933,
+      "speed_mean": 8.03e-05,
+      "speed_std": 3.82e-05,
+      "angx_mean": 0.00446,
+      "angx_std": 0.00212,
+      "angy_mean": 0.157,
+      "angy_std": 0.0891,
+      "mse_mean": 0.013,
+      "mse_std": 0.0005
+    },
+    {
+      "snr_db": 40,
+      "sigma": 0.2137,
+      "n_trials": 30,
+      "n_success": 24,
+      "success_rate": 0.8,
+      "speed_mean": 0.000144,
+      "speed_std": 7.17e-05,
+      "angx_mean": 0.00797,
+      "angx_std": 0.00397,
+      "angy_mean": 0.299,
+      "angy_std": 0.158,
+      "mse_mean": 0.041,
+      "mse_std": 0.002
+    },
+    {
+      "snr_db": 35,
+      "sigma": 0.38,
+      "n_trials": 30,
+      "n_success": 17,
+      "success_rate": 0.567,
+      "speed_mean": 0.000241,
+      "speed_std": 0.000104,
+      "angx_mean": 0.0134,
+      "angx_std": 0.00577,
+      "angy_mean": 0.509,
+      "angy_std": 0.245,
+      "mse_mean": 0.13,
+      "mse_std": 0.01
+    },
+    {
+      "snr_db": 30,
+      "sigma": 0.6758,
+      "n_trials": 30,
+      "n_success": 10,
+      "success_rate": 0.333,
+      "speed_mean": 0.15,
+      "speed_std": 0.229,
+      "angx_mean": 8.35,
+      "angx_std": 12.7,
+      "angy_mean": 3.5,
+      "angy_std": 3.86,
+      "mse_mean": 0.41,
+      "mse_std": 0.05
+    }
+  ],
+  "model_mismatch": [
+    {
+      "case": "Exact geometry",
+      "residual_mse": 1.0194961830473969e-12,
+      "max_speed_err": 8.00982835613695e-09,
+      "max_angx_err": 3.484819988130994e-07,
+      "max_angy_err": 1.1770975037350695e-05
+    },
+    {
+      "case": "thickness 3.0->3.1",
+      "residual_mse": 0.0006637150123825175,
+      "max_speed_err": 1.1957452385580325e-05,
+      "max_angx_err": 0.014004234550487382,
+      "max_angy_err": 0.021522483027862194
+    },
+    {
+      "case": "thickness 3.0->3.5",
+      "residual_mse": 0.015213647750264403,
+      "max_speed_err": 3.000024154443373,
+      "max_angx_err": 13.030171652473502,
+      "max_angy_err": 16.043541512346597
+    },
+    {
+      "case": "gap 6.0->6.5",
+      "residual_mse": 0.016529170317790807,
+      "max_speed_err": 3.000024924488387,
+      "max_angx_err": 13.029604672793749,
+      "max_angy_err": 16.04400720396428
+    },
+    {
+      "case": "gap 6.0->8.0",
+      "residual_mse": 0.28017715481135075,
+      "max_speed_err": 3.0001134330616965,
+      "max_angx_err": 13.094903130230463,
+      "max_angy_err": 16.190536530241253
+    },
+    {
+      "case": "workpiece 100->105",
+      "residual_mse": 0.4443143386657377,
+      "max_speed_err": 0.0002895172926746792,
+      "max_angx_err": 0.5346735575036767,
+      "max_angy_err": 0.5132638139291466
+    },
+    {
+      "case": "workpiece 100->120",
+      "residual_mse": 6.952439939556854,
+      "max_speed_err": 3.0004659472501114,
+      "max_angx_err": 14.487524856036465,
+      "max_angy_err": 16.721399126913596
+    },
+    {
+      "case": "beam angle 10->11",
+      "residual_mse": 2.609534955486371,
+      "max_speed_err": 3.000510075002971,
+      "max_angx_err": 13.133426489938106,
+      "max_angy_err": 16.94994434864833
+    },
+    {
+      "case": "all perturbed",
+      "residual_mse": 1.7513246070643185,
+      "max_speed_err": 3.0003666199804995,
+      "max_angx_err": 13.279953248951111,
+      "max_angy_err": 16.656301031374547
+    }
+  ],
+  "p4_extended": [
+    {
+      "case": "4P easy",
+      "mse": 2.116336913851416e-23,
+      "evals": 621495,
+      "time_s": 881.7,
+      "max_speed_err": 1.2878587085651816e-14,
+      "max_angx_err": 2.3661073100811336e-12,
+      "max_angy_err": 2.7782220968219917e-11
+    },
+    {
+      "case": "4P close speeds",
+      "mse": 2.573214418793883e-24,
+      "evals": 625064,
+      "time_s": 889.8,
+      "max_speed_err": 1.0658141036401503e-14,
+      "max_angx_err": 1.1262102361797588e-12,
+      "max_angy_err": 2.376498997591625e-11
+    },
+    {
+      "case": "4P small angles",
+      "mse": 6.4069938581954175e-24,
+      "evals": 670357,
+      "time_s": 942.6,
+      "max_speed_err": 3.730349362740526e-14,
+      "max_angx_err": 6.998845947236987e-13,
+      "max_angy_err": 8.064882095482062e-11
+    },
+    {
+      "case": "4P large angles",
+      "mse": 4.121817032920412e-23,
+      "evals": 613756,
+      "time_s": 864.9,
+      "max_speed_err": 1.199040866595169e-14,
+      "max_angx_err": 2.8670399387920042e-12,
+      "max_angy_err": 2.6570745603748946e-11
+    }
+  ],
+  "real_nn_ablation": [
+    {
+      "case": "3P easy",
+      "nn_speed_err": [
+        0.5646310448646545,
+        2.0252816677093506,
+        0.9720216989517212
+      ],
+      "nn_angx_err": [
+        8.76154088973999,
+        10.33583402633667,
+        1.4847383499145508
+      ],
+      "nn_de_mse": 3.5329391274397135e-24,
+      "nn_de_time": 101.4,
+      "nn_de_evals": 91860,
+      "de_only_mse": 3.5329391274397135e-24,
+      "de_only_time": 101.2,
+      "de_only_evals": 91860,
+      "speedup": 1.0
+    },
+    {
+      "case": "3P hard",
+      "nn_speed_err": [
+        0.3502957224845886,
+        0.4499237895011903,
+        1.4748296022415162
+      ],
+      "nn_angx_err": [
+        11.225255250930786,
+        14.758931159973145,
+        5.213675022125244
+      ],
+      "nn_de_mse": 9.566175427823304e-24,
+      "nn_de_time": 102.6,
+      "nn_de_evals": 92867,
+      "de_only_mse": 9.566175427823304e-24,
+      "de_only_time": 102.1,
+      "de_only_evals": 92867,
+      "speedup": 0.99
+    }
+  ]
+}

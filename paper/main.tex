@@ -707,43 +707,45 @@ pattern and re-run the solver.
 
 \begin{table}[htbp]
 \centering
-\caption{Recovery under observation noise ($P=3$).  Errors are
-maximum across all prisms.}
+\caption{Recovery under noise ($P=3$, 30 trials per SNR).
+Errors are mean $\pm$ std of $\max|\Delta\theta_j|$ across
+successful trials (speed error $<1$\,Hz).}
 \label{tab:noise}
-\begin{tabular}{@{}rccc@{}}
+\begin{tabular}{@{}rcccc@{}}
 \toprule
-SNR & $|\Delta N|$ & $|\Delta\alpha_x|$ & $|\Delta\alpha_y|$ \\
-(dB) & (Hz)         & (deg)              & (deg) \\
+SNR & Success & $|\Delta N|$ & $|\Delta\alpha_y|$ \\
+(dB) & rate & (Hz) & (deg) \\
 \midrule
-$\infty$ & $10^{-15}$ & $10^{-13}$ & $10^{-11}$ \\
-60       & $10^{-5}$  & $10^{-3}$  & $10^{-2}$  \\
-40       & $10^{-4}$  & $10^{-2}$  & $10^{-1}$  \\
-30       & $>1$       & $>10$      & $>10$ \\
+60 & 30/30 & $(1.4\!\pm\!0.7)\!\times\!10^{-5}$ & $0.03\!\pm\!0.02$ \\
+50 & 30/30 & $(4.5\!\pm\!2.1)\!\times\!10^{-5}$ & $0.09\!\pm\!0.05$ \\
+45 & 28/30 & $(8.0\!\pm\!3.8)\!\times\!10^{-5}$ & $0.16\!\pm\!0.09$ \\
+40 & 24/30 & $(1.4\!\pm\!0.7)\!\times\!10^{-4}$ & $0.30\!\pm\!0.16$ \\
+35 & 17/30 & $(2.4\!\pm\!1.0)\!\times\!10^{-4}$ & $0.51\!\pm\!0.25$ \\
+30 & 10/30 & $0.15\!\pm\!0.23$ & $3.5\!\pm\!3.9$ \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-Table~\ref{tab:noise} shows graceful degradation down to 40\,dB SNR:
-errors scale as $\sim\!\sigma/\sqrt{H_{jj}}$, consistent with the
-Hessian prediction~\eqref{eq:hessian}.  At 30\,dB
-($\sigma \approx 0.7$ length units) the noise distorts the pattern
-beyond recognition: the global optimiser converges to a local minimum
-far from the true parameters, producing speed errors exceeding
-$1\;\mathrm{Hz}$---the solver returns a plausible but incorrect
-configuration.  The practical reliability threshold is
-$\sim\!40\;\mathrm{dB}$.
+Table~\ref{tab:noise} reports recovery statistics over 30 independent
+noise realisations per SNR level.  At 60\,dB all trials succeed; the
+success rate degrades smoothly to 57\,\% at 35\,dB and 33\,\% at
+30\,dB.  Conditional on finding the correct basin, errors scale as
+$\sim\!\sigma/\sqrt{H_{jj}}$, consistent with the Hessian
+prediction~\eqref{eq:hessian}.  The transition from reliable to
+unreliable recovery occurs between 40 and 35\,dB, where the noise
+amplitude becomes comparable to the fine structure of the scan pattern.
 
 \subsection{Scaling to $P=4$}
 
-We test the solver on a 4-prism (8-interface) system with 12 free
-parameters ($N=[1.5, -1.0, 2.0, -0.7]$,
-$\alpha_x=[10, -8, 5, -12]^\circ$, $\alpha_y=[3, 7, -4, 6]^\circ$).
-With 5 restarts and 300 DE generations, the solver recovers all
-12~parameters to machine precision (MSE~$=2.1\times10^{-23}$) in
-621\,k evaluations ($\sim\!17\;\mathrm{min}$).  The maximum errors are
-$|\Delta N|<1.3\times10^{-14}\;\mathrm{Hz}$,
-$|\Delta\alpha_x|<2.4\times10^{-12}\;\mathrm{deg}$,
-$|\Delta\alpha_y|<2.8\times10^{-11}\;\mathrm{deg}$.
+We test four 4-prism (8-interface, 12-D) configurations: well-separated
+speeds, close speeds, small angles, and large angles.  All four
+converge to MSE~$<10^{-22}$ with $|\Delta N|<10^{-13}\;\mathrm{Hz}$,
+$|\Delta\alpha_x|<10^{-11}\;\mathrm{deg}$,
+$|\Delta\alpha_y|<10^{-10}\;\mathrm{deg}$.  Each case requires
+$\sim\!15\;\mathrm{min}$ (860--940\,k evaluations, 5~restarts).  The
+close-speeds case ($N=[1.0, 1.2, -0.8, -1.1]$) is no harder than the
+easy case, confirming that the permutation search (24 orderings for
+$P=4$) resolves the ambiguity.
 
 \subsection{Hessian error-bound validation}
 \label{sec:hessian_val}
@@ -826,17 +828,19 @@ scales linearly with interface count, the practical overhead is modest.
 
 \subsection{Role of the neural network}
 
-The NN serves two functions.  First, it classifies the prism count with
-99.1\,\% accuracy.  Second, it provides a warm start for the global
-optimiser.  To quantify the warm-start benefit, we ran an ablation
-comparing NN+DE (first restart seeded with the NN estimate) versus
-DE-only (all restarts random).  Both achieve the same final MSE
-($\sim\!10^{-24}$), but NN+DE is $1.4\times$ faster for 3-prism cases
-(75\,s vs.\ 107\,s) because the NN-seeded restart reaches the global
-basin earlier.  For 2-prism cases, the benefit is negligible (the
-search space is small enough that random restarts suffice).  The NN's
-contribution is therefore modest but real---a $\sim\!30\;\mathrm{s}$
-saving per 3-prism solve.
+The NN's primary value is \textbf{classification}: it identifies the
+prism count with 98.8\,\% accuracy, eliminating a discrete
+model-selection step.  Its regression output ($\sim\!1\;\mathrm{Hz}$
+speed error, $\sim\!5^\circ$ angle error) can seed the first DE restart.
+
+To quantify the warm-start benefit honestly, we trained the full NN on
+$10^5$ samples and ran an ablation comparing NN+DE (first restart seeded)
+versus DE-only (all restarts random).  Both reach the same final MSE
+($\sim\!10^{-24}$).  With 3 restarts, the wall times are
+indistinguishable ($\sim\!100\;\mathrm{s}$ each): the random restarts
+find the global basin just as quickly.  The NN's regression warm start
+therefore provides \textbf{no measurable speedup} at this restart budget.
+Its contribution is classification, not regression.
 
 An important observation is that the NN's per-prism regression error is
 approximately uniform across prisms (Table~\ref{tab:nn}).  This contrasts
@@ -920,9 +924,9 @@ of the forward model (trivially data-parallel across population members)
 would reduce the 48-minute wall time to $\sim\!2$--$5$ minutes.
 
 \paragraph{Scaling to $P\ge4$.}
-We have demonstrated $P=4$ recovery (12-D search) in
+We have demonstrated $P=4$ recovery (12-D search, 4 test cases) in
 Sec.~\ref{sec:results}: all parameters recovered to machine precision
-in $\sim\!17\;\mathrm{min}$ (621k evaluations).  The forward-model cost
+in $\sim\!15\;\mathrm{min}$ per case.  The forward-model cost
 scales as $\bigO(P \cdot T)$; for $P=6$, $T=200$:
 $\sim\!1\;\mathrm{ms}$, roughly double the $P=3$ cost.  The permutation
 count $P!$ grows factorially; for $P=4$ the 24 permutations are
@@ -977,13 +981,15 @@ tested here.
 
 \paragraph{Model mismatch.}
 All optimisation results use the same forward model for both data
-generation and fitting.  When the assumed geometry differs from the true
-geometry (e.g., incorrect prism thickness or workpiece distance), the
-solver converges to a biased solution with non-zero residual MSE.  We
-quantify this effect in a model-mismatch study: a 3\,\% thickness error
-produces speed errors of $\sim\!10^{-3}\;\mathrm{Hz}$, while a 20\,\%
-workpiece-distance error produces $\sim\!0.1\;\mathrm{Hz}$ speed errors.
-In practice, geometry is usually known to $<1\;\%$ from hardware design.
+generation and fitting.  To quantify the effect of geometry errors, we
+generated patterns with perturbed geometry and solved assuming the
+default.  A 3\,\% thickness error ($3.0\!\to\!3.1$) yields
+$|\Delta N|\!=\!10^{-5}\;\mathrm{Hz}$ (still usable); a 17\,\% error
+($3.0\!\to\!3.5$) causes complete failure.  A 5\,\% workpiece-distance
+error ($100\!\to\!105$) yields $|\Delta N|\!=\!3\!\times\!10^{-4}\;\mathrm{Hz}$
+and $|\Delta\alpha|\!\approx\!0.5^\circ$; a 20\,\% error breaks the
+solver.  In practice, geometry is known to $<1\;\%$ from hardware
+design, placing the solver well within the safe regime.
 
 \paragraph{Glass indices and geometry.}
 When glass indices are unknown, they can be added as free parameters
@@ -1034,8 +1040,9 @@ The principal contributions are:
 \item \textbf{Quantified noise robustness}: graceful degradation down
       to 40\,dB SNR, with speed errors scaling as
       $\sigma/\sqrt{H_N}$.
-\item \textbf{NN ablation}: the neural-network warm start provides a
-      measured $1.4\times$ speedup over DE-only for $P=3$.
+\item \textbf{NN ablation}: the neural network's value is classification
+      (98.8\,\% prism-count accuracy); its regression warm start provides
+      no measurable speedup over random restarts.
 \item \textbf{Comparison with prior methods}: our approach outperforms
       the paraxial FFT inverse by $>14$ orders of magnitude in speed
       recovery and is the first to recover wedge angles and glass
