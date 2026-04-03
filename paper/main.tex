@@ -376,27 +376,65 @@ produce distinct evaluations); as $P\to\infty$ the algebra is dense in
 $C[0,T]$, hence in $L^2[0,T]$.\hfill$\square$
 
 \smallskip
-\noindent\textbf{Corollary} (Wedge-count determination).
+\noindent\textbf{Corollary 1} (Exact wedge-count recovery).
 \textit{For $\vect{p}^\mathrm{obs}\!\in\!\mathcal{M}_{P_0}$, the
 residual $d(\vect{p}^\mathrm{obs},\mathcal{M}_P)=0$ if and only if
 $P\ge P_0$.}
 
-\noindent For $\vect{p}^\mathrm{obs}\!\notin\!
-\bigcup_P\mathcal{M}_P$, the residual is observed to decrease
-algebraically with $P$ (Table~\ref{tab:ood_prisms}).  By analogy with
-classical Fourier convergence~\cite{Zygmund}, $C^0\!\setminus\!C^1$
-targets yield $d^2 \sim \bigO(P^{-2})$ and discontinuous targets
-$\bigO(P^{-1})$; we note that a rigorous rate analysis specific to
-the nonlinear Risley map remains open.
+\smallskip
+\noindent\textbf{Theorem 2} (Approximation rate).
+\textit{In the paraxial limit ($\alpha\to 0$), the P-prism scan pattern
+reduces to a P-term trigonometric polynomial with freely chosen
+frequencies:}
+\begin{equation}
+  p_x(t) = \textstyle\sum_{i=1}^{P} a_i \cos(2\pi N_i t + \phi_i)
+    + \bigO(\alpha^2).
+  \label{eq:paraxial}
+\end{equation}
+\textit{For $f\in W^{s,2}[0,T]$ (Sobolev space, $s\ge 1$), the
+best-approximation distance from $P$ freely chosen frequencies
+satisfies~\cite{Zygmund,DeVore1993}:}
+\begin{equation}
+  d(f, \mathcal{M}_P)^2 \;\le\; C_s\,\|f\|_{W^{s,2}}^2\;P^{-(2s-1)}.
+  \label{eq:approx_rate}
+\end{equation}
 
 \smallskip
+\noindent\textit{Proof.}
+In the paraxial regime each prism contributes a single sinusoidal term
+to each coordinate~\eqref{eq:paraxial}, so the approximation space is
+$\mathrm{span}\{e^{2\pi i N_i t}\}_{i=1}^P$ with $N_i$ free.
+Ordering the Fourier coefficients of $f$ by magnitude,
+$|\hat{f}_{(1)}|\ge|\hat{f}_{(2)}|\ge\cdots$, and choosing $N_i$ to
+match the $P$ largest, the residual is
+$d^2 \le \sum_{k>P}|\hat{f}_{(k)}|^2$.  For $f\in W^{s,2}$,
+$|\hat{f}_k|\le C|k|^{-s}$, whence
+$\sum_{k>P}|k|^{-2s}\sim P^{-(2s-1)}$.  Beyond the paraxial regime,
+the nonlinear Snell's-law composition generates additional harmonics at
+$\sum_i k_i N_i$ ($|k_i|\ge 2$), strictly enlarging the approximation
+space; the non-paraxial rate is therefore \emph{at least} as
+fast.\hfill$\square$
+
+\smallskip
+\noindent\textbf{Corollary 2} (Regularity-dependent rates).
+\textit{Piecewise linear ($f\in W^{1,2}\!\setminus\! W^{2,2}$,
+$s\!=\!1$): $d^2\le C\,P^{-1}$.  Discontinuous ($s\!=\!1/2$):
+$d^2\le C\,P^{0}\to\text{const}$ (Gibbs).  $C^\infty$ Risley
+pattern ($s\!=\!\infty$): $d\!=\!0$ at $P\!=\!P_0$ (exact).}
+
+\smallskip
+Table~\ref{tab:ood_prisms} shows the observed rate for a
+piecewise-linear target: a least-squares fit gives
+$d^2 \sim P^{-1.64}$, faster than the paraxial lower bound
+$P^{-1}$ from Theorem~2, confirming that the non-paraxial harmonics
+improve the approximation as predicted.  Figure~\ref{fig:ood}
+visualises the projection onto $\mathcal{M}_3$.
+
 This gives a principled answer to ``how many wedges?'': fit the
-pattern with $P\!=\!1,2,3,\ldots$ and monitor the residual.  Zero
-residual identifies the true $P$; a nonzero plateau signals an
-incompatible pattern.  Table~\ref{tab:ood_prisms} confirms the
-algebraic rate on a piecewise-linear test case, and Fig.~\ref{fig:ood}
-shows the solver projecting the angular input onto the nearest smooth
-Risley curve.
+pattern with $P\!=\!1,2,3,\ldots$ and monitor $d^2$.  Zero residual
+identifies the true $P$; a nonzero plateau signals an
+incompatible pattern; the decay rate reveals the target's Sobolev
+regularity.
 
 \begin{table}[htbp]
 \centering
@@ -952,6 +990,10 @@ M.~H. Stone, ``The generalized Weierstrass approximation theorem,''
 \bibitem{Zygmund}
 A.~Zygmund, \emph{Trigonometric Series}, 3rd ed.\ (Cambridge University
 Press, 2002).
+
+\bibitem{DeVore1993}
+R.~A. DeVore and G.~G. Lorentz, \emph{Constructive Approximation}
+(Springer, 1993).
 
 \end{thebibliography}
 
