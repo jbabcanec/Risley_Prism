@@ -369,20 +369,25 @@ forward map.  Then:}
 \noindent\textit{Proof.}
 Nesting holds because every $P$-prism system is a $(P\!+\!1)$-prism
 system with $N_{P+1}=\alpha_{x,P+1}=\alpha_{y,P+1}=0$.  Density
-follows from the Stone--Weierstrass theorem: the quasi-periodic
-functions with $P$ generators form a self-adjoint subalgebra that
-separates points in $[0,T]$ (distinct generators produce distinct
-evaluations); as $P\to\infty$ the algebra is dense in $C[0,T]$,
-hence in $L^2[0,T]$.\hfill$\square$
+follows from the Stone--Weierstrass theorem~\cite{StoneWeierstrass}:
+the quasi-periodic functions with $P$ generators form a self-adjoint
+subalgebra of $C[0,T]$ that separates points (distinct generators
+produce distinct evaluations); as $P\to\infty$ the algebra is dense in
+$C[0,T]$, hence in $L^2[0,T]$.\hfill$\square$
 
 \smallskip
 \noindent\textbf{Corollary} (Wedge-count determination).
 \textit{For $\vect{p}^\mathrm{obs}\!\in\!\mathcal{M}_{P_0}$, the
 residual $d(\vect{p}^\mathrm{obs},\mathcal{M}_P)=0$ if and only if
-$P\ge P_0$.  For $\vect{p}^\mathrm{obs}\!\notin\!
-\bigcup_P\mathcal{M}_P$, the residual decreases algebraically:
-$d^2 \sim \bigO(P^{-2})$ for $C^0\!\setminus\! C^1$ targets
-(Gibbs-like), $\bigO(P^{-1})$ for discontinuous targets.}
+$P\ge P_0$.}
+
+\noindent For $\vect{p}^\mathrm{obs}\!\notin\!
+\bigcup_P\mathcal{M}_P$, the residual is observed to decrease
+algebraically with $P$ (Table~\ref{tab:ood_prisms}).  By analogy with
+classical Fourier convergence~\cite{Zygmund}, $C^0\!\setminus\!C^1$
+targets yield $d^2 \sim \bigO(P^{-2})$ and discontinuous targets
+$\bigO(P^{-1})$; we note that a rigorous rate analysis specific to
+the nonlinear Risley map remains open.
 
 \smallskip
 This gives a principled answer to ``how many wedges?'': fit the
@@ -616,7 +621,12 @@ sensitivity ordering~\eqref{eq:sensitivity_order}.  The hardest case
 errors but still achieves $|\Delta N|<10^{-7}\;\mathrm{Hz}$.  The
 14-D full-system recovery (speeds, angles, glass indices, workpiece
 distance, and inter-prism gap for $P\!=\!3$) reaches
-MSE~$=4\times10^{-18}$ in $\sim\!48\;\mathrm{min}$.
+MSE~$=4\times10^{-18}$ in $\sim\!48\;\mathrm{min}$.  To verify
+geometry independence, we repeated the $P\!=\!3$ test with a different
+hardware layout (source distance 10, thickness 5, gap 12,
+$d_W\!=\!200$, beam angles $15^\circ/8^\circ$): the solver recovers
+all parameters to MSE~$\sim\!10^{-13}$, confirming that the results
+are not specific to the default geometry.
 
 Figure~\ref{fig:recon} shows the convergence progression for a
 representative 3-prism case.
@@ -934,6 +944,14 @@ neural networks,'' \emph{Optik} \textbf{315}, 172092 (2024).
 R.~Yan, H.~Gao, Z.~Yang, and Z.~Liu, ``Physics-constrained mixture
 density networks for the inverse problem of Risley prism beam steering,''
 \emph{J. Opt. Soc. Am. A} \textbf{43}(4), 657--666 (2026).
+
+\bibitem{StoneWeierstrass}
+M.~H. Stone, ``The generalized Weierstrass approximation theorem,''
+\emph{Math. Mag.} \textbf{21}(4), 167--184 (1948).
+
+\bibitem{Zygmund}
+A.~Zygmund, \emph{Trigonometric Series}, 3rd ed.\ (Cambridge University
+Press, 2002).
 
 \end{thebibliography}
 
