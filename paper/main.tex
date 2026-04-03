@@ -639,6 +639,23 @@ Four additional 4-prism (8-interface, 12-D) cases all converge to
 MSE~$<10^{-22}$ with $|\Delta N|<10^{-13}\;\mathrm{Hz}$, each requiring
 $\sim\!15\;\mathrm{min}$.
 
+Figure~\ref{fig:recon} shows the convergence progression for a
+representative 3-prism case.  Panel~(b) shows a coarse initial estimate
+($\sim\!1\;\mathrm{Hz}$ speed error, $\sim\!5^\circ$ angle error).  DE
+progressively resolves the pattern structure: at 5k evaluations~(c) the
+pattern is scattered; by 12k~(d) the lobed structure emerges; by 18k~(e)
+the topology is correct.  NM polish~(f) snaps the result to the ground
+truth~(a).
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\columnwidth]{figures/reconstruction.pdf}
+  \caption{Convergence for a 3-prism system: (a)~ground truth,
+  (b)~coarse initial estimate, (c--e)~DE snapshots at 5k, 12k, 18k
+  evaluations, (f)~after NM polish (MSE~$\sim\!10^{-3}$).}
+  \label{fig:recon}
+\end{figure}
+
 \subsection{Out-of-distribution diagnostic}
 
 The theoretical framework (Sec.~\ref{sec:theory}) predicts that the
