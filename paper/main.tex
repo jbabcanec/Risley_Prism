@@ -734,6 +734,29 @@ $\sim\!10^{-3}$ indicate a pattern consistent with a Risley system;
 values above $\sim\!1$ indicate the observed pattern cannot have been
 produced by any configuration of $P$ rotating wedge prisms.
 
+Figure~\ref{fig:ood} illustrates this for the piecewise-linear case.
+Panel~(a) shows the input: a real 3-prism pattern with its smooth curves
+replaced by straight-line segments (sharp corners at 15 knot points).
+Panels (b--e) show the solver converging---not toward the angular input,
+but toward the nearest smooth, quasi-periodic Risley curve.  The final
+result~(e) is a looped pattern that approximates the overall shape but
+cannot reproduce the corners; the MSE floors at $\sim\!2.8$, reflecting
+the irreducible distance between the input and the Risley manifold
+$\mathcal{M}_3$.  The overlay~(f) makes the discrepancy visible: the
+black input has straight edges while the red Risley fit is smooth
+everywhere---exactly the $C^\infty$ constraint predicted by the theory.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\columnwidth]{figures/ood_convergence.pdf}
+  \caption{Solver applied to a non-smooth (piecewise-linear) pattern.
+  (a)~Input with sharp corners.  (b--e)~Convergence toward the nearest
+  quasi-periodic Risley curve.  (f)~Overlay showing the smooth Risley
+  fit (red) vs.\ the angular input (black).  The residual MSE floors at
+  $\sim\!2.8$---the projection distance to the Risley manifold.}
+  \label{fig:ood}
+\end{figure}
+
 \begin{table}[htbp]
 \centering
 \caption{Solver applied to patterns outside the Risley manifold ($P=3$).

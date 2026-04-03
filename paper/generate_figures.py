@@ -510,6 +510,113 @@ def fig_convergence():
     print("  convergence.pdf")
 
 
+# ═══════════════════════════════════════════════════════════════════════
+# Fig 9: Out-of-distribution — solver on a non-smooth pattern
+# ═══════════════════════════════════════════════════════════════════════
+def fig_ood_convergence():
+    """6-panel: input non-smooth pattern → solver converges to nearest Risley curve."""
+    from scipy.optimize import differential_evolution, minimize
+
+    # Generate a real Risley pattern, then make it piecewise-linear (sharp corners)
+    true_p = PrismParameters(3, [1.5, -1.0, 2.0], [12.0, -8.0, 5.0], [3.0, 10.0, -6.0])
+    real = fast_forward(true_p, 200, 10.0)
+
+    # Create piecewise-linear version: snap every 10th point, linear interpolate
+    target = real.copy()
+    n_seg = 15
+    knots = np.linspace(0, 199, n_seg + 1, dtype=int)
+    for k in range(n_seg):
+        i0, i1 = knots[k], knots[k + 1]
+        for j in range(i0, i1):
+            frac = (j - i0) / (i1 - i0)
+            target[j] = real[i0] * (1 - frac) + real[i1] * frac
+
+    # Run DE with snapshots
+    eval_count = [0]
+    best = [None, float('inf')]
+    snapshots = {}
+    snap_at = {3000, 8000, 18000}
+
+    def objective(x):
+        try:
+            p = PrismParameters(3, x[:3].tolist(), x[3:6].tolist(), x[6:9].tolist())
+            mse = float(np.mean((fast_forward(p, 200, 10.0) - target)**2))
+        except:
+            mse = 1e6
+        eval_count[0] += 1
+        if mse < best[1]:
+            best[0], best[1] = x.copy(), mse
+        if eval_count[0] in snap_at:
+            snapshots[eval_count[0]] = (best[0].copy(), best[1])
+        return mse
+
+    bounds = [(-3.5, 3.5)]*3 + [(-18, 18)]*3 + [(-18, 18)]*3
+    differential_evolution(objective, bounds, seed=42, maxiter=400, popsize=25,
+                           tol=1e-14, polish=False, disp=False)
+
+    # NM polish
+    def obj_nm(x):
+        try:
+            p = PrismParameters(3, x[:3].tolist(), x[3:6].tolist(), x[6:9].tolist())
+            return float(np.mean((fast_forward(p, 200, 10.0) - target)**2))
+        except:
+            return 1e6
+    res = minimize(obj_nm, best[0], method='Nelder-Mead',
+                   options={'maxiter': 15000, 'fatol': 1e-12, 'xatol': 1e-12})
+    final_x = res.x
+
+    # Build panels
+    panel_data = [('(a) Input (piecewise-linear)', target, None)]
+
+    for i, ev in enumerate(sorted(snapshots.keys())):
+        x, mse = snapshots[ev]
+        p = PrismParameters(3, x[:3].tolist(), x[3:6].tolist(), x[6:9].tolist())
+        panel_data.append((f'({"bcd"[i]}) DE @ {ev//1000}k evals', fast_forward(p, 200, 10.0), mse))
+
+    fp = PrismParameters(3, final_x[:3].tolist(), final_x[3:6].tolist(), final_x[6:9].tolist())
+    final_pat = fast_forward(fp, 200, 10.0)
+    panel_data.append(('(e) After NM polish', final_pat, res.fun))
+
+    # Overlay: input vs final
+    panel_data.append(('(f) Overlay: input vs result', None, res.fun))
+
+    t = np.linspace(0, 10, 200)
+    fig, axes = plt.subplots(2, 3, figsize=(7.0, 5.0))
+    axes = axes.flatten()
+
+    xmin = min(target[:, 0].min(), real[:, 0].min()) - 2
+    xmax = max(target[:, 0].max(), real[:, 0].max()) + 2
+    ymin = min(target[:, 1].min(), real[:, 1].min()) - 2
+    ymax = max(target[:, 1].max(), real[:, 1].max()) + 2
+
+    for idx, (ax, (title, pat, mse)) in enumerate(zip(axes, panel_data)):
+        if idx == len(panel_data) - 1:
+            # Overlay panel
+            ax.plot(target[:, 0], target[:, 1], 'k-', lw=0.8, alpha=0.5, label='Input')
+            ax.plot(final_pat[:, 0], final_pat[:, 1], 'r-', lw=0.8, alpha=0.8, label='Risley fit')
+            ax.legend(fontsize=6, loc='upper left')
+        else:
+            ax.plot(pat[:, 0], pat[:, 1], 'k-', lw=0.3, alpha=0.3)
+            ax.scatter(pat[:, 0], pat[:, 1], c=t, cmap='viridis', s=3, zorder=3, rasterized=True)
+        ax.set_title(title, fontsize=8)
+        ax.set_xlim(xmin, xmax); ax.set_ylim(ymin, ymax)
+        ax.set_aspect('equal'); ax.grid(True, alpha=0.2)
+        ax.set_xlabel('$x$', fontsize=8)
+        ax.tick_params(labelsize=6)
+        if mse is not None:
+            ax.text(0.04, 0.96, f'MSE={mse:.1e}', transform=ax.transAxes,
+                    va='top', fontsize=6.5,
+                    bbox=dict(boxstyle='round,pad=0.2', fc='white', alpha=0.8))
+    axes[0].set_ylabel('$y$', fontsize=8)
+    axes[3].set_ylabel('$y$', fontsize=8)
+
+    fig.tight_layout()
+    fig.savefig(os.path.join(OUT, 'ood_convergence.pdf'))
+    fig.savefig(os.path.join(OUT, 'ood_convergence.png'))
+    plt.close()
+    print("  ood_convergence.pdf")
+
+
 if __name__ == '__main__':
     print("Generating paper figures...")
     fig_schematic()
@@ -520,4 +627,5 @@ if __name__ == '__main__':
     fig_architecture()
     fig_pipeline()
     fig_convergence()
+    fig_ood_convergence()
     print("Done — all figures in figures/")
