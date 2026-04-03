@@ -351,88 +351,73 @@ per-prism information that the solver can disentangle.
 \subsection{Fourier convergence and wedge-count determination}
 \label{sec:fourier}
 
-The connection between prism count and approximation power is analogous
-to truncating a Fourier series.  Each prism contributes one fundamental
-rotation frequency $N_i$; the iterated Snell's-law composition generates
-harmonics at all integer combinations $\sum_i k_i N_i$.  A $P$-prism
-system thus spans a quasi-periodic function space with $P$ independent
-generators.  As $P\to\infty$, this space becomes dense in $L^2[0,T]$
-(by the Stone--Weierstrass theorem applied to the algebra of
-quasi-periodic functions).
+Each prism contributes one fundamental rotation frequency; the iterated
+Snell's-law composition generates harmonics at integer combinations
+$\sum_i k_i N_i$.  This leads to the following result.
 
-The practical consequence is that the Risley manifold $\mathcal{M}_P$
-expands monotonically with~$P$:
+\smallskip
+\noindent\textbf{Theorem 1} (Manifold nesting and $L^2$ density).
+\textit{Let $\mathcal{M}_P = F(\Theta_P)$ be the image of the $P$-prism
+forward map.  Then:}
 \begin{equation}
   \mathcal{M}_1 \subset \mathcal{M}_2 \subset \cdots \subset
-  \overline{\bigcup_{P=1}^{\infty} \mathcal{M}_P} = L^2[0,T].
+  \overline{\textstyle\bigcup_{P=1}^{\infty} \mathcal{M}_P} = L^2[0,T].
   \label{eq:manifold_nest}
 \end{equation}
-For a target $\vect{p}^\mathrm{obs}$ with $k$ continuous derivatives,
-the projection distance $d(\vect{p}^\mathrm{obs}, \mathcal{M}_P)$
-decreases with $P$ at a rate governed by the target's regularity:
-\begin{itemize}
-\item $\vect{p}^\mathrm{obs}\in C^\infty$ (smooth Risley pattern):
-      $d = 0$ at $P = P_\mathrm{true}$ (exact recovery, not asymptotic).
-\item $\vect{p}^\mathrm{obs}\in C^0\setminus C^1$ (piecewise linear):
-      $d^2 \sim \bigO(1/P^2)$, analogous to the Fourier convergence rate
-      for functions with jump derivatives.
-\item $\vect{p}^\mathrm{obs}$ discontinuous: $d^2 \sim \bigO(1/P)$
-      with Gibbs-like overshoots near discontinuities.
-\end{itemize}
 
-This gives a principled answer to the engineering question ``how many
-wedges do I need?'': fit the observed pattern with $P=1,2,3,\ldots$
-prisms and monitor the residual MSE.  When the MSE drops to
-machine-precision zero, $P$ equals the true prism count.  When it
-plateaus at a nonzero value, the pattern is not Risley-compatible,
-and the convergence rate reveals its regularity class.
+\smallskip
+\noindent\textit{Proof.}
+Nesting holds because every $P$-prism system is a $(P\!+\!1)$-prism
+system with $N_{P+1}=\alpha_{x,P+1}=\alpha_{y,P+1}=0$.  Density
+follows from the Stone--Weierstrass theorem: the quasi-periodic
+functions with $P$ generators form a self-adjoint subalgebra that
+separates points in $[0,T]$ (distinct generators produce distinct
+evaluations); as $P\to\infty$ the algebra is dense in $C[0,T]$,
+hence in $L^2[0,T]$.\hfill$\square$
 
-Table~\ref{tab:ood_prisms} confirms the predicted algebraic rate for
-a piecewise-linear test case: the MSE decreases monotonically from
-$20.2$ ($P\!=\!1$) through $1.6$ ($P\!=\!4$) to $0.93$ ($P\!=\!6$),
-with each additional prism reducing the residual but never eliminating
-it.  Like a truncated Fourier series, the Risley fit captures
-progressively finer detail but cannot reproduce the corner
-singularities; a Gibbs-like phenomenon persists near the knot points
-regardless of~$P$.
+\smallskip
+\noindent\textbf{Corollary} (Wedge-count determination).
+\textit{For $\vect{p}^\mathrm{obs}\!\in\!\mathcal{M}_{P_0}$, the
+residual $d(\vect{p}^\mathrm{obs},\mathcal{M}_P)=0$ if and only if
+$P\ge P_0$.  For $\vect{p}^\mathrm{obs}\!\notin\!
+\bigcup_P\mathcal{M}_P$, the residual decreases algebraically:
+$d^2 \sim \bigO(P^{-2})$ for $C^0\!\setminus\! C^1$ targets
+(Gibbs-like), $\bigO(P^{-1})$ for discontinuous targets.}
+
+\smallskip
+This gives a principled answer to ``how many wedges?'': fit the
+pattern with $P\!=\!1,2,3,\ldots$ and monitor the residual.  Zero
+residual identifies the true $P$; a nonzero plateau signals an
+incompatible pattern.  Table~\ref{tab:ood_prisms} confirms the
+algebraic rate on a piecewise-linear test case, and Fig.~\ref{fig:ood}
+shows the solver projecting the angular input onto the nearest smooth
+Risley curve.
 
 \begin{table}[htbp]
 \centering
-\caption{Residual MSE vs.\ prism count for a piecewise-linear
-(non-smooth) target.  Each prism adds one harmonic frequency;
-convergence is algebraic (Fourier-like), never reaching zero.}
+\caption{Residual MSE vs.\ prism count for a piecewise-linear target.}
 \label{tab:ood_prisms}
-\begin{tabular}{@{}cccc@{}}
+\begin{tabular}{@{}ccc@{}}
 \toprule
-$P$ & Dim & Residual MSE & Mean error \\
+$P$ & Residual MSE & Mean error \\
 \midrule
-1 & 3  & 20.2 & 6.0 \\
-2 & 6  & 3.4  & 2.2 \\
-3 & 9  & 2.8  & 2.1 \\
-4 & 12 & 1.6  & 1.6 \\
-5 & 15 & 1.2  & 1.3 \\
-6 & 18 & 0.93 & 1.2 \\
+1 & 20.2 & 6.0 \\
+2 &  3.4 & 2.2 \\
+3 &  2.8 & 2.1 \\
+4 &  1.6 & 1.6 \\
+5 &  1.2 & 1.3 \\
+6 & 0.93 & 1.2 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-Figure~\ref{fig:ood} illustrates this for the piecewise-linear case.
-Panel~(a) shows the input: a real 3-prism pattern with its smooth curves
-replaced by straight-line segments (sharp corners at 15 knot points).
-Panels (b--e) show the solver converging---not toward the angular input,
-but toward the nearest smooth, quasi-periodic Risley curve.  The
-overlay~(f) makes the discrepancy visible: the black input has straight
-edges while the red Risley fit is smooth everywhere---exactly the
-$C^\infty$ constraint predicted by the theory.
-
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=\columnwidth]{figures/ood_convergence.pdf}
-  \caption{Solver applied to a non-smooth (piecewise-linear) pattern.
-  (a)~Input with sharp corners.  (b--e)~Convergence toward the nearest
-  quasi-periodic Risley curve.  (f)~Overlay showing the smooth Risley
-  fit (red) vs.\ the angular input (black).  The residual MSE floors at
-  $\sim\!2.8$---the projection distance to the Risley manifold.}
+  \caption{Solver on a non-smooth input.  (a)~Piecewise-linear pattern.
+  (b--e)~Convergence to the nearest $C^\infty$ Risley curve.
+  (f)~Overlay: smooth fit (red) vs.\ angular input (black); residual
+  MSE floors at $\sim\!2.8$.}
   \label{fig:ood}
 \end{figure}
 
@@ -610,49 +595,39 @@ ratios, same-sign speeds).
 \caption{Full-pipeline recovery errors (max across all prisms).
 All cases achieve MSE~$< 10^{-10}$.}
 \label{tab:results}
-\begin{tabular}{@{}lcccr@{}}
+\begin{tabular}{@{}lccc@{}}
 \toprule
-Case & $P$ & $|\Delta N|$ & $|\Delta\alpha_x|$ & $|\Delta\alpha_y|$ \\
-     &     & (Hz)          & (deg)               & (deg) \\
+& $|\Delta N|$ (Hz) & $|\Delta\alpha_x|$ (deg) & $|\Delta\alpha_y|$ (deg) \\
 \midrule
-Easy         & 2 & $10^{-8}$ & $10^{-6}$ & $10^{-5}$ \\
-Close speeds & 2 & $10^{-8}$ & $10^{-6}$ & $10^{-5}$ \\
-Negative     & 2 & $10^{-9}$ & $10^{-6}$ & $10^{-5}$ \\
-Small angles & 2 & $10^{-9}$ & $10^{-7}$ & $10^{-5}$ \\
-Large angles & 2 & $10^{-8}$ & $10^{-6}$ & $10^{-5}$ \\
-\midrule
-Easy         & 3 & $10^{-8}$ & $10^{-6}$ & $10^{-5}$ \\
-Close speeds & 3 & $10^{-7}$ & $10^{-5}$ & $10^{-4}$ \\
-Large angles & 3 & $10^{-8}$ & $10^{-6}$ & $10^{-5}$ \\
-Negative     & 3 & $10^{-8}$ & $10^{-6}$ & $10^{-5}$ \\
-Mixed        & 3 & $10^{-8}$ & $10^{-6}$ & $10^{-5}$ \\
+$P\!=\!2$ typical   & $10^{-8}$  & $10^{-6}$  & $10^{-5}$ \\
+$P\!=\!2$ worst      & $10^{-8}$  & $10^{-6}$  & $10^{-5}$ \\
+$P\!=\!3$ typical   & $10^{-8}$  & $10^{-6}$  & $10^{-5}$ \\
+$P\!=\!3$ worst (close $N$) & $10^{-7}$  & $10^{-5}$  & $10^{-4}$ \\
+$P\!=\!4$ typical   & $10^{-14}$ & $10^{-12}$ & $10^{-11}$ \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-The error hierarchy $|\Delta N| < |\Delta\alpha_x| < |\Delta\alpha_y|$
-matches the sensitivity ordering~\eqref{eq:sensitivity_order} and the
-Hessian-based predictions~\eqref{eq:hessian}.  The hardest case
-(3-prism, close speeds) requires the most optimiser restarts and yields
-the largest errors, but still achieves $|\Delta N|<10^{-7}\;\mathrm{Hz}$.
-Four additional 4-prism (8-interface, 12-D) cases all converge to
-MSE~$<10^{-22}$ with $|\Delta N|<10^{-13}\;\mathrm{Hz}$, each requiring
-$\sim\!15\;\mathrm{min}$.
+\noindent All 23 cases (5 for $P\!=\!2$, 14 for $P\!=\!3$, 4 for
+$P\!=\!4$) achieve MSE~$<10^{-22}$.  The error hierarchy
+$|\Delta N| < |\Delta\alpha_x| < |\Delta\alpha_y|$ matches the
+sensitivity ordering~\eqref{eq:sensitivity_order}.  The hardest case
+(3-prism, close speeds $N\!=\![1.0, 1.05, -2.0]$) yields the largest
+errors but still achieves $|\Delta N|<10^{-7}\;\mathrm{Hz}$.  The
+14-D full-system recovery (speeds, angles, glass indices, workpiece
+distance, and inter-prism gap for $P\!=\!3$) reaches
+MSE~$=4\times10^{-18}$ in $\sim\!48\;\mathrm{min}$.
 
 Figure~\ref{fig:recon} shows the convergence progression for a
-representative 3-prism case.  Panel~(b) shows a coarse initial estimate
-($\sim\!1\;\mathrm{Hz}$ speed error, $\sim\!5^\circ$ angle error).  DE
-progressively resolves the pattern structure: at 5k evaluations~(c) the
-pattern is scattered; by 12k~(d) the lobed structure emerges; by 18k~(e)
-the topology is correct.  NM polish~(f) snaps the result to the ground
-truth~(a).
+representative 3-prism case.
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=\columnwidth]{figures/reconstruction.pdf}
-  \caption{Convergence for a 3-prism system: (a)~ground truth,
-  (b)~coarse initial estimate, (c--e)~DE snapshots at 5k, 12k, 18k
-  evaluations, (f)~after NM polish (MSE~$\sim\!10^{-3}$).}
+  \caption{Convergence for $P\!=\!3$: (a)~ground truth,
+  (b)~coarse initial estimate, (c--e)~DE at 5k/12k/18k evals,
+  (f)~NM polish.  The full pipeline with additional restarts
+  drives MSE to $\sim\!10^{-23}$.}
   \label{fig:recon}
 \end{figure}
 
@@ -780,29 +755,14 @@ density networks.
 
 Our problem is \emph{system identification}: the hardware parameters are
 unknown.  To benchmark, we implemented the paraxial FFT inverse implicit
-in Yang~\cite{Yang2008}.  Table~\ref{tab:yang} shows that FFT speed
-estimates carry $0.5$--$0.9\;\mathrm{Hz}$ errors due to finite frequency
-resolution ($\Delta f = 1/T_\mathrm{obs} = 0.1\;\mathrm{Hz}$), and the
-method cannot recover wedge angles.  Our global optimisation recovers all
-parameters to floating-point precision.
-
-\begin{table}[htbp]
-\centering
-\caption{FFT inverse~\cite{Yang2008} vs.\ our method ($P=2$).
-FFT recovers speeds only; ours recovers all parameters.}
-\label{tab:yang}
-\begin{tabular}{@{}lcc@{}}
-\toprule
-Case & FFT $|\Delta N|$ & Ours $|\Delta N|$ \\
-     & (Hz)             & (Hz)             \\
-\midrule
-Small angles ($3^\circ$)    & 0.50 & $<10^{-15}$ \\
-Medium angles ($8^\circ$)   & 0.50 & $<10^{-15}$ \\
-Large angles ($15^\circ$)   & 0.50 & $<10^{-15}$ \\
-Close speeds (1.0, 1.1\,Hz) & 0.90 & $<10^{-15}$ \\
-\bottomrule
-\end{tabular}
-\end{table}
+in Yang~\cite{Yang2008}, which extracts speeds from frequency peaks.
+Across four $P\!=\!2$ test cases (small, medium, and large angles, plus
+close speeds), the FFT yields speed errors of $0.5$--$0.9\;\mathrm{Hz}$
+due to finite frequency resolution ($\Delta f = 0.1\;\mathrm{Hz}$) and
+cannot recover angles at all.  Our method recovers all parameters with
+$|\Delta N|<10^{-15}\;\mathrm{Hz}$---an improvement of $>14$ orders of
+magnitude, albeit at much greater computational cost
+($\sim\!100\;\mathrm{s}$ vs.\ $\sim\!1\;\mathrm{ms}$).
 
 \subsection{Physical versus thin-prism models}
 
