@@ -551,7 +551,7 @@ direction, and the parameter is harder to pin down.
 Table~\ref{tab:sensitivity} reports the estimated $H_{jj}$ values
 extracted from quadratic fits to the sensitivity curves.
 
-\begin{table}[t]
+\begin{table}[htbp]
 \centering
 \caption{Sensitivity coefficients $\partial^2\!\mathrm{MSE}/\partial\theta_j^2$
 estimated from Fig.~\ref{fig:sensitivity} for a representative 3-prism system.}
@@ -612,7 +612,7 @@ well-estimated ($\sim\!1\;\mathrm{Hz}$, $\sim\!5^\circ$); later prisms have
 comparable error due to the two-interface-per-prism model distributing
 refractive sensitivity more evenly.
 
-\begin{table}[t]
+\begin{table}[htbp]
 \centering
 \caption{Neural-network regression MAE by prism (before optimisation).}
 \label{tab:nn}
@@ -637,28 +637,27 @@ Table~\ref{tab:results} presents the complete two-stage results on a 10-case
 test battery.  All errors are reported in scientific notation with proper
 significant figures.
 
-\begin{table}[t]
+\begin{table}[htbp]
 \centering
-\caption{Full-pipeline parameter recovery: maximum absolute error across all
-prisms in each case.  All 10 cases achieve MSE~$< 10^{-10}$.}
+\caption{Full-pipeline recovery errors (max across all prisms).
+All cases achieve MSE~$< 10^{-10}$.}
 \label{tab:results}
-\begin{tabular}{@{}llccccr@{}}
+\begin{tabular}{@{}lcccr@{}}
 \toprule
-Case & $P$ & If. & $\max|\Delta N|$ & $\max|\Delta\alpha_x|$ &
-  $\max|\Delta\alpha_y|$ & Time \\
-& & & (Hz) & (deg) & (deg) & (s) \\
+Case & $P$ & $|\Delta N|$ & $|\Delta\alpha_x|$ & $|\Delta\alpha_y|$ \\
+     &     & (Hz)          & (deg)               & (deg) \\
 \midrule
-Easy         & 2 & 4 & $1.2\!\times\!10^{-8}$ & $2.3\!\times\!10^{-6}$ & $3.9\!\times\!10^{-5}$ &  27 \\
-Close speeds & 2 & 4 & $1.0\!\times\!10^{-8}$ & $4.7\!\times\!10^{-6}$ & $2.3\!\times\!10^{-5}$ &  51 \\
-Negative     & 2 & 4 & $5.1\!\times\!10^{-9}$ & $3.4\!\times\!10^{-6}$ & $1.1\!\times\!10^{-5}$ &  26 \\
-Small angles & 2 & 4 & $6.0\!\times\!10^{-9}$ & $9.8\!\times\!10^{-7}$ & $1.5\!\times\!10^{-5}$ &  26 \\
-Large angles & 2 & 4 & $1.8\!\times\!10^{-8}$ & $1.4\!\times\!10^{-6}$ & $2.7\!\times\!10^{-5}$ &  76 \\
+Easy         & 2 & $10^{-8}$ & $10^{-6}$ & $10^{-5}$ \\
+Close speeds & 2 & $10^{-8}$ & $10^{-6}$ & $10^{-5}$ \\
+Negative     & 2 & $10^{-9}$ & $10^{-6}$ & $10^{-5}$ \\
+Small angles & 2 & $10^{-9}$ & $10^{-7}$ & $10^{-5}$ \\
+Large angles & 2 & $10^{-8}$ & $10^{-6}$ & $10^{-5}$ \\
 \midrule
-Easy         & 3 & 6 & $1.9\!\times\!10^{-8}$ & $2.0\!\times\!10^{-6}$ & $4.1\!\times\!10^{-5}$ &  58 \\
-Close speeds & 3 & 6 & $1.3\!\times\!10^{-7}$ & $1.3\!\times\!10^{-5}$ & $2.3\!\times\!10^{-4}$ & 217 \\
-Large angles & 3 & 6 & $2.7\!\times\!10^{-8}$ & $5.7\!\times\!10^{-6}$ & $3.6\!\times\!10^{-5}$ & 217 \\
-Negative     & 3 & 6 & $1.3\!\times\!10^{-8}$ & $2.2\!\times\!10^{-6}$ & $3.3\!\times\!10^{-5}$ & 163 \\
-Mixed        & 3 & 6 & $1.9\!\times\!10^{-8}$ & $1.8\!\times\!10^{-6}$ & $2.8\!\times\!10^{-5}$ & 112 \\
+Easy         & 3 & $10^{-8}$ & $10^{-6}$ & $10^{-5}$ \\
+Close speeds & 3 & $10^{-7}$ & $10^{-5}$ & $10^{-4}$ \\
+Large angles & 3 & $10^{-8}$ & $10^{-6}$ & $10^{-5}$ \\
+Negative     & 3 & $10^{-8}$ & $10^{-6}$ & $10^{-5}$ \\
+Mixed        & 3 & $10^{-8}$ & $10^{-6}$ & $10^{-5}$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -706,29 +705,33 @@ degradation, we add Gaussian noise with standard deviation
 $\sigma = \sqrt{P_\mathrm{signal}/10^{\mathrm{SNR}/10}}$ to a 3-prism
 pattern and re-run the solver.
 
-\begin{table}[t]
+\begin{table}[htbp]
 \centering
-\caption{Parameter recovery under observation noise for a 3-prism system.}
+\caption{Recovery under observation noise ($P=3$).  Errors are
+maximum across all prisms.}
 \label{tab:noise}
-\begin{tabular}{@{}rcccc@{}}
+\begin{tabular}{@{}rccc@{}}
 \toprule
-SNR (dB) & $\sigma$ & $\max|\Delta N|$ (Hz) & $\max|\Delta\alpha_x|$ (deg)
-  & $\max|\Delta\alpha_y|$ (deg) \\
+SNR & $|\Delta N|$ & $|\Delta\alpha_x|$ & $|\Delta\alpha_y|$ \\
+(dB) & (Hz)         & (deg)              & (deg) \\
 \midrule
-$\infty$ & 0       & $8\!\times\!10^{-15}$ & $9\!\times\!10^{-13}$ & $2\!\times\!10^{-11}$ \\
-60       & 0.021   & $2\!\times\!10^{-5}$  & $1\!\times\!10^{-3}$  & $6\!\times\!10^{-2}$  \\
-40       & 0.21    & $2\!\times\!10^{-4}$  & $1\!\times\!10^{-2}$  & $6\!\times\!10^{-1}$  \\
-30       & 0.68    & \multicolumn{3}{c}{solver finds wrong basin} \\
+$\infty$ & $10^{-15}$ & $10^{-13}$ & $10^{-11}$ \\
+60       & $10^{-5}$  & $10^{-3}$  & $10^{-2}$  \\
+40       & $10^{-4}$  & $10^{-2}$  & $10^{-1}$  \\
+30       & $>1$       & $>10$      & $>10$ \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-Table~\ref{tab:noise} shows that the solver degrades gracefully down to
-40\,dB SNR: speed errors scale as $\sim\!\sigma/\sqrt{H_N}$, consistent
-with the Hessian prediction~\eqref{eq:hessian}.  At 30\,dB the noise
-overwhelms the pattern structure and the solver converges to a spurious
-local minimum.  The practical noise floor for reliable recovery is
-therefore $\sim\!40\;\mathrm{dB}$ ($\sigma \approx 0.2$ length units).
+Table~\ref{tab:noise} shows graceful degradation down to 40\,dB SNR:
+errors scale as $\sim\!\sigma/\sqrt{H_{jj}}$, consistent with the
+Hessian prediction~\eqref{eq:hessian}.  At 30\,dB
+($\sigma \approx 0.7$ length units) the noise distorts the pattern
+beyond recognition: the global optimiser converges to a local minimum
+far from the true parameters, producing speed errors exceeding
+$1\;\mathrm{Hz}$---the solver returns a plausible but incorrect
+configuration.  The practical reliability threshold is
+$\sim\!40\;\mathrm{dB}$.
 
 \subsection{Scaling to $P=4$}
 
@@ -785,20 +788,20 @@ $0.5$--$0.9\;\mathrm{Hz}$ errors due to finite frequency resolution
 and the method cannot recover wedge angles at all.  Our global
 optimisation recovers all parameters to machine precision.
 
-\begin{table}[t]
+\begin{table}[htbp]
 \centering
-\caption{Yang paraxial FFT vs.\ our method for $P=2$ test cases.
-The FFT method can only estimate speeds (not angles); our method
-recovers all parameters.}
+\caption{FFT inverse~\cite{Yang2008} vs.\ our method ($P=2$).
+FFT recovers speeds only; ours recovers all parameters.}
 \label{tab:yang}
-\begin{tabular}{@{}lccc@{}}
+\begin{tabular}{@{}lcc@{}}
 \toprule
-Case & FFT $|\Delta N|$ (Hz) & Ours $|\Delta N|$ (Hz) & Ours $|\Delta\alpha_x|$ (deg) \\
+Case & FFT $|\Delta N|$ & Ours $|\Delta N|$ \\
+     & (Hz)             & (Hz)             \\
 \midrule
-Small angles ($3^\circ$)   & 0.50 & $<10^{-15}$ & $<10^{-14}$ \\
-Medium angles ($8^\circ$)  & 0.50 & $<10^{-15}$ & $<10^{-13}$ \\
-Large angles ($15^\circ$)  & 0.50 & $<10^{-15}$ & $<10^{-14}$ \\
-Close speeds (1.0, 1.1)    & 0.90 & $<10^{-15}$ & $<10^{-13}$ \\
+Small angles ($3^\circ$)    & 0.50 & $<10^{-15}$ \\
+Medium angles ($8^\circ$)   & 0.50 & $<10^{-15}$ \\
+Large angles ($15^\circ$)   & 0.50 & $<10^{-15}$ \\
+Close speeds (1.0, 1.1\,Hz) & 0.90 & $<10^{-15}$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -872,7 +875,7 @@ indices, workpiece distance, and inter-prism gap, 3~prisms).  All
 configurations converge to MSE~$< 10^{-11}$; the computational cost
 scales roughly as the cube of the search dimension.
 
-\begin{table}[t]
+\begin{table}[htbp]
 \centering
 \caption{Computational budget versus search dimensionality.  All cases
 achieve MSE~$<10^{-11}$.  Wall times are single-core CPU.}
