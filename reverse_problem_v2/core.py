@@ -68,7 +68,7 @@ class PrismParameters:
         return 2 * self.n_prisms
 
     def validate(self) -> bool:
-        if not (1 <= self.n_prisms <= 3):
+        if not (1 <= self.n_prisms <= 6):
             return False
         for arr in [self.rotation_speeds, self.wedge_angles_x, self.wedge_angles_y]:
             if len(arr) != self.n_prisms:
