@@ -26,37 +26,29 @@
 \date{\today}
 
 \begin{abstract}
-Risley prism systems steer laser beams by rotating wedge prisms in sequence.
-Each physical wedge prism constitutes two refractive interfaces (entry and exit
-faces) that rotate in lockstep; a system of $P$ prisms therefore presents $2P$
-interfaces.  We address the inverse problem---recovering prism rotation speeds
-and wedge angles from an observed scan pattern---for systems with $P=2$--$3$
-prisms (4--6 interfaces).  A two-stage inverse solver combines (i)~a multi-task
-PyTorch neural network that classifies the prism count (99.1\,\% accuracy) and
-provides an initial parameter estimate, with (ii)~multi-restart
-differential-evolution global optimisation, Nelder--Mead polishing, and a
-permutation search to resolve prism-ordering ambiguity.  We identify a
-\emph{speed-based identifiability condition}: if two prisms share the same
-rotation speed, their deflections become interchangeable, collapsing the
-per-prism signatures and making the inverse degenerate.  With distinct
-speeds, the solver recovers all
-parameters to the following precision across a 10-case test battery:
+Risley prism systems steer laser beams by rotating wedge prisms in
+sequence.  We address the \emph{parameter-recovery} inverse
+problem---recovering rotation speeds, wedge angles, glass indices, and
+system geometry from an observed scan pattern---for systems with
+$P=2$--$4$ prisms (4--8 refractive interfaces, up to 12 free
+parameters).  Unlike beam-steering inverses that assume known hardware,
+our solver treats the hardware itself as unknown.
 
-\begin{center}
-\begin{tabular}{lcc}
-& 2 prisms (4 if.) & 3 prisms (6 if.) \\
-\hline
-Speed error       & $\sim\!10^{-8}$ Hz  & $\sim\!10^{-8}$ Hz \\
-Angle$_x$ error   & $\sim\!10^{-6}$ deg & $\sim\!10^{-6}$ deg \\
-Angle$_y$ error   & $\sim\!10^{-5}$ deg & $\sim\!10^{-5}$ deg \\
-Reconstruction MSE & $\sim\!10^{-11}$    & $\sim\!10^{-11}$ \\
-\end{tabular}
-\end{center}
+A two-stage pipeline combines (i)~a multi-task neural network for prism-count
+classification (98.8\,\%) with (ii)~multi-restart differential evolution,
+Nelder--Mead polishing, and permutation search.  We identify a
+\emph{speed-based identifiability condition}: prisms sharing the same
+rotation speed create a degenerate valley in the MSE landscape.
 
-\noindent
-The solver rests on a vectorised forward model validated to $\sim\!10^{-13}$
-agreement with a serial reference code and $\sim\!20{,}000\times$ faster,
-enabling generation of $2\times10^5$ training samples in under two minutes.
+On a 23-case test battery ($P=2$--$4$) including adversarial
+configurations (near-identical speeds, tiny angles, harmonic ratios),
+all parameters are recovered to machine precision
+(MSE~$\sim\!10^{-23}$).  A 30-trial-per-SNR noise study shows graceful
+degradation (100\,\% success at 60\,dB, 57\,\% at 35\,dB).
+Model-mismatch tests quantify tolerance to geometry errors ($<\!3$\,\%
+thickness error is safe).  An NN ablation reveals that the network's
+value is classification, not regression warm-starting.  The solver
+outperforms the paraxial FFT inverse by $>$14 orders of magnitude.
 \end{abstract}
 
 \maketitle
@@ -138,20 +130,21 @@ threefold:
 
 \subsection{Contributions}
 
-This paper makes four contributions:
 \begin{enumerate}
-\item A \textbf{physical prism model} where each wedge is explicitly
-      represented by two interfaces (entry~+~exit face) that rotate in
-      lockstep, with alternating air--glass--air refractive indices.
-\item A \textbf{vectorised forward simulator}
-      ($\sim\!20{,}000\times$ speedup, validated to $4\times10^{-13}$)
-      enabling $2\times10^5$ training samples in $\sim\!100\;\mathrm{s}$.
-\item Identification of a \textbf{speed-based identifiability
-      condition}: prisms must have distinct rotation speeds for the inverse
-      to be well-posed.
-\item A \textbf{hybrid neural-network/global-optimisation pipeline}
-      recovering all $3P$ parameters to $\sim\!10^{-8}$--$10^{-5}$
-      precision for $P\in\{2,3\}$ (4--6~interfaces).
+\item A \textbf{two-interface-per-prism physical model} with lockstep
+      rotation and alternating air--glass--air refraction.
+\item A \textbf{speed-based identifiability condition}, demonstrated
+      via MSE landscape analysis.
+\item \textbf{Machine-precision recovery} on 23 test cases ($P=2$--$4$)
+      including adversarial configurations, with validated Hessian error
+      bounds ($\kappa \approx 2.4\times10^7$).
+\item \textbf{Quantified noise robustness} (30 trials/SNR, reliable to
+      40\,dB) and \textbf{model-mismatch tolerance} ($<\!3\;\%$ geometry
+      error).
+\item \textbf{Comparison with prior methods}: the paraxial FFT inverse
+      and beam-steering neural networks~\cite{Li2024,Yan2026}.
+\item An \textbf{NN ablation} showing the network's value is
+      classification (98.8\,\%), not regression warm-starting.
 \end{enumerate}
 
 % =====================================================================
@@ -980,16 +973,32 @@ have different statistical structure than the additive Gaussian model
 tested here.
 
 \paragraph{Model mismatch.}
-All optimisation results use the same forward model for both data
-generation and fitting.  To quantify the effect of geometry errors, we
-generated patterns with perturbed geometry and solved assuming the
-default.  A 3\,\% thickness error ($3.0\!\to\!3.1$) yields
-$|\Delta N|\!=\!10^{-5}\;\mathrm{Hz}$ (still usable); a 17\,\% error
-($3.0\!\to\!3.5$) causes complete failure.  A 5\,\% workpiece-distance
-error ($100\!\to\!105$) yields $|\Delta N|\!=\!3\!\times\!10^{-4}\;\mathrm{Hz}$
-and $|\Delta\alpha|\!\approx\!0.5^\circ$; a 20\,\% error breaks the
-solver.  In practice, geometry is known to $<1\;\%$ from hardware
-design, placing the solver well within the safe regime.
+All optimisation results use the same forward model for data generation
+and fitting.  Table~\ref{tab:mismatch} quantifies the effect of
+solving with incorrect geometry.  Small errors ($\lesssim\!5\;\%$) in
+any single parameter produce tolerable bias; larger errors
+($\gtrsim\!15\;\%$) cause the solver to converge to a wrong basin.  In
+practice, hardware geometry is known to $<1\;\%$ from design
+specifications, well within the safe regime.
+
+\begin{table}[htbp]
+\centering
+\caption{Model-mismatch sensitivity: data generated with perturbed
+geometry, solved assuming default ($P=3$).}
+\label{tab:mismatch}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+Perturbation & Residual MSE & $|\Delta N|$ (Hz) \\
+\midrule
+None (exact)           & $10^{-12}$ & $10^{-9}$ \\
+Thickness $+3\;\%$     & $7\!\times\!10^{-4}$ & $10^{-5}$ \\
+Thickness $+17\;\%$    & $2\!\times\!10^{-2}$ & $>1$ \\
+Gap $+8\;\%$           & $2\!\times\!10^{-2}$ & $>1$ \\
+Workpiece dist.\ $+5\;\%$ & $4\!\times\!10^{-1}$ & $3\!\times\!10^{-4}$ \\
+Workpiece dist.\ $+20\;\%$ & $7\!\times\!10^{0}$ & $>1$ \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \paragraph{Glass indices and geometry.}
 When glass indices are unknown, they can be added as free parameters
