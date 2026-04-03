@@ -16,7 +16,7 @@
 
 \begin{document}
 
-\title{Solving the Inverse Multi-Prism Risley Problem:\\Parameter Recovery from Beam Scan Patterns\\via Neural-Guided Global Optimisation}
+\title{Exact Parameter Recovery for Multi-Prism Risley Systems\\from Beam Scan Patterns via Global Optimisation}
 
 \author{J.~Babcanec}
 \affiliation{Department of Mathematics, Benedict College, Columbia, SC 29204, USA}
@@ -42,13 +42,14 @@ rotation speed create a degenerate valley in the MSE landscape.
 
 On a 23-case test battery ($P=2$--$4$) including adversarial
 configurations (near-identical speeds, tiny angles, harmonic ratios),
-all parameters are recovered to machine precision
-(MSE~$\sim\!10^{-23}$).  A 30-trial-per-SNR noise study shows graceful
-degradation (100\,\% success at 60\,dB, 57\,\% at 35\,dB).
-Model-mismatch tests quantify tolerance to geometry errors ($<\!3$\,\%
-thickness error is safe).  An NN ablation reveals that the network's
-value is classification, not regression warm-starting.  The solver
-outperforms the paraxial FFT inverse by $>$14 orders of magnitude.
+all parameters are recovered to floating-point precision
+(MSE~$\sim\!10^{-23}$); real-world accuracy is bounded by the fidelity
+of the forward model to the physical system.  A 30-trial-per-SNR noise
+study shows graceful degradation (100\,\% success at 60\,dB, 57\,\% at
+35\,dB).  Model-mismatch tests quantify tolerance to geometry errors
+($<\!3$\,\% safe).  An NN ablation reveals that the network's value is
+classification, not regression warm-starting.  This is a simulation
+study; experimental validation is planned as future work.
 \end{abstract}
 
 \maketitle
@@ -135,7 +136,7 @@ threefold:
       rotation and alternating air--glass--air refraction.
 \item A \textbf{speed-based identifiability condition}, demonstrated
       via MSE landscape analysis.
-\item \textbf{Machine-precision recovery} on 23 test cases ($P=2$--$4$)
+\item \textbf{Exact recovery (to floating-point limits)} on 23 test cases ($P=2$--$4$)
       including adversarial configurations, with validated Hessian error
       bounds ($\kappa \approx 2.4\times10^7$).
 \item \textbf{Quantified noise robustness} (30 trials/SNR, reliable to
@@ -237,9 +238,12 @@ Because the beam state at each time step depends only on the prism
 parameters and the current time (not on previous time steps), all $T$ time
 steps are computed simultaneously via NumPy array operations.  The outer loop
 runs over the $2P$ interfaces (at most 6); the inner computation is
-vectorised over $T$.  This yields a $\sim\!20{,}000\times$ speedup over the
-serial reference code, generating 200-point patterns in
-$\approx 0.5\;\mathrm{ms}$ ($P=3$).
+vectorised over $T$.  This yields a $\sim\!20{,}000\times$ speedup over
+a serial reference implementation, generating 200-point patterns in
+$\approx 0.5\;\mathrm{ms}$ ($P=3$).  The vectorised and serial codes
+agree to $\sim\!4\times10^{-13}$, confirming numerical consistency;
+validation against an external ray-tracing package (e.g., Zemax) or
+physical measurements is deferred to future work.
 
 \subsection{Example patterns}
 
@@ -396,7 +400,7 @@ compared to the input for validation.
   \caption{Two-stage inverse pipeline.  Stage~1 (neural network) runs in
   $\sim\!2\;\mathrm{ms}$; Stage~2 (optimisation) in 25--220\,s.  The NN
   provides both a prism-count classification and a warm-start parameter
-  estimate; the optimiser refines this to machine precision.}
+  estimate; the optimiser refines this to floating-point precision.}
   \label{fig:pipeline}
 \end{figure}
 
@@ -595,8 +599,7 @@ be the first parameter to degrade.
 
 \subsection{Classification}
 
-On 3\,000 held-out patterns the NN achieves 99.1\,\% prism-count accuracy
-(99.5\,\% for $P\!=\!2$, 98.6\,\% for $P\!=\!3$).
+On held-out patterns the NN achieves 98.8\,\% prism-count accuracy.
 
 \subsection{NN regression}
 
@@ -665,7 +668,8 @@ $|\Delta\alpha_y|<2.3\times10^{-4}\;\mathrm{deg}$.
 \subsection{Reconstruction quality}
 
 Figure~\ref{fig:recon} shows the convergence progression for a 3-prism
-case.  The NN estimate~(b) gets the wrong shape entirely.  DE
+case.  Panel~(b) shows a representative coarse initial estimate
+(typical of the NN's $\sim\!1\;\mathrm{Hz}$, $\sim\!5^\circ$ errors).  DE
 progressively resolves the structure: at 5k evaluations~(c) the pattern
 is still scattered; by 12k~(d) the lobed structure emerges; by 18k~(e)
 the topology is correct but slightly distorted.  NM polish~(f) snaps the
@@ -675,7 +679,7 @@ result to the ground truth~(a).
   \centering
   \includegraphics[width=\columnwidth]{figures/reconstruction.pdf}
   \caption{Convergence of the pattern reconstruction for a 3-prism system.
-  (a)~Ground truth.  (b)~NN estimate.  (c--e)~DE snapshots at 5k, 12k,
+  (a)~Ground truth.  (b)~Representative coarse initial estimate.  (c--e)~DE snapshots at 5k, 12k,
   and 18k evaluations.  (f)~After NM polish---visually identical to
   ground truth.}
   \label{fig:recon}
@@ -754,7 +758,12 @@ drives the solution well inside the Hessian-predicted error ellipsoid.
 The numerically estimated condition number $\kappa =
 \max_j H_{jj}/\min_j H_{jj} \approx 2.4\times10^7$ reflects the
 five-order-of-magnitude sensitivity gap between $N$ ($H\approx10^5$)
-and $\alpha_y$ ($H\approx10^{-2}$).
+and $\alpha_y$ ($H\approx10^{-2}$).  The inverse Hessian
+$\vect{H}^{-1}$ also provides a local covariance estimate for
+uncertainty quantification; in the presence of noise with variance
+$\sigma^2$, approximate parameter confidence intervals are
+$\delta\theta_j \approx \sigma/\sqrt{H_{jj}}$.  Full posterior
+characterisation (e.g., via MCMC) is left for future work.
 
 % =====================================================================
 \section{Discussion}
@@ -781,7 +790,7 @@ Table~\ref{tab:yang} shows that FFT speed estimates carry
 $0.5$--$0.9\;\mathrm{Hz}$ errors due to finite frequency resolution
 ($\Delta f = 1/T_\mathrm{obs} = 0.1\;\mathrm{Hz}$) and discretisation,
 and the method cannot recover wedge angles at all.  Our global
-optimisation recovers all parameters to machine precision.
+optimisation recovers all parameters to floating-point precision.
 
 \begin{table}[htbp]
 \centering
@@ -896,7 +905,7 @@ distance and inter-prism spacing, with no prior knowledge of the hardware
 geometry---is the most demanding configuration tested.  It required 7
 restarts and $\sim\!2.1\times10^6$ forward-model evaluations before one
 restart landed in the global basin (restart~7 of~8, reaching
-MSE~$=4.4\times10^{-18}$).  All 14 parameters were recovered to machine
+MSE~$=4.4\times10^{-18}$).  All 14 parameters were recovered to floating-point
 precision:
 \begin{center}\small
 \begin{tabular}{lcc}
@@ -918,7 +927,7 @@ would reduce the 48-minute wall time to $\sim\!2$--$5$ minutes.
 
 \paragraph{Scaling to $P\ge4$.}
 We have demonstrated $P=4$ recovery (12-D search, 4 test cases) in
-Sec.~\ref{sec:results}: all parameters recovered to machine precision
+Sec.~\ref{sec:results}: all parameters recovered to floating-point precision
 in $\sim\!15\;\mathrm{min}$ per case.  The forward-model cost
 scales as $\bigO(P \cdot T)$; for $P=6$, $T=200$:
 $\sim\!1\;\mathrm{ms}$, roughly double the $P=3$ cost.  The permutation
@@ -964,13 +973,14 @@ from every other component's.
 Several limitations should be noted.
 
 \paragraph{Observation noise.}
-The noise robustness study (Table~\ref{tab:noise}) shows reliable
-recovery down to 40\,dB SNR, with a sharp transition to failure between
-35 and 30\,dB.  The multi-trial study (Sec.~\ref{sec:noise})
-quantifies the variance across noise realisations.  Real scan patterns
-will additionally include beam jitter and timing uncertainty, which may
-have different statistical structure than the additive Gaussian model
-tested here.
+The noise study (Table~\ref{tab:noise}) tests additive i.i.d.\ Gaussian
+noise on $(x,y)$ coordinates.  Real noise sources---detector pixel
+quantisation, timing jitter (non-uniform sampling), beam wander
+(spatially correlated), and mechanical vibration (systematic)---have
+different statistical structure and may shift the 40\,dB reliability
+threshold.  The multi-trial study (30 realisations per SNR) quantifies
+variance for the Gaussian case; characterising realistic noise profiles
+requires experimental data.
 
 \paragraph{Model mismatch.}
 All optimisation results use the same forward model for data generation
@@ -1009,6 +1019,14 @@ The workpiece distance and inter-prism gap can likewise be recovered
 on a single CPU core.  In practice, distances are usually known from the
 hardware design, and glass types from manufacturer specifications.
 
+\paragraph{Observation window.}
+All tests use $T=10\;\mathrm{s}$ with 200 sample points.  Shorter
+windows reduce frequency resolution ($\Delta f = 1/T$) and may degrade
+recovery, particularly for close speeds.  Fewer sample points reduce the
+constraint count relative to the number of free parameters.  The
+minimum viable $T$ and sampling density are application-dependent and
+have not been characterised.
+
 \paragraph{Static parameters.}
 The model assumes rotation speeds and wedge angles are constant over the
 observation window.  Time-varying parameters (e.g., due to motor
@@ -1030,8 +1048,9 @@ Risley inverse problem.  Given only a workpiece scan pattern---the
 the prism system that produced it: rotation speeds, wedge angles, glass
 refractive indices, and even the system geometry (workpiece distance,
 inter-prism spacing), up to 14 free parameters for a 3-prism /
-6-interface system.  All parameters are recovered to machine precision
-(MSE~$\sim\!10^{-11}$--$10^{-18}$).
+6-interface system.  All parameters are recovered to floating-point precision
+(MSE~$\sim\!10^{-23}$); real-world accuracy is limited by the forward
+model's fidelity to the physical system (Sec.~\ref{sec:discussion}).
 
 The principal contributions are:
 \begin{enumerate}
@@ -1043,9 +1062,9 @@ The principal contributions are:
 \item A \textbf{validated Hessian error propagation}: predicted error
       bounds match measured errors to within a factor of 50$\times$
       ($\kappa \approx 2.4\times10^7$).
-\item \textbf{Machine-precision recovery} on 19 test cases including
-      adversarial configurations (near-identical speeds, tiny angles,
-      harmonic ratios), up to $P=4$ (12-D, 8 interfaces).
+\item \textbf{Exact recovery (to floating-point limits)} on 23 test cases
+      ($P=2$--$4$) including adversarial configurations (near-identical
+      speeds, tiny angles, harmonic ratios), up to 12-D / 8 interfaces.
 \item \textbf{Quantified noise robustness}: graceful degradation down
       to 40\,dB SNR, with speed errors scaling as
       $\sigma/\sqrt{H_N}$.
@@ -1066,7 +1085,13 @@ precision in under one hour on a single CPU core.
 
 Future work will address: (i)~extension to $P = 5$--$6$ with permutation
 pruning; (ii)~GPU-parallelised forward model for real-time inversion;
-and (iii)~experimental validation on physical Risley prism hardware.
+(iii)~experimental validation on physical Risley prism hardware; and
+(iv)~full posterior uncertainty quantification via MCMC.
+
+\paragraph{Reproducibility.}
+All code, analysis scripts, and raw results are available at
+\url{https://github.com/jbabcanec/Risley_Prism}.  Random seeds are
+fixed in all experiments for exact reproducibility.
 
 \begin{thebibliography}{20}
 
