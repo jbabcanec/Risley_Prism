@@ -738,13 +738,33 @@ Figure~\ref{fig:ood} illustrates this for the piecewise-linear case.
 Panel~(a) shows the input: a real 3-prism pattern with its smooth curves
 replaced by straight-line segments (sharp corners at 15 knot points).
 Panels (b--e) show the solver converging---not toward the angular input,
-but toward the nearest smooth, quasi-periodic Risley curve.  The final
-result~(e) is a looped pattern that approximates the overall shape but
-cannot reproduce the corners; the MSE floors at $\sim\!2.8$, reflecting
-the irreducible distance between the input and the Risley manifold
-$\mathcal{M}_3$.  The overlay~(f) makes the discrepancy visible: the
-black input has straight edges while the red Risley fit is smooth
-everywhere---exactly the $C^\infty$ constraint predicted by the theory.
+but toward the nearest smooth, quasi-periodic Risley curve.  The
+overlay~(f) makes the discrepancy visible: the black input has straight
+edges while the red Risley fit is smooth everywhere---exactly the
+$C^\infty$ constraint predicted by the theory.
+
+Fitting the same piecewise-linear pattern with increasing prism counts
+reveals a Fourier-like approximation property:
+
+\begin{center}\small
+\begin{tabular}{@{}cccc@{}}
+$P$ & Residual MSE & Mean error & Harmonics \\
+\hline
+1 & 20.2 & 6.0 & 1 frequency \\
+2 &  3.4 & 2.2 & 2 frequencies \\
+3 &  2.8 & 2.1 & 3 frequencies \\
+4 &  1.6 & 1.6 & 4 frequencies \\
+\end{tabular}
+\end{center}
+
+\noindent Each additional prism contributes another harmonic frequency
+to the quasi-periodic representation, improving the approximation of the
+non-smooth input---analogous to adding terms in a Fourier series.  The
+MSE decreases monotonically but can never reach zero: reproducing the
+sharp corners would require infinitely many harmonics (i.e., infinitely
+many prisms).  The recovered parameters bear no relation to the original
+Risley configuration; the solver finds an entirely different point on
+$\mathcal{M}_P$ that happens to be closest to the angular input.
 
 \begin{figure}[htbp]
   \centering
