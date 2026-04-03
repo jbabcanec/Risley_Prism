@@ -48,8 +48,10 @@ of the forward model to the physical system.  A 30-trial-per-SNR noise
 study shows graceful degradation (100\,\% success at 60\,dB, 57\,\% at
 35\,dB).  Model-mismatch tests quantify tolerance to geometry errors
 ($<\!3$\,\% safe).  An NN ablation reveals that the network's value is
-classification, not regression warm-starting.  This is a simulation
-study; experimental validation is planned as future work.
+classification, not regression warm-starting.  Out-of-distribution
+tests show the residual MSE cleanly separates Risley-compatible
+patterns from incompatible ones.  This is a simulation study;
+experimental validation is planned as future work.
 \end{abstract}
 
 \maketitle
@@ -146,6 +148,10 @@ threefold:
       and beam-steering neural networks~\cite{Li2024,Yan2026}.
 \item An \textbf{NN ablation} showing the network's value is
       classification (98.8\,\%), not regression warm-starting.
+\item A \textbf{residual-MSE diagnostic}: the forward map produces
+      quasi-periodic ($C^\infty$) curves; the solver's residual MSE
+      separates Risley-compatible patterns ($<\!10^{-3}$) from
+      incompatible ones ($>\!1$).
 \end{enumerate}
 
 % =====================================================================
@@ -694,6 +700,63 @@ near-zero speed, harmonic speed ratios ($1\!:\!2\!:\!3$), and large
 angle asymmetry.  All nine cases converge to MSE~$<10^{-22}$, confirming
 that the solver is robust across the parameter space.
 
+\subsection{Out-of-distribution patterns and the residual diagnostic}
+\label{sec:ood}
+
+The forward map $F:\Theta\to\mathcal{C}$ is a composition of smooth
+functions (rotation, Snell's law, line intersection) and therefore
+$C^\infty$ in both parameters and time.  Risley scan patterns are
+\emph{quasi-periodic}: each coordinate is a finite sum of sinusoidal
+components at frequencies that are integer combinations of the rotation
+speeds $N_1,\dots,N_P$.  Patterns that are not quasi-periodic---those
+with sharp corners, discontinuities, aperiodic drift, or random
+structure---lie outside the image of $F$ and have no exact pre-image.
+
+To test this, we applied the solver to eight patterns of decreasing
+compatibility with the Risley model (Table~\ref{tab:ood}).  The
+residual MSE separates cleanly into three regimes:
+\begin{itemize}
+\item \textbf{Compatible} (MSE~$<10^{-3}$): real Risley patterns, or
+      patterns achievable by a different prism count (the 3-prism solver
+      approximates a 2-prism pattern by setting the extra prism to
+      near-zero angles, MSE~$\approx 10^{-3}$).
+\item \textbf{Incompatible, structured} (MSE~$\sim\!10^1$): patterns
+      with broken smoothness (piecewise linear, square-wave modulation)
+      or broken periodicity (linear drift).  The solver finds the closest
+      quasi-periodic curve.
+\item \textbf{Incompatible, unstructured} (MSE~$\sim\!10^2$): shuffled
+      or random points with no temporal coherence.
+\end{itemize}
+
+\noindent
+The residual MSE thus serves as a \textbf{diagnostic}: values below
+$\sim\!10^{-3}$ indicate a pattern consistent with a Risley system;
+values above $\sim\!1$ indicate the observed pattern cannot have been
+produced by any configuration of $P$ rotating wedge prisms.
+
+\begin{table}[htbp]
+\centering
+\caption{Solver applied to patterns outside the Risley manifold ($P=3$).
+Residual MSE indicates distance from the nearest achievable pattern.}
+\label{tab:ood}
+\begin{tabular}{@{}lr@{}}
+\toprule
+Input pattern & Residual MSE \\
+\midrule
+Real Risley (control)          & $10^{-12}$ \\
+Time-reversed                  & $3\!\times\!10^{-3}$ \\
+2-prism pattern (fit as 3)     & $3\!\times\!10^{-3}$ \\
+\midrule
+Piecewise-linear (sharp corners) & $1.5\!\times\!10^{1}$ \\
+Linear drift (non-periodic)    & $2.8\!\times\!10^{1}$ \\
+Square-wave modulated          & $4.0\!\times\!10^{1}$ \\
+\midrule
+Time-shuffled                  & $1.3\!\times\!10^{2}$ \\
+Uniform random                 & $1.6\!\times\!10^{2}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \subsection{Noise robustness}
 \label{sec:noise}
 
@@ -1075,6 +1138,10 @@ The principal contributions are:
       the paraxial FFT inverse by $>14$ orders of magnitude in speed
       recovery and is the first to recover wedge angles and glass
       indices from scan patterns.
+\item A \textbf{residual-MSE diagnostic}: the solver's residual
+      cleanly separates Risley-compatible patterns from incompatible
+      ones (sharp corners, random walks, aperiodic drift), with a
+      three-order-of-magnitude gap between the two regimes.
 \end{enumerate}
 
 Unlike beam-steering approaches~\cite{Li2024,Yan2026} that assume known
