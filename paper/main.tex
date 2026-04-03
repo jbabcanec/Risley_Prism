@@ -1031,6 +1031,56 @@ analogue of our speed-based identifiability condition: ensuring that
 each component's contribution to the observed signal is distinguishable
 from every other component's.
 
+\subsection{Smoothness, quasi-periodicity, and the Risley manifold}
+
+The exactness of the recovery and the residual diagnostic
+(Sec.~\ref{sec:ood}) can be understood through the structure of the
+forward map.  Let $F:\Theta\subset\mathbb{R}^{3P}\to\mathcal{C}$
+denote the mapping from parameters to scan patterns, where
+$\mathcal{C}$ is the space of continuous curves $[0,T]\to\mathbb{R}^2$.
+
+\paragraph{Smoothness.}
+$F$ is the composition of (i)~trigonometric rotations~\eqref{eq:gamma},
+(ii)~vector Snell's law~\eqref{eq:snell} (a ratio of smooth functions,
+away from total internal reflection), and (iii)~line--line intersection
+(a ratio of bilinear polynomials).  Each constituent is $C^\infty$ in
+both $\vect{\theta}$ and $t$, so the composite $F$ is $C^\infty$.  In
+particular, the scan pattern $\vect{p}(t)=F(\vect{\theta})(t)$ is a
+smooth curve for every $\vect{\theta}\in\Theta$.  Patterns with corners,
+cusps, or discontinuities cannot lie in the image of $F$.
+
+\paragraph{Quasi-periodicity.}
+Each prism $i$ contributes refractive deflections that are periodic in
+$\gamma_i(t) = 360\,N_i\,t$ with period $1/|N_i|$.  The iterated
+Snell's-law composition produces output coordinates that are
+\emph{quasi-periodic} functions of $t$: expressible as convergent sums
+of harmonics at frequencies $\{k_1 N_1 + \cdots + k_P N_P :
+k_i\in\mathbb{Z}\}$.  When the speed ratios $N_i/N_j$ are irrational,
+the pattern never exactly repeats; when rational, it closes after a
+finite period.  In either case, the pattern is uniquely determined by
+the finite parameter vector $\vect{\theta}$---the quasi-periodic
+structure is what makes exact recovery possible from a finite
+observation window.
+
+\paragraph{The Risley manifold.}
+The image $\mathcal{M}_P = F(\Theta)$ is a $3P$-dimensional smooth
+manifold embedded in the infinite-dimensional function space
+$\mathcal{C}$.  Most elements of $\mathcal{C}$---random walks, sawtooth
+waves, fractal curves---do not lie on $\mathcal{M}_P$.  The solver's
+objective function $\mathrm{MSE}(\vect{\theta}) = \lVert
+F(\vect{\theta}) - \vect{p}^\mathrm{obs}\rVert^2/T$ measures the
+squared distance from the observation to $\mathcal{M}_P$.  When
+$\vect{p}^\mathrm{obs}\in\mathcal{M}_P$, the minimum is zero
+(achieved at the true $\vect{\theta}$, modulo permutations); when
+$\vect{p}^\mathrm{obs}\notin\mathcal{M}_P$, the minimum is strictly
+positive and equals the squared projection distance.
+
+This explains both the exact recovery on Risley-compatible inputs
+(Table~\ref{tab:results}) and the clean separation in the
+out-of-distribution test (Table~\ref{tab:ood}): the residual MSE is
+literally the distance from the observation to the nearest point on the
+Risley manifold.
+
 \subsection{Limitations}
 
 Several limitations should be noted.
