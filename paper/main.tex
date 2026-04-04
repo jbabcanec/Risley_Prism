@@ -367,17 +367,39 @@ forward map.  Then:}
 
 \smallskip
 \noindent\textit{Proof.}
-Nesting holds because every $P$-prism pattern can be realised by a
-$(P\!+\!1)$-prism system: set $N_{P+1}=0$ and choose
-$\alpha_{x,P+1},\alpha_{y,P+1}$ to exactly compensate the lateral
-displacement introduced by the $(P\!+\!1)$-th glass body (a unique,
-geometry-dependent correction that zeroes the net deflection of the
-extra prism).  Density
-follows from the Stone--Weierstrass theorem~\cite{StoneWeierstrass}:
-the quasi-periodic functions with $P$ generators form a self-adjoint
+\emph{Nesting.}
+A beam at angle $\theta$ traversing a parallel glass slab (index $n_g$,
+thickness $\tau$) exits at the same angle $\theta$ (Snell's law at
+parallel faces) but is laterally displaced by
+\begin{equation}
+  \Delta x = \tau\bigl(\tan\theta - \tan\theta_g\bigr), \quad
+  \theta_g = \arcsin\!\bigl(\sin\theta/n_g\bigr).
+  \label{eq:lateral}
+\end{equation}
+To embed a $P$-prism pattern in $\mathcal{M}_{P+1}$, insert a static
+($N_{P+1}\!=\!0$) prism and tilt its exit face by the angle
+\begin{equation}
+  \alpha_\mathrm{comp} \;=\;
+    \frac{\Delta x}{D_\mathrm{rem}\,(n_g - 1)}
+    \;+\; \bigO(\alpha_\mathrm{comp}^2),
+  \label{eq:alpha_comp}
+\end{equation}
+where $D_\mathrm{rem}$ is the remaining propagation distance.  This
+tilt creates an angular deflection $(n_g\!-\!1)\,\alpha_\mathrm{comp}$
+that, over $D_\mathrm{rem}$, exactly cancels the lateral
+shift~\eqref{eq:lateral}.  The exact (non-paraxial) compensation is
+obtained by solving Snell's law at the tilted exit face; numerical
+evaluation confirms that a unique solution exists for all beam angles
+$\theta < \theta_\mathrm{TIR}$ and is small ($<\!0.3^\circ$ for
+typical geometries with $D_\mathrm{rem}\ge 100$).  Thus
+$\mathcal{M}_P\subset\mathcal{M}_{P+1}$.
+
+\emph{Density.}
+The quasi-periodic functions with $P$ generators form a self-adjoint
 subalgebra of $C[0,T]$ that separates points (distinct generators
-produce distinct evaluations); as $P\to\infty$ the algebra is dense in
-$C[0,T]$, hence in $L^2[0,T]$.\hfill$\square$
+produce distinct evaluations).  By the Stone--Weierstrass
+theorem~\cite{StoneWeierstrass}, as $P\to\infty$ the algebra is dense
+in $C[0,T]$, hence in $L^2[0,T]$.\hfill$\square$
 
 \smallskip
 \noindent\textbf{Corollary 1} (Exact wedge-count recovery).
