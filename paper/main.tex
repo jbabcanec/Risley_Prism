@@ -412,8 +412,10 @@ quasi-periodic functions) satisfies~\cite{Zygmund,DeVore1993}:}
   d(f, \mathcal{Q}_P)^2 \;\le\; C_s\,\|f\|_{W^{s,2}}^2\;P^{-(2s-1)}.
   \label{eq:approx_rate}
 \end{equation}
-\textit{For the physical manifold $\mathcal{M}_P$, which coincides with
-$\mathcal{Q}_P$ in the paraxial limit and is strictly richer beyond it:
+\textit{The physical manifold $\mathcal{M}_P$ is a bounded subset of
+$\mathcal{Q}_P$ in the paraxial limit (bounded speeds and angles) and
+is strictly richer beyond it (nonlinear harmonics).  For targets whose
+dominant frequencies lie within the admissible range:
 $d(f,\mathcal{M}_P)\le d(f,\mathcal{Q}_P)$.}
 
 \smallskip
@@ -423,9 +425,11 @@ to each coordinate~\eqref{eq:paraxial}, so the approximation space is
 $\mathrm{span}\{e^{2\pi i N_i t}\}_{i=1}^P$ with $N_i$ free.
 Ordering the Fourier coefficients of $f$ by magnitude,
 $|\hat{f}_{(1)}|\ge|\hat{f}_{(2)}|\ge\cdots$, and choosing $N_i$ to
-match the $P$ largest, the residual is
-$d^2 \le \sum_{k>P}|\hat{f}_{(k)}|^2$.  For $f\in W^{s,2}$,
-$|\hat{f}_k|\le C|k|^{-s}$, whence
+match the $P$ largest within the admissible speed range
+$|N_i|\le N_\mathrm{max}$, the residual is
+$d^2 \le \sum_{k>P}|\hat{f}_{(k)}|^2$.  For $f\in W^{s,2}$ with
+energy concentrated below the frequency ceiling
+$N_\mathrm{max}/\Delta t$, $|\hat{f}_k|\le C|k|^{-s}$, whence
 $\sum_{k>P}|k|^{-2s}\sim P^{-(2s-1)}$.  Beyond the paraxial regime,
 the nonlinear Snell's-law composition generates additional harmonics at
 $\sum_i k_i N_i$ ($|k_i|\ge 2$), strictly enlarging the approximation
@@ -453,8 +457,7 @@ Figure~\ref{fig:ood} visualises the projection onto $\mathcal{M}_3$.
 This gives a principled answer to ``how many wedges?'': fit the
 pattern with $P\!=\!1,2,3,\ldots$ and monitor $d^2$.  Zero residual
 identifies the true $P$; a nonzero plateau signals an
-incompatible pattern; the decay rate reveals the target's Sobolev
-regularity.
+incompatible pattern.
 
 \begin{table}[htbp]
 \centering
@@ -518,10 +521,12 @@ the MSE landscape is well-approximated by a quadratic form:
 \end{equation}
 where $\vect{H}$ is the Hessian of the MSE objective.  The diagonal
 entries $H_{jj}$ (Table~\ref{tab:sensitivity}) are the curvatures
-along each parameter axis.  The condition number
-$\kappa = \max_j H_{jj}/\min_j H_{jj} \approx 2.4\times10^7$ reflects
-the five-order-of-magnitude sensitivity gap between $N$ and $\alpha_y$,
-and predicts the error hierarchy in the final results.
+along each parameter axis.  The ratio of the largest to smallest curvatures in
+Table~\ref{tab:sensitivity} is $\approx 2\times10^5$; the precise
+Hessian (computed at finer scale $h=10^{-4}$) gives
+$\kappa = \max_j H_{jj}/\min_j H_{jj} \approx 2.4\times10^7$.  Both
+reflect the same five-order-of-magnitude sensitivity gap between $N$
+and $\alpha_y$ that predicts the error hierarchy in the final results.
 
 \begin{figure}[t]
   \centering
@@ -709,8 +714,10 @@ three regimes.
 
 \begin{table}[htbp]
 \centering
-\caption{Solver applied to patterns outside the Risley manifold ($P=3$).
-Residual MSE indicates distance from the nearest achievable pattern.}
+\caption{Solver applied to patterns outside the Risley manifold ($P=3$,
+3 restarts).  The control row's MSE~$\sim\!10^{-12}$ reflects the
+reduced solver budget; the full pipeline reaches $\sim\!10^{-23}$
+(Table~\ref{tab:results}).}
 \label{tab:ood}
 \begin{tabular}{@{}lr@{}}
 \toprule
@@ -754,7 +761,7 @@ pattern and re-run the solver (30 independent trials per SNR level).
 Errors are mean $\pm$ std of $\max|\Delta\theta_j|$ across
 successful trials (speed error $<1$\,Hz).}
 \label{tab:noise}
-\begin{tabular}{@{}rcccc@{}}
+\begin{tabular}{@{}rccc@{}}
 \toprule
 SNR & Success & $|\Delta N|$ & $|\Delta\alpha_y|$ \\
 (dB) & rate & (Hz) & (deg) \\
