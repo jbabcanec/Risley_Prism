@@ -34,11 +34,10 @@ prisms.  A two-stage pipeline combining neural-network classification
 with multi-restart differential evolution recovers all parameters to
 floating-point precision (MSE~$\sim\!10^{-23}$) on a 23-case test
 battery.  We show that the forward map generates $C^\infty$
-quasi-periodic curves lying on a finite-dimensional Risley manifold
-$\mathcal{M}_P$ whose nested structure
-$\mathcal{M}_1\subset\mathcal{M}_2\subset\cdots$ determines the
-minimum prism count from the residual MSE alone---a Fourier-like
-convergence that directly answers ``how many wedges are needed?''
+quasi-periodic curves on a geometry-dependent Risley manifold
+$\mathcal{M}_P$; since each $P$ has a distinct geometry, the correct
+prism count is the unique $P$ with zero residual---and Fourier-like
+convergence rates answer ``how many wedges are needed?''
 Noise robustness (100\,\% at 60\,dB, 57\,\% at 35\,dB) and
 model-mismatch tolerance ($<\!3$\,\%) are quantified.  This is a
 simulation study; experimental validation is planned.
@@ -134,11 +133,10 @@ threefold:
       robustness (30 trials/SNR, reliable to 40\,dB) and model-mismatch
       tolerance ($<\!3\;\%$ geometry error).
 \item \textbf{Risley manifold theory}: the forward map generates $C^\infty$
-      quasi-periodic curves on a finite-dimensional manifold
-      $\mathcal{M}_P$; this structure enables exact recovery, the residual
-      MSE serves as a Risley-compatibility diagnostic, and the Fourier-like
-      convergence rate $d(\vect{p},\mathcal{M}_P)$ as a function of $P$
-      determines the minimum wedge count from the pattern alone.
+      quasi-periodic curves; each $P$-prism geometry defines a distinct
+      manifold $\mathcal{M}_P$, making the correct prism count the unique
+      $P$ with zero residual; Fourier-like convergence rates (proved via
+      Sobolev approximation theory) govern non-Risley targets.
 \item \textbf{Comparison with prior beam-steering methods}: our approach
       outperforms the paraxial FFT inverse~\cite{Yang2008} by $>14$
       orders of magnitude in speed recovery and is the first to recover
@@ -353,68 +351,47 @@ per-prism information that the solver can disentangle.
 
 Each prism contributes one fundamental rotation frequency; the iterated
 Snell's-law composition generates harmonics at integer combinations
-$\sum_i k_i N_i$.  This leads to the following result.
+$\sum_i k_i N_i$.
 
 \smallskip
-\noindent\textbf{Theorem 1} (Manifold nesting and $L^2$ density).
-\textit{Let $\mathcal{M}_P = F(\Theta_P)$ be the image of the $P$-prism
-forward map.  Then:}
+\noindent\textbf{Theorem 1} ($L^2$ density of quasi-periodic functions).
+\textit{Let $\mathcal{Q}_P$ denote the set of quasi-periodic functions on
+$[0,T]$ with $P$ rationally independent generators.  Then}
 \begin{equation}
-  \mathcal{M}_1 \subset \mathcal{M}_2 \subset \cdots \subset
-  \overline{\textstyle\bigcup_{P=1}^{\infty} \mathcal{M}_P} = L^2[0,T].
-  \label{eq:manifold_nest}
+  \overline{\textstyle\bigcup_{P=1}^{\infty} \mathcal{Q}_P} = L^2[0,T].
+  \label{eq:density}
 \end{equation}
 
 \smallskip
 \noindent\textit{Proof.}
-\emph{Nesting.}
-A beam at angle $\theta$ traversing a parallel glass slab (index $n_g$,
-thickness~$\tau$) exits at angle~$\theta$ (Snell's law at parallel
-faces) but is laterally displaced by
-\begin{equation}
-  \Delta x = \tau\bigl(\tan\theta - \tan\theta_g\bigr), \quad
-  \theta_g = \arcsin\!\bigl(\tfrac{\sin\theta}{n_g}\bigr).
-  \label{eq:lateral}
-\end{equation}
-To embed a $P$-prism pattern in $\mathcal{M}_{P+1}$, insert a static
-($N_{P+1}\!=\!0$) prism and tilt its exit face by a compensating
-angle~$\alpha$.  Define $g(\alpha)$ as the total beam displacement at
-the workpiece: $g(\alpha) = \Delta x + D_\mathrm{rem}\tan(\theta_\mathrm{out}(\alpha)-\theta)$,
-where $\theta_\mathrm{out}(\alpha)=\arcsin\bigl(n_g\sin(\theta_g-\alpha)\bigr)+\alpha$
-is the exit angle from the tilted face.  Then:
-\begin{enumerate}
-\item $g(0) = \Delta x > 0$ \,(uncompensated shift);
-\item $g$ is strictly decreasing, since
-      $\partial\theta_\mathrm{out}/\partial\alpha = 1 -
-      n_g\cos\theta_g/\cos\theta < 0$
-      (because $n_g>1$ and $\theta_g<\theta$ imply
-      $n_g\cos\theta_g/\cos\theta>1$);
-\item $g(\alpha)\to-\infty$ as $\alpha\to\theta_g$ (the exit-face
-      refraction diverges toward the critical angle).
-\end{enumerate}
-By the intermediate value theorem, $g$ has a unique zero
-$\alpha_\mathrm{comp}\in(0,\theta_g)$ for every
-$\theta\in(0,\theta_\mathrm{TIR})$.  In the paraxial limit:
-\begin{equation}
-  \alpha_\mathrm{comp} \;=\;
-    \frac{\Delta x}{D_\mathrm{rem}\,(n_g - 1)}
-    \;+\; \bigO(\alpha^2).
-  \label{eq:alpha_comp}
-\end{equation}
-Thus $\mathcal{M}_P\subset\mathcal{M}_{P+1}$.
-
-\emph{Density.}
 The quasi-periodic functions with $P$ generators form a self-adjoint
-subalgebra of $C[0,T]$ that separates points (distinct generators
-produce distinct evaluations).  By the Stone--Weierstrass
-theorem~\cite{StoneWeierstrass}, as $P\to\infty$ the algebra is dense
-in $C[0,T]$, hence in $L^2[0,T]$.\hfill$\square$
+subalgebra of $C[0,T]$ that contains constants (set all amplitudes to
+zero except a DC term) and separates points (for any $t_1\neq t_2$,
+choose a frequency $N$ with $\cos(2\pi N t_1)\neq\cos(2\pi N t_2)$).
+By the Stone--Weierstrass theorem~\cite{StoneWeierstrass}, the algebra
+is dense in $C[0,T]$, hence in $L^2[0,T]$.\hfill$\square$
 
 \smallskip
-\noindent\textbf{Corollary 1} (Exact wedge-count recovery).
-\textit{For $\vect{p}^\mathrm{obs}\!\in\!\mathcal{M}_{P_0}$, the
-residual $d(\vect{p}^\mathrm{obs},\mathcal{M}_P)=0$ if and only if
-$P\ge P_0$.}
+\noindent\textbf{Remark} (Geometry dependence).
+For the physical model, each manifold $\mathcal{M}_P = F_P(\Theta_P)$
+corresponds to a specific $P$-prism hardware geometry (total optical path,
+inter-prism gaps).  The manifolds $\mathcal{M}_P$ and $\mathcal{M}_{P+1}$
+live in different geometric configurations, so the strict set-theoretic
+nesting $\mathcal{M}_P\subset\mathcal{M}_{P+1}$ does not hold: adding a
+prism inserts a glass body and air gap that alter the total optical path
+and modify the pattern even if the extra prism's wedge angles are zero.
+The density result~\eqref{eq:density} is a statement about the
+abstract function space $\mathcal{Q}_P$; the connection to the physical
+model holds in the paraxial limit where $F_P$ reduces to $P$-term
+trigonometric polynomials.
+
+\smallskip
+\noindent\textbf{Corollary 1} (Wedge-count determination).
+\textit{Let $\vect{p}^\mathrm{obs}$ be generated by a $P_0$-prism system.
+Then $d(\vect{p}^\mathrm{obs},\mathcal{M}_{P_0})=0$ (exact recovery), and
+$d(\vect{p}^\mathrm{obs},\mathcal{M}_P)>0$ for all $P\neq P_0$
+(because each $\mathcal{M}_P$ has a distinct geometry).  The correct prism
+count is therefore the unique $P$ that achieves zero residual.}
 
 \smallskip
 \noindent\textbf{Theorem 2} (Approximation rate).
@@ -914,10 +891,10 @@ geometry, up to 14 free parameters.  The principal contributions are:
       ($<\!3\;\%$).
 \item \textbf{Risley manifold theory}: the $C^\infty$ quasi-periodic
       structure of the forward map enables exact recovery; the residual
-      MSE is a Risley-compatibility diagnostic; and the Fourier-like
-      convergence rate across the manifold nesting
-      $\mathcal{M}_1\subset\mathcal{M}_2\subset\cdots$ determines the
-      minimum wedge count from the observed pattern alone.
+      MSE is a Risley-compatibility diagnostic; geometry dependence makes
+      the correct prism count the \emph{unique} $P$ with zero residual;
+      and Fourier-like convergence rates govern the approximation of
+      non-Risley patterns.
 \item A \textbf{quantitative comparison} showing $>14$ orders of
       magnitude improvement over the paraxial FFT inverse in speed
       recovery, and the first recovery of wedge angles and glass indices
