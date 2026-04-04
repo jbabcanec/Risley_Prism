@@ -347,20 +347,12 @@ per-prism information that the solver can disentangle.
 
 \paragraph{Uniqueness.}
 In the paraxial limit~\eqref{eq:paraxial}, uniqueness (up to a global
-time shift $t\mapsto t+t_0$) follows from the uniqueness of Fourier
-coefficients: distinct speeds produce distinct frequencies in the
-power spectrum, the amplitude at each frequency uniquely determines
-the wedge angle, and the phase determines the azimuthal offset.
-This is classical.
-
-Beyond the paraxial limit, the forward map $F$ is a smooth
-perturbation of the paraxial map.  By the inverse function theorem,
-injectivity persists in a neighbourhood of $\alpha=0$.  We conjecture
-that it holds on the full admissible parameter set $\Theta$, supported
-by all 23 test cases recovering a unique solution with no spurious
-global minima at MSE~$=0$ observed.  The sufficient conditions are
-\eqref{eq:speed_condition} together with $T > 1/\min_i|N_i|$ (at
-least one full rotation observed).
+time shift $t\mapsto t+t_0$) follows from the classical uniqueness of
+Fourier coefficients: distinct speeds produce distinct frequencies, and
+the amplitude and phase at each frequency uniquely determine the wedge
+angles.  In all 23 non-paraxial test cases ($\alpha$ up to $15^\circ$),
+the solver recovers a unique parameter vector with no spurious global
+minima at MSE~$=0$ observed.
 
 \begin{figure}[t]
   \centering
