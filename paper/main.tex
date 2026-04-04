@@ -138,7 +138,7 @@ threefold:
       $P$ with zero residual; Fourier-like convergence rates (proved via
       Sobolev approximation theory) govern non-Risley targets.
 \item \textbf{Comparison with prior beam-steering methods}: our approach
-      outperforms the paraxial FFT inverse~\cite{Yang2008} by $>14$
+      outperforms the paraxial FFT inverse~\cite{Yang2008} by $\sim\!15$
       orders of magnitude in speed recovery and is the first to recover
       wedge angles and glass indices from scan patterns.
 \end{enumerate}
@@ -440,8 +440,7 @@ $|\hat{f}_{(1)}|\ge|\hat{f}_{(2)}|\ge\cdots$, and choosing $N_i$ to
 match the $P$ largest within the admissible speed range
 $|N_i|\le N_\mathrm{max}$, the residual is
 $d^2 \le \sum_{k>P}|\hat{f}_{(k)}|^2$.  For $f\in W^{s,2}$ with
-energy concentrated below the frequency ceiling
-$N_\mathrm{max}/\Delta t$, $|\hat{f}_k|\le C|k|^{-s}$, whence
+energy concentrated below $N_\mathrm{max}$, $|\hat{f}_k|\le C|k|^{-s}$, whence
 $\sum_{k>P}|k|^{-2s}\sim P^{-(2s-1)}$.  Beyond the paraxial regime,
 the nonlinear Snell's-law composition generates additional harmonics at
 $\sum_i k_i N_i$ ($|k_i|\ge 2$), strictly enlarging the approximation
@@ -615,7 +614,8 @@ $H_N\sim10^5$, $H_{\alpha_x}\sim1$, $H_{\alpha_y}\sim10^{-2}$
 bounds are $|\delta N|\lesssim 10^{-14}$,
 $|\delta\alpha_x|\lesssim 10^{-11}$,
 $|\delta\alpha_y|\lesssim 10^{-10}$.  The actual errors
-(Table~\ref{tab:results}) are 1--4\,\% of these bounds, confirming
+(Table~\ref{tab:results}) are within an order of magnitude of these
+bounds, confirming
 the quadratic landscape~\eqref{eq:hessian}.
 
 \subsection{Neural-network classifier}
@@ -695,7 +695,7 @@ $P\!=\!4$) achieve MSE~$<10^{-22}$.  The error hierarchy
 $|\Delta N| < |\Delta\alpha_x| < |\Delta\alpha_y|$ matches the
 sensitivity ordering~\eqref{eq:sensitivity_order}.  The hardest case
 (3-prism, close speeds $N\!=\![1.0, 1.05, -2.0]$) yields the largest
-errors but still achieves $|\Delta N|<10^{-7}\;\mathrm{Hz}$.  The
+errors but still achieves $|\Delta N|<10^{-13}\;\mathrm{Hz}$.  The
 14-D full-system recovery (speeds, angles, glass indices, workpiece
 distance, and inter-prism gap for $P\!=\!3$) reaches
 MSE~$=4\times10^{-18}$ in $\sim\!48\;\mathrm{min}$.  To verify
@@ -924,7 +924,7 @@ geometry, up to 14 free parameters.  The principal contributions are:
       the correct prism count the \emph{unique} $P$ with zero residual;
       and Fourier-like convergence rates govern the approximation of
       non-Risley patterns.
-\item A \textbf{quantitative comparison} showing $\sim\!14$ orders of
+\item A \textbf{quantitative comparison} showing $\sim\!15$ orders of
       magnitude improvement over the paraxial FFT inverse in speed
       recovery, and the first recovery of wedge angles and glass indices
       from scan patterns.
