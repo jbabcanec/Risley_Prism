@@ -346,19 +346,21 @@ modulates the beam at a different frequency, and the pattern encodes
 per-prism information that the solver can disentangle.
 
 \paragraph{Uniqueness.}
-We conjecture that condition~\eqref{eq:speed_condition}, together with
-$T > 1/\min_i|N_i|$ (at least one full rotation observed), is
-sufficient for uniqueness of the inverse up to a global phase shift
-$t\mapsto t+t_0$.  The argument is as follows: distinct speeds produce
-quasi-periodic patterns with rationally independent frequencies, so the
-Fourier spectrum of the pattern uniquely determines the amplitudes at
-each harmonic $\sum_i k_i N_i$; these amplitudes, being analytic
-functions of the wedge angles, generically admit a unique pre-image.
-A rigorous proof would require showing that the map from
-$(\alpha_{x,i},\alpha_{y,i})$ to harmonic amplitudes is injective
-on~$\Theta$, which we leave open.  Empirically, all 23 test cases
-recover a unique parameter vector (after permutation resolution),
-with no spurious local minima at MSE~$=0$ observed.
+In the paraxial limit~\eqref{eq:paraxial}, uniqueness (up to a global
+time shift $t\mapsto t+t_0$) follows from the uniqueness of Fourier
+coefficients: distinct speeds produce distinct frequencies in the
+power spectrum, the amplitude at each frequency uniquely determines
+the wedge angle, and the phase determines the azimuthal offset.
+This is classical.
+
+Beyond the paraxial limit, the forward map $F$ is a smooth
+perturbation of the paraxial map.  By the inverse function theorem,
+injectivity persists in a neighbourhood of $\alpha=0$.  We conjecture
+that it holds on the full admissible parameter set $\Theta$, supported
+by all 23 test cases recovering a unique solution with no spurious
+global minima at MSE~$=0$ observed.  The sufficient conditions are
+\eqref{eq:speed_condition} together with $T > 1/\min_i|N_i|$ (at
+least one full rotation observed).
 
 \begin{figure}[t]
   \centering
@@ -545,7 +547,8 @@ the MSE landscape is well-approximated by a quadratic form:
     \tfrac{1}{2}\,\delta\vect{\theta}^{\!\top} \vect{H}\, \delta\vect{\theta},
   \label{eq:hessian}
 \end{equation}
-where $\vect{H} = \nabla^2\mathrm{MSE}$ is the Hessian.  The diagonal
+where $H_{ij} = \partial^2\mathrm{MSE}/\partial\theta_i\partial\theta_j$
+is the Hessian matrix.  The diagonal
 entries $H_{jj}$ (Table~\ref{tab:sensitivity}) are the curvatures
 along each parameter axis.  The ratio of largest to smallest curvatures in
 Table~\ref{tab:sensitivity} is $\approx 2\times10^5$ (broad
