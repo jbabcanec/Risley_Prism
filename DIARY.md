@@ -140,3 +140,33 @@ Running (or completed) — upgrades the noise table from 30 to 100 trials per SN
 **#15 Computational cost ranges:** Table gives representative values, not exhaustive — acceptable for a summary table.
 
 **#16 "matches" → "is the inverse of":** FIXED. Error hierarchy is inverse of sensitivity, as expected.
+
+---
+
+## Discussion Notes (2026-04-04)
+
+### Q_P vs M_P — why both exist in the paper
+
+**M_P** = patterns from real P-prism hardware (specific geometry, bounded angles).
+**Q_P** = abstract P-frequency quasi-periodic functions (no geometry, unbounded).
+
+M_P manifolds do NOT nest (adding a prism changes the hardware). Q_P spaces DO nest (adding a frequency to a sum of sinusoids doesn't change existing terms). Stone-Weierstrass density is proved for Q_P, not M_P. The connection holds in the paraxial limit where M_P ≈ Q_P (up to amplitude scaling).
+
+**Decision:** The density theorem and Fourier convergence support the OOD diagnostic and wedge-count determination story. They do NOT support the main recovery result (which just needs: correct P → search M_P → find the unique zero). The paper should frame the theory as supporting the secondary questions, not as the foundation for recovery.
+
+### Paraxial limit — what "small angles" means
+
+Paraxial = sin(α) ≈ α. Works well up to ~15° (1% error). The paper tests up to 15°. The theorem is proved for α → 0. The gap: no proof covers 15° rigorously. Empirically it works. The convergence rate P^{-1.64} is observed, not proved for M_P at large angles.
+
+### Missing: α constraint as function of geometry
+
+The achievable pattern amplitude is bounded by:
+  pattern_amplitude ≈ (n_g - 1) · α_max · d_W
+
+With α_max = 18° and d_W = 100: max amplitude ≈ 15.7 units. The paper never states this. A target pattern larger than this range cannot be fit regardless of P. This constraint should be noted somewhere — either in the solver description or in limitations.
+
+Also: the Fourier convergence table (P=1-6) works because the target was generated from a 3-prism system and is already within the achievable amplitude range. The convergence rate would look different for a target outside this range.
+
+### 100-trial noise study: failed (solver too weak)
+
+Ran with 1 restart, 100 maxiter, popsize 15. Got ~30% success at ALL SNR levels — the solver wasn't finding the basin, not a noise issue. The 30-trial study in the paper used 2 restarts, 120 maxiter, popsize 18 and got 100% at 60 dB. The 30-trial data is correct; the 100-trial run is garbage. If we want 100 trials, need to match the 30-trial solver settings (~10 hour run).
