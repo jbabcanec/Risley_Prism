@@ -76,3 +76,33 @@ Running (or completed) — upgrades the noise table from 30 to 100 trials per SN
 
 ### Archive
 - `paper/ARCHIVE_NOTES.md` — all supplementary results not in the paper (Hessian validation details, per-prism NN MAE, full mismatch table, glass identifiability disproof, first OOD experiment)
+
+---
+
+## Audit Notes (2026-04-03, audit #6)
+
+### Decisions on 20-issue review:
+
+**#1 Corollary 1 logic:** AGREE. The d>0 claim for P≠P₀ doesn't follow from Theorem 1. It's empirical. Renamed to "Observation 1."
+
+**#2 Error propagation diagonal Hessian:** AGREE. Added explicit diagonal-dominance statement. The sensitivity hierarchy (10⁵ : 1 : 10⁻²) makes off-diagonal coupling negligible, but should say so.
+
+**#3 Theorem 1 proof ambiguity:** AGREE. Clarified: the union ∪Q_P forms the algebra, not individual Q_P.
+
+**#4 Theorem 2 rate suboptimal:** ACKNOWLEDGED. Our bound P^{-(2s-1)} is valid but possibly loose. The best-P-term rate from DeVore theory could give P^{-2s}. Stated as an upper bound, not claimed as tight.
+
+**#5 Sign ambiguity:** AGREE. cos(2πNt+φ) = cos(-2πNt-φ) creates 2^P discrete degeneracies. Noted in uniqueness paragraph.
+
+**#6 Manifold dimension:** Already says "generically." Added brief paraxial justification.
+
+**#7 Uncited refs:** REMOVED IoffeSzegedy2015 and KingmaBa2015.
+
+**#8-9 Date discrepancies:** These are filename vs publication year issues in the resources/ folder — the bibitems match the actual publications. Not changed (filenames are not in the paper).
+
+**#10 Journal format:** Left as revtex4-2 for now. The content matters; class file is changed at submission time.
+
+**#11 Yan 2026:** Verified real — we found it via web search (JOSA A, vol 43, issue 4, 2026).
+
+**#12 Forward model code divergence:** Added legacy README to forward_problem/.
+
+**#13-20 Minor:** Fixed: uncited refs removed, beam params limitation added, floating-point floor noted, P=4 permutation verified, cross-coupling quantified, normal vector notation unified.
