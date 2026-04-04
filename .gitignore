@@ -72,6 +72,26 @@ reverse_problem_v2/*.pkl
 reverse_problem_v2/datasets/
 reverse_problem_v2/trained_*/
 reverse_problem_v2/output/
+reverse_problem_v2/runs/
+
+# Trained model weights
+*.pt
+*.pth
+
+# LaTeX build artifacts
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.bbl
+paper/*.blg
+paper/*.synctex*
+paper/mainNotes.bib
+
+# Windows
+desktop.ini
+
+# Claude internal
+.claude/
 
 # Documentation build
 docs/_build/
