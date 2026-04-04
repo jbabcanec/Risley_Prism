@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python:*)",
+      "Bash(mv:*)",
+      "Bash(git add:*)",
+      "Bash(git push:*)",
+      "Bash(rm:*)",
+      "Bash(find:*)",
+      "Bash(true)",
+      "Bash(git commit:*)",
+      "Bash(mkdir:*)",
+      "Bash(cp:*)",
+      "Bash(timeout:*)",
+      "Bash(cd:*)",
+      "Bash(python3:*)",
+      "Bash(/dev/null -exec rm {} ;)",
+      "Bash(chmod:*)"
+    ],
+    "additionalDirectories": [
+      "/Users/josephbabcanec/Dropbox"
+    ]
+  }
+}
