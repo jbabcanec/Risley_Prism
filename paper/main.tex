@@ -4,8 +4,6 @@
 \usepackage{amsmath,amssymb}
 \usepackage{booktabs}
 \usepackage{hyperref}
-\usepackage{algorithm}
-\usepackage{algpseudocode}
 \usepackage{bm}
 \usepackage{xcolor}
 \usepackage{multirow}
@@ -197,10 +195,14 @@ $\delta$; last exit face to workpiece $d_W$.
 \subsection{Refraction at each interface}
 
 At interface~$k$ with effective tilt $\varphi_k$, the beam direction is
-updated by vector Snell's law.  With unit surface normal
-$\uvec{N}=[\tan\varphi,\,0,\,-1]^{\!\top}\!/\lVert\cdot\rVert$,
-unit incident direction
-$\uvec{s}_\mathrm{i}=[\tan\theta,\,0,\,1]^{\!\top}\!/\lVert\cdot\rVert$,
+updated by vector Snell's law, written here in per-axis reduced form
+(the $x$ and $y$ projections are traced independently; see
+Sec.~\ref{sec:smoothness} for the cross-coupling approximation).  With
+unit surface normal
+$\uvec{N}=\vect{n}/\lVert\vect{n}\rVert$ where
+$\vect{n}=[\tan\varphi,\,0,\,-1]^{\!\top}$, unit incident direction
+$\uvec{s}_\mathrm{i}=\vect{s}/\lVert\vect{s}\rVert$ where
+$\vect{s}=[\tan\theta,\,0,\,1]^{\!\top}$,
 and ratio $\eta = n_{k-1}/n_k$:
 \begin{equation}
   \vect{s}_\mathrm{f} = \eta\,(\uvec{N}\times(-\uvec{N}\times\uvec{s}_\mathrm{i}))
@@ -209,8 +211,10 @@ and ratio $\eta = n_{k-1}/n_k$:
 \end{equation}
 The $x$- and $y$-projections are traced independently (reducing cross
 products to scalars), neglecting $\bigO(\alpha_x\alpha_y)$
-cross-coupling; this approximation is exact for single-axis tilts and
-introduces negligible error at the angles tested ($\alpha\le 15^\circ$).
+cross-coupling ($\sim\!7\;\%$ relative at $\alpha=15^\circ$).  This is
+exact for single-axis tilts; for the self-consistent inversion
+(same model for generation and fitting) it introduces no error, but
+would appear as model mismatch against real hardware.
 The beam is propagated to the next interface by the standard 2-D
 line--line intersection formula.
 
@@ -335,13 +339,16 @@ is resolved by its distinct temporal signature.
 
 The identifiability requirement is therefore
 \begin{equation}
-  N_i \neq N_j \quad \text{for } i \neq j.
+  |N_i| \neq |N_j| \quad \text{for } i \neq j.
   \label{eq:speed_condition}
 \end{equation}
-This is necessary but not sufficient: the conditioning degrades
-continuously as $|N_i - N_j|\to 0$, so well-separated speeds are
-preferred.  The condition is satisfied in virtually all practical
-Risley systems.  The physical
+The absolute values are needed because, in the paraxial limit,
+$\cos(2\pi N t+\phi) = \cos(-2\pi N t - \phi)$; prisms with
+$N_i = -N_j$ produce degenerate paraxial contributions (the
+nonlinear Snell's-law composition breaks this symmetry beyond
+paraxial, but near-degeneracy persists).  The conditioning degrades
+continuously as $|N_i| - |N_j| \to 0$, so well-separated speed
+magnitudes are preferred.  The physical
 mechanism is that rotation speed controls \emph{when} each prism's
 deflection is applied during the scan cycle.  When speeds differ, each prism
 modulates the beam at a different frequency, and the pattern encodes
@@ -432,27 +439,25 @@ frequencies:}
     + \bigO(\alpha^2).
   \label{eq:paraxial}
 \end{equation}
-\textit{For $f\in W^{s,2}[0,T]$ (Sobolev space, $s > 1/2$), the
-best-approximation distance from $\mathcal{Q}_P$ satisfies the upper
-bound~\cite{Zygmund,DeVore1993}:}
+\textit{Let $\mathcal{T}_P$ denote the set of P-term trigonometric
+polynomials with freely chosen frequencies (the paraxial approximation
+space; $\mathcal{T}_P\subset\mathcal{Q}_P$ since $\mathcal{Q}_P$
+includes all harmonics).  For $f\in W^{s,2}[0,T]$ ($s > 1/2$):}
 \begin{equation}
-  d(f, \mathcal{Q}_P)^2 \;\le\; C_s\,\|f\|_{W^{s,2}}^2\;P^{-(2s-1)}.
+  d(f, \mathcal{T}_P)^2 \;\le\; C_s\,\|f\|_{W^{s,2}}^2\;P^{-(2s-1)}.
   \label{eq:approx_rate}
 \end{equation}
-\textit{(This is the linear approximation rate; the nonlinear
-best-$P$-term rate from DeVore theory~\cite{DeVore1993} may be
-tighter.)}
-\textit{The physical manifold $\mathcal{M}_P$ is a bounded subset of
-$\mathcal{Q}_P$ in the paraxial limit (bounded speeds and angles) and
-is strictly richer beyond it (nonlinear harmonics).  For targets whose
-dominant frequencies lie within the admissible range:
-$d(f,\mathcal{M}_P)\le d(f,\mathcal{Q}_P)$.}
+\textit{(This is the linear rate; the nonlinear best-$P$-term rate may
+be tighter~\cite{DeVore1993}.)  The physical manifold $\mathcal{M}_P$
+contains $\mathcal{T}_P$ in the paraxial limit and is strictly richer
+beyond it (nonlinear harmonics); for band-limited targets,
+$d(f,\mathcal{M}_P)\le d(f,\mathcal{T}_P)$.}
 
 \smallskip
 \noindent\textit{Proof.}
 In the paraxial regime each prism contributes a single sinusoidal term
-to each coordinate~\eqref{eq:paraxial}, so the approximation space is
-$\mathrm{span}\{e^{2\pi i N_i t}\}_{i=1}^P$ with $N_i$ free.
+to each coordinate~\eqref{eq:paraxial}, so $\mathcal{T}_P =
+\mathrm{span}\{e^{2\pi i N_i t}\}_{i=1}^P$ with $N_i$ free.
 Ordering the Fourier coefficients of $f$ by magnitude,
 $|\hat{f}_{(1)}|\ge|\hat{f}_{(2)}|\ge\cdots$, and choosing $N_i$ to
 match the $P$ largest within the admissible speed range
@@ -468,8 +473,8 @@ fast.\hfill$\square$
 \smallskip
 \noindent\textbf{Corollary 2} (Regularity-dependent rates).
 \textit{Piecewise linear ($f\in W^{1,2}\!\setminus\! W^{2,2}$,
-$s\!=\!1$): $d^2\le C\,P^{-1}$.  Discontinuous ($s\!=\!1/2$):
-$d^2\le C\,P^{0}\to\text{const}$ (Gibbs).  $C^\infty$ Risley
+$s\!=\!1$): $d^2\le C\,P^{-1}$.  Discontinuous ($s\to 1/2^+$,
+limiting case): $d^2\to\text{const}$ (Gibbs-like).  $C^\infty$ Risley
 pattern ($s\!=\!\infty$): $d\!=\!0$ at $P\!=\!P_0$ (exact).}
 
 \smallskip
@@ -527,9 +532,9 @@ rotation speed~$N$, wedge angle~$\alpha_x$, and wedge angle~$\alpha_y$.
 
 The figure reveals a clear hierarchy:
 \begin{equation}
-  \frac{\partial\,\mathrm{MSE}}{\partial N} \;\gg\;
-  \frac{\partial\,\mathrm{MSE}}{\partial\alpha_x} \;\gg\;
-  \frac{\partial\,\mathrm{MSE}}{\partial\alpha_y}.
+  \frac{\partial^2\mathrm{MSE}}{\partial N^2} \;\gg\;
+  \frac{\partial^2\mathrm{MSE}}{\partial\alpha_x^2} \;\gg\;
+  \frac{\partial^2\mathrm{MSE}}{\partial\alpha_y^2}.
   \label{eq:sensitivity_order}
 \end{equation}
 Speed perturbations produce the steepest MSE response ($\sim\!10^3$
@@ -577,8 +582,8 @@ evaluation scales.
 \caption{Approximate curvatures from the perturbation sweeps in
 Fig.~\ref{fig:sensitivity} (quadratic fit over $|\Delta\theta|\le 1$).
 The precise Hessian diagonals (at $h=10^{-4}$) are larger by
-parameter-dependent factors ($\sim\!4000\times$ for $N$,
-$\sim\!40\times$ for $\alpha_x$, $\sim\!10\times$ for $\alpha_y$)
+parameter-dependent factors ($\sim\!10^4$ for $N$,
+$\sim\!60$ for $\alpha_x$, $\sim\!60$ for $\alpha_y$)
 due to the narrower evaluation scale.}
 \label{tab:sensitivity}
 \begin{tabular}{@{}lccc@{}}
@@ -603,7 +608,7 @@ $\alpha_y$ (per deg$^2$) & 0.0010 & 0.00038 & 0.00012 \\
 The inverse solver minimises the pattern-matching objective
 \begin{equation}
   \hat{\vect{\theta}} = \arg\min_{\vect{\theta}\in\Theta}\;
-    \frac{1}{T}\sum_{t=1}^T
+    \frac{1}{2T}\sum_{t=1}^T
       \lVert\vect{p}_t(\vect{\theta})-\vect{p}_t^\mathrm{obs}\rVert^2,
   \label{eq:opt}
 \end{equation}
@@ -714,8 +719,9 @@ $P\!=\!4$ (4 cases)           & $10^{-14}$ & $10^{-12}$ & $10^{-11}$ \\
 $P\!=\!4$) achieve MSE~$<10^{-22}$ (the $\sim\!10^{-23}$ floor is
 consistent with IEEE~754 double-precision rounding accumulated over
 $T\!=\!200$ time steps).  The error hierarchy
-$|\Delta N| < |\Delta\alpha_x| < |\Delta\alpha_y|$ matches the
-sensitivity ordering~\eqref{eq:sensitivity_order}.  The hardest case
+$|\Delta N| < |\Delta\alpha_x| < |\Delta\alpha_y|$ is the inverse of
+the sensitivity ordering~\eqref{eq:sensitivity_order}, as expected:
+higher curvature constrains the parameter more tightly.  The hardest case
 (3-prism, close speeds $N\!=\![1.0, 1.05, -2.0]$) yields the largest
 errors but still achieves $|\Delta N|<10^{-13}\;\mathrm{Hz}$.  The
 14-D full-system recovery (speeds, angles, glass indices, workpiece
@@ -835,8 +841,8 @@ geometry, solved assuming default ($P=3$).}
 Perturbation & Residual MSE & $|\Delta N|$ (Hz) \\
 \midrule
 None (exact)           & $10^{-12}$ & $10^{-9}$ \\
-Thickness $+3\;\%$     & $7\!\times\!10^{-4}$ & $10^{-5}$ \\
-Thickness $+17\;\%$    & $2\!\times\!10^{-2}$ & $>1$ \\
+Thickness $+{\sim}3\;\%$     & $7\!\times\!10^{-4}$ & $10^{-5}$ \\
+Thickness $+{\sim}17\;\%$    & $2\!\times\!10^{-2}$ & $>1$ \\
 Gap $+8\;\%$           & $2\!\times\!10^{-2}$ & $>1$ \\
 Workpiece dist.\ $+5\;\%$ & $4\!\times\!10^{-1}$ & $3\!\times\!10^{-4}$ \\
 Workpiece dist.\ $+20\;\%$ & $7\!\times\!10^{0}$ & $>1$ \\

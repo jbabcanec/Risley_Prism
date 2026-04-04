@@ -106,3 +106,37 @@ Running (or completed) — upgrades the noise table from 30 to 100 trials per SN
 **#12 Forward model code divergence:** Added legacy README to forward_problem/.
 
 **#13-20 Minor:** Fixed: uncited refs removed, beam params limitation added, floating-point floor noted, P=4 permutation verified, cross-coupling quantified, normal vector notation unified.
+
+### Audit #7 (2026-04-04):
+
+**#1 MSE formula ÷T vs ÷2T:** FIXED. Code uses np.mean over (T,2) array = ÷2T. Changed Eq. 10 denominator to 2T.
+
+**#2 Eq. 7 first→second derivatives:** FIXED. At a minimum, first derivatives are zero. Changed to ∂²MSE/∂N², etc.
+
+**#3 23-case archive:** ACKNOWLEDGED. The cases span multiple analysis files. Not consolidated into a single file yet — a housekeeping task, not a paper error. All cases are reproducible from the scripts.
+
+**#4 Q_P overloaded:** FIXED. Introduced T_P for P-term trigonometric polynomials. Theorem 2 now uses T_P (finite-dim paraxial space), distinct from Q_P (infinite-dim quasi-periodic space with all harmonics).
+
+**#5 |N_i|=|N_j| gap:** FIXED. Identifiability condition changed from N_i≠N_j to |N_i|≠|N_j|. Explained paraxial sign symmetry and that nonlinear Snell breaks it.
+
+**#6 Table I scaling factors:** FIXED. Corrected to ~10⁴ for N, ~60 for α_x, ~60 for α_y.
+
+**#7 Corollary 2 at s=1/2:** FIXED. Changed to s→1/2⁺ (limiting case).
+
+**#8 Snell's law per-axis note:** FIXED. Added note before Eq. 2 that it's the per-axis reduced form.
+
+**#9 Normalization notation:** FIXED. Now writes n̂ = n/||n|| where n = [tanφ, 0, -1]ᵀ.
+
+**#10 Cross-coupling quantified:** FIXED. Stated ~7% at 15°, noted it would appear as model mismatch against real hardware.
+
+**#11 Unused packages:** REMOVED algorithm, algpseudocode.
+
+**#12 Yan 2026:** Previously verified via web search. Real publication.
+
+**#13 Percentages:** FIXED. Added ~ to 3% and 17%.
+
+**#14 TIR clamping:** Not in paper — acceptable modeling choice, minor.
+
+**#15 Computational cost ranges:** Table gives representative values, not exhaustive — acceptable for a summary table.
+
+**#16 "matches" → "is the inverse of":** FIXED. Error hierarchy is inverse of sensitivity, as expected.
