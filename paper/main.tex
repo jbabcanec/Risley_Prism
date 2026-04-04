@@ -345,6 +345,21 @@ deflection is applied during the scan cycle.  When speeds differ, each prism
 modulates the beam at a different frequency, and the pattern encodes
 per-prism information that the solver can disentangle.
 
+\paragraph{Uniqueness.}
+We conjecture that condition~\eqref{eq:speed_condition}, together with
+$T > 1/\min_i|N_i|$ (at least one full rotation observed), is
+sufficient for uniqueness of the inverse up to a global phase shift
+$t\mapsto t+t_0$.  The argument is as follows: distinct speeds produce
+quasi-periodic patterns with rationally independent frequencies, so the
+Fourier spectrum of the pattern uniquely determines the amplitudes at
+each harmonic $\sum_i k_i N_i$; these amplitudes, being analytic
+functions of the wedge angles, generically admit a unique pre-image.
+A rigorous proof would require showing that the map from
+$(\alpha_{x,i},\alpha_{y,i})$ to harmonic amplitudes is injective
+on~$\Theta$, which we leave open.  Empirically, all 23 test cases
+recover a unique parameter vector (after permutation resolution),
+with no spurious local minima at MSE~$=0$ observed.
+
 \begin{figure}[t]
   \centering
   \includegraphics[width=\columnwidth]{figures/refind_impact.pdf}
