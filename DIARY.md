@@ -170,3 +170,60 @@ Also: the Fourier convergence table (P=1-6) works because the target was generat
 ### 100-trial noise study: failed (solver too weak)
 
 Ran with 1 restart, 100 maxiter, popsize 15. Got ~30% success at ALL SNR levels — the solver wasn't finding the basin, not a noise issue. The 30-trial study in the paper used 2 restarts, 120 maxiter, popsize 18 and got 100% at 60 dB. The 30-trial data is correct; the 100-trial run is garbage. If we want 100 trials, need to match the 30-trial solver settings (~10 hour run).
+
+---
+
+## CRITICAL REALIZATION (2026-04-05): The solver is brute force and that's embarrassing
+
+### The problem
+
+The current solver is differential evolution (scipy) — a population-based random search. It evaluates the forward model ~100k-2M times to find the answer. For 19-D recovery, it takes HOURS and often fails. This is not a contribution. Anyone can call scipy.optimize.
+
+### The insight we missed
+
+In the paraxial limit, the scan pattern is a sum of sinusoids:
+
+  p_x(t) = Σ_i A_i cos(2π N_i t + φ_i)
+
+The FFT gives ALL prism parameters directly:
+- **Frequency peaks → N_i** (rotation speeds) — we already extract this
+- **Amplitude at each peak → α_x,i** via A_i = d_eff · (n_g - 1) · α_x,i — WE DON'T USE THIS
+- **Phase at each peak → α_y,i** — WE DON'T USE THIS
+
+We've been extracting the frequencies and THROWING AWAY the amplitudes and phases, then spending hours of brute-force DE to rediscover what the FFT already contained.
+
+### The intelligent approach
+
+**Stage 1: Spectral decomposition (milliseconds)**
+1. FFT or Prony/ESPRIT for super-resolution frequency estimation → N_i
+2. Complex Fourier coefficients at each N_i: amplitude → α_x,i, phase → α_y,i
+3. Centroid → beam angles
+4. Pattern scale → d_W (if unknown)
+
+This gives an analytical paraxial solution for all parameters. No optimization.
+
+**Stage 2: Non-paraxial refinement (seconds)**
+NM polish from the paraxial solution. It's already in the right basin — just correcting for Snell's-law nonlinearity. Converges in seconds.
+
+**Total: seconds, not hours. For ALL parameters including beam and geometry.**
+
+### What this changes for the paper
+
+The paper's solver section would change from "we run DE for hours" to "we extract the analytical paraxial solution from the Fourier spectrum and refine with local optimization." This is an actual algorithmic contribution — not an application of existing tools.
+
+The manifold theory still applies (it explains WHY the spectral decomposition works). The noise/mismatch analysis still applies. The OOD diagnostic still applies. But the solver becomes intelligent.
+
+### For geometry parameters (d_W, gap, beam params)
+
+These affect the amplitude mapping A_i → α_x,i. If d_W is unknown:
+- A_i = d_eff(d_W, gap) · (n_g - 1) · α_x,i
+- The ratio A_i/A_j eliminates d_eff if all prisms have the same n_g
+- If glass indices differ, the ratios constrain d_W, gap, and n_g simultaneously
+- A small NM search over [d_W, gap, n_g] with α extracted from FFT is ~5-D, not 19-D
+
+### TODO
+- [ ] Implement spectral parameter extraction (amplitude + phase from FFT)
+- [ ] Test on the 9-D case (should give near-exact paraxial solution)
+- [ ] Test paraxial solution + NM polish on 19-D
+- [ ] Compare speed and accuracy vs brute-force DE
+- [ ] If it works, rewrite the solver section of the paper
