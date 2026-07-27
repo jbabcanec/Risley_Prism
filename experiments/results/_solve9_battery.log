@@ -1,0 +1,37 @@
+
+================================================================================================
+SOLVE9 BATTERY: spectral speeds + phase/amp angles + TRF (no grids, no sign combos)
+================================================================================================
+  1 cyc   2.3 sep  0.750  PERFECT  err= 4.2e-12 mse= 6.4e-24 (primary)    0s
+  2 cyc   1.8 sep  0.361  PERFECT  err= 5.3e-13 mse= 3.1e-26 (primary)    0s
+  3 cyc   4.4 sep  0.027  PERFECT  err= 7.1e-13 mse= 1.1e-24 (primary)    0s
+  4 cyc   2.1 sep  0.330  fail     err= 1.9e+01 mse= 8.4e-01 (zero)   12s
+  5 cyc  19.2 sep  0.490  PERFECT  err= 1.5e-11 mse= 2.5e-22 (primary)    0s
+  6 cyc  21.8 sep  0.166  PERFECT  err= 5.0e-14 mse= 3.2e-27 (primary)    0s
+  7 cyc   9.0 sep  0.160  PERFECT  err= 2.3e-12 mse= 5.3e-25 (primary)    0s
+  8 cyc   1.9 sep  0.953  PERFECT  err= 1.3e-11 mse= 4.0e-23 (primary)    0s
+  9 cyc  19.8 sep  0.540  PERFECT  err= 6.9e-13 mse= 1.9e-25 (primary)    0s
+ 10 cyc   9.4 sep  0.154  fail     err= 2.1e+00 mse= 1.5e+02 (zero)    4s
+ 11 cyc  15.2 sep  0.007  fail     err= 8.2e+00 mse= 3.1e-02 (primary+flip1)   18s
+ 12 cyc  10.1 sep  0.442  PERFECT  err= 3.9e-12 mse= 1.5e-25 (primary)    0s
+ 13 cyc   6.2 sep  0.989  PERFECT  err= 1.5e-12 mse= 1.0e-26 (primary)    0s
+ 14 cyc   1.5 sep  0.515  PERFECT  err= 3.2e-13 mse= 4.0e-27 (primary)    0s
+ 15 cyc   8.5 sep  0.182  PERFECT  err= 1.3e-13 mse= 6.7e-25 (primary)    0s
+ 16 cyc  30.6 sep  0.112  PERFECT  err= 4.5e-13 mse= 5.5e-27 (primary)    0s
+ 17 cyc   1.5 sep  0.425  PERFECT  err= 7.9e-13 mse= 3.6e-26 (primary)    0s
+ 18 cyc   2.9 sep  0.178  fail     err= 3.2e+01 mse= 4.7e+01 (alt1)   74s
+ 19 cyc   1.5 sep  0.440  PERFECT  err= 1.6e-13 mse= 7.0e-26 (alt0)    1s
+ 20 cyc  10.4 sep  0.649  PERFECT  err= 3.7e-12 mse= 4.5e-26 (primary)    0s
+ 21 cyc  11.0 sep  0.392  PERFECT  err= 4.6e-14 mse= 2.4e-26 (primary)    0s
+ 22 cyc  11.0 sep  0.746  PERFECT  err= 9.6e-12 mse= 3.9e-23 (primary)    0s
+ 23 cyc   8.3 sep  0.688  PERFECT  err= 6.0e-14 mse= 2.6e-27 (primary)    0s
+ 24 cyc   7.4 sep  1.088  PERFECT  err= 3.1e-13 mse= 2.7e-27 (primary)    0s
+ 25 cyc  26.3 sep  0.110  PERFECT  err= 2.4e-12 mse= 1.3e-25 (primary)    0s
+ 26 cyc  20.5 sep  0.370  PERFECT  err= 2.5e-13 mse= 7.8e-26 (primary)    0s
+ 27 cyc   6.7 sep  0.059  fail     err= 3.0e+01 mse= 2.8e+01 (alt1)   81s
+ 28 cyc   1.5 sep  1.042  PERFECT  err= 7.2e-13 mse= 3.1e-27 (primary)    0s
+ 29 cyc   8.1 sep  0.663  PERFECT  err= 3.1e-12 mse= 9.8e-24 (primary)    0s
+ 30 cyc   6.1 sep  0.426  PERFECT  err= 8.8e-14 mse= 1.8e-25 (primary)    0s
+
+  SPECTRAL 9-D: 25/30   [reference: alpha_x-grid solver 16/30, ML init 9/30]
+  198s total

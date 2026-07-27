@@ -1,0 +1,38 @@
+======================================================================
+ RANDOM BATTERY (50 cases)
+======================================================================
+  Case   1/50: max_err=3.51e-11  MSE=2.45e-24  161s  PERFECT
+  Case   2/50: max_err=6.88e-12  MSE=6.29e-26  160s  PERFECT
+  Case   3/50: max_err=1.10e+02  MSE=4.60e+01  159s  FAIL
+  Case   4/50: max_err=4.66e+01  MSE=1.12e+00  491s  FAIL
+  Case   5/50: max_err=1.83e-09  MSE=3.68e-24  173s  PERFECT
+  Case   6/50: max_err=2.76e+01  MSE=2.78e+01  175s  FAIL
+  Case   7/50: max_err=3.48e+01  MSE=7.72e+01  199s  FAIL
+  Case   8/50: max_err=3.68e+01  MSE=3.43e+00  192s  FAIL
+  Case   9/50: max_err=3.29e+01  MSE=2.69e+01  153s  FAIL
+  Case  10/50: max_err=4.75e+01  MSE=6.72e+03  142s  FAIL
+  Case  11/50: max_err=3.31e+01  MSE=2.17e-01  163s  FAIL
+  Case  12/50: max_err=5.25e-11  MSE=2.06e-24  158s  PERFECT
+  Case  13/50: max_err=1.15e+01  MSE=1.78e-01  512s  FAIL
+  Case  14/50: max_err=6.25e-12  MSE=1.40e-26  153s  PERFECT
+  Case  15/50: max_err=3.51e+01  MSE=6.89e+01  162s  FAIL
+  Case  16/50: max_err=3.21e+01  MSE=2.74e+00  194s  FAIL
+  Case  17/50: max_err=6.63e-11  MSE=1.76e-24  184s  PERFECT
+  Case  18/50: max_err=1.76e+01  MSE=4.55e+01  191s  FAIL
+  Case  19/50: max_err=1.79e+01  MSE=3.96e+00  186s  FAIL
+  Case  20/50: max_err=2.82e+01  MSE=5.88e-02  206s  FAIL
+  Case  21/50: max_err=1.63e-12  MSE=5.89e-26  188s  PERFECT
+  Case  22/50: max_err=5.75e+01  MSE=2.11e+00  198s  FAIL
+  Case  23/50: max_err=8.06e-13  MSE=1.02e-26  194s  PERFECT
+  Case  24/50: max_err=6.91e-12  MSE=8.15e-27  195s  PERFECT
+  Case  25/50: max_err=2.52e+01  MSE=9.82e+01  496s  FAIL
+  Case  26/50: max_err=1.25e+01  MSE=1.78e+02  193s  FAIL
+  Case  27/50: max_err=2.45e+01  MSE=3.38e+01  367s  FAIL
+  Case  28/50: max_err=2.73e+01  MSE=3.25e-01  181s  FAIL
+  Case  29/50: max_err=1.53e-11  MSE=6.55e-25  154s  PERFECT
+  Case  30/50: max_err=6.66e+00  MSE=2.30e+00  170s  FAIL
+  Case  31/50: max_err=1.77e+01  MSE=9.87e-01  189s  FAIL
+  Case  32/50: max_err=3.06e+01  MSE=3.94e-04  191s  FAIL
+  Case  33/50: max_err=7.84e-11  MSE=1.26e-24  190s  PERFECT
+  Case  34/50: max_err=2.75e+01  MSE=2.91e+01  120s  FAIL
+  Case  35/50: max_err=9.63e-11  MSE=6.99e-26  148s  PERFECT
