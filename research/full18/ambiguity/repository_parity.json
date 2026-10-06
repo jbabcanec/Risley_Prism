@@ -1,0 +1,131 @@
+{
+  "scope": "numerical parity only; exact rational time differs from stored float arange timestamps",
+  "records": [
+    {
+      "record": 0,
+      "endpoint": "base",
+      "search_vs_core_max": 8.987899313694925e-10,
+      "search_vs_interval_midpoint_max": 2.0650148258027912e-13,
+      "repository_interval_radius_max": 3.336288945826159e-11,
+      "search_inside_repository_enclosures": true,
+      "canonical_inside_repository_enclosures": false,
+      "canonical_vs_shared_observation_max": 9.50116918474464e-09,
+      "repository_physical_guards": {
+        "tir": 0.9905804905984845,
+        "fwd": 0.9987352811491377,
+        "graze": 0.9987731237123978
+      }
+    },
+    {
+      "record": 0,
+      "endpoint": "alternative",
+      "search_vs_core_max": 2.3794834991264224e-09,
+      "search_vs_interval_midpoint_max": 2.531308496145357e-13,
+      "repository_interval_radius_max": 3.336303393080607e-11,
+      "search_inside_repository_enclosures": true,
+      "canonical_inside_repository_enclosures": false,
+      "canonical_vs_shared_observation_max": 9.546224255529978e-09,
+      "repository_physical_guards": {
+        "tir": 0.99058051483596,
+        "fwd": 0.9987352971926069,
+        "graze": 0.9987731187654841
+      }
+    },
+    {
+      "record": 1,
+      "endpoint": "base",
+      "search_vs_core_max": 1.6231638255703729e-10,
+      "search_vs_interval_midpoint_max": 2.078337502098293e-13,
+      "repository_interval_radius_max": 3.341274765177716e-11,
+      "search_inside_repository_enclosures": true,
+      "canonical_inside_repository_enclosures": false,
+      "canonical_vs_shared_observation_max": 9.746678131250519e-09,
+      "repository_physical_guards": {
+        "tir": 0.9904103833139516,
+        "fwd": 0.9986908237165063,
+        "graze": 0.9987422262768355
+      }
+    },
+    {
+      "record": 1,
+      "endpoint": "alternative",
+      "search_vs_core_max": 1.2371170754477134e-10,
+      "search_vs_interval_midpoint_max": 2.349231920106831e-13,
+      "repository_interval_radius_max": 3.341288639776018e-11,
+      "search_inside_repository_enclosures": true,
+      "canonical_inside_repository_enclosures": false,
+      "canonical_vs_shared_observation_max": 9.73784874958028e-09,
+      "repository_physical_guards": {
+        "tir": 0.9904104108369982,
+        "fwd": 0.998690839923624,
+        "graze": 0.9987422216044476
+      }
+    },
+    {
+      "record": 2,
+      "endpoint": "base",
+      "search_vs_core_max": 5.259318536232627e-09,
+      "search_vs_interval_midpoint_max": 1.709743457922741e-13,
+      "repository_interval_radius_max": 2.7880946635334418e-11,
+      "search_inside_repository_enclosures": true,
+      "canonical_inside_repository_enclosures": false,
+      "canonical_vs_shared_observation_max": 5.885335996325125e-09,
+      "repository_physical_guards": {
+        "tir": 0.9932922960258601,
+        "fwd": 0.9990798471317943,
+        "graze": 0.9991187739407513
+      }
+    },
+    {
+      "record": 2,
+      "endpoint": "alternative",
+      "search_vs_core_max": 5.460545349222912e-09,
+      "search_vs_interval_midpoint_max": 1.8118839761882555e-13,
+      "repository_interval_radius_max": 2.788106432438864e-11,
+      "search_inside_repository_enclosures": true,
+      "canonical_inside_repository_enclosures": false,
+      "canonical_vs_shared_observation_max": 6.280468062280775e-09,
+      "repository_physical_guards": {
+        "tir": 0.9932923160584264,
+        "fwd": 0.9990798587241527,
+        "graze": 0.9991187707939654
+      }
+    },
+    {
+      "record": 3,
+      "endpoint": "base",
+      "search_vs_core_max": 1.6757497700581325e-07,
+      "search_vs_interval_midpoint_max": 1.7053025658242404e-13,
+      "repository_interval_radius_max": 2.796658065996595e-11,
+      "search_inside_repository_enclosures": true,
+      "canonical_inside_repository_enclosures": false,
+      "canonical_vs_shared_observation_max": 1.701046121738159e-07,
+      "repository_physical_guards": {
+        "tir": 0.993003421783866,
+        "fwd": 0.9990032177039178,
+        "graze": 0.9990673334465052
+      }
+    },
+    {
+      "record": 3,
+      "endpoint": "alternative",
+      "search_vs_core_max": 1.002816762962766e-07,
+      "search_vs_interval_midpoint_max": 2.184918912462308e-13,
+      "repository_interval_radius_max": 2.7966697829842038e-11,
+      "search_inside_repository_enclosures": true,
+      "canonical_inside_repository_enclosures": false,
+      "canonical_vs_shared_observation_max": 9.77520384637387e-08,
+      "repository_physical_guards": {
+        "tir": 0.9930034460395072,
+        "fwd": 0.9990032300780483,
+        "graze": 0.9990673305845414
+      }
+    }
+  ],
+  "source_sha256": {
+    "risley_lattice\\fmodel.py": "82b00a83a83aaf7e6570d46dd0e711506d956755c3ae9a34e0e4a6f093adeeed",
+    "risley_lattice\\ivx.py": "1660e66726502a2cca811da006f06ba767d95ed228a7d48cfc538a2a1acd8f8b",
+    "risley_lattice\\model.py": "4422748bd8b979c75503191f1fe44ec336b457a24bd48ecb50bcc6af78b34d8e",
+    "reverse_problem_v2\\core.py": "7e25bc358413cabc991b970624fc9125f63b8266b0b922e104d69930dfa2c4a6"
+  }
+}

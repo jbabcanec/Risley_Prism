@@ -1,0 +1,79 @@
+precision 8192 six-sample guard 0.8241258530775574
+chart [0, 1, 2, 3, 4] determinant terms 31
+ norm 4 masks 16 max Gdeg 4 scale -1
+ norm 3 masks 8 max Gdeg 8 scale 4
+ norm 2 masks 4 max Gdeg 16 scale 4
+ norm 1 masks 2 max Gdeg 32 scale 13
+ norm 0 masks 1 max Gdeg 64 scale 1
+ leading coefficient [3.1162515572237e-43, 3.1162515572237e-43] constant [-0, 0] linear [-0.0068156454918297, -0.0068156454918297]
+chart [0, 1, 2, 3, 5] determinant terms 31
+ norm 4 masks 16 max Gdeg 4 scale -2
+ norm 3 masks 8 max Gdeg 8 scale 4
+ norm 2 masks 4 max Gdeg 16 scale -1
+ norm 1 masks 2 max Gdeg 32 scale 17
+ norm 0 masks 1 max Gdeg 64 scale -2
+ leading coefficient [5.7933562382665e-42, 5.7933562382665e-42] constant [-0, 0] linear [2.4429011181621e-05, 2.4429011181621e-05]
+ remainder degree 62 leading [-2.6921993417838e-41, -2.6921993417838e-41] max width log2 -8054 scale 0
+ remainder degree 61 leading [3.4021467167164e-40, 3.4021467167164e-40] max width log2 -8045 scale -3
+ remainder degree 60 leading [-6.2535111674463e-39, -6.2535111674463e-39] max width log2 -8035 scale 0
+ remainder degree 59 leading [-9.8543086726248e-38, -9.8543086726248e-38] max width log2 -8027 scale 0
+ remainder degree 58 leading [-4.0405482508468e-36, -4.0405482508468e-36] max width log2 -8013 scale 5
+ remainder degree 57 leading [-1.7728880897764e-35, -1.7728880897764e-35] max width log2 -8007 scale 0
+ remainder degree 56 leading [-1.8972042003454e-34, -1.8972042003454e-34] max width log2 -7996 scale -1
+ remainder degree 55 leading [-5.4453753353078e-34, -5.4453753353078e-34] max width log2 -7988 scale -1
+ remainder degree 54 leading [-5.5135125406039e-33, -5.5135125406039e-33] max width log2 -7978 scale -4
+ remainder degree 53 leading [-8.1031502231216e-32, -8.1031502231216e-32] max width log2 -7967 scale 2
+ remainder degree 52 leading [1.5676648124143e-31, 1.5676648124143e-31] max width log2 -7959 scale 0
+ remainder degree 51 leading [-2.0171801069824e-30, -2.0171801069824e-30] max width log2 -7945 scale 0
+ remainder degree 50 leading [-6.1398041356328e-30, -6.1398041356328e-30] max width log2 -7936 scale -1
+ remainder degree 49 leading [-1.6915491698366e-28, -1.6915491698366e-28] max width log2 -7926 scale -2
+ remainder degree 48 leading [-7.4274575071895e-27, -7.4274575071895e-27] max width log2 -7916 scale 4
+ remainder degree 47 leading [4.6132654623014e-28, 4.6132654623014e-28] max width log2 -7911 scale 0
+ remainder degree 46 leading [-1.7402333720468e-25, -1.7402333720468e-25] max width log2 -7897 scale -12
+ remainder degree 45 leading [-3.0728553163903e-24, -3.0728553163903e-24] max width log2 -7885 scale 10
+ remainder degree 44 leading [-1.8836215720835e-23, -1.8836215720835e-23] max width log2 -7876 scale 1
+ remainder degree 43 leading [1.0748617210885e-22, 1.0748617210885e-22] max width log2 -7865 scale 1
+ remainder degree 42 leading [1.3718089479283e-21, 1.3718089479283e-21] max width log2 -7854 scale 1
+ remainder degree 41 leading [9.5837908099018e-22, 9.5837908099018e-22] max width log2 -7847 scale -1
+ remainder degree 40 leading [3.6015163189985e-21, 3.6015163189985e-21] max width log2 -7831 scale 0
+ remainder degree 39 leading [2.2574185455811e-19, 2.2574185455811e-19] max width log2 -7823 scale -4
+ remainder degree 38 leading [4.4312523076557e-21, 4.4312523076557e-21] max width log2 -7817 scale 4
+ remainder degree 37 leading [1.2009625183001e-18, 1.2009625183001e-18] max width log2 -7803 scale -14
+ remainder degree 36 leading [-2.8996411966741e-17, -2.8996411966741e-17] max width log2 -7789 scale 12
+ remainder degree 35 leading [7.2235998476137e-17, 7.2235998476137e-17] max width log2 -7781 scale 3
+ remainder degree 34 leading [2.7219880732021e-16, 2.7219880732021e-16] max width log2 -7770 scale 0
+ remainder degree 33 leading [1.5328932459773e-15, 1.5328932459773e-15] max width log2 -7757 scale 3
+ remainder degree 32 leading [-1.0990591850135e-15, -1.0990591850135e-15] max width log2 -7748 scale 0
+ remainder degree 31 leading [4.6273799855784e-14, 4.6273799855784e-14] max width log2 -7738 scale -4
+ remainder degree 30 leading [-6.6216629855253e-14, -6.6216629855253e-14] max width log2 -7730 scale 4
+ remainder degree 29 leading [3.6140496707276e-13, 3.6140496707276e-13] max width log2 -7718 scale 0
+ remainder degree 28 leading [6.8036620137586e-13, 6.8036620137586e-13] max width log2 -7710 scale 0
+ remainder degree 27 leading [-8.3688559098234e-12, -8.3688559098234e-12] max width log2 -7697 scale 2
+ remainder degree 26 leading [4.3770029542443e-11, 4.3770029542443e-11] max width log2 -7691 scale 1
+ remainder degree 25 leading [1.4564007212567e-10, 1.4564007212567e-10] max width log2 -7685 scale 0
+ remainder degree 24 leading [4.0420644413671e-10, 4.0420644413671e-10] max width log2 -7676 scale 2
+ remainder degree 23 leading [7.196490482211e-10, 7.196490482211e-10] max width log2 -7668 scale 0
+ remainder degree 22 leading [-5.4795555195901e-09, -5.4795555195901e-09] max width log2 -7662 scale -3
+ remainder degree 21 leading [4.5195766415442e-08, 4.5195766415442e-08] max width log2 -7657 scale 2
+ remainder degree 20 leading [1.1795732079535e-07, 1.1795732079535e-07] max width log2 -7653 scale 2
+ remainder degree 19 leading [1.0669772845132e-06, 1.0669772845132e-06] max width log2 -7642 scale 5
+ remainder degree 18 leading [8.4515014022875e-07, 8.4515014022875e-07] max width log2 -7640 scale 0
+ remainder degree 17 leading [-3.1783597139366e-06, -3.1783597139366e-06] max width log2 -7632 scale 2
+ remainder degree 16 leading [-2.8311640420824e-05, -2.8311640420824e-05] max width log2 -7624 scale 3
+ remainder degree 15 leading [3.4537382566391e-05, 3.4537382566391e-05] max width log2 -7623 scale 0
+ remainder degree 14 leading [3.2103847742104e-05, 3.2103847742104e-05] max width log2 -7615 scale 2
+ remainder degree 13 leading [0.00025998177364985, 0.00025998177364985] max width log2 -7607 scale 0
+ remainder degree 12 leading [-0.00021705802857548, -0.00021705802857548] max width log2 -7604 scale 1
+ remainder degree 11 leading [-0.00050385797957441, -0.00050385797957441] max width log2 -7593 scale 2
+ remainder degree 10 leading [0.00036908996562738, 0.00036908996562738] max width log2 -7582 scale 4
+ remainder degree 9 leading [0.00032122535755216, 0.00032122535755216] max width log2 -7571 scale 2
+ remainder degree 8 leading [0.0017914459296727, 0.0017914459296727] max width log2 -7560 scale 2
+ remainder degree 7 leading [-0.00098127124192741, -0.00098127124192741] max width log2 -7549 scale 6
+ remainder degree 6 leading [0.0021529134662125, 0.0021529134662125] max width log2 -7533 scale 6
+ remainder degree 5 leading [0.0070837650192999, 0.0070837650192999] max width log2 -7509 scale 18
+ remainder degree 4 leading [0.021827099833955, 0.021827099833955] max width log2 -7492 scale 12
+ remainder degree 3 leading [-0.04365595439097, -0.04365595439097] max width log2 -7475 scale 13
+ remainder degree 2 leading [0.15144961499245, 0.15144961499245] max width log2 -7452 scale 18
+ remainder degree 1 leading [0.27935584713796, 0.27935584713796] max width log2 -7430 scale 19
+ remainder degree 0 leading [0.65195382972186, 0.65195382972186] max width log2 -7410 scale 18
+PASS Both norms degree64; exact deflated degree63 quotients coprime. time 11.222707986831665 certificate /workspace/shared/risley_theory/proof_checks/sagittal_two_chart_coprimality_independent_8192_certificate.json

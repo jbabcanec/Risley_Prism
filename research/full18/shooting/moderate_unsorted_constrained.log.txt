@@ -1,0 +1,7 @@
+{"event": "start_complete", "start": 0, "status": "unresolved", "elapsed_seconds": 4.094000000040978, "rotor_max_abs": 0.0011512621009739654, "normal_closure_max_abs": 0.001101812843233923}
+{"event": "start_complete", "start": 1, "status": "unresolved", "elapsed_seconds": 8.672000000020489, "rotor_max_abs": 0.0536698943819975, "normal_closure_max_abs": 0.11159572967126069}
+{"event": "start_complete", "start": 2, "status": "unresolved", "elapsed_seconds": 13.155999999959022, "rotor_max_abs": 0.01742002936014999, "normal_closure_max_abs": 0.043095712830352455}
+{"event": "start_complete", "start": 3, "status": "unresolved", "elapsed_seconds": 17.765999999945052, "rotor_max_abs": 0.03847293714462281, "normal_closure_max_abs": 0.06970929873753168}
+{"event": "start_complete", "start": 4, "status": "unresolved", "elapsed_seconds": 22.31299999996554, "rotor_max_abs": 0.0010682657768228965, "normal_closure_max_abs": 0.0010767208114022785}
+{"event": "start_complete", "start": 5, "status": "unresolved", "elapsed_seconds": 27.10999999998603, "rotor_max_abs": 0.038688810610426075, "normal_closure_max_abs": 0.049485175372903}
+{"id": "moderate_unsorted", "status": "unresolved", "seconds": 38.30148920009378, "best_mse": 3.128820100253265e-06}

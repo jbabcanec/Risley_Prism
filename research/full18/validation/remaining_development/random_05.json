@@ -1,0 +1,173 @@
+{
+  "status": "candidate_fit",
+  "certified": false,
+  "theta": [
+    -0.8226336374628234,
+    -1.2643751693425265,
+    -2.066565460539414,
+    6.220683550543941,
+    -12.52779782203772,
+    -8.993179144462198,
+    -2.314052689738258,
+    0.054818224922412145,
+    -10.433405224496164,
+    1.5834742082536875,
+    1.484503165729812,
+    1.3606622443132703,
+    77.93708939776444,
+    7.909410905728771,
+    1.9401897623517619,
+    -10.589257677306415,
+    0.2888188197774566,
+    4.526108786727773
+  ],
+  "spectral_seconds": 0.25425360002554953,
+  "attempts": [
+    {
+      "tag": "basis=0/order=(0, 1, 2),d0=125,n0=1.55",
+      "mse": 0.007654406796818513,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(0, 1, 2),d0=80,n0=1.4",
+      "mse": 0.0031463007209411764,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(0, 1, 2),d0=180,n0=1.7",
+      "mse": 0.005127383627130128,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(0, 2, 1),d0=125,n0=1.55",
+      "mse": 0.0016963913113922724,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(0, 2, 1),d0=80,n0=1.4",
+      "mse": 0.002147134404525336,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(0, 2, 1),d0=180,n0=1.7",
+      "mse": 0.0020045542677976603,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(1, 0, 2),d0=125,n0=1.55",
+      "mse": 0.036126825901211294,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(1, 0, 2),d0=80,n0=1.4",
+      "mse": 0.0022093690925901652,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(1, 0, 2),d0=180,n0=1.7",
+      "mse": 0.005064756560685445,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(1, 2, 0),d0=125,n0=1.55",
+      "mse": 0.0027330948542873927,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(1, 2, 0),d0=80,n0=1.4",
+      "mse": 0.003120529447980239,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(1, 2, 0),d0=180,n0=1.7",
+      "mse": 0.004319898400009885,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(2, 0, 1),d0=125,n0=1.55",
+      "mse": 0.001117678978982367,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(2, 0, 1),d0=80,n0=1.4",
+      "mse": 0.0024359730496989218,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(2, 0, 1),d0=180,n0=1.7",
+      "mse": 0.0014558617051218554,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(2, 1, 0),d0=125,n0=1.55",
+      "mse": 5.870593199681726e-05,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(2, 1, 0),d0=80,n0=1.4",
+      "mse": 8.341267349208196e-08,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(2, 1, 0),d0=180,n0=1.7",
+      "mse": 0.0030072741519157633,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=0/order=(2, 1, 0),d0=80,n0=1.4",
+      "mse": 6.32060432772343e-24,
+      "physical": true
+    }
+  ],
+  "spectral_speeds": [
+    -2.070719615810358,
+    -1.26364020825172,
+    -0.8216702801792481
+  ],
+  "sampling_dt": 0.05,
+  "sample_count": 200,
+  "eta": 0.0,
+  "method": "polish/basis=0/order=(2, 1, 0),d0=80,n0=1.4",
+  "seconds": 3.314064300036989,
+  "rms": 2.026830834957665e-12,
+  "max_residual": 2.120792430559959e-11,
+  "hard_band_compatible": false,
+  "numerical_fit_tolerance": 1e-08,
+  "model_parity": 4.368239103769156e-11,
+  "compatibility_verification": {
+    "verified": false,
+    "reason": "candidate solver only; run full18 interval verification separately"
+  },
+  "alternative": {
+    "theta": [
+      -0.8226335549372307,
+      -1.2643753067335066,
+      -2.0665654868532704,
+      6.256118700521519,
+      -12.543874886667881,
+      -9.00780234813613,
+      -2.314924414358172,
+      0.05515072339746235,
+      -10.433085894586531,
+      1.5799255594000725,
+      1.4831735875569487,
+      1.3590579078111253,
+      78.15784084368765,
+      7.814930741396238,
+      1.9395283928695395,
+      -10.585599347969575,
+      0.28858441548968106,
+      4.5273544164141555
+    ],
+    "smooth_rms": 0.00028881252308735154,
+    "max_residual": 0.0011312035160031542,
+    "hard_band_compatible": false,
+    "numerical_fit": false,
+    "method": "basis=0/order=(2, 1, 0),d0=80,n0=1.4"
+  },
+  "id": "random_05",
+  "group": "remaining_development",
+  "wall_seconds": 3.312999999965541,
+  "solver_source_sha256": "a2dba0892d203c43d54d31a24a7705afccf70f9f6d292dc7b393859d98f6e313",
+  "input_has_truth": false
+}

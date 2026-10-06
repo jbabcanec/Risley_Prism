@@ -1,0 +1,346 @@
+[
+  {
+    "id": "random_01",
+    "eta": 1e-06,
+    "status": "no_pair_found_local_search_only",
+    "witness_coordinate": null,
+    "lower_bound": null,
+    "output": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\profile_sweep\\noise_1e6_random_01.json"
+  },
+  {
+    "id": "random_02",
+    "eta": 1e-06,
+    "status": "optimizer_unresolved_no_compatible_start",
+    "witness_coordinate": null,
+    "lower_bound": null,
+    "output": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\profile_sweep\\noise_1e6_random_02.json"
+  },
+  {
+    "id": "random_03",
+    "eta": 1e-06,
+    "status": "optimizer_unresolved_no_compatible_start",
+    "witness_coordinate": null,
+    "lower_bound": null,
+    "output": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\profile_sweep\\noise_1e6_random_03.json"
+  },
+  {
+    "id": "random_00",
+    "eta": 1e-06,
+    "status": "no_pair_found_local_search_only",
+    "witness_coordinate": null,
+    "lower_bound": null,
+    "output": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\profile_sweep\\noise_1e6_random_00.json"
+  },
+  {
+    "id": "random_04",
+    "eta": 1e-06,
+    "status": "no_pair_found_local_search_only",
+    "witness_coordinate": null,
+    "lower_bound": null,
+    "output": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\profile_sweep\\noise_1e6_random_04.json"
+  },
+  {
+    "id": "random_05",
+    "eta": 1e-06,
+    "status": "no_pair_found_local_search_only",
+    "witness_coordinate": null,
+    "lower_bound": null,
+    "output": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\profile_sweep\\noise_1e6_random_05.json"
+  },
+  {
+    "id": "random_07",
+    "eta": 1e-06,
+    "status": "optimizer_unresolved_no_compatible_start",
+    "witness_coordinate": null,
+    "lower_bound": null,
+    "output": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\profile_sweep\\noise_1e6_random_07.json"
+  },
+  {
+    "id": "random_06",
+    "eta": 1e-06,
+    "status": "no_pair_found_local_search_only",
+    "witness_coordinate": null,
+    "lower_bound": null,
+    "output": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\profile_sweep\\noise_1e6_random_06.json"
+  },
+  {
+    "id": "random_08",
+    "eta": 1e-06,
+    "status": "no_pair_found_local_search_only",
+    "witness_coordinate": null,
+    "lower_bound": null,
+    "output": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\profile_sweep\\noise_1e6_random_08.json"
+  },
+  {
+    "id": "random_09",
+    "eta": 1e-06,
+    "status": "no_pair_found_local_search_only",
+    "witness_coordinate": null,
+    "lower_bound": null,
+    "output": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\profile_sweep\\noise_1e6_random_09.json"
+  },
+  {
+    "id": "random_00",
+    "eta": 0.0001,
+    "status": "no_pair_found_local_search_only",
+    "witness_coordinate": null,
+    "lower_bound": null,
+    "output": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\profile_sweep\\noise_1e4_random_00.json"
+  },
+  {
+    "id": "random_02",
+    "eta": 0.0001,
+    "status": "optimizer_unresolved_no_compatible_start",
+    "witness_coordinate": null,
+    "lower_bound": null,
+    "output": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\profile_sweep\\noise_1e4_random_02.json"
+  },
+  {
+    "id": "random_03",
+    "eta": 0.0001,
+    "status": "optimizer_unresolved_no_compatible_start",
+    "witness_coordinate": null,
+    "lower_bound": null,
+    "output": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\profile_sweep\\noise_1e4_random_03.json"
+  },
+  {
+    "id": "random_01",
+    "eta": 0.0001,
+    "status": "compatible_pair_found",
+    "witness_coordinate": "d_W",
+    "lower_bound": 0.003095683154590745,
+    "output": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\profile_sweep\\noise_1e4_random_01.json"
+  },
+  {
+    "id": "random_04",
+    "eta": 0.0001,
+    "status": "no_pair_found_local_search_only",
+    "witness_coordinate": null,
+    "lower_bound": null,
+    "output": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\profile_sweep\\noise_1e4_random_04.json"
+  },
+  {
+    "id": "random_05",
+    "eta": 0.0001,
+    "status": "no_pair_found_local_search_only",
+    "witness_coordinate": null,
+    "lower_bound": null,
+    "output": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\profile_sweep\\noise_1e4_random_05.json"
+  },
+  {
+    "id": "random_07",
+    "eta": 0.0001,
+    "status": "optimizer_unresolved_no_compatible_start",
+    "witness_coordinate": null,
+    "lower_bound": null,
+    "output": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\profile_sweep\\noise_1e4_random_07.json"
+  },
+  {
+    "id": "random_06",
+    "eta": 0.0001,
+    "status": "compatible_pair_found",
+    "witness_coordinate": "d_W",
+    "lower_bound": 0.001100000000000989,
+    "output": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\profile_sweep\\noise_1e4_random_06.json"
+  },
+  {
+    "id": "random_08",
+    "eta": 0.0001,
+    "status": "compatible_pair_found",
+    "witness_coordinate": "d_W",
+    "lower_bound": 0.0026336349494755495,
+    "output": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\profile_sweep\\noise_1e4_random_08.json"
+  },
+  {
+    "id": "random_09",
+    "eta": 0.0001,
+    "status": "no_pair_found_local_search_only",
+    "witness_coordinate": null,
+    "lower_bound": null,
+    "output": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\profile_sweep\\noise_1e4_random_09.json"
+  },
+  {
+    "id": "random_00",
+    "eta": 0.001,
+    "status": "compatible_pair_found",
+    "witness_coordinate": "bm_py",
+    "lower_bound": 0.00291631264754022,
+    "output": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\profile_sweep\\noise_1e3_random_00.json"
+  },
+  {
+    "id": "random_02",
+    "eta": 0.001,
+    "status": "optimizer_unresolved_no_compatible_start",
+    "witness_coordinate": null,
+    "lower_bound": null,
+    "output": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\profile_sweep\\noise_1e3_random_02.json"
+  },
+  {
+    "id": "random_03",
+    "eta": 0.001,
+    "status": "optimizer_unresolved_no_compatible_start",
+    "witness_coordinate": null,
+    "lower_bound": null,
+    "output": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\profile_sweep\\noise_1e3_random_03.json"
+  },
+  {
+    "id": "random_01",
+    "eta": 0.001,
+    "status": "compatible_pair_found",
+    "witness_coordinate": "ax2",
+    "lower_bound": 0.004968838947693732,
+    "output": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\profile_sweep\\noise_1e3_random_01.json"
+  },
+  {
+    "id": "random_04",
+    "eta": 0.001,
+    "status": "compatible_pair_found",
+    "witness_coordinate": "d_W",
+    "lower_bound": 0.0041550178338667365,
+    "output": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\profile_sweep\\noise_1e3_random_04.json"
+  },
+  {
+    "id": "random_05",
+    "eta": 0.001,
+    "status": "compatible_pair_found",
+    "witness_coordinate": "d_W",
+    "lower_bound": 0.004224019440101756,
+    "output": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\profile_sweep\\noise_1e3_random_05.json"
+  },
+  {
+    "id": "random_07",
+    "eta": 0.001,
+    "status": "optimizer_unresolved_no_compatible_start",
+    "witness_coordinate": null,
+    "lower_bound": null,
+    "output": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\profile_sweep\\noise_1e3_random_07.json"
+  },
+  {
+    "id": "random_06",
+    "eta": 0.001,
+    "status": "compatible_pair_found",
+    "witness_coordinate": "d_W",
+    "lower_bound": 0.004648740379742833,
+    "output": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\profile_sweep\\noise_1e3_random_06.json"
+  },
+  {
+    "id": "random_08",
+    "eta": 0.001,
+    "status": "compatible_pair_found",
+    "witness_coordinate": "d_W",
+    "lower_bound": 0.007068637066595329,
+    "output": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\profile_sweep\\noise_1e3_random_08.json"
+  },
+  {
+    "id": "random_09",
+    "eta": 0.001,
+    "status": "compatible_pair_found",
+    "witness_coordinate": "d_W",
+    "lower_bound": 0.002200000000001978,
+    "output": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\profile_sweep\\noise_1e3_random_09.json"
+  },
+  {
+    "id": "random_00",
+    "eta": 0.01,
+    "status": "no_pair_found_local_search_only",
+    "witness_coordinate": null,
+    "lower_bound": null,
+    "output": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\profile_sweep\\noise_1e2_random_00.json"
+  },
+  {
+    "id": "random_02",
+    "eta": 0.01,
+    "status": "optimizer_unresolved_no_compatible_start",
+    "witness_coordinate": null,
+    "lower_bound": null,
+    "output": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\profile_sweep\\noise_1e2_random_02.json"
+  },
+  {
+    "id": "random_01",
+    "eta": 0.01,
+    "status": "compatible_pair_found",
+    "witness_coordinate": "ax2",
+    "lower_bound": 0.012026164071713419,
+    "output": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\profile_sweep\\noise_1e2_random_01.json"
+  },
+  {
+    "id": "random_03",
+    "eta": 0.01,
+    "status": "compatible_pair_found",
+    "witness_coordinate": "d_W",
+    "lower_bound": 0.0036694501664129575,
+    "output": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\profile_sweep\\noise_1e2_random_03.json"
+  },
+  {
+    "id": "random_04",
+    "eta": 0.01,
+    "status": "compatible_pair_found",
+    "witness_coordinate": "d_W",
+    "lower_bound": 0.0067545999657738776,
+    "output": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\profile_sweep\\noise_1e2_random_04.json"
+  },
+  {
+    "id": "random_05",
+    "eta": 0.01,
+    "status": "compatible_pair_found",
+    "witness_coordinate": "d_W",
+    "lower_bound": 0.005502615867769123,
+    "output": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\profile_sweep\\noise_1e2_random_05.json"
+  },
+  {
+    "id": "random_07",
+    "eta": 0.01,
+    "status": "optimizer_unresolved_no_compatible_start",
+    "witness_coordinate": null,
+    "lower_bound": null,
+    "output": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\profile_sweep\\noise_1e2_random_07.json"
+  },
+  {
+    "id": "random_06",
+    "eta": 0.01,
+    "status": "compatible_pair_found",
+    "witness_coordinate": "d_W",
+    "lower_bound": 0.01835785427984149,
+    "output": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\profile_sweep\\noise_1e2_random_06.json"
+  },
+  {
+    "id": "random_08",
+    "eta": 0.01,
+    "status": "compatible_pair_found",
+    "witness_coordinate": "d_W",
+    "lower_bound": 0.018603011401538083,
+    "output": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\profile_sweep\\noise_1e2_random_08.json"
+  },
+  {
+    "id": "random_09",
+    "eta": 0.01,
+    "status": "compatible_pair_found",
+    "witness_coordinate": "d_W",
+    "lower_bound": 0.005734361555830958,
+    "output": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\profile_sweep\\noise_1e2_random_09.json"
+  },
+  {
+    "id": "random_02",
+    "eta": 0.0001,
+    "status": "no_pair_found_local_search_only",
+    "witness_coordinate": null,
+    "lower_bound": null,
+    "output": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\profile_sweep\\noise_1e4_random_02_adapted.json"
+  },
+  {
+    "id": "random_03",
+    "eta": 0.0001,
+    "status": "no_pair_found_local_search_only",
+    "witness_coordinate": null,
+    "lower_bound": null,
+    "output": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\profile_sweep\\noise_1e4_random_03_adapted.json"
+  },
+  {
+    "id": "random_07",
+    "eta": 0.0001,
+    "status": "no_pair_found_local_search_only",
+    "witness_coordinate": null,
+    "lower_bound": null,
+    "output": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\profile_sweep\\noise_1e4_random_07_adapted.json"
+  }
+]

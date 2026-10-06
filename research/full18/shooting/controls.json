@@ -1,0 +1,7 @@
+{
+  "zero_slip_model_parity": 0.0,
+  "reduced_jacobian_relative_directional_error": 3.0208959425021687e-09,
+  "single_block_phase_locality_pass": true,
+  "truth_used": false,
+  "all_controls_passed": true
+}

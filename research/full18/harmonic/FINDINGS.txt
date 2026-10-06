@@ -1,0 +1,67 @@
+Harmonic route checkpoint
+
+Implemented harmonic_fit.py: exact nonlinear optical model, four bounded
+affine geometry variables, fourteen nonlinear variables, every original
+coordinate bound, all six physical orders, and no truth-based initializer.
+Both observed positions and exact predicted positions undergo the same fixed
+sample-space transform. Final optimization uses the full original record.
+
+Mathematical consequence:
+DC plus three sine/cosine frequency pairs provide at most seven functions
+per axis, hence fourteen real projection coordinates. A continuous map from
+an open18-dimensional physical parameter set into these fourteen features
+cannot be locally one-to-one. Even supplying all three speeds would leave
+fifteen unfixed coordinates, still more than fourteen. Higher harmonics,
+intermodulations or complementary raw samples are necessary. This is a
+dimension statement for a fixed sampled projector, not an assertion that
+finite-time coefficients equal exact torus Fourier coefficients.
+
+Numerical derivative verification (harmonic_checks.json):
+12 directions at four observation-derived starts, including active affine
+bounds: maximum relative weighted-VarPro Jacobian error1.2574e-9.
+Weight rho=1 exactly reproduces the unweighted residual; the largest
+Jacobian difference is1.1369e-13. These are numerical checks, not interval
+proofs of software correctness.
+
+Local information diagnostics at saved blind estimates:
+The degree1 projection has14 scalar features and numerical rank14. Degree2
+has50 features and numerical rank18 in all four inspected records. Degree3
+has126 features. A local pseudoinverse hard-input amplification diagnostic
+in native coordinates improves from degree2 to degree3 as follows:
+  random_00:836.44 to631.08;
+  wide_unsorted:755.65 to404.65;
+  moderate_unsorted:16881.47 to11977.41;
+  weak_first:39773.09 to37281.30.
+The last numbers are linear diagnostics only. They do not enclose nonlinear
+compatible sets or bound noise for an entire hardware class. Degree4 gives
+only small additional changes in these examples. Material glass/wedge
+coupling remains weak after adding low-order intermodulation information.
+
+Observed degree3 complementary RMS is .09539 for random_00 and .09697 for
+wide_unsorted. Thus a cubic-lattice truncated forward model would have a
+large mismatch on these original records. Our exact-model transform avoids
+substituting such a truncated model. These observed numbers are not rigorous
+uniform Fourier-tail bounds.
+
+Fixed completion ablation, noiseless four-case development comparison:
+Direct versus low-mode continuation shared the same FFT proposal,18 starts,
+16 screening evaluations and four160-evaluation exact-model finalists.
+Maximum full canonical residual and wall-clock seconds:
+case                direct residual  harmonic residual  direct s harmonic s
+random_00           3.7334e-11       4.6209e-11         3.6961   4.2592
+moderate_unsorted    3.4941e-10       .0059651           6.4551   6.8374
+wide_unsorted        3.4121e-11       2.7264e-10         3.5859   3.7848
+weak_first           2.1788e-10       6.5350e-6          7.1719   7.1547
+
+The suppress-higher-harmonics route did not improve these tests and degraded
+two records. It is retained as a negative result and is not integrated into
+the frozen solver. Numerical residual labels are not parameter certificates.
+The original full18 solver policy and its frozen results were not altered.
+
+A separately declared emphasis mode reverses the first stage (weight3 on
+the fundamental complement), then restores the original residual. The parent
+subsequently executed it under the newer direct user authorization. Full18
+post-scoring is now complete: direct4/4, low-mode2/4, emphasis3/4 meet the
+.001 threshold in every coordinate. Emphasis misses weak_first by .0991524
+in ng1. COMPARISON_REPORT.txt and comparison_all18.csv retain every result.
+No subagent retry of the previously rejected execution was performed.

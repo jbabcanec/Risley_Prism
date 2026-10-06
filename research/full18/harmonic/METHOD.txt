@@ -1,0 +1,62 @@
+Exact-model harmonic balance continuation (2026-10-02)
+
+This is an optional numerical proposal, not a solution of the global inverse.
+It preserves the full18 physical map, native box, 200 timed positions and all
+four geometry variables. Spectral generators and every initialization come
+from the supplied observations. No optical Taylor coefficient is an input.
+
+Let U have orthonormal columns spanning sampled sine/cosine lattice lines,
+including DC, formed from an observed spectral speed proposal. P=UU^T. The
+stage transform is W_rho=P+rho(I-P), with rho>0, applied separately to x/y.
+We fit W_rho(F(theta)-y), with F evaluated by exact paired-face Snell transfer.
+Four affine geometry coordinates are projected in this same weighted norm.
+The derivative includes the residual-dependent variable-projection term.
+Final completion and selection use all original unweighted sample positions.
+
+The algebra is exact: ||W_rho r||_2^2=||Pr||_2^2+rho^2||(I-P)r||_2^2.
+Its singular values are 1 and rho, so positive rho discards no sample-space
+direction. At rho=1 the method is the original least-squares problem. Thus
+this transform supplies no additional information; any advantage must be
+numerical conditioning or basin entry and must be measured against a common
+completion budget. It cannot remove an actual optical ambiguity.
+
+For hard per-coordinate observation error eta, every transformed coordinate
+has allowance eta times the absolute row sum of the transform. Reporting eta
+unchanged after weighting would be incorrect. All final residual checks use
+the untransformed observations, so the implemented proposal does not make
+that substitution. Projection-only readout is separately diagnosed: given
+Q=U^T, its exact hard-noise bound is eta*sum_k |Q_jk| on coordinate j.
+
+Pure projection onto DC and the three signed fundamental frequency pairs
+has at most 7 scalar basis functions per axis, hence at most14 real observed
+coordinates. For a fixed proposed basis it cannot support a locally injective
+smooth full18 inverse on an open18-dimensional physical box. Intermodulation
+and higher harmonics, or the complementary raw data, are therefore essential.
+This statement concerns the fixed projection; it does not assume that finite
+record projections equal exact infinite-time optical Fourier coefficients.
+
+The code never truncates F into a polynomial or an assumed finite Fourier
+series. Higher optical modes can contribute through finite-window leakage,
+and this same contribution is present in the transformed exact prediction.
+The measured complementary residual of each record is reported as omitted
+sample-space content. It is not a certified uniform Fourier-tail bound.
+
+Frozen ablation policy, declared before execution:
+  both routes use FFT generator proposals and identical18 initializations
+  (all6 physical orders times3 fixed nominal hardware starts);
+  direct route:16 full-model screening evaluations per start;
+  harmonic route:8 degree1/rho=.1 evaluations, then8 degree3/rho=.3;
+  both finish the4 best full-canonical-residual candidates with160 full-model
+  evaluations each, under the same40-second completion cap.
+No truth is read by either route. This compares completion mechanisms at a
+common evaluation budget, not the different full v1 fallback policy budget.
+
+The original poc3.py and all frozen v1 results remain unchanged.
+
+Second declared ablation, after first development outputs: emphasis mode uses
+8 evaluations with degree1/rho=3 (upweights the complementary nonlinear
+optical content), followed by8 original-objective evaluations. It retains the
+same18 starts and4x160 full polish. This separately tests whether suppressing
+the intermodulation information was the wrong direction for shape recovery.
+No parameter truths are used to choose modes or seeds. Outputs are separate;
+this is an adaptive development comparison, not untouched validation.

@@ -1,0 +1,11 @@
+{
+  "mode": "lowcut",
+  "id": "random_07",
+  "input": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\combined_validation\\noise_1e4\\random_07.json",
+  "candidate_inputs": [],
+  "truth_in_solver_input": false,
+  "original_policy_source": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\low_frequency\\recover_low.py",
+  "original_policy_sha256": "6b003a46b1ed059c8da197060295c408b8fb56bddba5212cbdf0310514904546",
+  "private_driver_sha256": "2838b97203d612997537a83921c5b7adc786f70c48d6d8b2031904c0321aaa56",
+  "changes": "input/output paths, case identity, run budget; numerical proposal and fit code retained"
+}

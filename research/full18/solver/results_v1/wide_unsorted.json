@@ -1,0 +1,315 @@
+{
+  "status": "candidate_fit",
+  "certified": false,
+  "theta": [
+    0.5300000000000051,
+    2.1000000000000028,
+    -1.1699999999999984,
+    12.999999999994172,
+    -15.999999999984485,
+    10.99999999998963,
+    2.9999999999917373,
+    -8.00000000000019,
+    10.999999999990285,
+    1.4100000000000101,
+    1.5200000000003977,
+    1.6800000000005622,
+    137.00000000001867,
+    9.000000000028143,
+    -4.000000000007442,
+    6.000000000003146,
+    -0.799999999968203,
+    1.1999999999814959
+  ],
+  "spectral_seconds": 0.2618977000238374,
+  "attempts": [
+    {
+      "tag": "basis=0/order=(0, 1, 2),d0=125,n0=1.55",
+      "mse": 0.04048378541902549,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(0, 1, 2),d0=80,n0=1.4",
+      "mse": 0.05161534496566175,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(0, 1, 2),d0=180,n0=1.7",
+      "mse": 0.04888700006375192,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(0, 2, 1),d0=125,n0=1.55",
+      "mse": 0.02870582947959913,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(0, 2, 1),d0=80,n0=1.4",
+      "mse": 0.03312262175311775,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(0, 2, 1),d0=180,n0=1.7",
+      "mse": 0.041050724674552716,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(1, 0, 2),d0=125,n0=1.55",
+      "mse": 0.07377363917814658,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(1, 0, 2),d0=80,n0=1.4",
+      "mse": 0.07532006671469947,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(1, 0, 2),d0=180,n0=1.7",
+      "mse": 0.07377363917493633,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(1, 2, 0),d0=125,n0=1.55",
+      "mse": 0.05355029776314336,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(1, 2, 0),d0=80,n0=1.4",
+      "mse": 0.05540498384565815,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(1, 2, 0),d0=180,n0=1.7",
+      "mse": 0.05355245468391311,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(2, 0, 1),d0=125,n0=1.55",
+      "mse": 2.6212503511551885e-22,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(2, 0, 1),d0=80,n0=1.4",
+      "mse": 2.4412414626828046e-05,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(2, 0, 1),d0=180,n0=1.7",
+      "mse": 0.00012242109742081097,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(2, 1, 0),d0=125,n0=1.55",
+      "mse": 0.04004794231850067,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(2, 1, 0),d0=80,n0=1.4",
+      "mse": 0.039556838221914394,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(2, 1, 0),d0=180,n0=1.7",
+      "mse": 0.04476074001060949,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=0/order=(2, 0, 1),d0=125,n0=1.55",
+      "mse": 2.6212503511551885e-22,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=0/order=(2, 0, 1),d0=80,n0=1.4",
+      "mse": 2.6211070140920973e-22,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=0/order=(2, 0, 1),d0=180,n0=1.7",
+      "mse": 2.6206808769053605e-22,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=0/order=(0, 2, 1),d0=125,n0=1.55",
+      "mse": 0.028093179070978507,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=0/order=(0, 2, 1),d0=80,n0=1.4",
+      "mse": 0.028093179070975832,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=0/order=(2, 1, 0),d0=80,n0=1.4",
+      "mse": 0.039380631692146645,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(0, 1, 2),d0=125,n0=1.55",
+      "mse": 132.99633882234062,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(0, 1, 2),d0=80,n0=1.4",
+      "mse": 132.99395681951256,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(0, 1, 2),d0=180,n0=1.7",
+      "mse": 132.97674568606055,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(0, 2, 1),d0=125,n0=1.55",
+      "mse": 133.11736836524574,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(0, 2, 1),d0=80,n0=1.4",
+      "mse": 133.1365238128315,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(0, 2, 1),d0=180,n0=1.7",
+      "mse": 133.11709270904288,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(1, 0, 2),d0=125,n0=1.55",
+      "mse": 132.98907593512692,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(1, 0, 2),d0=80,n0=1.4",
+      "mse": 133.05676439133651,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(1, 0, 2),d0=180,n0=1.7",
+      "mse": 132.97432929611452,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(1, 2, 0),d0=125,n0=1.55",
+      "mse": 133.00584327308746,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(1, 2, 0),d0=80,n0=1.4",
+      "mse": 133.05451767110196,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(1, 2, 0),d0=180,n0=1.7",
+      "mse": 132.9848733801171,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(2, 0, 1),d0=125,n0=1.55",
+      "mse": 133.1295267469247,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(2, 0, 1),d0=80,n0=1.4",
+      "mse": 133.17045366999992,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(2, 0, 1),d0=180,n0=1.7",
+      "mse": 133.0994367725864,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(2, 1, 0),d0=125,n0=1.55",
+      "mse": 133.1335011576901,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(2, 1, 0),d0=80,n0=1.4",
+      "mse": 133.09811337008952,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(2, 1, 0),d0=180,n0=1.7",
+      "mse": 133.0911643119997,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=1/order=(1, 0, 2),d0=180,n0=1.7",
+      "mse": 132.96882276311106,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=1/order=(0, 1, 2),d0=180,n0=1.7",
+      "mse": 132.9765620842341,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=1/order=(1, 2, 0),d0=180,n0=1.7",
+      "mse": 132.9676567661893,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=1/order=(1, 0, 2),d0=125,n0=1.55",
+      "mse": 132.96882276311112,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=1/order=(0, 1, 2),d0=80,n0=1.4",
+      "mse": 132.97656208423408,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=1/order=(0, 1, 2),d0=125,n0=1.55",
+      "mse": 132.97656208423408,
+      "physical": true
+    }
+  ],
+  "spectral_speeds": [
+    2.0999971444177774,
+    -1.170075092991236,
+    0.5299676764457696
+  ],
+  "sampling_dt": 0.05,
+  "sample_count": 200,
+  "eta": 0,
+  "method": "polish/basis=0/order=(2, 0, 1),d0=180,n0=1.7",
+  "seconds": 7.53250620001927,
+  "rms": 5.292576754914896e-12,
+  "max_residual": 3.539568638188939e-11,
+  "hard_band_compatible": false,
+  "numerical_fit_tolerance": 1e-08,
+  "model_parity": 2.4777868645742274e-10,
+  "compatibility_verification": {
+    "verified": false,
+    "reason": "candidate solver only; run full18 interval verification separately"
+  },
+  "alternative": {
+    "theta": [
+      0.52999945920554,
+      2.0999999890963275,
+      -1.1700000570684599,
+      13.000559293345198,
+      -16.01790907856452,
+      11.071494387657618,
+      3.0010450606990364,
+      -8.000039366378902,
+      11.000145888367568,
+      1.4099959069747725,
+      1.5183112387167448,
+      1.6717961832015027,
+      137.75530423750502,
+      8.586537582864118,
+      -3.997809368895225,
+      5.9971281529477,
+      -0.8102320041629198,
+      1.2143240529535504
+    ],
+    "smooth_rms": 0.004940892088158579,
+    "max_residual": 0.01174946740547611,
+    "hard_band_compatible": false,
+    "numerical_fit": false,
+    "method": "basis=0/order=(2, 0, 1),d0=80,n0=1.4"
+  },
+  "id": "wide_unsorted",
+  "noise_amplitude": 0
+}

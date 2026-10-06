@@ -1,0 +1,319 @@
+{
+  "status": "candidate_fit",
+  "certified": false,
+  "theta": [
+    0.5300000000169665,
+    2.100000000019652,
+    -1.1700000000016242,
+    13.000000000293632,
+    -16.0000000699532,
+    11.00000021472325,
+    2.9999999060675098,
+    -8.000000033950773,
+    10.999999994194587,
+    1.4100000000799506,
+    1.519999996160696,
+    1.6799999818168458,
+    137.0000009401212,
+    8.999999429523504,
+    -4.000000000018206,
+    6.000000012114358,
+    -0.8000000040760372,
+    1.2000001747545623
+  ],
+  "spectral_seconds": 0.300961900036782,
+  "attempts": [
+    {
+      "tag": "basis=0/order=(0, 1, 2),d0=125,n0=1.55",
+      "mse": 0.04048379210304546,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(0, 1, 2),d0=80,n0=1.4",
+      "mse": 0.05161535063650319,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(0, 1, 2),d0=180,n0=1.7",
+      "mse": 0.048887015540862805,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(0, 2, 1),d0=125,n0=1.55",
+      "mse": 0.02870583939244073,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(0, 2, 1),d0=80,n0=1.4",
+      "mse": 0.03312262380487266,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(0, 2, 1),d0=180,n0=1.7",
+      "mse": 0.04105074320804887,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(1, 0, 2),d0=125,n0=1.55",
+      "mse": 0.07377366762305895,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(1, 0, 2),d0=80,n0=1.4",
+      "mse": 0.07532008962800496,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(1, 0, 2),d0=180,n0=1.7",
+      "mse": 0.07377366761985049,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(1, 2, 0),d0=125,n0=1.55",
+      "mse": 0.05355032185296155,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(1, 2, 0),d0=80,n0=1.4",
+      "mse": 0.05540493308493986,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(1, 2, 0),d0=180,n0=1.7",
+      "mse": 0.05355250768712911,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(2, 0, 1),d0=125,n0=1.55",
+      "mse": 3.7037070276643136e-13,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(2, 0, 1),d0=80,n0=1.4",
+      "mse": 2.4412501165222734e-05,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(2, 0, 1),d0=180,n0=1.7",
+      "mse": 0.00012262509557804115,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(2, 1, 0),d0=125,n0=1.55",
+      "mse": 0.04004796257999061,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(2, 1, 0),d0=80,n0=1.4",
+      "mse": 0.03955686261034848,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(2, 1, 0),d0=180,n0=1.7",
+      "mse": 0.044760723107104494,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=0/order=(2, 0, 1),d0=125,n0=1.55",
+      "mse": 3.7037070276643136e-13,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=0/order=(2, 0, 1),d0=80,n0=1.4",
+      "mse": 3.703707048864706e-13,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=0/order=(2, 0, 1),d0=180,n0=1.7",
+      "mse": 3.703707035283019e-13,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=0/order=(0, 2, 1),d0=125,n0=1.55",
+      "mse": 0.02809318813172241,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=0/order=(0, 2, 1),d0=80,n0=1.4",
+      "mse": 0.02809318813172192,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=0/order=(2, 1, 0),d0=80,n0=1.4",
+      "mse": 0.03938065380197247,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(0, 1, 2),d0=125,n0=1.55",
+      "mse": 132.99633889064287,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(0, 1, 2),d0=80,n0=1.4",
+      "mse": 132.99395695184248,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(0, 1, 2),d0=180,n0=1.7",
+      "mse": 132.9767457515539,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(0, 2, 1),d0=125,n0=1.55",
+      "mse": 133.1173684564009,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(0, 2, 1),d0=80,n0=1.4",
+      "mse": 133.13652386622962,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(0, 2, 1),d0=180,n0=1.7",
+      "mse": 133.11709281145042,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(1, 0, 2),d0=125,n0=1.55",
+      "mse": 132.98907600490327,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(1, 0, 2),d0=80,n0=1.4",
+      "mse": 133.0567644617978,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(1, 0, 2),d0=180,n0=1.7",
+      "mse": 132.97432936711556,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(1, 2, 0),d0=125,n0=1.55",
+      "mse": 133.00584333678634,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(1, 2, 0),d0=80,n0=1.4",
+      "mse": 133.05451775266667,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(1, 2, 0),d0=180,n0=1.7",
+      "mse": 132.9848734490819,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(2, 0, 1),d0=125,n0=1.55",
+      "mse": 133.12952685242237,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(2, 0, 1),d0=80,n0=1.4",
+      "mse": 133.17045378065413,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(2, 0, 1),d0=180,n0=1.7",
+      "mse": 133.09943687611394,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(2, 1, 0),d0=125,n0=1.55",
+      "mse": 133.13350125590603,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(2, 1, 0),d0=80,n0=1.4",
+      "mse": 133.09811355746126,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(2, 1, 0),d0=180,n0=1.7",
+      "mse": 133.0911644145678,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=1/order=(1, 0, 2),d0=180,n0=1.7",
+      "mse": 132.96882283327383,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=1/order=(0, 1, 2),d0=180,n0=1.7",
+      "mse": 132.97656215410953,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=1/order=(1, 2, 0),d0=180,n0=1.7",
+      "mse": 132.96765683712204,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=1/order=(1, 0, 2),d0=125,n0=1.55",
+      "mse": 132.96882283327395,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=1/order=(0, 1, 2),d0=80,n0=1.4",
+      "mse": 132.97656215410964,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=1/order=(0, 1, 2),d0=125,n0=1.55",
+      "mse": 132.9765621541096,
+      "physical": true
+    }
+  ],
+  "spectral_speeds": [
+    2.099997144427934,
+    -1.1700750896332088,
+    0.5299676761560962
+  ],
+  "sampling_dt": 0.05,
+  "sample_count": 200,
+  "eta": 1e-06,
+  "minimax_max_residuals": [
+    1.0889459787222222e-06,
+    9.862982679464949e-07
+  ],
+  "method": "minimax/basis=0/order=(2, 0, 1),d0=125,n0=1.55",
+  "seconds": 9.62949269998353,
+  "rms": 6.251191561043037e-07,
+  "max_residual": 9.862982679464949e-07,
+  "hard_band_compatible": true,
+  "numerical_fit_tolerance": 1e-08,
+  "model_parity": 2.813920207955789e-10,
+  "compatibility_verification": {
+    "verified": false,
+    "reason": "candidate solver only; run full18 interval verification separately"
+  },
+  "alternative": {
+    "theta": [
+      0.5299994592487657,
+      2.0999999891257803,
+      -1.1700000570807296,
+      13.000559529730703,
+      -16.017908985372838,
+      11.071495099244778,
+      3.001044974121144,
+      -8.000039432330897,
+      11.00014592155571,
+      1.4099959014877925,
+      1.5183112591795593,
+      1.6717961842861133,
+      137.75529458034407,
+      8.586541912135225,
+      -3.997809322919962,
+      5.997128103078058,
+      -0.8102322178906434,
+      1.2143243191865185
+    ],
+    "smooth_rms": 0.004940900845516204,
+    "max_residual": 0.011748858046054522,
+    "hard_band_compatible": false,
+    "numerical_fit": false,
+    "method": "basis=0/order=(2, 0, 1),d0=80,n0=1.4"
+  },
+  "id": "wide_unsorted",
+  "noise_amplitude": 1e-06
+}

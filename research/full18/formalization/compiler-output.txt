@@ -1,0 +1,12 @@
+Lean (version 4.33.0, x86_64-w64-windows-gnu, commit d8b18978322de05a8f3dba51ef03cf5461676c17, Release)
+Compiler: C:\Users\josep\.elan\toolchains\leanprover--lean4---v4.33.0\bin\lean.exe
+Source: C:\Users\josep\Documents\Codex\2026-10-02\task\full18_research\formalization\RisleySupport.lean
+Output: C:\Users\josep\Documents\Codex\2026-10-02\task\full18_research\formalization\RisleySupport.olean
+Source SHA256 (unchanged during compile): 402D3F1555DABE0639F54D8AF43A770F30ED0A134AC6308846F4444E74D573E8
+Object SHA256: 9BD201BD7D13E0C241A26EF1906E58C275717C31F755D89B992732AEF880E68B
+Command: lean.exe -o RisleySupport.olean RisleySupport.lean
+Imports: pre-existing cached mathlib/package .olean files, read-only
+Exit code: 0
+Output below combines compiler stdout and stderr in order.
+
+'RisleySupport.entrance_det' depends on axioms: [propext, Classical.choice, Quot.sound] 'RisleySupport.transport_factorization' depends on axioms: [propext, Classical.choice, Quot.sound] 'RisleySupport.transport_det' depends on axioms: [propext, Classical.choice, Quot.sound] 'RisleySupport.transport_inverse' depends on axioms: [propext, Classical.choice, Quot.sound] 'RisleySupport.transport_det_pos' depends on axioms: [propext, Classical.choice, Quot.sound] 'RisleySupport.combined_spatial_recurrence' depends on axioms: [propext, Classical.choice, Quot.sound] 'RisleySupport.critical_inward_identity' depends on axioms: [propext, Classical.choice, Quot.sound] 'RisleySupport.critical_inward_negative' depends on axioms: [propext, Classical.choice, Quot.sound] 'RisleySupport.external_flight_inward_identity' depends on axioms: [propext, Classical.choice, Quot.sound] 'RisleySupport.external_flight_inward_negative' depends on axioms: [propext, Classical.choice, Quot.sound] 'RisleySupport.sqrt_difference_bound' depends on axioms: [propext, Classical.choice, Quot.sound]

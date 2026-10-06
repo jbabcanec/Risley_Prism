@@ -1,0 +1,57 @@
+Full18 baseline and local-noise characterization, 2026-10-02
+
+Protocol: shared cases.json; 200 time-tagged 2D positions, t=k/20.
+All 18 parameters unknown in the blind solvers. Uniform cases drawn across
+the original full bounds, without sorting physical order or clipping slow
+speeds; only strict sampled physical transmission filters were applied.
+Truth was used solely for scoring, never passed to the blind worker.
+
+Original solve18 standard baseline (60 second caps, two concurrent workers):
+  moderate_unsorted: returned; native max=8.55359872e-09; MSE=3.31225e-23; wall=3.387s; physical=True
+  random_00: returned; native max=9.22901364; MSE=0.0266984; wall=9.559s; physical=True
+  random_01: returned; native max=27.5385618; MSE=0.865116; wall=30.257s; physical=True
+  random_02: returned; native max=28.6988776; MSE=0.0356431; wall=6.679s; physical=True
+  random_03: returned; native max=24.1517581; MSE=49.7473; wall=13.786s; physical=True
+  random_04: returned; native max=22.1205409; MSE=0.0108974; wall=17.866s; physical=True
+  random_05: returned; native max=15.022978; MSE=0.00217816; wall=43.931s; physical=True
+  random_06: returned; native max=11.8145686; MSE=1.19845e-05; wall=19.001s; physical=True
+  random_07: returned; native max=24.2338634; MSE=0.560983; wall=10.430s; physical=True
+
+Random cases: 0/8 recovered under native .001 criterion.
+The separate moderate positive control recovered all18 below .001.
+No failures are removed, permuted for scoring, or interpreted as impossibility.
+
+Local-noise experiment: six saved blind-recovered noiseless estimates;
+all18 released in each TRF refinement, max_nfev=1000; 30 second cap.
+Four noise patterns per level: fixed-seed dense uniform perturbation
+and signs of the pseudoinverse rows for three locally sensitive native
+coordinates. All amplitudes are bounded by eta. These are deterministic
+test patterns, not a probability model and not exhaustive worst cases.
+All noise jobs contain the actual recorded position arrays.
+
+This is WARM-START LOCAL PERTURBATION, not blind noisy recovery.
+Least-squares residuals often exceed the hard allowance at some samples.
+These results are measured algorithm sensitivity, not compatible-set
+diameters, deterministic accuracy bounds, or impossibility witnesses.
+
+Largest native-coordinate error among four tested patterns:
+case                         eta=1e-8       eta=1e-6       eta=1e-4       eta=1e-3
+moderate_unsorted            0.0001199744     0.01196734       1.202946       11.29802
+random_00                    6.189916e-06   0.0006190284     0.06189645      0.6190918
+random_01                    4.725682e-07    4.72566e-05    0.004725736     0.04725767
+random_02                    2.152238e-06   0.0002151918     0.02152204      0.2151352
+wide_unsorted                3.899506e-06   0.0003899208     0.03899578      0.3900143
+weak_first                   9.712646e-05    0.006525275      0.6551935       6.240101
+
+Noise jobs: 96; returned=96; physical guards passed=96.
+Point guard validity uses the original interval package assumptions;
+it does not prove global uniqueness or accuracy.
+
+Files: baseline_summary.json and noise_summary.json retain full saved
+vectors, all18 errors, residuals, point margins, times and provenance.
+noise_coordinate_errors.csv gives each individual noisy result.
+noise_coordinate_max_by_case_eta.csv aggregates each native coordinate.
+linearized_native_noise_gains.csv gives local J-pseudoinverse row L1 gains
+(native-coordinate change per unit observation perturbation), not proofs.
+worker.py / run.py / summarize.py reproduce these isolated experiments.
+No original Dropbox project file was modified.

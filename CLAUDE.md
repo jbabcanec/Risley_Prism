@@ -1,5 +1,29 @@
 # CLAUDE.md
 
+## Current research entry point (October 6, 2026)
+
+Start with `research/full18/README.md` and `research/full18/REPORT.md`
+(revision 13, October 3). They contain the newer coupled full-vector Snell
+research, imported from the separate October 2 workspace. This material
+supersedes the older project-status summaries below.
+
+The complete mathematical inverse is constructed in principle: exact
+sampled optics, global compatible-set decomposition, and native uncertainty
+bounds with all eighteen parameters unknown. Useful computational complexity
+and a complete practical full-prior recovery implementation remain unfinished.
+The bounded certificate engine is partial; its full-prior evidence retains
+unresolved regions. Do not summarize this as no full18 inverse result, and do
+not describe theoretical completeness as a demonstrated efficient solver.
+
+The new coupled-vector model and the earlier independent-axis numerical model
+are separate. Keep their results, synthetic records, and proof scopes distinct.
+The imported scientific sources are byte-preserved evidence; consult
+`research/full18/SOURCE_SNAPSHOT.json` before editing hash-bound files.
+
+Read the latest `DIARY.md` entry as well. The architecture and pipeline notes
+below document earlier layers and do not describe the newest exact inverse.
+
+
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## What this is
@@ -16,8 +40,22 @@ A research codebase for the **Risley prism inverse problem**: recovering the ful
    seed-2026 battery), `lattice.py` (matrix pencil, lattice VarPro),
    `spectral.py` (`extract_speeds`, P-agnostic), `angles.py` (phase/amplitude
    → angles), `solve.py` (`solve9`, `solve18` + verified ladder),
-   `certify.py` (success bounds + failure certificates). Torch-free. Import
-   as `from risley_lattice import ...` with repo root on sys.path.
+   `certify_det2.py` (**THE error control since 2026-09-06**: SECOND-ORDER
+   deterministic validated-numerics certificates — exact midpoint-Hessian
+   products keep the cancellation the first-order |C||J_rad| bound throws
+   away, contraction measured in the box-weighted norm; worst-case bounds,
+   exclusion box, per-instance certifiable-noise threshold eta* (median
+   1.2e-4, ~7900x the first-order reach), constructive ambiguity; built on
+   `ivx2.py` second-order interval AD, `ivx.py` rigorous interval
+   arithmetic and `fmodel.py`, the exact mathematical forward model with
+   certified TIR/grazing margins; `certify_det.py` is the first-order
+   version, kept as the reach/tightness benchmark), `hardware.py`
+   (analytic hardware map: minimax floors, affine bound sheets,
+   SOLVED/IMPOSSIBLE/INCREASE_T verdicts), `certify.py` (statistical 3σ/Fisher — RETIRED as
+   guarantee, kept as tightness benchmark + sensitivity scales only; the
+   user's standing rule: never use statistical heuristics in guarantees).
+   Torch-free. Import as `from risley_lattice import ...` with repo root
+   on sys.path.
 
 2. **`experiments/` — every reproducible battery.** speeds_battery,
    solve9_battery, solve18_battery, certification, assumptions (A1–A8),
@@ -33,14 +71,19 @@ A research codebase for the **Risley prism inverse problem**: recovering the ful
    `core` from here. Note: `ay_i` enters ONLY as a rotation phase offset and
    `ax_i` only as tilt magnitude — the basis of the spectral angle readout.
 
-4. **`paper/` — the paper + historical baselines.** `main.tex` (being
+4. **`formal/` — Lean 4 machine-checked proofs.** Certificate logic +
+   model algebra verified against pinned mathlib (see formal/README.md).
+   The BUILD lives at `C:/Users/josep/lean/risley` (outside Dropbox; never
+   build .lake inside the repo). Keep both copies in sync when editing.
+
+5. **`paper/` — the paper + historical baselines.** `main.tex` (being
    rewritten per `paper/REWRITE_PLAN.md`), figures, and the four baseline
    scripts the paper compares against (`ml_staged_solver.py`,
    `solve_preconditioned.py`, `solve9_grid.py`, `test_alphax_grid.py`).
    `paper/archive/` holds all superseded one-off experiments (see its
    README for the old→new map).
 
-5. **`forward_problem/` — LEGACY.** Non-alternating refractive index scheme
+6. **`forward_problem/` — LEGACY.** Non-alternating refractive index scheme
    that does **not** match the paper's physics. Gallery generator only.
    `_old/reverse_problem/` is older still — ignore it.
 
@@ -70,7 +113,7 @@ Hard-won lessons encoded here (full reasoning in `DIARY.md`):
 - The optimizer is **not** the bottleneck — initialization is. TRF converges to machine precision *whenever the init is in the correct basin*. The basin is ~1–5° wide in wedge-angle space, so ML init lands inside it only ~30% of the time on random cases. This success rate is the central open problem; many init strategies (CMA-ES, homotopy, random restarts, coordinate descent) have been tried and ruled out.
 - scipy TRF on the **exact numpy model** beats Adam, hand-rolled Gauss-Newton, and DiffFwd-based optimization (the PyTorch model has small inaccuracies at extreme parameters).
 - **Prism ordering matters in the non-paraxial model**: `vec2pat(v) ≠ vec2pat(canon(v))`. Permuting prisms is *not* a symmetry. When generating a target and solving, both must use consistent ordering.
-- Identifiability is **speed-based, not glass-based** (glass has ~10% effect). The condition `|N_i| ≠ |N_j|` must hold. The 18-D Jacobian is full rank but ill-conditioned (κ ≈ 5×10⁵; σ₁/σ₁₈ spans 5 orders of magnitude — speeds dominate, the d_W↔gap geometry tradeoff is weakest).
+- Distinct speed magnitudes are an assumption of the earlier spectral initializer, **not a necessary condition for local full-model identifiability**. The September 16 interval audit gives an explicit locally injective box at each of the 15,759 physically admissible archived failures, including exact speed collisions; two cases require a weighted norm. This does not prove global uniqueness or blind recovery. See `experiments/CLOSURE_WORK.md` and `local_identifiability_audit.json`. Conditioning varies strongly with geometry, glass and wedge size; do not use the historical κ≈5×10⁵ example as a population bound.
 
 ## Commands
 
@@ -79,7 +122,8 @@ Hard-won lessons encoded here (full reasoning in `DIARY.md`):
 python experiments/solve18_battery.py       # FULL 18-D, nothing known: 26/30 PERFECT ~1e-11
 python experiments/solve9_battery.py        # 9-D protocol: 24/30 at 1e-12, <1 s/case
 python experiments/speeds_battery.py        # signed-speed extraction vs FFT baseline
-python experiments/certification.py         # per-parameter bounds + failure certificates
+python experiments/certify_det_battery.py   # DETERMINISTIC certificates: 0-miss coverage, eta*, exclusion boxes
+python experiments/certification.py         # legacy statistical bounds (benchmark only)
 python experiments/assumptions.py           # A1-A8 assumption verification suite
 python experiments/noise.py                 # pipeline + certificates under noise
 python experiments/prism_count.py           # P=2 / P=4 generality

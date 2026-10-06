@@ -1,0 +1,113 @@
+{
+  "status": "complete",
+  "theta": [
+    -0.3385536387455278,
+    -0.02987832394083561,
+    0.22826425576145457,
+    -17.980779139877566,
+    16.40542747929896,
+    -12.144764786584261,
+    -7.4995767208744635,
+    -17.999999151765937,
+    14.87811678899157,
+    1.5993931266270827,
+    1.7627432482718948,
+    1.3080591042809857,
+    54.14986721677238,
+    15.0,
+    -24.999996756850184,
+    24.69990635319484,
+    -5.0,
+    5.0
+  ],
+  "names": [
+    "N1",
+    "N2",
+    "N3",
+    "ax1",
+    "ax2",
+    "ax3",
+    "ay1",
+    "ay2",
+    "ay3",
+    "ng1",
+    "ng2",
+    "ng3",
+    "d_W",
+    "gap",
+    "bm_ax",
+    "bm_ay",
+    "bm_px",
+    "bm_py"
+  ],
+  "strict_numerical_max_residual": 19.24359467181183,
+  "rms": 7.347781729979598,
+  "evaluations": 29,
+  "seconds": 0.22173250000923872,
+  "history": [],
+  "initial_observation_derived_candidate": [
+    -0.3385536387455278,
+    -0.02987832394083561,
+    0.22826425576145457,
+    -17.980779139877566,
+    16.40542747929896,
+    -12.14476478658426,
+    -7.4995767208744635,
+    -17.999999151765937,
+    14.87811678899157,
+    1.5993931266270827,
+    1.7627432482718948,
+    1.3080591042809857,
+    54.1498672167724,
+    15.0,
+    -24.999996756850184,
+    24.69990635319484,
+    -5.0,
+    5.0
+  ],
+  "global_gain_bound": 0.25993575698632504,
+  "gain_inequalities": "abs(u_i) <= (n_i-1)tan(18deg)",
+  "all18_unknown": true,
+  "affine_variables_eliminated_with_native_bounds": [
+    "d_W",
+    "gap",
+    "bm_px",
+    "bm_py"
+  ],
+  "native_bounds_unchanged": true,
+  "truth_inputs_used": false,
+  "global_accuracy_certified": false,
+  "complete_compatible_set_enumerated": false,
+  "stop_reason": "finished",
+  "scaling": "native",
+  "fit": {
+    "message": "`ftol` termination condition is satisfied.",
+    "nfev": 28,
+    "njev": 28,
+    "optimality": 0.20745982117385958
+  },
+  "check": {
+    "physical": true,
+    "interval_error_upper_under_ivx": 19.243594671895647,
+    "canonical_max_residual": 19.243594671811884,
+    "strict_numerical_max_residual": 19.243594671811834,
+    "margins": {
+      "tir": 0.01901143951872389,
+      "fwd": 0.3332472249684012,
+      "graze": 0.840689800464547
+    },
+    "native_bounds": true,
+    "numerical_residual_threshold": 1e-08,
+    "interval_compatible": false,
+    "canonical_compatible": false
+  },
+  "case_id": "random_07",
+  "input_sha256": {
+    "random_07.json": "d8edafa1d37073faa87ec068f7c4791b15d394d9520bb15ead308c7effc2ea89",
+    "combined_holdout_observations.json": "f92fdae30018ffbe4accd1a8a5757e65069e1feab7367748b8f7898e4ec3ddbe"
+  },
+  "code_sha256": {
+    "full_domain_gain.py": "d0cadab6451f8ab94645cb996dba0ef531bcc9c86f7f1471906fcbb8b7a17359",
+    "poc3.py": "a2dba0892d203c43d54d31a24a7705afccf70f9f6d292dc7b393859d98f6e313"
+  }
+}

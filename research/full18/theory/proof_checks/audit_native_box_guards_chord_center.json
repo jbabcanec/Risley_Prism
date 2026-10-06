@@ -1,0 +1,47 @@
+{
+  "scope": "Independent audit of ONE unchanged kappa=1/10, original-native +/-1/1000 box; no corrector iterates or additional cases",
+  "certificate_sha256": "29374ab7437fc5f4f5bf2d58cbf095730440d771988238dcf13aa4d93d96ed98",
+  "precision_dps": 100,
+  "exact_dyadic_endpoint_records_checked": 23637,
+  "native_box_center_priors_and_eta_conversion": "PASS: all 18 coordinates, exact native angle/index conventions",
+  "saved_guards_exact_endpoint_audit": "PASS: 2 domains x 200 timestamps x 3 prisms x 18 guards",
+  "independent_center_matrix_audit": {
+    "passed": true,
+    "residual_orientation": "E=I-W A, A^-1=(I-E)^-1 W",
+    "defect_norm_upper": 1.9387182380847987e-09,
+    "neumann_tail_entry_bound": 2.9220450229824003e-22,
+    "P_norm_best_upper": 40099.85616680308,
+    "native_similarity_identity_norm": 7.283196023551607e-101
+  },
+  "independent_unit_direction_native_box": {
+    "passed": true,
+    "minima": {
+      "incoming_air_axial_unit": 0.9106421184410789,
+      "glass_radicand_unit": 1.7273466087500546,
+      "incoming_glass_unit_normal_projection": 0.9303289307753986,
+      "exit_snell_unit_normal_radicand": 0.6794434351351366,
+      "outgoing_axial_unit": 0.8762029410871408,
+      "outgoing_unit_normal_projection": 0.8242835890245156,
+      "intersection_denominator": 0.9720103317668405,
+      "internal_axial_travel": 2.2367633610132622,
+      "external_axial_travel": 2.378850585302347
+    },
+    "sample_prism_pairs": 600
+  },
+  "independent_unit_direction_lambda_extension": {
+    "passed": true,
+    "minima": {
+      "incoming_air_axial_unit": 0.9086093487509513,
+      "glass_radicand_unit": 1.7273466087500546,
+      "incoming_glass_unit_normal_projection": 0.9303289307753986,
+      "exit_snell_unit_normal_radicand": 0.6794434351351366,
+      "outgoing_axial_unit": 0.8727626792727026,
+      "outgoing_unit_normal_projection": 0.8242835890245156,
+      "intersection_denominator": 0.9720103317668405,
+      "internal_axial_travel": 2.1944327279119196,
+      "external_axial_travel": 2.364791262747313
+    },
+    "sample_prism_pairs": 600
+  },
+  "verdict": "PASS: saved native-box guards and exact center inverse; NO off-image branch-domain, curvature, self-map, contraction, noise or global-recovery claim."
+}

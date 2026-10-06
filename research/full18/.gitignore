@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.pyo
+.lake/
+*.olean
+*.ilean
+.venv/
+*.library.json
+*.staging.json
+.library-transfer*/

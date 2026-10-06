@@ -1,0 +1,180 @@
+{
+  "adaptive": [
+    {
+      "completion": "input_box_partition_certified",
+      "coverage_preserved": true,
+      "forward_evaluations": 1,
+      "global_recovery_claim": false,
+      "informational_seconds": 2.591265365,
+      "leaves": 1,
+      "limits": {
+        "lp_pivot_limit": 16,
+        "max_depth": 0,
+        "max_nodes": 1,
+        "max_total_lp_pivots": 16
+      },
+      "lp_pivots": 0,
+      "name": "small_box",
+      "nodes": 1,
+      "outcomes": {
+        "excluded": 0,
+        "retained": 1,
+        "split": 0,
+        "unresolved": 0
+      },
+      "replay_passed": true
+    },
+    {
+      "completion": "input_box_excluded",
+      "coverage_preserved": true,
+      "forward_evaluations": 1,
+      "global_recovery_claim": false,
+      "informational_seconds": 0.5493153709999996,
+      "leaves": 1,
+      "limits": {
+        "lp_pivot_limit": 16,
+        "max_depth": 0,
+        "max_nodes": 1,
+        "max_total_lp_pivots": 16
+      },
+      "lp_pivots": 0,
+      "name": "far_distance",
+      "nodes": 1,
+      "outcomes": {
+        "excluded": 1,
+        "retained": 0,
+        "split": 0,
+        "unresolved": 0
+      },
+      "replay_passed": true
+    },
+    {
+      "completion": "unresolved_cover",
+      "coverage_preserved": true,
+      "forward_evaluations": 3,
+      "global_recovery_claim": false,
+      "informational_seconds": 1.3138836659999997,
+      "leaves": 4,
+      "limits": {
+        "lp_pivot_limit": 16,
+        "max_depth": 2,
+        "max_nodes": 3,
+        "max_total_lp_pivots": 32
+      },
+      "lp_pivots": 0,
+      "name": "full_prior",
+      "nodes": 7,
+      "outcomes": {
+        "excluded": 0,
+        "retained": 0,
+        "split": 3,
+        "unresolved": 4
+      },
+      "replay_passed": true
+    },
+    {
+      "completion": "unresolved_cover",
+      "coverage_preserved": true,
+      "forward_evaluations": 0,
+      "global_recovery_claim": false,
+      "informational_seconds": 0.054642326999999824,
+      "leaves": 1,
+      "limits": {
+        "lp_pivot_limit": 16,
+        "max_depth": 2,
+        "max_nodes": 0,
+        "max_total_lp_pivots": 32
+      },
+      "lp_pivots": 0,
+      "name": "zero_budget",
+      "nodes": 1,
+      "outcomes": {
+        "excluded": 0,
+        "retained": 0,
+        "split": 0,
+        "unresolved": 1
+      },
+      "replay_passed": true
+    },
+    {
+      "completion": "unresolved_cover",
+      "coverage_preserved": true,
+      "forward_evaluations": 1,
+      "global_recovery_claim": false,
+      "informational_seconds": 3.336187763,
+      "leaves": 1,
+      "limits": {
+        "lp_pivot_limit": 0,
+        "max_depth": 0,
+        "max_nodes": 1,
+        "max_total_lp_pivots": 0
+      },
+      "lp_pivots": 0,
+      "name": "zero_pivots",
+      "nodes": 1,
+      "outcomes": {
+        "excluded": 0,
+        "retained": 0,
+        "split": 0,
+        "unresolved": 1
+      },
+      "replay_passed": true
+    }
+  ],
+  "dataset_count": 1,
+  "fixture_sha256": "1c83fb2ce416e7e52971e0feb0c7e2f70d91e5d92088d516a3b3ce8aad99de9c",
+  "joint": [
+    {
+      "coverage": {
+        "complete_affine_rows": true,
+        "expected_observation_rows": 800,
+        "expected_traversal_rows": 1200,
+        "geometry_box_rows": 8,
+        "observation_rows": 800,
+        "scope": "Complete here refers only to available affine rows; outgoing critical normal and all other optical physical tests remain separate.",
+        "traversal_rows": 1200
+      },
+      "diagnostics": {
+        "pivots": 32,
+        "termination": "pivot_limit"
+      },
+      "informational_seconds": 6.319648639999999,
+      "name": "expanded_geometry_joint",
+      "objective": "19937139369536538328673260017497545695586003694735668095065362335784151056526408009523240013/1038497433024393657447419004598076442497241186728547779600767539495584221533438612903661928448",
+      "replay_passed": true,
+      "sparse_replay_and_tamper_passed": null,
+      "sparse_support_size": null,
+      "status": "unresolved"
+    },
+    {
+      "coverage": {
+        "complete_affine_rows": false,
+        "expected_observation_rows": 800,
+        "expected_traversal_rows": 1200,
+        "geometry_box_rows": 8,
+        "observation_rows": 4,
+        "scope": "Complete here refers only to available affine rows; outgoing critical normal and all other optical physical tests remain separate.",
+        "traversal_rows": 6
+      },
+      "diagnostics": {
+        "pivots": 0,
+        "termination": "sparse_certificate"
+      },
+      "informational_seconds": 0.3935725219999995,
+      "name": "far_distance_joint",
+      "objective": null,
+      "replay_passed": true,
+      "sparse_replay_and_tamper_passed": true,
+      "sparse_support_size": 1,
+      "status": "excluded"
+    }
+  ],
+  "new_observations_generated": false,
+  "original_project_execution": false,
+  "source_sha256": {
+    "adaptive.py": "c151b1d0b7ceb6e01b7d46a8bcc13f502e1a7fa3fcd41fdf4b845c25f6fff38d",
+    "engine.py": "7cbce954039aa9cb93e00cedb6ae2b4d4a760de8eb46edc8f41a76c5637eba6b",
+    "interval.py": "3ddc0eaa3430028211d41962fcb2ce6d22c5c70dc24f89c3fae83245b8c90cbe",
+    "joint_lp.py": "16e4ff5a90ce631ead97eb8f949ac0bd913a56887cbb2af7cc06d6997a10cb7b"
+  }
+}

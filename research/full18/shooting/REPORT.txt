@@ -1,0 +1,118 @@
+Complementary multiple-shooting investigation, 2026-10-02
+
+Implemented and executed two routes on the original passive 200-position
+protocol. Every native parameter stays unknown over its original full bound.
+No measurement planes, parked rotors, derivatives, known glass, known speeds,
+known geometry or true initialization are inputs. These are noiseless numerical
+development tests of convergence, not finite-noise or global recovery proofs.
+
+1. Shared-hardware block-phase continuation
+
+For block b(k), replace the exact rotor phase temporarily by
+
+  gamma_i(k) = 2*pi*N_i*t_k + ay_i*pi/180 + delta_i,b(k),  delta_i,0 = 0.
+
+All native hardware and all three speeds remain common to every block. Exact
+Snell propagation is retained within each block. Eight blocks introduce 21
+temporary phase variables. The four affine coordinates (d,g,px,py) are solved
+jointly inside their full boxes, leaving 35 nonlinear optimization variables.
+This is a reduced multiple-shooting parameterization of 39 total unknowns,
+rather than 1212 independent full-record ray variables.
+
+The objective combines scaled optical residuals, branch penalties, and
+lambda times adjacent phase-slip differences. Lambda follows .01,.1,1,10,100.
+Every temporary slip is then discarded and all18 are fitted to the original
+200-point common-clock model. Candidate acceptance always uses that final
+model, not the relaxed data residual. Screening covers all six physical orders,
+two nominal material/geometry scales, independent pencil and FFT proposals,
+and observation-derived repeated-generator/cancellation proposals. Nominal
+starts are guesses, not supplied calibration; all coordinates are released.
+
+Controls: zero-slip transfer agrees exactly with the previously verified
+poc3 affine model; complex-step reduced Jacobian agrees with an independent
+directional finite difference to relative error 3.0208959425e-9; a block slip
+affects only its own observations. See controls.json and controls.py.
+
+Four predeclared development cases, scored only after observation-only fitting:
+
+case                max native error       full-record MSE       solve seconds
+moderate_unsorted    8.9783e-9              5.9097e-23              10.88
+random_03           3.9876e-11             5.9837e-24              11.65
+exact_collision     20.8562                1.4842e-5               23.81
+weak_first          0.000684430            2.4997e-16              23.12
+
+Three meet the original .001 native-error criterion. The weak-first routine
+still labels its result unresolved because its numerical max-residual gate
+is 1e-8. This acceptance label and true native-coordinate error are separate.
+The collision remains a failure; it is not a physical impossibility claim.
+
+2. Explicit constrained ray-state comparison
+
+Use 40 original observation nodes: the first eight consecutively, followed
+by 32 dispersed nodes. Nonuniform differences preserve the exact clock and
+avoid imposing one uniformly coarsened sampling lattice. Six physical-order
+initializations feed the original sparse trust-constr implementation, with
+all rotor equalities explicit. The 252 variables and 234 rotor equalities
+retain eighteen local degrees of freedom when regular. Reconstructed native
+candidates are ranked on the full200 record and receive exact-clock VarPro
+polishing. No coarse-node result is accepted directly.
+
+This route meets .001 on zero of the four development cases. Final native
+errors are 9.9066,8.5814,23.4372,21.0412 in the order above; full-record MSEs
+are 3.1288e-6,.0116388,8.8480e-5,1.5981e-6. Times are 38.30,31.00,33.27,22.05s.
+These are bounded local failures, not a universal comparison of the methods.
+
+The coarse accepted states already show large inconsistency: the best
+full-record-ranked coarse candidates have rotor defects approximately
+.00115,.152,.0174,.00697 and reconstructed-normal closure defects
+.00110,.217,.0286,.00740. Their lifted data fit therefore is not a coherent
+physical trajectory. Source inspection establishes that the optimizer omits
+all constraint Hessians and uses a damped data Gauss-Newton Hessian. It is
+reasonable to investigate curvature/restoration, but these trials do not
+prove that omission alone caused failure.
+
+3. Separate failures and one adaptive diagnostic
+
+The first block method was frozen before reading the separate combined-policy
+failure observations (source/input hashes in frozen_combined_contract.json).
+Its result on combined random_02 is MSE1.67255, max residual3.08895; on combined
+random_03 MSE72.06998, max residual24.55815. Neither is a new recovery. These
+names refer to the separate combined batch, not the development random_03.
+No combined-batch truth file was read by this investigation.
+
+The relaxed screening picked three repeated-generator candidates, suppressing
+the distinct pencil/FFT proposals. An adaptive follow-up retained one finalist
+from each family. Combined random_03 still failed, MSE70.20005. Thus preserving
+families alone does not fix it. The original frozen failures remain preserved.
+phase_blocks_v1.py retains the exact initial implementation; phase_blocks.py
+adds only the optional family-diverse finalist policy.
+
+4. Mathematical findings and limits
+
+The source initializer excludes repeated generators from its combinations
+search and creates a split repeated-line proposal only when a component is
+declared missing. A collision with visible nonlinear harmonics can evade that
+trigger. This motivates unconditional repeated-generator hypotheses; it does
+not prove which hypothesis is true. Independent observation-derived repeated
+starts were included here, with all three speeds immediately free.
+
+Full row rank of the rotor constraint Jacobian does not establish optical
+identifiability, a useful inverse condition number, or global convergence.
+The original paper proves that rank without requiring distinct speeds.
+
+For the exact-collision development case, the continuation reduced temporary
+phase slips to about 2.3e-6 radians, yet its relaxed MSE remained about6.9e-5
+and final exact-clock MSE1.48e-5. Restoring rotor coherence is therefore not
+sufficient to escape the selected wrong hardware basin in this test.
+
+The new phase route provides an additional usable candidate generator, but
+does not improve the separate difficult cases. Its spectral proposal set and
+screening still limit recovery. It should not replace the better existing
+order/VarPro/low-frequency routes merely because its formulation is different.
+
+Evidence: development_evaluation.json, development_coordinate_errors.csv,
+per-case *_blocks.json and *_constrained.json, frozen_combined_results.json,
+adaptive_combined_random_03_blocks.json, plus complete event logs. Full native
+vectors and physical point checks are stored. No original Dropbox source was
+edited. Runtime observations overlap other jobs and are not controlled speed
+benchmarks. No global exclusion certificate or positive-noise theorem follows.

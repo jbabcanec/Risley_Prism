@@ -1,0 +1,89 @@
+{
+  "verification_date": "2026-10-03",
+  "source": "Supplied source blocks and SHA256 values from the parent research thread",
+  "encoding": "UTF-8 without BOM; LF line endings; one final LF",
+  "verification": "SHA256 of all ten saved files; no witness execution, import, or mathematical retest during packaging. Separate syntax-only checks, if recorded, do not reproduce the supplied mathematical audits.",
+  "mathematical_audit_provenance": "Successful targeted mathematical/symbolic or exact-rational checks are reported by the supplying research thread, not rerun during local packaging.",
+  "new_sources_syntax_verification": "syntax_verification.json: all three later exact-rational sources parsed with ast.parse under Python 3.12.3 in existing Ubuntu WSL; exit code 0; source hashes unchanged; no target execution or import",
+  "files": [
+    {
+      "file": "audit_risley_single_witness.py",
+      "supplied_sha256": "594227553a5b4b395f965a28768b07dd05040185b4c0af2e4cd4874ee7529e3e",
+      "verified_sha256": "594227553a5b4b395f965a28768b07dd05040185b4c0af2e4cd4874ee7529e3e",
+      "match": true,
+      "bytes": 2673
+    },
+    {
+      "file": "audit_vector_firstorder_rank.py",
+      "supplied_sha256": "e357e8841781339d3a30a71408f8ebfaadf469783076fcd27ad7b5377a327a61",
+      "verified_sha256": "e357e8841781339d3a30a71408f8ebfaadf469783076fcd27ad7b5377a327a61",
+      "match": true,
+      "bytes": 739
+    },
+    {
+      "file": "audit_vector_last_prism_rank.py",
+      "supplied_sha256": "b3f650ba80529761048ddad34a25657edef754eeee98b6d8ebbfb6ff21831f10",
+      "verified_sha256": "b3f650ba80529761048ddad34a25657edef754eeee98b6d8ebbfb6ff21831f10",
+      "match": true,
+      "bytes": 965
+    },
+    {
+      "file": "audit_vector_secondorder_gauge.py",
+      "supplied_sha256": "6bd15021388ed121422fe3b7de85e94ce2ab2e18012c869a6088402f50f4ed49",
+      "verified_sha256": "6bd15021388ed121422fe3b7de85e94ce2ab2e18012c869a6088402f50f4ed49",
+      "match": true,
+      "bytes": 1295
+    },
+    {
+      "file": "vector_firstorder_rank.py",
+      "supplied_sha256": "afb5357697d8b0c19c6166fe206d0359e1f8fe74f907ab6062b693b99f768032",
+      "verified_sha256": "afb5357697d8b0c19c6166fe206d0359e1f8fe74f907ab6062b693b99f768032",
+      "match": true,
+      "bytes": 612
+    },
+    {
+      "file": "vector_last_prism_rank.py",
+      "supplied_sha256": "130b1e12c536b7a3a95b9c46ba1773f1b1b42040febdb79ea4abbcaeb48cb80c",
+      "verified_sha256": "130b1e12c536b7a3a95b9c46ba1773f1b1b42040febdb79ea4abbcaeb48cb80c",
+      "match": true,
+      "bytes": 737
+    },
+    {
+      "file": "vector_secondorder_gauge.py",
+      "supplied_sha256": "1f204902205e1c0471d102936a66fe27ec956c9e171588968e9aa4e8360d8cc2",
+      "verified_sha256": "1f204902205e1c0471d102936a66fe27ec956c9e171588968e9aa4e8360d8cc2",
+      "match": true,
+      "bytes": 2850
+    },
+    {
+      "file": "audit_reduced_inverse_exact.py",
+      "supplied_sha256": "5469544b8de9989d0f34fdde6fae13254855b9db567d77aaa1252e442fcfe3c7",
+      "verified_sha256": "5469544b8de9989d0f34fdde6fae13254855b9db567d77aaa1252e442fcfe3c7",
+      "match": true,
+      "bytes": 2098,
+      "dependencies": "Python 3 standard library: fractions, math",
+      "scope": "Reduced compiler degree recurrence and exact collision-family constants and guards",
+      "local_mathematical_execution": false
+    },
+    {
+      "file": "full_prior_tail_witness.py",
+      "supplied_sha256": "558b831df6f854b476a6f973c29c7aa5e308e1c92c43ae45b24734977d17c313",
+      "verified_sha256": "558b831df6f854b476a6f973c29c7aa5e308e1c92c43ae45b24734977d17c313",
+      "match": true,
+      "bytes": 5531,
+      "dependencies": "Python 3 standard library: fractions, math",
+      "scope": "Full-prior critical-limit absolute Taylor-tail witness through order four",
+      "local_mathematical_execution": false
+    },
+    {
+      "file": "critical_filtered_tail_witness.py",
+      "supplied_sha256": "95a75e0fe690dfdae4180ba9ce9137e009393465295c4bffe593a5b0c25808ec",
+      "verified_sha256": "95a75e0fe690dfdae4180ba9ce9137e009393465295c4bffe593a5b0c25808ec",
+      "match": true,
+      "bytes": 3790,
+      "dependencies": "Python 3 standard library: fractions, math",
+      "scope": "Triple-critical filtered-tail limiting point, cascade signs and traversal margins",
+      "local_mathematical_execution": false
+    }
+  ]
+}

@@ -1,0 +1,244 @@
+{
+  "seconds": 71.40011359995697,
+  "x18": [
+    1.199999638744944,
+    1.19999971730065,
+    -0.7099999660816239,
+    5.945558501832516,
+    -5.128669806019641,
+    4.027032966841457,
+    8.882615738420258,
+    -6.816718341091852,
+    1.9997027929874236,
+    1.4602777570340741,
+    1.702378481629137,
+    1.5736143545820187,
+    92.97152065787347,
+    3.2648870352337673,
+    2.0038442780693306,
+    -2.998909469939247,
+    0.7448129537879825,
+    -0.3806809495047548
+  ],
+  "mse": 8.96531862230344e-08,
+  "route": "relations/repeat1/sign1.0/order0/scale1.0/share0.5",
+  "max_residual": 0.0008901613838308009,
+  "trials": [
+    {
+      "route": "relations/repeat1/sign1.0/order0/scale1.0/share0.25",
+      "prefix_mse": 1.7931242270464088e-05,
+      "full_mse": 2.1370389756125845e-07,
+      "relation_fit": {
+        "nfev": 100,
+        "optimality": 0.010209662297957948
+      }
+    },
+    {
+      "route": "relations/repeat1/sign1.0/order0/scale1.0/share0.75",
+      "prefix_mse": 3.718479371352072e-05,
+      "full_mse": 6.955404535074173e-06,
+      "relation_fit": {
+        "nfev": 100,
+        "optimality": 24.546702684897316
+      }
+    },
+    {
+      "route": "relations/repeat1/sign1.0/order0/scale2.0/share0.5",
+      "prefix_mse": 8.380731494955991e-05,
+      "full_mse": 2.642982283374657e-07,
+      "relation_fit": {
+        "nfev": 100,
+        "optimality": 0.0543578211195787
+      }
+    },
+    {
+      "route": "relations/repeat1/sign1.0/order0/scale1.0/share0.5",
+      "prefix_mse": 1.3609028471830367e-05,
+      "full_mse": 8.96531862230344e-08,
+      "relation_fit": {
+        "nfev": 100,
+        "optimality": 0.3950771068790787
+      }
+    },
+    {
+      "route": "relations/repeat1/sign-1.0/order0/scale1.0/share0.25",
+      "prefix_mse": 0.14781853647541982,
+      "full_mse": 0.14780012008452412,
+      "relation_fit": {
+        "nfev": 100,
+        "optimality": 2.7826577882996455
+      }
+    },
+    {
+      "route": "relations/repeat1/sign-1.0/order0/scale1.0/share0.75",
+      "prefix_mse": 0.1478322687384851,
+      "full_mse": 0.14779993079270087,
+      "relation_fit": {
+        "nfev": 100,
+        "optimality": 2.3226494968369376
+      }
+    },
+    {
+      "route": "relations/repeat1/sign-1.0/order0/scale2.0/share0.5",
+      "prefix_mse": 0.1478297228887916,
+      "full_mse": 0.14779870128560993,
+      "relation_fit": {
+        "nfev": 100,
+        "optimality": 4.010663944696518
+      }
+    },
+    {
+      "route": "relations/repeat1/sign-1.0/order0/scale1.0/share0.5",
+      "prefix_mse": 0.14781799130211767,
+      "full_mse": 0.14779897504717243,
+      "relation_fit": {
+        "nfev": 100,
+        "optimality": 2.241378282959721
+      }
+    },
+    {
+      "route": "relations/repeat1/sign-1.0/order1/scale1.0/share0.25",
+      "prefix_mse": 0.14781470362608834,
+      "full_mse": 0.1477992803192476,
+      "relation_fit": {
+        "nfev": 100,
+        "optimality": 5.902663049302753
+      }
+    },
+    {
+      "route": "relations/repeat1/sign-1.0/order1/scale1.0/share0.75",
+      "prefix_mse": 0.14781274127699717,
+      "full_mse": 0.14779928031894707,
+      "relation_fit": {
+        "nfev": 100,
+        "optimality": 0.6062048141067915
+      }
+    },
+    {
+      "route": "relations/repeat1/sign-1.0/order1/scale2.0/share0.5",
+      "prefix_mse": 0.1478144207177491,
+      "full_mse": 0.14779928030988365,
+      "relation_fit": {
+        "nfev": 100,
+        "optimality": 3.0931786616028716
+      }
+    },
+    {
+      "route": "relations/repeat1/sign-1.0/order1/scale1.0/share0.5",
+      "prefix_mse": 0.14780256044400303,
+      "full_mse": 0.14779928031605574,
+      "relation_fit": {
+        "nfev": 100,
+        "optimality": 6.19939863927086e-05
+      }
+    },
+    {
+      "route": "relations/repeat0/sign1.0/order0/scale1.0/share0.25",
+      "prefix_mse": 0.14786498017070224,
+      "full_mse": 0.14760360915151627,
+      "relation_fit": {
+        "nfev": 100,
+        "optimality": 25.968011177519372
+      }
+    },
+    {
+      "route": "relations/repeat0/sign1.0/order0/scale1.0/share0.75",
+      "prefix_mse": 0.14785038840679396,
+      "full_mse": 0.1476021207858737,
+      "relation_fit": {
+        "nfev": 100,
+        "optimality": 5.4124667635973935
+      }
+    },
+    {
+      "route": "relations/repeat0/sign1.0/order0/scale2.0/share0.5",
+      "prefix_mse": 0.14793099962007597,
+      "full_mse": 0.14789044477806063,
+      "relation_fit": {
+        "nfev": 100,
+        "optimality": 0.12533979544622445
+      }
+    },
+    {
+      "route": "relations/repeat0/sign1.0/order0/scale1.0/share0.5",
+      "prefix_mse": 0.14784650622301893,
+      "full_mse": 0.1477995356707813,
+      "relation_fit": {
+        "nfev": 100,
+        "optimality": 0.008314290500058299
+      }
+    },
+    {
+      "route": "relations/repeat0/sign-1.0/order0/scale1.0/share0.25",
+      "prefix_mse": 0.1468413918667164,
+      "full_mse": 0.14633479790297446,
+      "relation_fit": {
+        "nfev": 100,
+        "optimality": 0.19411810517373854
+      }
+    },
+    {
+      "route": "relations/repeat0/sign-1.0/order0/scale1.0/share0.75",
+      "prefix_mse": 0.1468344393098091,
+      "full_mse": 0.14629508377049097,
+      "relation_fit": {
+        "nfev": 100,
+        "optimality": 0.45069177894812057
+      }
+    },
+    {
+      "route": "relations/repeat0/sign-1.0/order0/scale2.0/share0.5",
+      "prefix_mse": 0.14686558126014457,
+      "full_mse": 0.1462537990596541,
+      "relation_fit": {
+        "nfev": 100,
+        "optimality": 0.20309283776567152
+      }
+    },
+    {
+      "route": "relations/repeat0/sign-1.0/order0/scale1.0/share0.5",
+      "prefix_mse": 0.14684295179570456,
+      "full_mse": 0.14626480794534163,
+      "relation_fit": {
+        "nfev": 100,
+        "optimality": 0.30682540585900814
+      }
+    },
+    {
+      "route": "relations/repeat0/sign-1.0/order1/scale1.0/share0.25",
+      "prefix_mse": 0.14673347132816855,
+      "full_mse": 0.14623617091080438,
+      "relation_fit": {
+        "nfev": 100,
+        "optimality": 0.16600268679898567
+      }
+    },
+    {
+      "route": "relations/repeat0/sign-1.0/order1/scale1.0/share0.75",
+      "prefix_mse": 0.14677676540781517,
+      "full_mse": 0.14623871366392888,
+      "relation_fit": {
+        "nfev": 100,
+        "optimality": 0.19791966232573946
+      }
+    },
+    {
+      "route": "relations/repeat0/sign-1.0/order1/scale2.0/share0.5",
+      "prefix_mse": 0.14670236253807892,
+      "full_mse": 0.14623601597747854,
+      "relation_fit": {
+        "nfev": 100,
+        "optimality": 0.4510133068479289
+      }
+    },
+    {
+      "route": "relations/repeat0/sign-1.0/order1/scale1.0/share0.5",
+      "prefix_mse": 0.14678280216895886,
+      "full_mse": 0.14623637484116853,
+      "relation_fit": {
+        "nfev": 100,
+        "optimality": 1.0560657309757548
+      }
+    }
+  ]
+}

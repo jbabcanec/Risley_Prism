@@ -1,0 +1,315 @@
+{
+  "status": "candidate_fit",
+  "certified": false,
+  "theta": [
+    -2.5238022096621693,
+    -2.782406161358587,
+    -1.9878914879252225,
+    9.91381436388451,
+    15.05930269090946,
+    6.290827802851769,
+    1.8483728926165874,
+    3.236618947920966,
+    17.630216390304884,
+    1.428130350032001,
+    1.583916184231151,
+    1.6483485205661557,
+    182.04917284293973,
+    11.229013641137545,
+    1.4355332809651318,
+    9.497977378328661,
+    0.5582921013283846,
+    -2.5677072048946936
+  ],
+  "spectral_seconds": 0.18986819998826832,
+  "attempts": [
+    {
+      "tag": "basis=0/order=(0, 1, 2),d0=125,n0=1.55",
+      "mse": 0.027072073715556408,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(0, 1, 2),d0=80,n0=1.4",
+      "mse": 0.02793870533108284,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(0, 1, 2),d0=180,n0=1.7",
+      "mse": 0.028992785810416217,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(0, 2, 1),d0=125,n0=1.55",
+      "mse": 0.0288886947661966,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(0, 2, 1),d0=80,n0=1.4",
+      "mse": 0.0409725004706967,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(0, 2, 1),d0=180,n0=1.7",
+      "mse": 0.03326396176562038,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(1, 0, 2),d0=125,n0=1.55",
+      "mse": 4.9107468635218285e-09,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(1, 0, 2),d0=80,n0=1.4",
+      "mse": 1.602512005774355e-05,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(1, 0, 2),d0=180,n0=1.7",
+      "mse": 0.0028458038943515577,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(1, 2, 0),d0=125,n0=1.55",
+      "mse": 0.020526868004220055,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(1, 2, 0),d0=80,n0=1.4",
+      "mse": 0.015464535554320005,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(1, 2, 0),d0=180,n0=1.7",
+      "mse": 0.01676639793646037,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(2, 0, 1),d0=125,n0=1.55",
+      "mse": 0.03729792724499995,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(2, 0, 1),d0=80,n0=1.4",
+      "mse": 0.04215594006060848,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(2, 0, 1),d0=180,n0=1.7",
+      "mse": 0.03926423333392174,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(2, 1, 0),d0=125,n0=1.55",
+      "mse": 0.018760005762699386,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(2, 1, 0),d0=80,n0=1.4",
+      "mse": 0.015055989255104612,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(2, 1, 0),d0=180,n0=1.7",
+      "mse": 0.01503208081712113,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=0/order=(1, 0, 2),d0=125,n0=1.55",
+      "mse": 5.170242287194515e-23,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=0/order=(1, 0, 2),d0=80,n0=1.4",
+      "mse": 5.1727416663636136e-23,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=0/order=(1, 0, 2),d0=180,n0=1.7",
+      "mse": 5.17181995620058e-23,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=0/order=(2, 1, 0),d0=180,n0=1.7",
+      "mse": 0.01502123924578626,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=0/order=(2, 1, 0),d0=80,n0=1.4",
+      "mse": 0.015021239245788165,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=0/order=(1, 2, 0),d0=80,n0=1.4",
+      "mse": 0.015419633047978562,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(0, 1, 2),d0=125,n0=1.55",
+      "mse": 95.55635166366163,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(0, 1, 2),d0=80,n0=1.4",
+      "mse": 95.60307762445822,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(0, 1, 2),d0=180,n0=1.7",
+      "mse": 95.56851113425405,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(0, 2, 1),d0=125,n0=1.55",
+      "mse": 95.46417327639698,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(0, 2, 1),d0=80,n0=1.4",
+      "mse": 95.45409730311783,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(0, 2, 1),d0=180,n0=1.7",
+      "mse": 95.4680091674775,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(1, 0, 2),d0=125,n0=1.55",
+      "mse": 95.55270617014685,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(1, 0, 2),d0=80,n0=1.4",
+      "mse": 95.54960254329028,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(1, 0, 2),d0=180,n0=1.7",
+      "mse": 95.54501836407263,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(1, 2, 0),d0=125,n0=1.55",
+      "mse": 95.56875194293147,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(1, 2, 0),d0=80,n0=1.4",
+      "mse": 95.59921594615902,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(1, 2, 0),d0=180,n0=1.7",
+      "mse": 95.53975217026341,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(2, 0, 1),d0=125,n0=1.55",
+      "mse": 95.4214595357543,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(2, 0, 1),d0=80,n0=1.4",
+      "mse": 95.4232828097792,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(2, 0, 1),d0=180,n0=1.7",
+      "mse": 95.44099664266746,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(2, 1, 0),d0=125,n0=1.55",
+      "mse": 95.44060836206779,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(2, 1, 0),d0=80,n0=1.4",
+      "mse": 95.42392909108192,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(2, 1, 0),d0=180,n0=1.7",
+      "mse": 95.45073939165108,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=1/order=(2, 0, 1),d0=125,n0=1.55",
+      "mse": 95.41984449962101,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=1/order=(2, 0, 1),d0=80,n0=1.4",
+      "mse": 95.4198444996212,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=1/order=(2, 1, 0),d0=80,n0=1.4",
+      "mse": 95.42039511874088,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=1/order=(2, 1, 0),d0=125,n0=1.55",
+      "mse": 95.42039511874042,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=1/order=(2, 0, 1),d0=180,n0=1.7",
+      "mse": 95.41984449962114,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=1/order=(2, 1, 0),d0=180,n0=1.7",
+      "mse": 95.42039511874067,
+      "physical": true
+    }
+  ],
+  "spectral_speeds": [
+    -2.7824087857426423,
+    -2.523799734912795,
+    -1.9879034577530657
+  ],
+  "sampling_dt": 0.05,
+  "sample_count": 200,
+  "eta": 0,
+  "method": "polish/basis=0/order=(1, 0, 2),d0=125,n0=1.55",
+  "seconds": 9.92744189989753,
+  "rms": 5.342840576072114e-12,
+  "max_residual": 6.396660978680302e-11,
+  "hard_band_compatible": false,
+  "numerical_fit_tolerance": 1e-08,
+  "model_parity": 9.847411774899228e-11,
+  "compatibility_verification": {
+    "verified": false,
+    "reason": "candidate solver only; run full18 interval verification separately"
+  },
+  "alternative": {
+    "theta": [
+      -2.52380221270252,
+      -2.782406161637283,
+      -1.9878914853230678,
+      9.914783038824119,
+      15.060418308252693,
+      6.295060914639878,
+      1.8483799885399577,
+      3.23662077520791,
+      17.630210179613623,
+      1.428081556125865,
+      1.583800768803871,
+      1.6477502550950613,
+      182.09418322970916,
+      11.2074572041392,
+      1.4354805390297476,
+      9.49775386466083,
+      0.5584147019581494,
+      -2.56739255554973
+    ],
+    "smooth_rms": 7.007672126692165e-05,
+    "max_residual": 0.00023182007532795978,
+    "hard_band_compatible": false,
+    "numerical_fit": false,
+    "method": "basis=0/order=(1, 0, 2),d0=125,n0=1.55"
+  },
+  "id": "random_00",
+  "noise_amplitude": 0
+}

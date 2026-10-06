@@ -1,0 +1,17 @@
+{
+  "bytes": 253254,
+  "sha256": "20824d87a71cd0b2295630ccce009dbd28a4743bc2ce1c70e1f188ccf9a8180c",
+  "local_reference_occurrences": 135,
+  "unique_local_references": 108,
+  "display_math_pairs": 303,
+  "valid_utf8": true,
+  "encoding_issues": false,
+  "source_manifest_entries_verified": 115,
+  "verified_theory_backups": 18,
+  "missing_report_links": [],
+  "resolved_prior_source_gaps": true,
+  "archival_limitation": "Only2of8 per-cell archival replay files exist; completed aggregate8-cell evidence preserved.",
+  "published_engine_zip_unchanged": true,
+  "version12_archive_unchanged": true,
+  "research_execution": false
+}

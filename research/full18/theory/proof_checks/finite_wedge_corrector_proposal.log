@@ -1,0 +1,30 @@
+ONE fixed proof point: all wedges asin(1/10) radians; N=(1,7,49)/20; phases=0; t=(1/3,0); b=(1,2); h=(3/2,7/5,5/3); g=3; d=100.
+Directional guards use Q-scaled vectors, Q=10/9; physical Z is scaled Z/sqrt(Q), physical Snell radicand is scaled radicand/Q.
+All 200 timestamps, all three prisms: strict physical and traversal guards PASS.
+glass_radicand : lower > 1.9225107888945725 at sample,prism (0, 2)
+snell_radicand : lower > 0.770275621427225 at sample,prism (0, 3)
+P : lower > 1.347803439336205 at sample,prism (0, 2)
+Z : lower > 0.9279140676265863 at sample,prism (0, 3)
+normal : lower > 0.8776534745713851 at sample,prism (0, 3)
+internal_travel : lower > 2.297795794693485 at sample,prism (29, 3)
+external_travel : lower > 2.3844622810508347 at sample,prism (3, 2)
+Compiled sample 0 elapsed 0.004513263702392578
+Compiled sample 50 elapsed 0.19723176956176758
+Compiled sample 100 elapsed 0.39148807525634766
+Compiled sample 150 elapsed 0.5769257545471191
+Self harmonic difference (-5.689893001203927e-15+1.1084883011491797e-15j)
+Preprocessing feature differential identity error 2.2449391401225657e-11
+A differential left identity error 2.3246397443728314e-08
+DT infinity norm 127543.60611320364
+eigenvalues [-2.34267329e+01+0.j         -5.65647100e+00+0.j
+  6.45940730e-01+0.j          3.74311768e-01+0.40709346j
+  3.74311768e-01-0.40709346j -1.21586672e-01+0.j
+ -8.79401967e-02+0.j          4.15147361e-02+0.04834729j
+  4.15147361e-02-0.04834729j  4.29881076e-02+0.j
+ -4.48735147e-02+0.01451495j -4.48735147e-02-0.01451495j
+ -3.30787785e-02+0.j         -1.18438047e-02+0.j
+  9.34101580e-03+0.00436206j  9.34101580e-03-0.00436206j
+  1.49628245e-03+0.00171668j  1.49628245e-03-0.00171668j]
+spectral radius proposal 23.426732948292727
+ADAPTED REAL INFINITY NORM UPPER 23.42673294829456 basis condition 164680.10395422013
+Saved /workspace/shared/risley_theory/proof_checks/finite_wedge_corrector_proposal.json

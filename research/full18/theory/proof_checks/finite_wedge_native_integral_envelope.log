@@ -1,0 +1,9 @@
+integral cell 1 of 8 seconds 31.160878658294678
+integral cell 2 of 8 seconds 60.59129762649536
+integral cell 3 of 8 seconds 90.19885897636414
+integral cell 4 of 8 seconds 120.41436839103699
+integral cell 5 of 8 seconds 150.35018110275269
+integral cell 6 of 8 seconds 180.09341144561768
+integral cell 7 of 8 seconds 209.80459070205688
+integral cell 8 of 8 seconds 239.2978596687317
+{"lambda_cells": 8, "native_radius": 0.001, "first_record_radius_max": 0.22559333524007838, "second_record_radius_max": 0.1217878276703818, "elapsed_seconds": 256.50006556510925}

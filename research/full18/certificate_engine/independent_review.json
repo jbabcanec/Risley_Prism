@@ -1,0 +1,49 @@
+{
+  "all_1200_traversal_and_2400_optical_guard_lower_bounds_positive": true,
+  "all_400_reference_coordinates_within_stated_point_error": true,
+  "all_400_small_box_output_intervals_within_allowance": true,
+  "case_statuses": {
+    "far_distance_box": "excluded",
+    "full_prior_outer_box": "unresolved",
+    "nontransmitted_box": "excluded",
+    "small_box": "retained"
+  },
+  "changed_input_rejected": true,
+  "dataset_count": 1,
+  "dataset_kind": "synthetic_fullvector_proof_spotcheck",
+  "engine_precision_bits": 80,
+  "exact_shared_geometry_affine_range_checks": 1600,
+  "final_prism_margin_independent_radical_checks": 200,
+  "fixture_sha256": "1c83fb2ce416e7e52971e0feb0c7e2f70d91e5d92088d516a3b3ce8aad99de9c",
+  "independent_direct_vector_output_containments": 400,
+  "kernel": {
+    "exact_scalar_containment_checks": 515,
+    "float_arithmetic_used": false,
+    "random_cases": 0,
+    "status": "passed"
+  },
+  "minimum_final_prism_ratio_lower": "57039989462345798531330865/64073068439575346259427328",
+  "reference_max_output_width": "1427/13479973333575319897333507543509815336818572211270286240551805124608",
+  "reference_minimum_strict_lower_bounds": {
+    "exit_normal_radicand": "26802988052630276370216965324915693287417443885245995644920248185727/26959946667150639794667015087019630673637144422540572481103610249216",
+    "external_height": "134311259161278739820067384576162166248396687281250456674623667429763/26959946667150639794667015087019630673637144422540572481103610249216",
+    "glass_radicand": "26910454286084399641855643566358518138015031124544528230148393693743/26959946667150639794667015087019630673637144422540572481103610249216",
+    "incoming_normal_cosine": "13462247792991066633529066218057320754983578489834385791821196423891/13479973333575319897333507543509815336818572211270286240551805124608",
+    "internal_denominator": "6731460444276873891762873343535732570803405701186444660097895379575/6739986666787659948666753771754907668409286105635143120275902562304",
+    "internal_numerator": "80472116672929833010001580785815539076794379171795205864075988525513/26959946667150639794667015087019630673637144422540572481103610249216",
+    "outgoing_axial": "26898184435965984120502966468916220586049636213401616496242897787547/26959946667150639794667015087019630673637144422540572481103610249216",
+    "outgoing_normal": "13440676400568425602318812477284562616616332787514046412897795991891/13479973333575319897333507543509815336818572211270286240551805124608"
+  },
+  "reference_precision_bits": 224,
+  "replay_passed": true,
+  "scope": "Bounded independent implementation review of one supplied synthetic fixture, not global inversion, hardware validation, a formal proof, or a benchmark",
+  "source_sha256": {
+    "engine.py": "7cbce954039aa9cb93e00cedb6ae2b4d4a760de8eb46edc8f41a76c5637eba6b",
+    "independent_reference.py": "61abcf7120446b9fb94b20e04dc2a57bde2b6eb363ce33d4a2b88ca1c795546c",
+    "interval.py": "3ddc0eaa3430028211d41962fcb2ce6d22c5c70dc24f89c3fae83245b8c90cbe",
+    "spotcheck.py": "72647f53580595994171b35471efcac5f1785357f1e55455042384261a5e5803",
+    "verify_spotcheck.py": "408edb1eebcb0ae75dc78e6c0bb2cf5f8e11268cd8127826a4347eaf47cbaca0"
+  },
+  "status": "passed",
+  "tampered_evidence_rejected": true
+}

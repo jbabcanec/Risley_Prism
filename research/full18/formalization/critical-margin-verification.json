@@ -1,0 +1,57 @@
+{
+  "status": "passed",
+  "compiler_exit_code": 0,
+  "utc": "2026-10-03T02:05:15.0639167Z",
+  "toolchain": "Lean 4.33.0",
+  "lean_commit": "d8b18978322de05a8f3dba51ef03cf5461676c17",
+  "mathlib_manifest_commit": "db584cd6d46c92f209a44c0f1c829460d327499d",
+  "theorem_count": 8,
+  "per_theorem_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "custom_axioms": false,
+  "admitted_goals": false,
+  "formal_scope": "Conditional final-prism critical-normal ratio certificate from explicit real-coordinate trace equations, weak traversal, slope bound, distance lower bound, and shared symbolic coordinatewise observation error; no complete-model formalization",
+  "files": [
+    {
+      "file": "CriticalMargin.lean",
+      "sha256": "d711b8b89cc89c9afc86c6426c0136a03c2295d598774f2b58c5133ebc49fdb7",
+      "bytes": 6916
+    },
+    {
+      "file": "CriticalMargin.olean",
+      "sha256": "ebc3251b6a6118b94a75ba5c3d5183552bd447dcfe7a773de5e96e92b5648b35",
+      "bytes": 481496
+    },
+    {
+      "file": "critical-margin-compiler-output.txt",
+      "sha256": "1a57194d1f3c66ea1fd89f2460134b23beb41428d51d12caaf36d630d20fd9f9",
+      "bytes": 1637
+    },
+    {
+      "file": "check-critical-margin.ps1",
+      "sha256": "283912886f459922a367ec6bf4ea74a4433fcc0dae79b3d167348a4b57fef401",
+      "bytes": 1878
+    }
+  ],
+  "original_package_integrity": [
+    {
+      "file": "RisleySupport.lean",
+      "unchanged": true
+    },
+    {
+      "file": "RisleySupport.olean",
+      "unchanged": true
+    },
+    {
+      "file": "compiler-output.txt",
+      "unchanged": true
+    },
+    {
+      "file": "check.ps1",
+      "unchanged": true
+    }
+  ]
+}

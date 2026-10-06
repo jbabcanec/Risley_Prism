@@ -1,0 +1,13 @@
+{
+  "source_sha256": "1067a7af45838915cde1223a416089c0e5ec82a0351cca47118f02edf6439061",
+  "observations_sha256": "f92fdae30018ffbe4accd1a8a5757e65069e1feab7367748b8f7898e4ec3ddbe",
+  "ids": [
+    "random_02",
+    "random_03"
+  ],
+  "seconds": 70,
+  "blocks": 8,
+  "selection": "two failed cases from a separate frozen combined-policy run, not a population sample",
+  "truth_read": false,
+  "result_prefix": "combined_"
+}

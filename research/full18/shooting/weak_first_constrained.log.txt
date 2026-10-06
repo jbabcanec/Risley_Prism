@@ -1,0 +1,7 @@
+{"event": "start_complete", "start": 0, "status": "unresolved", "elapsed_seconds": 2.827999999979511, "rotor_max_abs": 0.006970906210018946, "normal_closure_max_abs": 0.007401879369819191}
+{"event": "start_complete", "start": 1, "status": "unresolved", "elapsed_seconds": 5.405999999959022, "rotor_max_abs": 0.014064762980206619, "normal_closure_max_abs": 0.014976706072067001}
+{"event": "start_complete", "start": 2, "status": "unresolved", "elapsed_seconds": 8.015999999945052, "rotor_max_abs": 0.027764478643733256, "normal_closure_max_abs": 0.050491065274296164}
+{"event": "start_complete", "start": 3, "status": "unresolved", "elapsed_seconds": 10.73499999998603, "rotor_max_abs": 0.03517869319276351, "normal_closure_max_abs": 0.03839756736840795}
+{"event": "start_complete", "start": 4, "status": "unresolved", "elapsed_seconds": 13.437999999965541, "rotor_max_abs": 0.0062881211387509905, "normal_closure_max_abs": 0.007099336860822614}
+{"event": "start_complete", "start": 5, "status": "unresolved", "elapsed_seconds": 16.094000000040978, "rotor_max_abs": 0.05145824969386473, "normal_closure_max_abs": 0.0826068267978353}
+{"id": "weak_first", "status": "unresolved", "seconds": 22.04653219995089, "best_mse": 1.5980919101759672e-06}

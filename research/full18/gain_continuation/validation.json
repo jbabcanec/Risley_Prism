@@ -1,0 +1,28 @@
+{
+  "random_native_samples": 200,
+  "max_native_roundtrip_error": 3.552713678800501e-15,
+  "coupled_constraint_violation": 0.0,
+  "signed_native_wedge_endpoints_covered": true,
+  "high_index_gain_outside_old_weak_rectangle_covered": true,
+  "gain_cap": 0.25993575698632504,
+  "jacobian_central_difference_step_in_scaled_coordinates": 1e-07,
+  "relative_max_derivative_error_by_nonlinear_column": [
+    3.823723769387494e-10,
+    6.340097208135743e-10,
+    6.816497070768017e-10,
+    1.075375512349802e-09,
+    6.254710161275873e-10,
+    9.708482783744373e-10,
+    1.0652887487322424e-07,
+    3.65344651102176e-08,
+    4.479331403436425e-08,
+    2.1038574563364833e-05,
+    3.9217159486234145e-06,
+    4.337982937133415e-06,
+    5.680500418287581e-08,
+    5.5332386893453224e-08
+  ],
+  "jacobian_max_relative_error": 2.1038574563364833e-05,
+  "finite_difference_is_numerical_check_not_formal_proof": true,
+  "status": "PASS"
+}

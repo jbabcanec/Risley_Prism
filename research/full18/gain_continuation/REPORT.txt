@@ -1,0 +1,65 @@
+Full-domain gain continuation: observation-only constructive recovery
+
+The successful adverse-record run starts exclusively from the saved candidate in profiles/blind_adverse_1e8.json and the supplied observations in profiles/adverse_observations_only.json. No truth vector, ambiguity endpoint, known glass index or known distance is read.
+
+Domain: u_i=(n_i-1)tan(ax_i), n_i in [1.3,1.8]. With t=tan(18 degrees), the full native wedge/index domain is exactly the gain rectangle |u_i|<=.8t intersected with the six linear inequalities +/-u_i<=(n_i-1)t. Inversion ax_i=atan(u_i/(n_i-1)) gives signed native wedges. This retains the original domain; the old weak-prism rectangle |u|<=.3t would remove part of it.
+
+All eighteen coordinates remain unknown. Four affine variables (d_W,gap,bm_px,bm_py) are eliminated by bounded least squares using their original bounds. Fourteen nonlinear coordinates are optimized. Explicit coupled-domain and optical penalties guide trial points; final candidates must independently satisfy every original bound and physical guard.
+
+Successful first run: 56 evaluations, 0.326608 seconds after imports; former maximum residual 8.647446230964917e-4.
+Returned stable-model max residual: 9.8587804586713901e-14.
+Original interval-model all-sample error upper bound: 3.3443015090949185e-11 under its documented deterministic arithmetic assumptions.
+Canonical executable all-sample max residual: 3.6001313041822414e-10.
+Native bounds pass; physical margins: {'tir': 0.9904103970755119, 'fwd': 0.9986908318201003, 'graze': 0.9987422239406251}.
+
+Compatibility is not a point-accuracy guarantee. Six observation-derived alternatives pass interval compatibility at eta=1e-8: d_W shifts +/-0.0011, gap shifts +/-0.0005, and ng3 shifts +/-0.0000025, with all other coordinates profiled. All six also pass canonical executable residual checks.
+Found compatible d_W span: 0.002200000000016189; gap span: 0.0010466052387343439.
+These are lower witnesses of uncertainty in this actual observation record, not a complete compatible-set enclosure. A single returned representative is not unique generating-hardware recovery.
+
+Domain tests: 200 random full-native roundtrips max error 3.55e-15; signed +/-18 degree/high-index endpoints explicitly covered.
+Derivative audit: best finite-difference step-sweep maximum relative error 5.34e-07; independent complex-step normal-equation projection maximum relative error 3.77e-12. The initial 2.1e-5 weak-column finite-difference mismatch was cancellation.
+Frozen generic CLI replay reproduced every returned parameter bit-for-bit.
+
+Fresh failure checks, with the identical frozen route and a 120-second cap per case:
+random_03: 4 evaluations, 0.052065 seconds, max residual 0.70057742330698147; unresolved.
+random_07: 29 evaluations, 0.221733 seconds, max residual 19.243594671811884; unresolved.
+Both terminate locally before the cap; chart changes do not supply global basin selection. These were observation-only runs and no hidden-truth accuracy criterion was applied.
+
+Returned parameter vector, in the recorded NAMES order:
+{
+  "N1": 2.709999999998091,
+  "N2": -1.930000000012188,
+  "N3": 0.8299999999990717,
+  "ax1": 3.000000249310091,
+  "ax2": -3.450002231669558,
+  "ax3": 2.700005054646995,
+  "ay1": 6.9999999975296,
+  "ay2": -10.999999980454405,
+  "ay3": 17.0000000220222,
+  "ng1": 1.3099998811792648,
+  "ng2": 1.3199988414246282,
+  "ng3": 1.3299974721408623,
+  "d_W": 190.001099997649,
+  "gap": 2.9994766987375465,
+  "bm_ax": 0.09999942985376493,
+  "bm_ay": -0.09999891372889147,
+  "bm_px": 1.2000019765166474,
+  "bm_py": -2.1000038606431985
+}
+
+Input hashes:
+{
+  "blind_adverse_1e8.json": "2d972c584d6a444c645c6628d9ed4647d31f557d643dbd9f954b55a240ec0f5a",
+  "adverse_observations_only.json": "fa9272d49d90c013e2b7c7654d137d4cd53c6544404c20d17f9ea7dc15b04245"
+}
+Code hashes:
+{
+  "full_domain_gain.py": "d0cadab6451f8ab94645cb996dba0ef531bcc9c86f7f1471906fcbb8b7a17359",
+  "poc3.py": "a2dba0892d203c43d54d31a24a7705afccf70f9f6d292dc7b393859d98f6e313"
+}
+
+Files: full_domain_gain.py (generic CLI), result_native.json (first run), result_replay.json (frozen replay), compatible_profiles.json (actual-record alternatives), validation.json, jacobian_sweep.json, fresh_random_03.json, fresh_random_07.json.
+Reproduce successful run: python -B full_domain_gain.py --seconds 120 --out new_result.json
+Generic inputs: --candidate PATH --observations PATH --id CASE_ID --threshold 1e-8 --out NEW_OUTPUT.json
+The threshold is numerical compatibility testing, not an assumed all-coordinate accuracy guarantee.
+No Dropbox source or existing poc3.py was edited. Only new isolated workspace files were written.

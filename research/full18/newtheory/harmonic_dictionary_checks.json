@@ -1,0 +1,123 @@
+{
+  "scope": "Algebra and finite-difference checks; no physical recovery or tail certificate.",
+  "jacobian_checks": [
+    {
+      "degree": 3,
+      "columns": 20,
+      "jacobian_errors": [
+        1.8817702357109925e-09,
+        9.148320125782809e-10,
+        7.129535383188759e-10,
+        2.0389388664158328e-08,
+        1.223426984288787e-08,
+        6.409384666137445e-09
+      ],
+      "diagnostics": [
+        {
+          "axis": 0,
+          "columns": 20,
+          "rank": 20,
+          "smallest_singular_value": 4.778688872876745,
+          "largest_singular_value": 14.17462390257316,
+          "full_rank_derivative": true,
+          "rcond": 1e-12
+        },
+        {
+          "axis": 1,
+          "columns": 20,
+          "rank": 20,
+          "smallest_singular_value": 3.424588174491407,
+          "largest_singular_value": 14.358835999651134,
+          "full_rank_derivative": true,
+          "rcond": 1e-12
+        }
+      ]
+    },
+    {
+      "degree": 5,
+      "columns": 56,
+      "jacobian_errors": [
+        2.0179404676258944e-09,
+        8.166365584586404e-10,
+        8.462128688257142e-10,
+        1.936820871579723e-08,
+        1.622658383847058e-08,
+        6.1171012707826435e-09
+      ],
+      "diagnostics": [
+        {
+          "axis": 0,
+          "columns": 56,
+          "rank": 56,
+          "smallest_singular_value": 3.978331161226801,
+          "largest_singular_value": 14.209896141284732,
+          "full_rank_derivative": true,
+          "rcond": 1e-12
+        },
+        {
+          "axis": 1,
+          "columns": 56,
+          "rank": 56,
+          "smallest_singular_value": 1.3466555885246396,
+          "largest_singular_value": 14.393315436896884,
+          "full_rank_derivative": true,
+          "rcond": 1e-12
+        }
+      ]
+    }
+  ],
+  "exact_chebyshev_coefficients_checked_through": 12,
+  "rotor_reversal_dictionary_errors": [
+    [
+      0.0,
+      8.848477506262498e-14
+    ],
+    [
+      0.0,
+      6.206146707654625e-14
+    ],
+    [
+      0.0,
+      5.968836536140998e-14
+    ]
+  ],
+  "columns": {
+    "3": 20,
+    "4": 35,
+    "5": 56,
+    "6": 84,
+    "7": 120,
+    "8": 165,
+    "9": 220
+  },
+  "passed": true,
+  "rank_deficient_jet_check": {
+    "rank": 1,
+    "columns": 20,
+    "observed_jet_error": 8.800000000000002,
+    "coefficient_bound": 1.0,
+    "nullspace_charge": 8.800000000000002
+  },
+  "illustrative_tail_budget": [
+    {
+      "assumed_strip_width": 0.5,
+      "target_eta_over_M": 1e-08,
+      "first_degree_meeting_function_tail": 57,
+      "columns": 34220,
+      "normalized_tail": 9.178874195978025e-09,
+      "previous_normalized_tail": 1.4629969792739754e-08,
+      "degree5_normalized_tail": 31.02188935422626,
+      "degree8_normalized_tail": 13.048460621605646
+    },
+    {
+      "assumed_strip_width": 1.0,
+      "target_eta_over_M": 1e-08,
+      "first_degree_meeting_function_tail": 26,
+      "columns": 3654,
+      "normalized_tail": 9.065047749442323e-09,
+      "previous_normalized_tail": 2.2890242659381688e-08,
+      "degree5_normalized_tail": 0.7018093784089169,
+      "degree8_normalized_tail": 0.07280957343698609
+    }
+  ]
+}

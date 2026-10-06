@@ -1,0 +1,27 @@
+center sample 0 seconds 0.06744718551635742
+center sample 50 seconds 3.882528781890869
+center sample 100 seconds 7.681410312652588
+center sample 150 seconds 11.31058406829834
+box sample 0 seconds 14.986615419387817
+box sample 50 seconds 18.939490795135498
+box sample 100 seconds 22.90361213684082
+box sample 150 seconds 26.985706090927124
+centered record radii 0.27054370362943536 0.30208042278099145
+spectral derivative column 0
+spectral derivative column 6
+spectral derivative column 12
+{
+  "scope": "same kappa=0.1 witness, exact nominal F(theta_star), fixed native +-0.001 all18, no noise",
+  "native_radius": 0.001,
+  "corrected_first_record_radius_max": 0.27054370362943536,
+  "corrected_second_record_radius_max": 0.30208042278099145,
+  "corrected_first_record_center_jacobian_row_norm_max": 0.07028723693169645,
+  "corrected_second_record_center_jacobian_row_norm_max": 0.03339534327266989,
+  "lag11_center_inverse_defect": 1.8657926809353833e-16,
+  "Dlag_norminf": 3.664687301667778,
+  "lag11_uniform_neumann_bound": 1.8904345463098835,
+  "lag11_center_linearized_neumann_bound": 0.050811723605083875,
+  "lag11_certified_by_single_box_neumann": false,
+  "status": "UNRESOLVED: centered interval-jet lag11 Neumann bound >=1; cannot certify subsequent root/A2/chord domain",
+  "elapsed_seconds": 33.25648355484009
+}

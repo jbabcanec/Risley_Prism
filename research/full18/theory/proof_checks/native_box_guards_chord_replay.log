@@ -1,0 +1,20 @@
+{
+  "source_file": "native_box_guards_chord_center.json",
+  "source_sha256": "29374ab7437fc5f4f5bf2d58cbf095730440d771988238dcf13aa4d93d96ed98",
+  "precision_dps": 90,
+  "endpoint_replay_pass": true,
+  "replayed_defect_upper": 1.9387182380847987e-09,
+  "binary_W_hex_roundtrip_pass": true,
+  "P2_plus_recorded_tail_contained_in_saved_P": true,
+  "alternative_unit_normal_trace_pass": true,
+  "sample_prism_count": 600,
+  "alternative_unit_normal_trace_minima": {
+    "glass_radicand": 1.72719509119762,
+    "incoming_optical_normal_numerator": 1.2774207236599548,
+    "unit_normal_snell_radicand": 0.6789507113545055,
+    "unit_air_axial": 0.8732265781330142,
+    "internal_traverse_numerator": 2.285826073454098,
+    "external_axial_flight": 2.378371907127911
+  },
+  "scope": "Arithmetic cross-check by the same author, not a separate independent review. Same fixed native box and samples; no new case or iterate."
+}

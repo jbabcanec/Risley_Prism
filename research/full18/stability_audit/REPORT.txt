@@ -1,0 +1,425 @@
+Stable evaluator cross-check of saved full18 evidence
+Original data and Dropbox source preserved; this script does not fit anything.
+Parameter errors compare saved coordinates directly with truth and are unchanged by the evaluator.
+Literal eta=0 compatibility requires exact equality; use the separate 1e-8 column for numerical fit.
+Oracle checks supplied binary64 times; historical exact rational-time witness proofs remain distinct.
+
+{
+  "records": 155,
+  "distinct_parameter_time_evaluations": 102,
+  "full_oracle_parameter_time_evaluations": 51,
+  "max_legacy_stable_difference": 1.6369305910757248e-09,
+  "max_stable_oracle_error_upper": 4.5722256087500104e-11,
+  "max_legacy_oracle_error_upper": 1.6364415463777518e-09,
+  "eta_classification_changes": [
+    "cases.json:random_00:generation",
+    "cases.json:random_01:generation",
+    "cases.json:random_02:generation",
+    "cases.json:random_03:generation",
+    "cases.json:random_04:generation",
+    "cases.json:random_05:generation",
+    "cases.json:random_06:generation",
+    "cases.json:random_07:generation",
+    "cases.json:moderate_unsorted:generation",
+    "cases.json:wide_unsorted:generation",
+    "cases.json:exact_collision:generation",
+    "cases.json:weak_first:generation",
+    "holdout.json:random_00:generation",
+    "holdout.json:random_01:generation",
+    "holdout.json:random_02:generation",
+    "holdout.json:random_03:generation",
+    "holdout.json:random_04:generation",
+    "holdout.json:random_05:generation",
+    "combined_holdout.json:random_00:generation",
+    "combined_holdout.json:random_01:generation",
+    "combined_holdout.json:random_02:generation",
+    "combined_holdout.json:random_03:generation",
+    "combined_holdout.json:random_04:generation",
+    "combined_holdout.json:random_05:generation",
+    "combined_holdout.json:random_06:generation",
+    "combined_holdout.json:random_07:generation",
+    "combined_holdout.json:random_08:generation",
+    "combined_holdout.json:random_09:generation",
+    "collision_holdout.json:collision_holdout_00:generation",
+    "collision_holdout.json:collision_holdout_01:generation",
+    "combined_validation\\noiseless\\random_00.json:truth",
+    "combined_validation\\noiseless\\random_01.json:truth",
+    "combined_validation\\noiseless\\random_02.json:truth",
+    "combined_validation\\noiseless\\random_03.json:truth",
+    "combined_validation\\noiseless\\random_04.json:truth",
+    "combined_validation\\noiseless\\random_05.json:truth",
+    "combined_validation\\noiseless\\random_06.json:truth",
+    "combined_validation\\noiseless\\random_07.json:truth",
+    "combined_validation\\noiseless\\random_08.json:truth",
+    "combined_validation\\noiseless\\random_09.json:truth"
+  ],
+  "numerical_1e8_classification_changes": [],
+  "noisy_truth_outside_stable_eta": [],
+  "witness_pair_count": 9,
+  "witness_pairs_inside_stable_eta": 9,
+  "witness_pairs_inside_oracle_eta": 9,
+  "combined_validation": {
+    "noiseless": {
+      "saved_candidate_count": 10,
+      "all18_below_001_count": 7,
+      "legacy_inside_eta_count": 0,
+      "stable_inside_eta_count": 0,
+      "legacy_within_numerical_1e8_count": 7,
+      "stable_within_numerical_1e8_count": 7,
+      "max_native_error": 33.990569470284456
+    },
+    "noise_1e6": {
+      "saved_candidate_count": 10,
+      "all18_below_001_count": 7,
+      "legacy_inside_eta_count": 7,
+      "stable_inside_eta_count": 7,
+      "legacy_within_numerical_1e8_count": 0,
+      "stable_within_numerical_1e8_count": 0,
+      "max_native_error": 30.07547222723108
+    },
+    "noise_1e4": {
+      "saved_candidate_count": 10,
+      "all18_below_001_count": 6,
+      "legacy_inside_eta_count": 7,
+      "stable_inside_eta_count": 7,
+      "legacy_within_numerical_1e8_count": 0,
+      "stable_within_numerical_1e8_count": 0,
+      "max_native_error": 30.075409596191577
+    },
+    "noise_1e3": {
+      "saved_candidate_count": 10,
+      "all18_below_001_count": 2,
+      "legacy_inside_eta_count": 7,
+      "stable_inside_eta_count": 7,
+      "legacy_within_numerical_1e8_count": 0,
+      "stable_within_numerical_1e8_count": 0,
+      "max_native_error": 33.990570318518515
+    },
+    "noise_1e2": {
+      "saved_candidate_count": 10,
+      "all18_below_001_count": 0,
+      "legacy_inside_eta_count": 8,
+      "stable_inside_eta_count": 8,
+      "legacy_within_numerical_1e8_count": 0,
+      "stable_within_numerical_1e8_count": 0,
+      "max_native_error": 14.172185370149368
+    }
+  },
+  "issues": 0,
+  "source_files_changed_during_audit": []
+}
+
+Issues: []
+
+Witness pairs: [
+  {
+    "label": "gain_continuation\\compatible_profiles.json:profile_0",
+    "endpoint_labels": [
+      "gain_continuation\\compatible_profiles.json:candidate",
+      "gain_continuation\\compatible_profiles.json:profile_0"
+    ],
+    "eta": 1e-08,
+    "max_native_separation": 0.0011000000000080945,
+    "coordinate_separations": {
+      "N1": 1.909139513145419e-12,
+      "N2": 1.2188250408939894e-11,
+      "N3": 9.28590537796481e-13,
+      "ax1": 2.4932406184063893e-07,
+      "ax2": 2.2316964951585305e-06,
+      "ax3": 5.054685489280786e-06,
+      "ay1": 2.4704291945454315e-09,
+      "ay2": 1.954547634852588e-08,
+      "ay3": 2.202243010174243e-08,
+      "ng1": 1.1882481354419383e-07,
+      "ng2": 1.158581194093955e-06,
+      "ng3": 2.527867926094274e-06,
+      "d_W": 0.0011000000000080945,
+      "gap": 0.0005233015998427071,
+      "bm_ax": 5.701452465284307e-07,
+      "bm_ay": 1.0862666706967783e-06,
+      "bm_px": 1.9765100489621545e-06,
+      "bm_py": 3.8606239982641455e-06
+    },
+    "stable_both_inside_eta": true,
+    "legacy_both_inside_eta": true,
+    "oracle_both_inside_eta": true
+  },
+  {
+    "label": "gain_continuation\\compatible_profiles.json:profile_1",
+    "endpoint_labels": [
+      "gain_continuation\\compatible_profiles.json:candidate",
+      "gain_continuation\\compatible_profiles.json:profile_1"
+    ],
+    "eta": 1e-08,
+    "max_native_separation": 0.0011000000000080945,
+    "coordinate_separations": {
+      "N1": 1.908251334725719e-12,
+      "N2": 1.2188472453544819e-11,
+      "N3": 9.280354262841684e-13,
+      "ax1": 2.4929918440719234e-07,
+      "ax2": 2.2316283105894286e-06,
+      "ax3": 5.05459503896688e-06,
+      "ay1": 2.4701893863721125e-09,
+      "ay2": 1.9545533191944742e-08,
+      "ay3": 2.2021712453579312e-08,
+      "ng1": 1.1881573169780779e-07,
+      "ng2": 1.158564276959595e-06,
+      "ng3": 2.527825298637154e-06,
+      "d_W": 0.0011000000000080945,
+      "gap": 0.0005233036388916368,
+      "bm_ax": 5.701468245022934e-07,
+      "bm_ay": 1.0862726640137321e-06,
+      "bm_px": 1.9765243286506973e-06,
+      "bm_py": 3.860655504173138e-06
+    },
+    "stable_both_inside_eta": true,
+    "legacy_both_inside_eta": true,
+    "oracle_both_inside_eta": true
+  },
+  {
+    "label": "gain_continuation\\compatible_profiles.json:profile_2",
+    "endpoint_labels": [
+      "gain_continuation\\compatible_profiles.json:candidate",
+      "gain_continuation\\compatible_profiles.json:profile_2"
+    ],
+    "eta": 1e-08,
+    "max_native_separation": 0.0010295668601543184,
+    "coordinate_separations": {
+      "N1": 8.8600238257186e-12,
+      "N2": 9.741984996480824e-12,
+      "N3": 7.320366535168432e-12,
+      "ax1": 3.764500005054572e-07,
+      "ax2": 1.8650565163369492e-06,
+      "ax3": 4.35660303033103e-06,
+      "ay1": 3.268117332311249e-09,
+      "ay2": 1.0983647769080562e-08,
+      "ay3": 5.061753682866765e-09,
+      "ng1": 1.6345141684581677e-08,
+      "ng2": 1.0468064415292133e-06,
+      "ng3": 2.3202606143080118e-06,
+      "d_W": 0.0010295668601543184,
+      "gap": 0.000500000000000167,
+      "bm_ax": 5.623008210442482e-07,
+      "bm_ay": 1.049999954469416e-06,
+      "bm_px": 1.990546527608217e-06,
+      "bm_py": 3.7714891831797104e-06
+    },
+    "stable_both_inside_eta": true,
+    "legacy_both_inside_eta": true,
+    "oracle_both_inside_eta": true
+  },
+  {
+    "label": "gain_continuation\\compatible_profiles.json:profile_3",
+    "endpoint_labels": [
+      "gain_continuation\\compatible_profiles.json:candidate",
+      "gain_continuation\\compatible_profiles.json:profile_3"
+    ],
+    "eta": 1e-08,
+    "max_native_separation": 0.0010295691887733938,
+    "coordinate_separations": {
+      "N1": 8.8600238257186e-12,
+      "N2": 9.742207041085749e-12,
+      "N3": 7.319922445958582e-12,
+      "ax1": 3.762557385655896e-07,
+      "ax2": 1.8649770892054107e-06,
+      "ax3": 4.356786652337519e-06,
+      "ay1": 3.268137760414902e-09,
+      "ay2": 1.0986465071027851e-08,
+      "ay3": 5.0673065743467305e-09,
+      "ng1": 1.636897417611749e-08,
+      "ng2": 1.0468089026716143e-06,
+      "ng3": 2.3203139720706645e-06,
+      "d_W": 0.0010295691887733938,
+      "gap": 0.000500000000000167,
+      "bm_ax": 5.623011729294358e-07,
+      "bm_ay": 1.049996822641286e-06,
+      "bm_px": 1.9905429016198184e-06,
+      "bm_py": 3.771471998703646e-06
+    },
+    "stable_both_inside_eta": true,
+    "legacy_both_inside_eta": true,
+    "oracle_both_inside_eta": true
+  },
+  {
+    "label": "gain_continuation\\compatible_profiles.json:profile_4",
+    "endpoint_labels": [
+      "gain_continuation\\compatible_profiles.json:candidate",
+      "gain_continuation\\compatible_profiles.json:profile_4"
+    ],
+    "eta": 1e-08,
+    "max_native_separation": 0.0009193348009830515,
+    "coordinate_separations": {
+      "N1": 9.14779363370144e-12,
+      "N2": 4.050093593832571e-13,
+      "N3": 1.553945860877093e-11,
+      "ax1": 2.497569884241102e-07,
+      "ax2": 2.100973074181667e-06,
+      "ax3": 7.389053253703537e-06,
+      "ay1": 8.551414687474335e-09,
+      "ay2": 4.796554264885344e-09,
+      "ay3": 2.626030592978168e-08,
+      "ng1": 1.5124106766961631e-07,
+      "ng2": 1.015990124253463e-06,
+      "ng3": 2.4999999999053557e-06,
+      "d_W": 0.0009193348009830515,
+      "gap": 0.00042233709743788594,
+      "bm_ax": 3.125655856223153e-07,
+      "bm_ay": 7.416948642896548e-07,
+      "bm_px": 9.982882214210065e-07,
+      "bm_py": 2.565968788559303e-06
+    },
+    "stable_both_inside_eta": true,
+    "legacy_both_inside_eta": true,
+    "oracle_both_inside_eta": true
+  },
+  {
+    "label": "gain_continuation\\compatible_profiles.json:profile_5",
+    "endpoint_labels": [
+      "gain_continuation\\compatible_profiles.json:candidate",
+      "gain_continuation\\compatible_profiles.json:profile_5"
+    ],
+    "eta": 1e-08,
+    "max_native_separation": 0.0009193230986284107,
+    "coordinate_separations": {
+      "N1": 9.14734954449159e-12,
+      "N2": 4.0456527017340704e-13,
+      "N3": 1.5539236564166004e-11,
+      "ax1": 2.4978649815210474e-07,
+      "ax2": 2.100982929853501e-06,
+      "ax3": 7.388981260181282e-06,
+      "ay1": 8.54947312944887e-09,
+      "ay2": 4.7969948013815156e-09,
+      "ay3": 2.6259488805635556e-08,
+      "ng1": 1.5124405550182018e-07,
+      "ng2": 1.015986799801638e-06,
+      "ng3": 2.4999999999053557e-06,
+      "d_W": 0.0009193230986284107,
+      "gap": 0.000422331295057532,
+      "bm_ax": 3.1256445039151703e-07,
+      "bm_ay": 7.416841611429525e-07,
+      "bm_px": 9.982834552335618e-07,
+      "bm_py": 2.565927814668356e-06
+    },
+    "stable_both_inside_eta": true,
+    "legacy_both_inside_eta": true,
+    "oracle_both_inside_eta": true
+  },
+  {
+    "label": "profiles\\random00_eta1e4.json",
+    "endpoint_labels": [
+      "profiles\\random00_eta1e4.json:endpoint_a",
+      "profiles\\random00_eta1e4.json:endpoint_b"
+    ],
+    "eta": 0.0001,
+    "coordinate": "d_W",
+    "separation": 0.0021999999999877673,
+    "unavoidable_coordinate_error": 0.0010999999999938836,
+    "stable_both_inside_eta": true,
+    "legacy_both_inside_eta": true,
+    "oracle_both_inside_eta": true
+  },
+  {
+    "label": "ambiguity\\witnesses.json:eta_1e-8_separated_speeds",
+    "endpoint_labels": [
+      "ambiguity\\witnesses.json:eta_1e-8_separated_speeds:base",
+      "ambiguity\\witnesses.json:eta_1e-8_separated_speeds:alternative"
+    ],
+    "eta": 1e-08,
+    "coordinate_separations": {
+      "N1": -3.818279026290838e-12,
+      "N2": -2.4376278773274862e-11,
+      "N3": -1.8566259640806493e-12,
+      "ax1": 4.986168291587489e-07,
+      "ax2": -4.4633284135287e-06,
+      "ax3": 1.0109261588731044e-05,
+      "ay1": -4.940397424491039e-09,
+      "ay2": 3.9091446524253115e-08,
+      "ay3": 4.404447651040755e-08,
+      "ng1": -2.3763978318491752e-07,
+      "ng2": -2.317145751495886e-06,
+      "ng3": -5.0556909043653064e-06,
+      "d_W": 0.0021999999999877673,
+      "gap": -0.0010466052679447557,
+      "bm_ax": -1.1402910115032583e-06,
+      "bm_ay": 2.1725414630913154e-06,
+      "bm_px": 3.95303060196639e-06,
+      "bm_py": -7.721287364592655e-06
+    },
+    "historical_minimax_coordinate_lower_bound": [
+      1.9091395131454188e-12,
+      1.218813938663743e-11,
+      9.283129820403244e-13,
+      2.493084145793744e-07,
+      2.2316642067643495e-06,
+      5.054630794365521e-06,
+      2.470198712245519e-09,
+      1.9545723262126554e-08,
+      2.202223825520377e-08,
+      1.1881989159245875e-07,
+      1.1585728757479428e-06,
+      2.527845452182653e-06,
+      0.0010999999999938834,
+      0.0005233026339723778,
+      5.70145505751629e-07,
+      1.0862707315456575e-06,
+      1.9765153009831944e-06,
+      3.860643682296327e-06
+    ],
+    "stable_both_inside_eta": true,
+    "legacy_both_inside_eta": true,
+    "oracle_both_inside_eta": true
+  },
+  {
+    "label": "ambiguity\\witnesses.json:eta_1e-4_large_wedges",
+    "endpoint_labels": [
+      "ambiguity\\witnesses.json:eta_1e-4_large_wedges:base",
+      "ambiguity\\witnesses.json:eta_1e-4_large_wedges:alternative"
+    ],
+    "eta": 0.0001,
+    "coordinate_separations": {
+      "N1": -2.9486886266028023e-08,
+      "N2": 2.4072231319394177e-08,
+      "N3": -4.656382279755178e-09,
+      "ax1": 0.0003589047623027142,
+      "ax2": -0.0013811016124076758,
+      "ax3": 0.0032339694976126765,
+      "ay1": 4.659955620756051e-05,
+      "ay2": -5.6503243762051625e-05,
+      "ay3": 1.1471985285282926e-05,
+      "ng1": -2.9006558375233027e-06,
+      "ng2": -0.00014341972475784281,
+      "ng3": -0.0004439453336457788,
+      "d_W": 0.05000000000001137,
+      "gap": -0.027956092065833715,
+      "bm_ax": -9.76647690635879e-05,
+      "bm_ay": 0.00011436788471863579,
+      "bm_px": 0.00048543224015551445,
+      "bm_py": -0.000617316605261653
+    },
+    "historical_minimax_coordinate_lower_bound": [
+      1.474344313301401e-08,
+      1.2036115659697087e-08,
+      2.3281911398775886e-09,
+      0.00017945238115135706,
+      0.0006905508062038378,
+      0.001616984748806338,
+      2.3299778103780252e-05,
+      2.825162188102581e-05,
+      5.735992642641462e-06,
+      1.4503279187616511e-06,
+      7.17098623789214e-05,
+      0.00022197266682288938,
+      0.02500000000000568,
+      0.013978046032916856,
+      4.883238453179394e-05,
+      5.718394235931789e-05,
+      0.0002427161200777572,
+      0.00030865830263082644
+    ],
+    "stable_both_inside_eta": true,
+    "legacy_both_inside_eta": true,
+    "oracle_both_inside_eta": true
+  }
+]
+
+See comparison.csv and results.json for every success, failure, endpoint, and truth/noise record.

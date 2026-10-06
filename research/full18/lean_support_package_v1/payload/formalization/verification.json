@@ -1,0 +1,39 @@
+{
+  "status": "passed",
+  "compiler_exit_code": 0,
+  "utc": "2026-10-03T01:28:33.3423923Z",
+  "toolchain": "Lean 4.33.0",
+  "lean_commit": "d8b18978322de05a8f3dba51ef03cf5461676c17",
+  "mathlib_manifest_commit": "db584cd6d46c92f209a44c0f1c829460d327499d",
+  "theorem_count": 11,
+  "per_theorem_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "custom_axioms": false,
+  "admitted_goals": false,
+  "scope": "Supporting algebraic and inequality lemmas only; no complete inverse formalization",
+  "files": [
+    {
+      "file": "RisleySupport.lean",
+      "sha256": "402d3f1555dabe0639f54d8af43a770f30ed0a134ac6308846f4444e74d573e8",
+      "bytes": 6589
+    },
+    {
+      "file": "RisleySupport.olean",
+      "sha256": "9bd201bd7d13e0c241a26ef1906e58c275717c31f755d89b992732aef880e68b",
+      "bytes": 1482880
+    },
+    {
+      "file": "compiler-output.txt",
+      "sha256": "9502f23a92627676e8463aa4602683e4234a24555167c12a03e4c33242fe9778",
+      "bytes": 1873
+    },
+    {
+      "file": "check.ps1",
+      "sha256": "ed69f8cb840f0de3d6177c9944b59397c9eb682f1bff473b877e04b3bc0bc2ea",
+      "bytes": 1858
+    }
+  ]
+}

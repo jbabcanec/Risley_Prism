@@ -1,0 +1,7 @@
+{"event": "start_complete", "start": 0, "status": "unresolved", "elapsed_seconds": 4.405999999959022, "rotor_max_abs": 0.09671557115358967, "normal_closure_max_abs": 0.24370703040415467}
+{"event": "start_complete", "start": 1, "status": "unresolved", "elapsed_seconds": 9.562000000034459, "rotor_max_abs": 0.15217054550746095, "normal_closure_max_abs": 0.21713763641590855}
+{"event": "start_complete", "start": 2, "status": "unresolved", "elapsed_seconds": 14.405999999959022, "rotor_max_abs": 0.07053121787974484, "normal_closure_max_abs": 0.10077815550678568}
+{"event": "start_complete", "start": 3, "status": "unresolved", "elapsed_seconds": 19.67099999997299, "rotor_max_abs": 0.07784905992416638, "normal_closure_max_abs": 0.12051022188385414}
+{"event": "start_complete", "start": 4, "status": "unresolved", "elapsed_seconds": 24.59299999999348, "rotor_max_abs": 0.09051071068611466, "normal_closure_max_abs": 0.21557451776632286}
+{"event": "start_complete", "start": 5, "status": "unresolved", "elapsed_seconds": 29.109000000054948, "rotor_max_abs": 0.09053949968434746, "normal_closure_max_abs": 0.10689854647617505}
+{"id": "random_03", "status": "unresolved", "seconds": 31.004958900040947, "best_mse": 0.011638802531624668}

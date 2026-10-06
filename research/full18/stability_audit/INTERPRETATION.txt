@@ -1,0 +1,62 @@
+Stable-model audit interpretation, 2026-10-02
+
+The saved evidence survives the evaluator correction. Across 155 scored records
+and 102 distinct parameter/time inputs, no positive-eta compatibility decision
+changes, and no 1e-8 numerical-fit decision changes. All 41 audited positive-noise
+truth/actual-record comparisons remain inside their stated hard bands. The
+smallest oracle-confirmed remaining truth margin is 1.13591448e-11, in fresh
+combined random_04 at eta=1e-6. Nearly saturated noise therefore merits checking;
+compatibility was verified here, not assumed from the generator's noise formula.
+
+The 30 original benchmark truth records are untouched. Their largest differences
+from the stable evaluator are:
+  cases.json                  4.13942436e-10  (12 records)
+  holdout.json                 1.63693059e-9  (6 records)
+  combined_holdout.json        1.41314516e-10  (10 records)
+  collision_holdout.json       1.30029321e-12  (2 records)
+Stored legacy-generated observations equal the legacy program by construction.
+They do not equal an exact mathematical forward map at literal eta=0. These
+expected equality changes are the only recorded hard-band classification changes;
+they are not new inverse-solver failures. The more severe approximately 1.56e-6
+legacy defect found in the separate forward audit does not occur in this evidence
+snapshot: its largest legacy/stable difference is 1.63693059e-9.
+
+The independent 70-digit directed-interval reference was evaluated at all 200
+supplied binary64 times for 51 distinct parameter/time inputs. Its largest upper
+bound on stable-evaluator error is 4.57222561e-11, at an earlier failed low-frequency
+candidate. This is an observed audit bound, not a uniform floating-point guarantee.
+The oracle uses mathematical pi and exact binary64 inputs; the original final
+witness proofs used rational k/20 times. Both conventions now have separate
+supporting checks, without altering the original records or proofs.
+
+All nine saved ambiguity pairs remain compatible under the stable evaluator and
+the independent oracle: six gain-profile pairs, the random_00 actual-record pair,
+and both final constructed witness pairs. In the final separated-speed eta=1e-8
+pair, the oracle residual upper bounds are 9.72224310e-9 and 9.72216216e-9. The
+saved d_W separation and resulting unavoidable 0.0011 error remain unchanged.
+The large-wedge eta=1e-4 pair has oracle bounds below 7.81794208e-5. The actual
+random_00 eta=1e-4 pair has bounds 9.63092087e-5 and 9.70890815e-5.
+
+Full18 parameter-error scoring compares saved coordinates directly with truth,
+in physical order. It never depends on which forward evaluator is used. The
+frozen fresh-combined policy therefore retains these all18 error<0.001 counts:
+  noiseless: 7/10; eta1e-6: 7/10; eta1e-4: 6/10;
+  eta1e-3: 2/10; eta1e-2: 0/10.
+Compatible-candidate counts at the four positive noise levels remain 7,7,7,8.
+Compatibility and parameter accuracy are different tests.
+
+All three repaired fresh-combined cases remain valid. Their saved maximum native
+errors are 7.54596385e-12 for low_frequency/random_02.json, 2.91322522e-13 for
+random_03_profile.json, and 1.28608235e-12 for random_07_release.json. Earlier
+failures remain recorded. In particular random_07_profile.json is physically
+invalid (TIR radicand -1.33715179e-4 at x-axis/interface5/sample176); both strict
+evaluators reject it. The summary's issues=0 means no input-processing failure,
+not that every candidate was physically valid. Gain continuation's two fresh
+failed cases likewise remain failures.
+
+The root agent executed the prepared read-only scorer under the user's current
+authorization after this subagent's automatic approval review saw only the older
+inspection-only instruction and rejected execution here. No Dropbox files or
+saved observations were changed. All input snapshots remained unchanged during
+the audit. See results.json for full provenance, comparison.csv for every row,
+and stability_crosscheck.py for the reproducible scoring policy.

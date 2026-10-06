@@ -1,0 +1,7 @@
+{"event": "start_complete", "start": 0, "status": "unresolved", "elapsed_seconds": 3.5, "rotor_max_abs": 0.00022268809379557414, "normal_closure_max_abs": 0.00018444642498313012}
+{"event": "start_complete", "start": 1, "status": "unresolved", "elapsed_seconds": 8.469000000040978, "rotor_max_abs": 0.0008523160685460079, "normal_closure_max_abs": 0.0007519424666390418}
+{"event": "start_complete", "start": 2, "status": "unresolved", "elapsed_seconds": 12.937999999965541, "rotor_max_abs": 0.0013150749282935803, "normal_closure_max_abs": 0.0009567572829169248}
+{"event": "start_complete", "start": 3, "status": "unresolved", "elapsed_seconds": 16.73499999998603, "rotor_max_abs": 0.026907936482710133, "normal_closure_max_abs": 0.022038890849224772}
+{"event": "start_complete", "start": 4, "status": "unresolved", "elapsed_seconds": 20.07799999997951, "rotor_max_abs": 0.03434397268937735, "normal_closure_max_abs": 0.033507582002504185}
+{"event": "start_complete", "start": 5, "status": "unresolved", "elapsed_seconds": 24.79700000002049, "rotor_max_abs": 0.003388581025654591, "normal_closure_max_abs": 0.0022952921592860275}
+{"id": "exact_collision", "status": "unresolved", "seconds": 33.27287460002117, "best_mse": 8.848046158861403e-05}

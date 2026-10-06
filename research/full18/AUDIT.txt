@@ -1,0 +1,122 @@
+Independent evidence audit, 2026-10-02
+
+Scope: read-only inspection of saved results and source, plus independent
+PowerShell arithmetic, noise-pattern comparisons and SHA256 reads. No optical
+model, optimizer, experiment or project Python code was executed for this audit.
+Only this report is added. The later additional-noise sweep is outside scope.
+
+COUNTS AND ACCURACY
+
+verification_combined_noiseless.json has ten unique case rows, no exception
+rows, and seven actual all18 native-error passes. The three failures remain.
+verification_combined_noise_1e4.json has ten unique rows, no exception rows,
+and six actual all18 passes. Both saved totals independently recount correctly.
+
+Seven noisy candidates, rather than six, have saved point-enclosure error
+bounds below eta=1e-4. Noisy random_01 fits that band (bound9.5048441e-5) while
+missing native accuracy (maximum coordinate error .0012362186). Thus fitting
+the observed scan is not the same as accurate hardware reconstruction.
+
+Noiseless successes are numerical recoveries against floating reference data,
+not exact mathematical compatibility at eta=0. Their saved mathematical-model
+enclosures still have nonzero bounds around7e-11 to1.27e-9.
+
+Errors are absolute in each coordinate's native units, without reordering
+physical prisms: speeds Hz, angles degrees, indices dimensionless, and lengths
+native position units. No physical millimetre unit or percentage is established.
+The .001 criterion is applied coordinate by coordinate, not to normalized error.
+The evaluator uses <=.001, while some original wording says strictly <.001.
+No audited value is on that boundary, so the reported counts are unchanged.
+
+NOISE PROVENANCE
+
+All twenty combined-policy outputs contain200 actual two-dimensional rows.
+Every noiseless array equals its observation-only source exactly. Every noisy
+array equals the source plus eta*sin((k+1)*(sqrt(2)+axis*sqrt(3))) exactly under
+the independent arithmetic comparison. Maximum realized added noise is
+9.999876561295196e-5, below1e-4. All twenty observation-byte SHA256 values
+independently recompute correctly.
+
+This is one prescribed deterministic pattern on ten cases, not arbitrary-noise
+coverage, a confidence interval, or a population success probability. The noise
+is added relative to the floating reference generator. Strict mathematical
+truth compatibility additionally requires accounting for generator/model and
+clock representation discrepancies; candidate-point checks and native truth
+error scores should remain separately described.
+
+ACTUAL-RECORD PROFILE PAIR
+
+profiles/random00_eta1e4.json concerns ORIGINAL DEVELOPMENT random_00,
+with speeds approximately(-2.5238,-2.7824,-1.9879) and distance182.05.
+It is NOT the combined-holdout random_00 whose distance is approximately85.89.
+Its200 observations exactly match candidate_random00_eta1e4.json and the
+original development input plus the stated1e-4 sine perturbation.
+
+The displayed pair's saved point bounds are9.6309708482e-5 and9.7089392781e-5,
+both below1e-4, with positive physical margins. Their workpiece-distance
+separation is .0021999999999877673. For every possible estimator output, at
+least one of those two compatible systems has distance error at least half
+that separation, about.0011. This is a LOWER witness of uncertainty for this
+record. It is not an enumeration of the compatible set or a proof that every
+fit is inaccurate. The file correctly marks complete enumeration false and
+states that failure to find a witness would not prove recovery.
+
+An optional stronger consequence already present in the saved profiles:
+the two gap-shift endpoints (-.0022,+.0022) also pass with respective bounds
+9.8624056283e-5 and9.8495743779e-5. Their distance separation is approximately
+.008162805972063, giving a distance-error lower bound around.004081403.
+That uses those two endpoints specifically, not the file's first selected pair.
+
+CONSTRUCTED STRICT WITNESSES
+
+ambiguity/witnesses.json intentionally uses constructed shared observation
+records, not any frozen random record. Its first pair has eta1e-8, strict
+error upper bound9.7221849288e-9 and distance separation approximately.0022.
+Both exact stored canonical output comparisons also fit the same record
+(errors9.7466781313e-9 and9.7378487496e-9). This disproves a uniform.001
+guarantee over the full original box at that allowance, under the stated
+optical/arithmetic model. It does not prove exact noiseless nonidentifiability.
+
+The second constructed pair uses eta1e-4, ordinary larger wedges and strict
+error bound7.8179420624e-5. Distance separation .05 yields a .025 lower error
+bound; additional coordinate lower bounds must be read individually. The
+adversarial endpoint may differ by coordinate. These are not simultaneous
+claims that one endpoint realizes every reported coordinate lower bound.
+
+The independent verifier uses directed arbitrary-precision intervals, exact
+binary-rational submitted parameters and exact rational times k/20. It checks
+both errors to an explicitly stored common record, including its rounding.
+This is not Lean or a verification of Python/mpmath itself. Its source hashes
+match the saved60/100-digit and ordinary-noise reports. The reported precision
+repeat supports arithmetic stability; it is not a replacement for interval
+enclosure logic.
+
+SOURCE AND IMPLEMENTATION CAVEATS
+
+The five recorded original hashes (core.py, model.py, separable.py, solve.py,
+fmodel.py) independently match current files. Every combined output also has
+the same poc3.py hash, matching current poc3.py. These facts support exactly
+those files. They do not hash the whole repository or every wrapper/dependency.
+
+verify_results.py silently skips result files with no theta/parameters/x18.
+This did not affect these two ten-row reports, but future rates must use the
+number of attempted inputs, not just the evaluator's returned-row denominator.
+
+Small rigor gap: profile_observation.point_check and verify_results evaluate
+abs(fm-y)+fr using ordinary NumPy rounding at the last subtraction and sum.
+An outward-rounded final expression should be used before calling that scalar
+a formal upper bound. The displayed pair has ample slack, so an ordinary ulp
+correction cannot change its conclusion. Existing fmodel point calls use the
+stored binary64 sampling clock; distinguish that from the independent strict
+verifier's exact k/20 clock. Neither issue changes the constructed strict
+witness argument, which uses the separate interval verifier.
+
+Minor documentation issue: verify_pairs.py imports NAMES/LO/HI from
+profile_pairs.py, which imports scipy.optimize at module load. Its statement
+that no optimizer is imported is literally inaccurate; no optimizer is called
+by the independent verification path, and its optical equations are separate.
+
+No material count or common-record-witness error was found. The main risks are
+conflating candidate compatibility with parameter accuracy, mixing identically
+named cases across datasets, presenting adaptive repairs as frozen-policy
+successes, or promoting finite tested noise patterns to universal guarantees.

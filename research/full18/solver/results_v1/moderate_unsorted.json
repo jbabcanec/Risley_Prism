@@ -1,0 +1,315 @@
+{
+  "status": "candidate_fit",
+  "certified": false,
+  "theta": [
+    1.7000000000000222,
+    -0.9300000000000123,
+    0.3699999999999819,
+    4.999999999813221,
+    -4.000000000047947,
+    3.0000000001682814,
+    3.99999999996848,
+    -5.999999999976542,
+    9.000000000034044,
+    1.4700000000097602,
+    1.6300000000099666,
+    1.7200000000171847,
+    111.99999999102131,
+    7.0000000055812,
+    3.0000000000614806,
+    -2.000000000146168,
+    0.3999999997379087,
+    -0.5999999995684222
+  ],
+  "spectral_seconds": 0.21164280001539737,
+  "attempts": [
+    {
+      "tag": "basis=0/order=(0, 1, 2),d0=125,n0=1.55",
+      "mse": 4.567387045249095e-06,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(0, 1, 2),d0=80,n0=1.4",
+      "mse": 1.544010314063783e-05,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(0, 1, 2),d0=180,n0=1.7",
+      "mse": 7.56629460412742e-06,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(0, 2, 1),d0=125,n0=1.55",
+      "mse": 1.3698846856810744e-05,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(0, 2, 1),d0=80,n0=1.4",
+      "mse": 2.7144281642122337e-05,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(0, 2, 1),d0=180,n0=1.7",
+      "mse": 1.6788785458979842e-05,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(1, 0, 2),d0=125,n0=1.55",
+      "mse": 2.4295580137829313e-05,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(1, 0, 2),d0=80,n0=1.4",
+      "mse": 4.64153043269825e-05,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(1, 0, 2),d0=180,n0=1.7",
+      "mse": 2.6261327863215626e-05,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(1, 2, 0),d0=125,n0=1.55",
+      "mse": 4.211462494234538e-05,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(1, 2, 0),d0=80,n0=1.4",
+      "mse": 8.305934859532942e-05,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(1, 2, 0),d0=180,n0=1.7",
+      "mse": 3.9702706626087816e-05,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(2, 0, 1),d0=125,n0=1.55",
+      "mse": 2.1770051721363798e-05,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(2, 0, 1),d0=80,n0=1.4",
+      "mse": 3.523446198342069e-05,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(2, 0, 1),d0=180,n0=1.7",
+      "mse": 5.890146641222782e-05,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(2, 1, 0),d0=125,n0=1.55",
+      "mse": 3.9231382832705774e-05,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(2, 1, 0),d0=80,n0=1.4",
+      "mse": 6.93662685481651e-05,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(2, 1, 0),d0=180,n0=1.7",
+      "mse": 3.885514464813264e-05,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=0/order=(0, 1, 2),d0=125,n0=1.55",
+      "mse": 2.8201730186610472e-06,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=0/order=(0, 1, 2),d0=180,n0=1.7",
+      "mse": 1.6908680056806716e-22,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=0/order=(0, 2, 1),d0=125,n0=1.55",
+      "mse": 7.157152668389503e-06,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=0/order=(0, 1, 2),d0=80,n0=1.4",
+      "mse": 1.690982812275179e-22,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=0/order=(0, 2, 1),d0=180,n0=1.7",
+      "mse": 7.157152668400207e-06,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=0/order=(2, 0, 1),d0=125,n0=1.55",
+      "mse": 2.013276935149316e-05,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(0, 1, 2),d0=125,n0=1.55",
+      "mse": 0.21783858924264055,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(0, 1, 2),d0=80,n0=1.4",
+      "mse": 0.4358792899180041,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(0, 1, 2),d0=180,n0=1.7",
+      "mse": 6.566178043530936e-05,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(0, 2, 1),d0=125,n0=1.55",
+      "mse": 0.0002429026047933784,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(0, 2, 1),d0=80,n0=1.4",
+      "mse": 4.603788641119063,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(0, 2, 1),d0=180,n0=1.7",
+      "mse": 0.00020652679553204614,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(1, 0, 2),d0=125,n0=1.55",
+      "mse": 0.22850841302286307,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(1, 0, 2),d0=80,n0=1.4",
+      "mse": 0.43408529924554345,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(1, 0, 2),d0=180,n0=1.7",
+      "mse": 0.0006526676949806005,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(1, 2, 0),d0=125,n0=1.55",
+      "mse": 0.21220362804752718,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(1, 2, 0),d0=80,n0=1.4",
+      "mse": 0.00042841079646821695,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(1, 2, 0),d0=180,n0=1.7",
+      "mse": 0.0001677497474474752,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(2, 0, 1),d0=125,n0=1.55",
+      "mse": 0.0007488662730462195,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(2, 0, 1),d0=80,n0=1.4",
+      "mse": 4.493099341379234,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(2, 0, 1),d0=180,n0=1.7",
+      "mse": 0.00010724378341819162,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(2, 1, 0),d0=125,n0=1.55",
+      "mse": 0.0006130520593013818,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(2, 1, 0),d0=80,n0=1.4",
+      "mse": 3.9464379671040137,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(2, 1, 0),d0=180,n0=1.7",
+      "mse": 0.00010999909980693302,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=1/order=(0, 1, 2),d0=180,n0=1.7",
+      "mse": 1.6908887913705002e-22,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=1/order=(2, 0, 1),d0=180,n0=1.7",
+      "mse": 2.0132769351495715e-05,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=1/order=(2, 1, 0),d0=180,n0=1.7",
+      "mse": 3.8412908826757894e-05,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=1/order=(1, 2, 0),d0=180,n0=1.7",
+      "mse": 3.829689702545268e-05,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=1/order=(0, 2, 1),d0=180,n0=1.7",
+      "mse": 7.157152668394416e-06,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=1/order=(0, 2, 1),d0=125,n0=1.55",
+      "mse": 7.160697993463814e-06,
+      "physical": true
+    }
+  ],
+  "spectral_speeds": [
+    1.7005608059132022,
+    -0.9295954282294627,
+    0.3598198496175386
+  ],
+  "sampling_dt": 0.05,
+  "sample_count": 200,
+  "eta": 0,
+  "method": "polish/basis=0/order=(0, 1, 2),d0=180,n0=1.7",
+  "seconds": 33.62755069998093,
+  "rms": 7.859935926275702e-12,
+  "max_residual": 9.135914247337951e-11,
+  "hard_band_compatible": false,
+  "numerical_fit_tolerance": 1e-08,
+  "model_parity": 1.7522894246724263e-10,
+  "compatibility_verification": {
+    "verified": false,
+    "reason": "candidate solver only; run full18 interval verification separately"
+  },
+  "alternative": {
+    "theta": [
+      1.6999999932532532,
+      -0.9300009128141405,
+      0.36999916425566465,
+      4.430635860364676,
+      -4.3175981645904855,
+      3.5326355475700626,
+      3.9994291622556655,
+      -6.000530174075195,
+      9.001241223246979,
+      1.529899548940831,
+      1.5599577688103856,
+      1.5615896026261813,
+      121.90642265310179,
+      2.0,
+      2.982123069695663,
+      -1.9905772926798821,
+      0.4385862192862948,
+      -0.6196050500974302
+    ],
+    "smooth_rms": 0.0016793370771411697,
+    "max_residual": 0.005228025100359801,
+    "hard_band_compatible": false,
+    "numerical_fit": false,
+    "method": "polish/basis=0/order=(0, 1, 2),d0=125,n0=1.55"
+  },
+  "id": "moderate_unsorted",
+  "noise_amplitude": 0
+}

@@ -1,0 +1,314 @@
+{
+  "package": "risley_lean_support_sources_v1",
+  "packaging_scope": "Existing source/evidence preservation only; no compiler, tests or new formalization run",
+  "toolchain": "leanprover/lean4:v4.33.0",
+  "lean_commit": "d8b18978322de05a8f3dba51ef03cf5461676c17",
+  "mathlib_commit": "db584cd6d46c92f209a44c0f1c829460d327499d",
+  "existing_theorem_count": 19,
+  "source_theorem_counts": {
+    "RisleySupport": 11,
+    "RisleyCriticalMargin": 8
+  },
+  "existing_recorded_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "theorem_inventory": [
+    {
+      "name": "RisleySupport.entrance_det",
+      "source": "formalization/RisleySupport.lean",
+      "existing_compiler_log": "formalization/compiler-output.txt",
+      "recorded_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "RisleySupport.transport_factorization",
+      "source": "formalization/RisleySupport.lean",
+      "existing_compiler_log": "formalization/compiler-output.txt",
+      "recorded_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "RisleySupport.transport_det",
+      "source": "formalization/RisleySupport.lean",
+      "existing_compiler_log": "formalization/compiler-output.txt",
+      "recorded_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "RisleySupport.transport_inverse",
+      "source": "formalization/RisleySupport.lean",
+      "existing_compiler_log": "formalization/compiler-output.txt",
+      "recorded_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "RisleySupport.transport_det_pos",
+      "source": "formalization/RisleySupport.lean",
+      "existing_compiler_log": "formalization/compiler-output.txt",
+      "recorded_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "RisleySupport.combined_spatial_recurrence",
+      "source": "formalization/RisleySupport.lean",
+      "existing_compiler_log": "formalization/compiler-output.txt",
+      "recorded_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "RisleySupport.critical_inward_identity",
+      "source": "formalization/RisleySupport.lean",
+      "existing_compiler_log": "formalization/compiler-output.txt",
+      "recorded_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "RisleySupport.critical_inward_negative",
+      "source": "formalization/RisleySupport.lean",
+      "existing_compiler_log": "formalization/compiler-output.txt",
+      "recorded_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "RisleySupport.external_flight_inward_identity",
+      "source": "formalization/RisleySupport.lean",
+      "existing_compiler_log": "formalization/compiler-output.txt",
+      "recorded_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "RisleySupport.external_flight_inward_negative",
+      "source": "formalization/RisleySupport.lean",
+      "existing_compiler_log": "formalization/compiler-output.txt",
+      "recorded_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "RisleySupport.sqrt_difference_bound",
+      "source": "formalization/RisleySupport.lean",
+      "existing_compiler_log": "formalization/compiler-output.txt",
+      "recorded_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "RisleyCriticalMargin.final_plane_identity",
+      "source": "formalization/CriticalMargin.lean",
+      "existing_compiler_log": "formalization/critical-margin-compiler-output.txt",
+      "recorded_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "RisleyCriticalMargin.weak_flight_bounds",
+      "source": "formalization/CriticalMargin.lean",
+      "existing_compiler_log": "formalization/critical-margin-compiler-output.txt",
+      "recorded_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "RisleyCriticalMargin.lagrange_identity",
+      "source": "formalization/CriticalMargin.lean",
+      "existing_compiler_log": "formalization/critical-margin-compiler-output.txt",
+      "recorded_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "RisleyCriticalMargin.screen_box_dot_bound",
+      "source": "formalization/CriticalMargin.lean",
+      "existing_compiler_log": "formalization/critical-margin-compiler-output.txt",
+      "recorded_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "RisleyCriticalMargin.scalar_ratio_margin",
+      "source": "formalization/CriticalMargin.lean",
+      "existing_compiler_log": "formalization/critical-margin-compiler-output.txt",
+      "recorded_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "RisleyCriticalMargin.final_prism_ratio_margin",
+      "source": "formalization/CriticalMargin.lean",
+      "existing_compiler_log": "formalization/critical-margin-compiler-output.txt",
+      "recorded_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "RisleyCriticalMargin.observation_screen_bound",
+      "source": "formalization/CriticalMargin.lean",
+      "existing_compiler_log": "formalization/critical-margin-compiler-output.txt",
+      "recorded_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "RisleyCriticalMargin.final_prism_observation_margin",
+      "source": "formalization/CriticalMargin.lean",
+      "existing_compiler_log": "formalization/critical-margin-compiler-output.txt",
+      "recorded_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "file_inventory_excludes_manifest_itself": true,
+  "files": [
+    {
+      "path": "dependency-environment/lake-manifest.json",
+      "bytes": 3140,
+      "sha256": "80fac8262177ad34366e8b132677d06e3f6c4f3dc027a2cf204df395b255baf3",
+      "provenance": "Unmodified metadata snapshot of the existing cached dependency environment"
+    },
+    {
+      "path": "dependency-environment/lakefile.toml",
+      "bytes": 347,
+      "sha256": "1710aff8ae902dffa2d8123fb542215c7270197f9bc8976dde0645e3b18f7746",
+      "provenance": "Unmodified metadata snapshot of the existing cached dependency environment"
+    },
+    {
+      "path": "dependency-environment/lean-toolchain",
+      "bytes": 25,
+      "sha256": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+      "provenance": "Unmodified metadata snapshot of the existing cached dependency environment"
+    },
+    {
+      "path": "formalization/check-critical-margin.ps1",
+      "bytes": 1878,
+      "sha256": "283912886f459922a367ec6bf4ea74a4433fcc0dae79b3d167348a4b57fef401",
+      "provenance": "Unmodified existing formalization source/evidence"
+    },
+    {
+      "path": "formalization/check.ps1",
+      "bytes": 1858,
+      "sha256": "ed69f8cb840f0de3d6177c9944b59397c9eb682f1bff473b877e04b3bc0bc2ea",
+      "provenance": "Unmodified existing formalization source/evidence"
+    },
+    {
+      "path": "formalization/compiler-output.txt",
+      "bytes": 1873,
+      "sha256": "9502f23a92627676e8463aa4602683e4234a24555167c12a03e4c33242fe9778",
+      "provenance": "Unmodified existing formalization source/evidence"
+    },
+    {
+      "path": "formalization/critical_margin_independent_audit.md",
+      "bytes": 9218,
+      "sha256": "583d2763bf7ed5aa148b8292927d909e0ca59ba87314317538fc1a92843c82c0",
+      "provenance": "Unmodified existing formalization source/evidence"
+    },
+    {
+      "path": "formalization/critical-margin-compiler-output.txt",
+      "bytes": 1637,
+      "sha256": "1a57194d1f3c66ea1fd89f2460134b23beb41428d51d12caaf36d630d20fd9f9",
+      "provenance": "Unmodified existing formalization source/evidence"
+    },
+    {
+      "path": "formalization/critical-margin-README.md",
+      "bytes": 5487,
+      "sha256": "be402be36dcd1aed6ee2ae4960534aa1e2eaca338b736f309ffce538f6a1b067",
+      "provenance": "Unmodified existing formalization source/evidence"
+    },
+    {
+      "path": "formalization/critical-margin-verification.json",
+      "bytes": 1718,
+      "sha256": "79cf88251f1be21abc21a493ba768c76ba4007b53aac385e21adb0f2687368e5",
+      "provenance": "Unmodified existing formalization source/evidence"
+    },
+    {
+      "path": "formalization/CriticalMargin.lean",
+      "bytes": 6916,
+      "sha256": "d711b8b89cc89c9afc86c6426c0136a03c2295d598774f2b58c5133ebc49fdb7",
+      "provenance": "Unmodified existing formalization source/evidence"
+    },
+    {
+      "path": "formalization/independent_audit.md",
+      "bytes": 8957,
+      "sha256": "81237f968ee4f9d4b6206f536ee2266d13e255e3a260dbd904ba439d4e60ba07",
+      "provenance": "Unmodified existing formalization source/evidence"
+    },
+    {
+      "path": "formalization/README.md",
+      "bytes": 5202,
+      "sha256": "4628fb9ed66a526c5e27c81928afffaf9203d4e6a21c135f9208c2d4bffa1ee1",
+      "provenance": "Unmodified existing formalization source/evidence"
+    },
+    {
+      "path": "formalization/RisleySupport.lean",
+      "bytes": 6589,
+      "sha256": "402d3f1555dabe0639f54d8af43a770f30ed0a134ac6308846f4444e74d573e8",
+      "provenance": "Unmodified existing formalization source/evidence"
+    },
+    {
+      "path": "formalization/verification.json",
+      "bytes": 1179,
+      "sha256": "3457b70ed2bff9f029d12e443819b9dd73339eac4b00d76f03dffe6290888c43",
+      "provenance": "Unmodified existing formalization source/evidence"
+    },
+    {
+      "path": "README.txt",
+      "bytes": 4070,
+      "sha256": "2c5329b22ce44907d44e5c4366d20ca8ac90b22d4ce273454c08f8da3ae37d34",
+      "provenance": "New packaging scope/readme; not new proof evidence"
+    }
+  ],
+  "exclusions": [
+    "Compiled .olean files",
+    "Compiler/dependency binaries and caches",
+    "Superseded failed-draft logs",
+    "Unrelated original project sources"
+  ]
+}

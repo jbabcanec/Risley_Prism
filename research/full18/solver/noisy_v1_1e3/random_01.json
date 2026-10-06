@@ -1,0 +1,319 @@
+{
+  "status": "candidate_fit",
+  "certified": false,
+  "theta": [
+    -1.5923662583597227,
+    2.9881292022434605,
+    -2.1846409291214774,
+    13.375376135824773,
+    -12.952077176272226,
+    -11.675625123007805,
+    12.75498952363365,
+    9.992115789599648,
+    -13.543250083385843,
+    1.7784099857654412,
+    1.5752731068006152,
+    1.6713927909401125,
+    155.77927140150229,
+    5.291296405482219,
+    -19.615300059034105,
+    -8.371988276581336,
+    2.1895750060528636,
+    -4.143669449502688
+  ],
+  "spectral_seconds": 0.20205319998785853,
+  "attempts": [
+    {
+      "tag": "basis=0/order=(0, 1, 2),d0=125,n0=1.55",
+      "mse": 63.72707992924666,
+      "physical": false
+    },
+    {
+      "tag": "basis=0/order=(0, 1, 2),d0=80,n0=1.4",
+      "mse": 63.72640468406823,
+      "physical": false
+    },
+    {
+      "tag": "basis=0/order=(0, 1, 2),d0=180,n0=1.7",
+      "mse": 105.12650838262476,
+      "physical": false
+    },
+    {
+      "tag": "basis=0/order=(0, 2, 1),d0=125,n0=1.55",
+      "mse": 205.06725652529138,
+      "physical": false
+    },
+    {
+      "tag": "basis=0/order=(0, 2, 1),d0=80,n0=1.4",
+      "mse": 0.3077200563836909,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(0, 2, 1),d0=180,n0=1.7",
+      "mse": 144.19733405104046,
+      "physical": false
+    },
+    {
+      "tag": "basis=0/order=(1, 0, 2),d0=125,n0=1.55",
+      "mse": 139.41891795601387,
+      "physical": false
+    },
+    {
+      "tag": "basis=0/order=(1, 0, 2),d0=80,n0=1.4",
+      "mse": 64.84228928870209,
+      "physical": false
+    },
+    {
+      "tag": "basis=0/order=(1, 0, 2),d0=180,n0=1.7",
+      "mse": 64.84228934646424,
+      "physical": false
+    },
+    {
+      "tag": "basis=0/order=(1, 2, 0),d0=125,n0=1.55",
+      "mse": 376.21152313910534,
+      "physical": false
+    },
+    {
+      "tag": "basis=0/order=(1, 2, 0),d0=80,n0=1.4",
+      "mse": 56.56585874087622,
+      "physical": false
+    },
+    {
+      "tag": "basis=0/order=(1, 2, 0),d0=180,n0=1.7",
+      "mse": 56.565859693212026,
+      "physical": false
+    },
+    {
+      "tag": "basis=0/order=(2, 0, 1),d0=125,n0=1.55",
+      "mse": 155.3322424621073,
+      "physical": false
+    },
+    {
+      "tag": "basis=0/order=(2, 0, 1),d0=80,n0=1.4",
+      "mse": 3.65598785658756e-07,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(2, 0, 1),d0=180,n0=1.7",
+      "mse": 132.15248704399224,
+      "physical": false
+    },
+    {
+      "tag": "basis=0/order=(2, 1, 0),d0=125,n0=1.55",
+      "mse": 64.28180106118214,
+      "physical": false
+    },
+    {
+      "tag": "basis=0/order=(2, 1, 0),d0=80,n0=1.4",
+      "mse": 47.642302054404844,
+      "physical": false
+    },
+    {
+      "tag": "basis=0/order=(2, 1, 0),d0=180,n0=1.7",
+      "mse": 47.64230127371151,
+      "physical": false
+    },
+    {
+      "tag": "polish/basis=0/order=(2, 0, 1),d0=80,n0=1.4",
+      "mse": 3.65598785658756e-07,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=0/order=(0, 2, 1),d0=80,n0=1.4",
+      "mse": 0.30772005638369904,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=0/order=(2, 1, 0),d0=180,n0=1.7",
+      "mse": 47.64230172514551,
+      "physical": false
+    },
+    {
+      "tag": "polish/basis=0/order=(2, 1, 0),d0=80,n0=1.4",
+      "mse": 47.642301818892044,
+      "physical": false
+    },
+    {
+      "tag": "polish/basis=0/order=(1, 2, 0),d0=80,n0=1.4",
+      "mse": 56.5658596766714,
+      "physical": false
+    },
+    {
+      "tag": "polish/basis=0/order=(1, 2, 0),d0=180,n0=1.7",
+      "mse": 56.56585967592073,
+      "physical": false
+    },
+    {
+      "tag": "basis=1/order=(0, 1, 2),d0=125,n0=1.55",
+      "mse": 462.32408410587146,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(0, 1, 2),d0=80,n0=1.4",
+      "mse": 464.9467612499737,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(0, 1, 2),d0=180,n0=1.7",
+      "mse": 468.94036396953555,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(0, 2, 1),d0=125,n0=1.55",
+      "mse": 468.1779855336243,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(0, 2, 1),d0=80,n0=1.4",
+      "mse": 465.05483855855476,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(0, 2, 1),d0=180,n0=1.7",
+      "mse": 459.59217478920596,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(1, 0, 2),d0=125,n0=1.55",
+      "mse": 463.44825157871253,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(1, 0, 2),d0=80,n0=1.4",
+      "mse": 464.14231390110535,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(1, 0, 2),d0=180,n0=1.7",
+      "mse": 466.80853939903,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(1, 2, 0),d0=125,n0=1.55",
+      "mse": 603.5388064880509,
+      "physical": false
+    },
+    {
+      "tag": "basis=1/order=(1, 2, 0),d0=80,n0=1.4",
+      "mse": 464.7287979535262,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(1, 2, 0),d0=180,n0=1.7",
+      "mse": 470.42655253528886,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(2, 0, 1),d0=125,n0=1.55",
+      "mse": 465.34329904351745,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(2, 0, 1),d0=80,n0=1.4",
+      "mse": 466.08952891697743,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(2, 0, 1),d0=180,n0=1.7",
+      "mse": 468.3180526401952,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(2, 1, 0),d0=125,n0=1.55",
+      "mse": 545.7860317007451,
+      "physical": false
+    },
+    {
+      "tag": "basis=1/order=(2, 1, 0),d0=80,n0=1.4",
+      "mse": 469.37785122584233,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(2, 1, 0),d0=180,n0=1.7",
+      "mse": 470.3543206262295,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=1/order=(0, 2, 1),d0=180,n0=1.7",
+      "mse": 459.353611738083,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=1/order=(0, 1, 2),d0=125,n0=1.55",
+      "mse": 462.2746002661178,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=1/order=(1, 0, 2),d0=125,n0=1.55",
+      "mse": 463.08007235219503,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=1/order=(1, 0, 2),d0=80,n0=1.4",
+      "mse": 463.62224824024497,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=1/order=(1, 2, 0),d0=80,n0=1.4",
+      "mse": 464.2060592935432,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=1/order=(0, 1, 2),d0=80,n0=1.4",
+      "mse": 463.3890156689634,
+      "physical": true
+    }
+  ],
+  "spectral_speeds": [
+    2.9895862134524136,
+    -2.1831122721406673,
+    -1.5909203879508567
+  ],
+  "sampling_dt": 0.05,
+  "sample_count": 200,
+  "eta": 0.001,
+  "minimax_max_residuals": [
+    0.0011126487736135005,
+    0.0009951699738337538
+  ],
+  "method": "minimax/basis=0/order=(2, 0, 1),d0=80,n0=1.4",
+  "seconds": 9.534988300059922,
+  "rms": 0.0006157134925660827,
+  "max_residual": 0.0009951699738337538,
+  "hard_band_compatible": true,
+  "numerical_fit_tolerance": 1e-08,
+  "model_parity": 1.0838263619916688e-10,
+  "compatibility_verification": {
+    "verified": false,
+    "reason": "candidate solver only; run full18 interval verification separately"
+  },
+  "alternative": {
+    "theta": [
+      2.9881887651435886,
+      -1.5923775196074315,
+      -2.184608711711801,
+      -16.23582640291645,
+      13.421988003449542,
+      -11.830015063484698,
+      9.956159105267874,
+      12.860687375394399,
+      -13.463970352805308,
+      1.4276124792027902,
+      1.7999999999999998,
+      1.6328041261882889,
+      163.3110026621877,
+      2.0,
+      -19.429116258334908,
+      -8.203945669639037,
+      2.1484738807022072,
+      -4.49236507394186
+    ],
+    "smooth_rms": 0.5547252079937335,
+    "max_residual": 2.872410755393929,
+    "hard_band_compatible": false,
+    "numerical_fit": false,
+    "method": "basis=0/order=(0, 2, 1),d0=80,n0=1.4"
+  },
+  "id": "random_01",
+  "noise_amplitude": 0.001
+}

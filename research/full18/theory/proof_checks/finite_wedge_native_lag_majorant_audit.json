@@ -1,0 +1,16 @@
+{
+  "scope": "nonnegative entrywise-radius MAJORANT M only; no physical singularity or instability inference",
+  "positive_vector_binary": [
+    1.7294385157635679,
+    1.2154594822930629,
+    1.4321018999785475,
+    1.2566277823742884,
+    1.4578532404148077,
+    1.0
+  ],
+  "collatz_wielandt_spectral_radius_interval": [
+    1.0359049589940914,
+    1.0359049589940934
+  ],
+  "no_positive_weight_can_make_this_exact_M_contractive": true
+}

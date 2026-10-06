@@ -1,0 +1,42 @@
+Completed full18 harmonic comparison, 2026-10-02
+
+Scoring uses the eighteen saved coordinates in their physical order, without
+permutation. Pass requires every absolute native-coordinate error <.001.
+Truth is read only after the observation-only solver selected each candidate.
+No new optical solve or new test was run during this scoring pass.
+
+Method                    Passed  Median seconds  Worst native error
+Direct exact completion   4/4     5.076           4.41353e-8
+Low-mode continuation     2/4     5.548           9.92524
+Nonlinear-mode emphasis   3/4     3.460           .0991524
+
+Case                  Direct max error  Low-mode max error  Emphasis max error
+random_00             3.74314e-10        3.66526e-10         3.74001e-10
+moderate_unsorted      8.98015e-9         9.92524            8.97572e-9
+wide_unsorted          1.25567e-10        1.22213e-10        1.26988e-10
+weak_first             4.41353e-8        .1052383           .0991524
+
+All failures are retained:
+Low-mode moderate fails13 coordinates: ax1, ax2, ax3, ay3, ng1, ng2, ng3,
+d_W, gap, bm_ax, bm_ay, bm_px, bm_py. Largest error9.92524 is d_W.
+Both low-mode and emphasis weak_first fail6 coordinates: ax1, ng1, d_W,
+gap, bm_px, bm_py. Largest errors .1052383 and .0991524 are ng1.
+
+Emphasis fits three cases faster in these executions but loses the weak-prism
+case that direct completion recovers. It is not a replacement for the direct
+route. These four fixed development cases do not establish a success rate,
+uniform noise tolerance or population timing advantage. Emphasis was declared
+after inspecting first-route development results, so it is an adaptive
+development comparison. Each solver remains blind to parameter truth.
+
+Both candidate schemes retain all18 unknowns and the original parameter box.
+The low-mode transform suppresses rather than discards complementary sample
+directions; emphasis strengthens them temporarily. Both finish on the exact
+unweighted optical model. Derivative checks and structural diagnostics are
+in harmonic_checks.json. Neither numerical fits nor local spectra certify a
+global compatible-set bound.
+
+comparison_all18.csv provides every coordinate error, timing and residual.
+comparison_all18.json preserves the same records and failed-coordinate lists.
+All12 original candidate outputs remain in comparison_noiseless and
+comparison_emphasis. Frozen solver/poc3.py was not modified.

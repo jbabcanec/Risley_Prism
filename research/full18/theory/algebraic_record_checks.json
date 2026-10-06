@@ -1,0 +1,32 @@
+{
+  "purpose": "Exact symbolic derivation spot checks; no optical cases or fits",
+  "all_passed": true,
+  "checks": {
+    "rotor_norm_factorization": true,
+    "outgoing_unit_norm_factorization": true,
+    "signed_face_rotation": true,
+    "entry_rotation_norm": true,
+    "native_grazing_square_identity": true,
+    "position_transfer_modulo_face_circle": true,
+    "full_three_prism_affine_expansion": true,
+    "clock_arc_root_isolation": true,
+    "beam_arc_root_isolation": true,
+    "explicit_counts": true,
+    "rational_native_D_lower_bound": true,
+    "binary_clock_is_not_nominal_fixed_step": true
+  },
+  "counts": {
+    "samples": 200,
+    "variables": 10828,
+    "equalities": 10810,
+    "inequalities": 6832,
+    "max_total_polynomial_degree": 3
+  },
+  "binary_clock_example": {
+    "t1": "3602879701896397/72057594037927936",
+    "t3": "1351079888211149/9007199254740992",
+    "t3_minus_3_t1": "1/72057594037927936"
+  },
+  "script_sha256": "8db9fc9118cb2cceb24192241b3dbd388c5ad09298c7b4a4b1befe4943a943ca",
+  "limits": "Not a formal proof of the full equivalence theorem; no global solver executed"
+}

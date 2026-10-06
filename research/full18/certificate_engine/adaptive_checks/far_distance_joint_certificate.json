@@ -1,0 +1,177 @@
+{
+  "certificate": {
+    "a0": "318995124018503632117529964495377/120892581961462917470617600000000",
+    "epsilon": "33070397787796324767/2417851639229258349412352",
+    "epsilon_coefficient": "1",
+    "excludes_strict_physical": true,
+    "excludes_weak_affine": true,
+    "geometry_support_correction": "1078929694847624248122848135175697/120892581961462917470617600000000",
+    "lower_bound": "318993470498614242301291614495377/120892581961462917470617600000000",
+    "relation": "positive",
+    "stationarity_residual_treatment": "Exact geometry-box support; no zero-residual assumption",
+    "strict_row_has_positive_weight": false,
+    "support_count_scope": "Explicit affine rows; geometry-box support is additional",
+    "support_rows": [
+      {
+        "a": [
+          "302162633552319049829693/302231454903657293676544",
+          "-50924348108938444531/2417851639229258349412352",
+          "246037703765398367566531/2417851639229258349412352",
+          "31899570232438477760025/604462909807314587353088"
+        ],
+        "b": "-148424720865062620313538705211/23611832414348226068480000000",
+        "coefficient_error": "112690276239247855892711/23611832414348226068480000000",
+        "delta": 1,
+        "id": "k0:axis0:sign1",
+        "strict": false
+      }
+    ],
+    "support_size": 1,
+    "symbolic_validity": {
+      "all_nonnegative_epsilon_excluded": false,
+      "condition": "a0 - slope*epsilon > 0, or equality with positive strict-row weight",
+      "endpoint_excluded_for_strict_systems": false,
+      "slope": "1",
+      "threshold": "318995124018503632117529964495377/120892581961462917470617600000000"
+    },
+    "weighted_normal": [
+      "302162633552319049829693/302231454903657293676544",
+      "-50924348108938444531/2417851639229258349412352",
+      "246037703765398367566531/2417851639229258349412352",
+      "31899570232438477760025/604462909807314587353088"
+    ],
+    "weights": [
+      {
+        "id": "k0:axis0:sign1",
+        "row": 6,
+        "weight": "1"
+      }
+    ]
+  },
+  "coverage": {
+    "complete_affine_rows": false,
+    "expected_observation_rows": 800,
+    "expected_traversal_rows": 1200,
+    "geometry_box_rows": 8,
+    "observation_rows": 4,
+    "scope": "Complete here refers only to available affine rows; outgoing critical normal and all other optical physical tests remain separate.",
+    "traversal_rows": 6
+  },
+  "diagnostics": {
+    "pivots": 0,
+    "termination": "sparse_certificate"
+  },
+  "engine": "exact-joint-affine-certificates-1",
+  "epsilon": "33070397787796324767/2417851639229258349412352",
+  "forward_sha256": "a443e7fc19370acb031d596ed28282551614b35a6baf00e07323c992897745da",
+  "geometry_box": [
+    [
+      "49999999/100000000",
+      "50000001/100000000"
+    ],
+    [
+      "-25000001/100000000",
+      "-24999999/100000000"
+    ],
+    [
+      "499999999/100000000",
+      "500000001/100000000"
+    ],
+    [
+      "150",
+      "15000000001/100000000"
+    ]
+  ],
+  "geometry_order": [
+    "bx",
+    "by",
+    "g",
+    "d"
+  ],
+  "input_sha256": "5f3d487cc29d22225cb62ebf7223b3fb1ff77c1991db1c43810fac6b6a62d9a4",
+  "lp": {
+    "basis": [
+      10,
+      12,
+      14,
+      16,
+      6
+    ],
+    "dual": {
+      "a0": "318995124018503632117529964495377/120892581961462917470617600000000",
+      "epsilon": "33070397787796324767/2417851639229258349412352",
+      "epsilon_coefficient": "1",
+      "excludes_strict_physical": true,
+      "excludes_weak_affine": true,
+      "geometry_support_correction": "1078929694847624248122848135175697/120892581961462917470617600000000",
+      "lower_bound": "318993470498614242301291614495377/120892581961462917470617600000000",
+      "relation": "positive",
+      "stationarity_residual_treatment": "Exact geometry-box support; no zero-residual assumption",
+      "strict_row_has_positive_weight": false,
+      "support_count_scope": "Explicit affine rows; geometry-box support is additional",
+      "support_rows": [
+        {
+          "a": [
+            "302162633552319049829693/302231454903657293676544",
+            "-50924348108938444531/2417851639229258349412352",
+            "246037703765398367566531/2417851639229258349412352",
+            "31899570232438477760025/604462909807314587353088"
+          ],
+          "b": "-148424720865062620313538705211/23611832414348226068480000000",
+          "coefficient_error": "112690276239247855892711/23611832414348226068480000000",
+          "delta": 1,
+          "id": "k0:axis0:sign1",
+          "strict": false
+        }
+      ],
+      "support_size": 1,
+      "symbolic_validity": {
+        "all_nonnegative_epsilon_excluded": false,
+        "condition": "a0 - slope*epsilon > 0, or equality with positive strict-row weight",
+        "endpoint_excluded_for_strict_systems": false,
+        "slope": "1",
+        "threshold": "318995124018503632117529964495377/120892581961462917470617600000000"
+      },
+      "weighted_normal": [
+        "302162633552319049829693/302231454903657293676544",
+        "-50924348108938444531/2417851639229258349412352",
+        "246037703765398367566531/2417851639229258349412352",
+        "31899570232438477760025/604462909807314587353088"
+      ],
+      "weights": [
+        {
+          "id": "k0:axis0:sign1",
+          "row": 6,
+          "weight": "1"
+        }
+      ]
+    },
+    "optimal": false,
+    "pivots": 0,
+    "point": [
+      "49999999/100000000",
+      "-25000001/100000000",
+      "499999999/100000000",
+      "150",
+      "79748367624666291662350138234977/30223145490365729367654400000000"
+    ],
+    "relaxation_feasible": null,
+    "termination": "sparse_certificate"
+  },
+  "meaning": "Sparse exact dual excludes every strict physical compatible point in the box",
+  "resource_limits": {
+    "pivot_limit": 32
+  },
+  "rounding": "Exact Fraction arithmetic after forward outward interval enclosures; coefficient radii lowered by exact geometry support; exact nonzero dual residual correction",
+  "row_count": 10,
+  "rows_sha256": "8bed048b0fcd97143623685418c8c3037fe3d54511f11aec335db88e2caf4afc",
+  "source_sha256": {
+    "engine.py": "7cbce954039aa9cb93e00cedb6ae2b4d4a760de8eb46edc8f41a76c5637eba6b",
+    "interval.py": "3ddc0eaa3430028211d41962fcb2ce6d22c5c70dc24f89c3fae83245b8c90cbe",
+    "joint_lp.py": "16e4ff5a90ce631ead97eb8f949ac0bd913a56887cbb2af7cc06d6997a10cb7b"
+  },
+  "status": "excluded",
+  "support_row_indices": [
+    6
+  ]
+}

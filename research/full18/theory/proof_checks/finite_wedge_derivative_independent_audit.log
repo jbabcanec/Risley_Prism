@@ -1,0 +1,23 @@
+F unit versus Q-scaled : 2.0317081350640365e-13
+DF complex step versus jets : 1.2828849094148609e-11
+F1 tangent versus polynomial : 2.0605739337042905e-13
+F2 tangent versus polynomial : 2.000621890374532e-13
+DF1 complex step versus jets : 1.2754242106893798e-11
+DF2 complex step versus jets : 1.2789769243681803e-11
+G independent versus jets : 1.7763568394002505e-15
+F2 target self harmonic : 3.733105674656295e-15
+extracted feature differential identity : 1.7468279839357938e-12
+DA(F1prime,F2prime) identity infinity norm : 5.597959634258523e-09
+DT difference from source proposal infinity norm : 9.958691649103457e-09
+Independent DT trace -27.885143984149842
+Independent eigenvalues [-2.34267329e+01+0.j         -5.65647100e+00+0.j
+  6.45940730e-01+0.j          3.74311768e-01+0.40709346j
+  3.74311768e-01-0.40709346j -1.21586672e-01+0.j
+ -8.79401967e-02+0.j          4.15147361e-02+0.04834729j
+  4.15147361e-02-0.04834729j  4.29881076e-02+0.j
+ -4.48735147e-02+0.01451495j -4.48735147e-02-0.01451495j
+ -3.30787785e-02+0.j         -1.18438047e-02+0.j
+  9.34101580e-03+0.00436206j  9.34101580e-03-0.00436206j
+  1.49628245e-03+0.00171668j  1.49628245e-03-0.00171668j]
+PASS: all independent same-point consistency assertions; no rigorous spectral conclusion from this script alone.
+Saved /workspace/shared/risley_theory/proof_checks/finite_wedge_derivative_independent_audit.json

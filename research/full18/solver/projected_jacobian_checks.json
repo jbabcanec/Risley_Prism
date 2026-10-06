@@ -1,0 +1,89 @@
+[
+  {
+    "case": "random_00",
+    "seed_residual_norm": 63.78615265769443,
+    "free_affine_columns": [
+      true,
+      false,
+      true,
+      true
+    ],
+    "directions": [
+      {
+        "relative_error": 1.1967119521784539e-09,
+        "active_set_stable": true
+      },
+      {
+        "relative_error": 1.7619916813335033e-09,
+        "active_set_stable": true
+      },
+      {
+        "relative_error": 1.0003179851158772e-09,
+        "active_set_stable": true
+      },
+      {
+        "relative_error": 1.686122086983814e-09,
+        "active_set_stable": true
+      }
+    ],
+    "max_stable_relative_error": 1.7619916813335033e-09
+  },
+  {
+    "case": "moderate_unsorted",
+    "seed_residual_norm": 15.110638999989273,
+    "free_affine_columns": [
+      true,
+      false,
+      true,
+      true
+    ],
+    "directions": [
+      {
+        "relative_error": 5.785649614422885e-10,
+        "active_set_stable": true
+      },
+      {
+        "relative_error": 1.0286812891274433e-09,
+        "active_set_stable": true
+      },
+      {
+        "relative_error": 2.5193136735882247e-10,
+        "active_set_stable": true
+      },
+      {
+        "relative_error": 5.399234192816084e-10,
+        "active_set_stable": true
+      }
+    ],
+    "max_stable_relative_error": 1.0286812891274433e-09
+  },
+  {
+    "case": "wide_unsorted",
+    "seed_residual_norm": 18.313480455166694,
+    "free_affine_columns": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "directions": [
+      {
+        "relative_error": 1.3735224097940438e-09,
+        "active_set_stable": true
+      },
+      {
+        "relative_error": 7.187174160161847e-10,
+        "active_set_stable": true
+      },
+      {
+        "relative_error": 1.114883066622812e-09,
+        "active_set_stable": true
+      },
+      {
+        "relative_error": 8.517111624087324e-10,
+        "active_set_stable": true
+      }
+    ],
+    "max_stable_relative_error": 1.3735224097940438e-09
+  }
+]

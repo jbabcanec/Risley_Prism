@@ -1,0 +1,12 @@
+Lean (version 4.33.0, x86_64-w64-windows-gnu, commit d8b18978322de05a8f3dba51ef03cf5461676c17, Release)
+Compiler: C:\Users\josep\.elan\toolchains\leanprover--lean4---v4.33.0\bin\lean.exe
+Source: C:\Users\josep\Documents\Codex\2026-10-02\task\full18_research\formalization\CriticalMargin.lean
+Output: C:\Users\josep\Documents\Codex\2026-10-02\task\full18_research\formalization\CriticalMargin.olean
+Source SHA256 (unchanged during compile): 5416EA697A6006EE853FD6FF1174502EBF7C34172C29FE54792FB14863BD8F63
+Object SHA256: No successful object hash claimed
+Command: lean.exe -o CriticalMargin.olean CriticalMargin.lean
+Imports: pre-existing cached mathlib/package .olean files, read-only
+Exit code: 1
+Output below combines compiler stdout and stderr in order.
+
+C:\Users\josep\Documents\Codex\2026-10-02\task\full18_research\formalization\CriticalMargin.lean:133:21: error(lean.unknownIdentifier): Unknown identifier `abs_add` 'RisleyCriticalMargin.final_plane_identity' depends on axioms: [propext, Classical.choice, Quot.sound] 'RisleyCriticalMargin.weak_flight_bounds' depends on axioms: [propext, Classical.choice, Quot.sound] 'RisleyCriticalMargin.lagrange_identity' depends on axioms: [propext, Classical.choice, Quot.sound] 'RisleyCriticalMargin.screen_box_dot_bound' depends on axioms: [propext, Classical.choice, Quot.sound] 'RisleyCriticalMargin.scalar_ratio_margin' depends on axioms: [propext, Classical.choice, Quot.sound] 'RisleyCriticalMargin.final_prism_ratio_margin' depends on axioms: [propext, Classical.choice, Quot.sound] 'RisleyCriticalMargin.observation_screen_bound' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound] 'RisleyCriticalMargin.final_prism_observation_margin' depends on axioms: [propext,  sorryAx,  Classical.choice,  Quot.sound]

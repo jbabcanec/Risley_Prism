@@ -1,0 +1,18 @@
+{
+  "bytes": 243910,
+  "sha256": "a36e24e29ed3e126e3f15fc88399a28c369d831da1bcf149672a985cb3b6b0db",
+  "local_reference_occurrences": 106,
+  "unique_local_references": 82,
+  "display_math_pairs": 297,
+  "valid_utf8": true,
+  "encoding_issues": false,
+  "source_manifest_entries_verified": 24,
+  "missing_artifacts": [
+    "theory/proof_checks/certify_long_lag_spectral_margins.py",
+    "theory/sagittal_subresultant_conditional_audit.md"
+  ],
+  "latest_cloud_update_sources": "Not supplied: kappa=0.1 instability audit and pending chord stabilization",
+  "published_engine_zip_unchanged": true,
+  "version11_archive_unchanged": true,
+  "research_execution": false
+}

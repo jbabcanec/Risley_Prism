@@ -1,0 +1,83 @@
+{
+  "all_18_box_widths_positive": true,
+  "bits": 80,
+  "canonical_provenance_rejected": true,
+  "cases": {
+    "far_distance_box": {
+      "minimum_final_prism_ratio_lower": "57039989462345798531330865/64073068439575346259427328",
+      "request_sha256": "5f3d487cc29d22225cb62ebf7223b3fb1ff77c1991db1c43810fac6b6a62d9a4",
+      "samples_processed": 1,
+      "status": "excluded",
+      "witness": {
+        "band": [
+          "16659753718311855896045429/2417851639229258349412352",
+          "16659819859107431488694963/2417851639229258349412352"
+        ],
+        "coordinate": 0,
+        "kind": "observation_disjoint",
+        "output": [
+          "11519844634539859585634295/1208925819614629174706176",
+          "5759928100648016718155105/604462909807314587353088"
+        ],
+        "sample": 0
+      }
+    },
+    "full_prior_outer_box": {
+      "minimum_final_prism_ratio_lower": "57039989462345798531330865/64073068439575346259427328",
+      "request_sha256": "6a94afa1378d080347f298f8e66690c9b37e930c4aeb5f7e64388f5978e24679",
+      "samples_processed": 1,
+      "status": "unresolved",
+      "witness": {
+        "kind": "unresolved_divisor_Z",
+        "prism": 1,
+        "sample": 0
+      }
+    },
+    "nontransmitted_box": {
+      "minimum_final_prism_ratio_lower": "57039989462345798531330865/64073068439575346259427328",
+      "request_sha256": "742be0b7a690f1c9378e1160986bfbe5d1e28022d4b8cefa1acdc1869358006e",
+      "samples_processed": 1,
+      "status": "excluded",
+      "witness": {
+        "guard": "exit_radicand_delta",
+        "interval": [
+          "-4815412188454154089237/151115727451828646838272",
+          "-38523297507633232713853/1208925819614629174706176"
+        ],
+        "kind": "strict_physical_guard",
+        "prism": 1,
+        "sample": 0
+      }
+    },
+    "small_box": {
+      "minimum_final_prism_ratio_lower": "57039989462345798531330865/64073068439575346259427328",
+      "request_sha256": "e037ce15179cf28bf27ac681295a3da5e962e3fbf8500f83865635e7a5c7e5e4",
+      "samples_processed": 200,
+      "status": "retained",
+      "witness": null
+    }
+  },
+  "certificate_replay": "passed",
+  "dataset_count": 1,
+  "dataset_kind": "synthetic_fullvector_proof_spotcheck",
+  "derived_box_validation_allowance": "33070397787796324767/2417851639229258349412352",
+  "exact_clock": "k/20",
+  "float_rejected": true,
+  "minimum_strict_guard_lower_bounds": {
+    "exit_radicand_delta": "1202075241109482094574099/1208925819614629174706176",
+    "external_traversal": "6022724943412542908899333/1208925819614629174706176",
+    "glass_radicand": "591286178234859390202277/302231454903657293676544",
+    "incoming_normal_P": "422588772815122724740905/302231454903657293676544",
+    "internal_traversal": "1804247247391000057402277/604462909807314587353088",
+    "outgoing_axial_Z": "603078110809732308956899/604462909807314587353088"
+  },
+  "nonexact_clock_rejected": true,
+  "point_max_output_width": "3243/604462909807314587353088",
+  "samples": 200,
+  "scalar_observations": 400,
+  "scope": "Conditional box validation only; no global inverse, fitted estimate, hardware result, or benchmark",
+  "status": "passed",
+  "supplied_chart_halfwidth": "1/100000000",
+  "tamper_rejected": true,
+  "wall_seconds_display_only": 6.719915375
+}

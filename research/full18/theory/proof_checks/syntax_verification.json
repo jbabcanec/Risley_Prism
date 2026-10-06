@@ -1,0 +1,35 @@
+{
+  "verified_at_utc": "2026-10-03T01:47:51.8701268+00:00",
+  "environment": "Ubuntu via existing WSL distribution",
+  "interpreter_command": "wsl.exe -d Ubuntu -- python3",
+  "python_version": "3.12.3 (main, Nov 6 2025, 13:44:16) [GCC 13.3.0]",
+  "exit_code": 0,
+  "method": "ast.parse(source, filename=path) only",
+  "target_sources_executed": false,
+  "target_sources_imported": false,
+  "software_installed": false,
+  "note": "Syntax and hash verification only. Mathematical assertions in these sources were not run. WSL access required escalation in this environment.",
+  "files": [
+    {
+      "file": "audit_reduced_inverse_exact.py",
+      "bytes": 2098,
+      "sha256": "5469544b8de9989d0f34fdde6fae13254855b9db567d77aaa1252e442fcfe3c7",
+      "ast_type": "Module",
+      "syntax": "passed"
+    },
+    {
+      "file": "full_prior_tail_witness.py",
+      "bytes": 5531,
+      "sha256": "558b831df6f854b476a6f973c29c7aa5e308e1c92c43ae45b24734977d17c313",
+      "ast_type": "Module",
+      "syntax": "passed"
+    },
+    {
+      "file": "critical_filtered_tail_witness.py",
+      "bytes": 3790,
+      "sha256": "95a75e0fe690dfdae4180ba9ce9137e009393465295c4bffe593a5b0c25808ec",
+      "ast_type": "Module",
+      "syntax": "passed"
+    }
+  ]
+}

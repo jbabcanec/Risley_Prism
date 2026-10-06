@@ -1,0 +1,209 @@
+{
+  "theorem_scope": "exact algebraic elimination for conditional optics q; all affine native bounds retained",
+  "benchmark_scope": "floating polygon and LP diagnostics, not interval or exact-rational certificates",
+  "hidden_truth_inputs": false,
+  "global14_outer_contractor_implemented": false,
+  "rows": [
+    {
+      "case": "blind_incompatible",
+      "eta": 1e-08,
+      "minimum_physical_pair_guard": 0.9907248021558981,
+      "polygon": {
+        "feasible": false,
+        "halfplanes": 80404,
+        "scale": [
+          5.69672222771035e-07,
+          4.474095776982939e-07,
+          1.0564162419927798e-08,
+          1.0703513639219318e-08
+        ]
+      },
+      "full4D_LP": {
+        "feasible": false,
+        "status": 2,
+        "message": "The problem is infeasible. (HiGHS Status 8: model_status is Infeasible; primal_status is At lower/fixed bound)"
+      },
+      "polygon_seconds": 0.02004640002269298,
+      "lp_seconds": 0.012295399908907712,
+      "feasibility_agrees": true
+    },
+    {
+      "case": "gain_compatible",
+      "eta": 1e-08,
+      "minimum_physical_pair_guard": 0.9904103970755432,
+      "polygon": {
+        "feasible": true,
+        "halfplanes": 80404,
+        "vertices": 30,
+        "dg_lower": [
+          190.00109959606723,
+          2.9994763808396505
+        ],
+        "dg_upper": [
+          190.00110039923203,
+          2.9994770166361002
+        ],
+        "geometry": [
+          190.00109999764882,
+          2.999476698737791,
+          1.2000019765166368,
+          -2.1000038606431155
+        ],
+        "max_residual": 1.7497114868092467e-13,
+        "source_intersection_widths": [
+          2.0001979069700997e-08,
+          2.000058908136092e-08
+        ],
+        "scale": [
+          6.795723713486549e-07,
+          5.096488683722641e-07,
+          1.0570091292737249e-08,
+          1.0632544484209867e-08
+        ]
+      },
+      "full4D_LP": {
+        "feasible": true,
+        "dg_lower": [
+          190.00109959606723,
+          2.9994763808396505
+        ],
+        "dg_upper": [
+          190.00110039923203,
+          2.9994770166361002
+        ],
+        "geometry": [
+          190.00109999792116,
+          2.999476698564436,
+          1.2000019865174418,
+          -2.100003870643769
+        ],
+        "max_residual": 1.0000000161269895e-08
+      },
+      "polygon_seconds": 1.0907566000241786,
+      "lp_seconds": 0.034517599968239665,
+      "feasibility_agrees": true,
+      "max_geometry_extremum_difference": 0.0
+    },
+    {
+      "case": "profile_0",
+      "eta": 1e-08,
+      "minimum_physical_pair_guard": 0.9904103833140164,
+      "polygon": {
+        "feasible": true,
+        "halfplanes": 80404,
+        "vertices": 11,
+        "dg_lower": [
+          189.99999997140281,
+          2.999999988903477
+        ],
+        "dg_upper": [
+          190.00000001359777,
+          3.000000013719582
+        ],
+        "geometry": [
+          189.9999999896492,
+          3.0000000046053708,
+          1.2000000000314233,
+          -2.1000000000257977
+        ],
+        "max_residual": 9.825023239429242e-09,
+        "source_intersection_widths": [
+          4.183937795746645e-10,
+          3.50566456023327e-10
+        ],
+        "scale": [
+          6.795691516122692e-07,
+          5.096472836694211e-07,
+          1.0570093761877391e-08,
+          1.0632549978941349e-08
+        ]
+      },
+      "full4D_LP": {
+        "feasible": true,
+        "dg_lower": [
+          189.99999997140281,
+          2.999999988903477
+        ],
+        "dg_upper": [
+          190.00000001359777,
+          3.000000013719582
+        ],
+        "geometry": [
+          190.0000000079485,
+          2.9999999965712183,
+          1.2000000002978761,
+          -2.100000000008195
+        ],
+        "max_residual": 1.000000082740371e-08
+      },
+      "polygon_seconds": 0.6520210000453517,
+      "lp_seconds": 0.012620499939657748,
+      "feasibility_agrees": true,
+      "max_geometry_extremum_difference": 0.0
+    },
+    {
+      "case": "profile_1",
+      "eta": 1e-08,
+      "minimum_physical_pair_guard": 0.9904104108370043,
+      "polygon": {
+        "feasible": true,
+        "halfplanes": 80404,
+        "vertices": 11,
+        "dg_lower": [
+          190.0021999816981,
+          2.998953381714481
+        ],
+        "dg_upper": [
+          190.00220002389855,
+          2.9989534065348904
+        ],
+        "geometry": [
+          190.00220000564914,
+          2.9989533908304535,
+          1.2000039530161257,
+          -2.1000077212921036
+        ],
+        "max_residual": 9.82498749024785e-09,
+        "source_intersection_widths": [
+          4.184614854796222e-10,
+          3.506389925960759e-10
+        ],
+        "scale": [
+          6.795755910759693e-07,
+          5.09650453063436e-07,
+          1.0570088823565385e-08,
+          1.0632538989412299e-08
+        ]
+      },
+      "full4D_LP": {
+        "feasible": true,
+        "dg_lower": [
+          190.0021999816981,
+          2.998953381714481
+        ],
+        "dg_upper": [
+          190.00220002389855,
+          2.998953406534891
+        ],
+        "geometry": [
+          190.0021999976334,
+          2.998953395104524,
+          1.2000039533190265,
+          -2.1000077215766253
+        ],
+        "max_residual": 1.000000082740371e-08
+      },
+      "polygon_seconds": 0.5966819999739528,
+      "lp_seconds": 0.017689700005576015,
+      "feasibility_agrees": true,
+      "max_geometry_extremum_difference": 4.440892098500626e-16
+    }
+  ],
+  "input_sha256": {
+    "adverse_observations_only.json": "fa9272d49d90c013e2b7c7654d137d4cd53c6544404c20d17f9ea7dc15b04245",
+    "blind_adverse_1e8.json": "2d972c584d6a444c645c6628d9ed4647d31f557d643dbd9f954b55a240ec0f5a",
+    "result_native.json": "2fc9f5abcb2bc7c7c4cd81151315b067104751bc6660250fbf013c3f5f996307",
+    "compatible_profiles.json": "ff1dd972661b00a8e99188e2bfc0d80644d490ff7297cb92ec8f9b9b171f8bbb"
+  },
+  "source_sha256": "22757f411cf09bfa6c08d0488265460e2075d0b69c68e2216cb4b7530a1d25dd"
+}

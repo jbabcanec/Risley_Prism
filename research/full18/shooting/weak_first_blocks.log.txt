@@ -1,0 +1,52 @@
+{"stage": "screen", "index": 0, "tag": "pencil/order=(0, 1, 2),d0=125,n0=1.55", "relaxed_mse": 0.00046480822492664023, "max_phase_slip_rad": 0.028457031607072372, "nfev": 16, "seconds": 1.1511426999932155}
+{"stage": "screen", "index": 1, "tag": "pencil/order=(0, 1, 2),d0=80,n0=1.4", "relaxed_mse": 0.001002086298548287, "max_phase_slip_rad": 0.028739252967093232, "nfev": 16, "seconds": 1.3028231000062078}
+{"stage": "screen", "index": 2, "tag": "pencil/order=(0, 2, 1),d0=125,n0=1.55", "relaxed_mse": 0.0004154182143884883, "max_phase_slip_rad": 0.02807718936444039, "nfev": 16, "seconds": 1.4547614000039175}
+{"stage": "screen", "index": 3, "tag": "pencil/order=(0, 2, 1),d0=80,n0=1.4", "relaxed_mse": 0.0005303971102095966, "max_phase_slip_rad": 0.33217750452014533, "nfev": 16, "seconds": 1.6713564000092447}
+{"stage": "screen", "index": 4, "tag": "pencil/order=(1, 0, 2),d0=125,n0=1.55", "relaxed_mse": 0.0030398717446341052, "max_phase_slip_rad": 0.19925484208408764, "nfev": 16, "seconds": 1.8236009000102058}
+{"stage": "screen", "index": 5, "tag": "pencil/order=(1, 0, 2),d0=80,n0=1.4", "relaxed_mse": 0.0033850446129734856, "max_phase_slip_rad": 0.4658271082964752, "nfev": 16, "seconds": 1.9924964000238106}
+{"stage": "screen", "index": 6, "tag": "pencil/order=(1, 2, 0),d0=125,n0=1.55", "relaxed_mse": 0.0030005277660346587, "max_phase_slip_rad": 0.268606828569053, "nfev": 16, "seconds": 2.139929399942048}
+{"stage": "screen", "index": 7, "tag": "pencil/order=(1, 2, 0),d0=80,n0=1.4", "relaxed_mse": 0.0035804799390401743, "max_phase_slip_rad": 0.4506318023046291, "nfev": 16, "seconds": 2.3663875999627635}
+{"stage": "screen", "index": 8, "tag": "pencil/order=(2, 0, 1),d0=125,n0=1.55", "relaxed_mse": 1.5368965617357217e-11, "max_phase_slip_rad": 3.828722582538771e-05, "nfev": 16, "seconds": 2.647857000003569}
+{"stage": "screen", "index": 9, "tag": "pencil/order=(2, 0, 1),d0=80,n0=1.4", "relaxed_mse": 0.0009676890571112655, "max_phase_slip_rad": 0.0318919670265235, "nfev": 16, "seconds": 2.8088134999852628}
+{"stage": "screen", "index": 10, "tag": "pencil/order=(2, 1, 0),d0=125,n0=1.55", "relaxed_mse": 0.002998439433779052, "max_phase_slip_rad": 0.4054611212090752, "nfev": 16, "seconds": 3.0687932999571785}
+{"stage": "screen", "index": 11, "tag": "pencil/order=(2, 1, 0),d0=80,n0=1.4", "relaxed_mse": 0.0036746809031987073, "max_phase_slip_rad": 0.35731842529676955, "nfev": 16, "seconds": 3.2558427000185475}
+{"stage": "screen", "index": 12, "tag": "fft/order=(0, 1, 2),d0=125,n0=1.55", "relaxed_mse": 0.00040039917458126737, "max_phase_slip_rad": 0.03814818969818527, "nfev": 16, "seconds": 3.437430699937977}
+{"stage": "screen", "index": 13, "tag": "fft/order=(0, 1, 2),d0=80,n0=1.4", "relaxed_mse": 0.000852088300937521, "max_phase_slip_rad": 0.08468045463037863, "nfev": 16, "seconds": 3.6514239999232814}
+{"stage": "screen", "index": 14, "tag": "fft/order=(0, 2, 1),d0=125,n0=1.55", "relaxed_mse": 0.0007311332935901603, "max_phase_slip_rad": 0.019957124801325617, "nfev": 16, "seconds": 3.8831008999841288}
+{"stage": "screen", "index": 15, "tag": "fft/order=(0, 2, 1),d0=80,n0=1.4", "relaxed_mse": 0.000503621997062307, "max_phase_slip_rad": 0.34665458078362527, "nfev": 16, "seconds": 4.099878899985924}
+{"stage": "screen", "index": 16, "tag": "fft/order=(1, 0, 2),d0=125,n0=1.55", "relaxed_mse": 0.0030404567394053694, "max_phase_slip_rad": 0.2007604921954225, "nfev": 16, "seconds": 4.283103700028732}
+{"stage": "screen", "index": 17, "tag": "fft/order=(1, 0, 2),d0=80,n0=1.4", "relaxed_mse": 0.0030131199599062967, "max_phase_slip_rad": 0.42266581159557143, "nfev": 16, "seconds": 4.525679799960926}
+{"stage": "screen", "index": 18, "tag": "fft/order=(1, 2, 0),d0=125,n0=1.55", "relaxed_mse": 0.002993549190609583, "max_phase_slip_rad": 0.25926322890943176, "nfev": 16, "seconds": 4.706832799944095}
+{"stage": "screen", "index": 19, "tag": "fft/order=(1, 2, 0),d0=80,n0=1.4", "relaxed_mse": 0.003556389451349419, "max_phase_slip_rad": 0.4553306337586847, "nfev": 16, "seconds": 4.924763899995014}
+{"stage": "screen", "index": 20, "tag": "fft/order=(2, 0, 1),d0=125,n0=1.55", "relaxed_mse": 1.5285613676361438e-11, "max_phase_slip_rad": 3.8289464408736855e-05, "nfev": 16, "seconds": 5.277402099920437}
+{"stage": "screen", "index": 21, "tag": "fft/order=(2, 0, 1),d0=80,n0=1.4", "relaxed_mse": 0.0008995322016276119, "max_phase_slip_rad": 0.03259852721188799, "nfev": 16, "seconds": 5.488174899946898}
+{"stage": "screen", "index": 22, "tag": "fft/order=(2, 1, 0),d0=125,n0=1.55", "relaxed_mse": 0.0029989436664161306, "max_phase_slip_rad": 0.40041189915397774, "nfev": 16, "seconds": 5.7671898999251425}
+{"stage": "screen", "index": 23, "tag": "fft/order=(2, 1, 0),d0=80,n0=1.4", "relaxed_mse": 0.00374867130453794, "max_phase_slip_rad": 0.3582806424251458, "nfev": 16, "seconds": 5.991137399920262}
+{"stage": "screen", "index": 24, "tag": "repeated/repeat=0,singleton=0,ph=(-16.0, 16.0)", "relaxed_mse": 0.033607602947470915, "max_phase_slip_rad": 0.1257800806107483, "nfev": 16, "seconds": 6.192682299995795}
+{"stage": "screen", "index": 25, "tag": "repeated/repeat=0,singleton=0,ph=(16.0, -16.0)", "relaxed_mse": 0.034223803717833914, "max_phase_slip_rad": 0.08139811959801627, "nfev": 16, "seconds": 6.420958200003952}
+{"stage": "screen", "index": 26, "tag": "repeated/repeat=0,singleton=1,ph=(-16.0, 16.0)", "relaxed_mse": 0.03336782712007457, "max_phase_slip_rad": 0.08363024610862928, "nfev": 16, "seconds": 6.686328399926424}
+{"stage": "screen", "index": 27, "tag": "repeated/repeat=0,singleton=1,ph=(16.0, -16.0)", "relaxed_mse": 0.03371518991525137, "max_phase_slip_rad": 0.030064707951091754, "nfev": 16, "seconds": 6.872423999942839}
+{"stage": "screen", "index": 28, "tag": "repeated/repeat=0,singleton=2,ph=(-16.0, 16.0)", "relaxed_mse": 0.033645771563904844, "max_phase_slip_rad": 0.01944783176229787, "nfev": 16, "seconds": 7.095571600017138}
+{"stage": "screen", "index": 29, "tag": "repeated/repeat=0,singleton=2,ph=(16.0, -16.0)", "relaxed_mse": 0.03398477833031199, "max_phase_slip_rad": 0.02296933568744247, "nfev": 16, "seconds": 7.247408999945037}
+{"stage": "screen", "index": 30, "tag": "repeated/repeat=1,singleton=0,ph=(-16.0, 16.0)", "relaxed_mse": 0.030209577039449143, "max_phase_slip_rad": 0.03477070825746988, "nfev": 16, "seconds": 7.43650329997763}
+{"stage": "screen", "index": 31, "tag": "repeated/repeat=1,singleton=0,ph=(16.0, -16.0)", "relaxed_mse": 0.030096890266276728, "max_phase_slip_rad": 0.048105179647853935, "nfev": 16, "seconds": 7.700383999967016}
+{"stage": "screen", "index": 32, "tag": "repeated/repeat=1,singleton=1,ph=(-16.0, 16.0)", "relaxed_mse": 0.03357819925776839, "max_phase_slip_rad": 0.025703579492805967, "nfev": 16, "seconds": 7.941758299944922}
+{"stage": "screen", "index": 33, "tag": "repeated/repeat=1,singleton=1,ph=(16.0, -16.0)", "relaxed_mse": 0.031309606821073664, "max_phase_slip_rad": 0.029468416684666498, "nfev": 16, "seconds": 8.17540619999636}
+{"stage": "screen", "index": 34, "tag": "repeated/repeat=1,singleton=2,ph=(-16.0, 16.0)", "relaxed_mse": 0.0338489674881403, "max_phase_slip_rad": 0.08345641527392163, "nfev": 16, "seconds": 8.489993899944238}
+{"stage": "screen", "index": 35, "tag": "repeated/repeat=1,singleton=2,ph=(16.0, -16.0)", "relaxed_mse": 0.033764510625607425, "max_phase_slip_rad": 0.11008852505053929, "nfev": 16, "seconds": 8.731183300027624}
+{"stage": "continuation", "rank": 0, "weight": 0.1, "tag": "fft/order=(2, 0, 1),d0=125,n0=1.55", "relaxed_mse": 1.4215009102551755e-11, "max_phase_slip_rad": 3.6231659397076144e-06, "nfev": 35, "seconds": 9.345537299988791}
+{"stage": "continuation", "rank": 0, "weight": 1.0, "tag": "fft/order=(2, 0, 1),d0=125,n0=1.55", "relaxed_mse": 1.2157941198158656e-11, "max_phase_slip_rad": 5.034911066924029e-07, "nfev": 35, "seconds": 9.959402399952523}
+{"stage": "continuation", "rank": 0, "weight": 10.0, "tag": "fft/order=(2, 0, 1),d0=125,n0=1.55", "relaxed_mse": 1.0258979193974627e-11, "max_phase_slip_rad": 5.388673160182424e-08, "nfev": 35, "seconds": 10.694276600028388}
+{"stage": "continuation", "rank": 0, "weight": 100.0, "tag": "fft/order=(2, 0, 1),d0=125,n0=1.55", "relaxed_mse": 8.02082005915749e-12, "max_phase_slip_rad": 5.612969149394532e-10, "nfev": 35, "seconds": 11.461000300012529}
+{"stage": "exact_clock", "rank": 0, "mse": 1.688274666485395e-15, "nfev": 450, "seconds": 14.915219699963927}
+{"stage": "continuation", "rank": 1, "weight": 0.1, "tag": "pencil/order=(2, 0, 1),d0=125,n0=1.55", "relaxed_mse": 1.3173500803527786e-11, "max_phase_slip_rad": 3.470357536866575e-06, "nfev": 35, "seconds": 15.673806399921887}
+{"stage": "continuation", "rank": 1, "weight": 1.0, "tag": "pencil/order=(2, 0, 1),d0=125,n0=1.55", "relaxed_mse": 1.0478868808298144e-11, "max_phase_slip_rad": 4.662048001228043e-07, "nfev": 35, "seconds": 16.41368869994767}
+{"stage": "continuation", "rank": 1, "weight": 10.0, "tag": "pencil/order=(2, 0, 1),d0=125,n0=1.55", "relaxed_mse": 8.80531889000664e-12, "max_phase_slip_rad": 4.9790215679555135e-08, "nfev": 35, "seconds": 17.117656699963845}
+{"stage": "continuation", "rank": 1, "weight": 100.0, "tag": "pencil/order=(2, 0, 1),d0=125,n0=1.55", "relaxed_mse": 6.751206730213135e-12, "max_phase_slip_rad": 5.147724440605901e-10, "nfev": 35, "seconds": 17.83008400001563}
+{"stage": "exact_clock", "rank": 1, "mse": 2.499657007154377e-16, "nfev": 450, "seconds": 21.241695699980482}
+{"stage": "continuation", "rank": 2, "weight": 0.1, "tag": "fft/order=(0, 1, 2),d0=125,n0=1.55", "relaxed_mse": 1.5288341969577578e-06, "max_phase_slip_rad": 0.00044047478248349423, "nfev": 35, "seconds": 21.76962219993584}
+{"stage": "continuation", "rank": 2, "weight": 1.0, "tag": "fft/order=(0, 1, 2),d0=125,n0=1.55", "relaxed_mse": 1.5276012742232529e-06, "max_phase_slip_rad": 6.221326389077597e-05, "nfev": 35, "seconds": 22.37200979993213}
+{"stage": "continuation", "rank": 2, "weight": 10.0, "tag": "fft/order=(0, 1, 2),d0=125,n0=1.55", "relaxed_mse": 1.5808025020288518e-06, "max_phase_slip_rad": 8.082246533342221e-06, "nfev": 32, "seconds": 22.9770030999789}
+{"stage": "continuation", "rank": 2, "weight": 100.0, "tag": "fft/order=(0, 1, 2),d0=125,n0=1.55", "relaxed_mse": 1.5969778971935844e-06, "max_phase_slip_rad": 9.73659140918005e-08, "nfev": 4, "seconds": 23.040074300020933}
+{"stage": "exact_clock", "rank": 2, "mse": 2.499657007154377e-16, "nfev": 11, "seconds": 23.124865100020543}
+{"id": "weak_first", "status": "unresolved", "seconds": 23.12492640002165, "best_mse": 2.499657007154377e-16}

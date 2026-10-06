@@ -1,0 +1,229 @@
+{
+  "affine_ill_conditioned_control": {
+    "sharp_coordinate_upper": {
+      "exact": "201/10000",
+      "decimal_approximation": 0.0201
+    },
+    "inexact_dual_safe_upper": {
+      "exact": "299/10000",
+      "decimal_approximation": 0.0299
+    },
+    "inexact_dual_uncorrected_unsound_upper": {
+      "exact": "199/10000",
+      "decimal_approximation": 0.0199
+    },
+    "extremum_attains_sharp_bound": true
+  },
+  "signed_quadratic_control": {
+    "exact_identity_checked": "f1-f2=(x-y)+(x-y)^2",
+    "signed_remainder_lower": "0 by an exact square",
+    "direction_upper": {
+      "exact": "1/50",
+      "decimal_approximation": 0.02
+    },
+    "coarser_symmetric_absolute_coefficient_upper": {
+      "exact": "3/50",
+      "decimal_approximation": 0.06
+    },
+    "compatible_rational_grid_points_checked": 102,
+    "scope": "Polynomial identity proves nonnegative remainder; grid is a regression control, not its proof."
+  },
+  "disconnected_cover_control": {
+    "each_leaf_width": "1/1000",
+    "global_minimax_radius": "1",
+    "candidate_near_right_leaf_global_error": {
+      "exact": "3999/2000",
+      "decimal_approximation": 1.9995
+    }
+  },
+  "saved_strict_witness_consequences": [
+    {
+      "source": "ambiguity\\benchmark_verified_100.json",
+      "source_sha256": "9b410b20d36e808236172feb65c4888cba45af417b2362b3bc67782e918d8034",
+      "noise_allowance": {
+        "exact": "1/100000000",
+        "decimal_approximation": 1e-08
+      },
+      "saved_common_record_upper": {
+        "exact": "2938350095881395/302231454903657293676544",
+        "decimal_approximation": 9.72218492882568e-09
+      },
+      "distance_minimax_lower": {
+        "exact": "77405618595/70368744177664",
+        "decimal_approximation": 0.0010999999999938836
+      },
+      "all18_coordinate_minimax_lowers": [
+        {
+          "exact": "4299/2251799813685248",
+          "decimal_approximation": 1.909139513145419e-12
+        },
+        {
+          "exact": "109781/9007199254740992",
+          "decimal_approximation": 1.2188139386637431e-11
+        },
+        {
+          "exact": "16723/18014398509481984",
+          "decimal_approximation": 9.283129820403246e-13
+        },
+        {
+          "exact": "1122785283/4503599627370496",
+          "decimal_approximation": 2.4930841457937447e-07
+        },
+        {
+          "exact": "5025261045/2251799813685248",
+          "decimal_approximation": 2.23166420676435e-06
+        },
+        {
+          "exact": "11382016681/2251799813685248",
+          "decimal_approximation": 5.054630794365522e-06
+        },
+        {
+          "exact": "5562393/2251799813685248",
+          "decimal_approximation": 2.4701987122455193e-09
+        },
+        {
+          "exact": "85963/4398046511104",
+          "decimal_approximation": 1.9545723262126558e-08
+        },
+        {
+          "exact": "6198709/281474976710656",
+          "decimal_approximation": 2.2022238255203774e-08
+        },
+        {
+          "exact": "1070234439/9007199254740992",
+          "decimal_approximation": 1.1881989159245876e-07
+        },
+        {
+          "exact": "10435496743/9007199254740992",
+          "decimal_approximation": 1.158572875747943e-06
+        },
+        {
+          "exact": "22768807673/9007199254740992",
+          "decimal_approximation": 2.5278454521826532e-06
+        },
+        {
+          "exact": "77405618595/70368744177664",
+          "decimal_approximation": 0.0010999999999938836
+        },
+        {
+          "exact": "73648298355/140737488355328",
+          "decimal_approximation": 0.0005233026339723779
+        },
+        {
+          "exact": "10270828349/18014398509481984",
+          "decimal_approximation": 5.701455057516291e-07
+        },
+        {
+          "exact": "78274055389/72057594037927936",
+          "decimal_approximation": 1.0862707315456577e-06
+        },
+        {
+          "exact": "8901433573/4503599627370496",
+          "decimal_approximation": 1.976515300983195e-06
+        },
+        {
+          "exact": "17386793449/4503599627370496",
+          "decimal_approximation": 3.8606436822963275e-06
+        }
+      ],
+      "refutes_uniform_0_001_native_recovery_for_this_record": true,
+      "scope": "Exact endpoint-distance consequence of saved strict optical verification; no new optical execution."
+    },
+    {
+      "source": "ambiguity\\ordinary_noise_verified.json",
+      "source_sha256": "cc2436d202a555d20c297e780afd2be2f28ef9c56a8c835b5eeb4310ab1dbb81",
+      "noise_allowance": {
+        "exact": "1/10000",
+        "decimal_approximation": 0.0001
+      },
+      "saved_common_record_upper": {
+        "exact": "721077882036969/9223372036854775808",
+        "decimal_approximation": 7.817942062357281e-05
+      },
+      "distance_minimax_lower": {
+        "exact": "879609302221/35184372088832",
+        "decimal_approximation": 0.025000000000005684
+      },
+      "all18_coordinate_minimax_lowers": [
+        {
+          "exact": "66398565/4503599627370496",
+          "decimal_approximation": 1.4743443133014011e-08
+        },
+        {
+          "exact": "27102923/2251799813685248",
+          "decimal_approximation": 1.2036115659697089e-08
+        },
+        {
+          "exact": "41940963/18014398509481984",
+          "decimal_approximation": 2.328191139877589e-09
+        },
+        {
+          "exact": "202045419221/1125899906842624",
+          "decimal_approximation": 0.0001794523811513571
+        },
+        {
+          "exact": "777491088375/1125899906842624",
+          "decimal_approximation": 0.0006905508062038379
+        },
+        {
+          "exact": "1820562978047/1125899906842624",
+          "decimal_approximation": 0.0016169847488063382
+        },
+        {
+          "exact": "52466435993/2251799813685248",
+          "decimal_approximation": 2.3299778103780255e-05
+        },
+        {
+          "exact": "7952124611/281474976710656",
+          "decimal_approximation": 2.8251621881025812e-05
+        },
+        {
+          "exact": "3229076791/562949953421312",
+          "decimal_approximation": 5.735992642641463e-06
+        },
+        {
+          "exact": "13063392549/9007199254740992",
+          "decimal_approximation": 1.4503279187616513e-06
+        },
+        {
+          "exact": "645905018977/9007199254740992",
+          "decimal_approximation": 7.170986237892141e-05
+        },
+        {
+          "exact": "499838009795/2251799813685248",
+          "decimal_approximation": 0.0002219726668228894
+        },
+        {
+          "exact": "879609302221/35184372088832",
+          "decimal_approximation": 0.025000000000005684
+        },
+        {
+          "exact": "15737880726303/1125899906842624",
+          "decimal_approximation": 0.013978046032916858
+        },
+        {
+          "exact": "219921508781/4503599627370496",
+          "decimal_approximation": 4.883238453179395e-05
+        },
+        {
+          "exact": "257533581501/4503599627370496",
+          "decimal_approximation": 5.7183942359317896e-05
+        },
+        {
+          "exact": "1093096227939/4503599627370496",
+          "decimal_approximation": 0.00024271612007775722
+        },
+        {
+          "exact": "1390073416713/4503599627370496",
+          "decimal_approximation": 0.0003086583026308265
+        }
+      ],
+      "refutes_uniform_0_001_native_recovery_for_this_record": true,
+      "scope": "Exact endpoint-distance consequence of saved strict optical verification; no new optical execution."
+    }
+  ],
+  "status": "ALL_EXACT_ALGEBRA_CONTROLS_PASSED",
+  "global_optical_cover_certified": false,
+  "optical_model_executed": false,
+  "source_sha256": "3e58b696c2a28055a0d42ecdd840e4d7a8c22e7db1b0a695cdc03808943f1f99"
+}

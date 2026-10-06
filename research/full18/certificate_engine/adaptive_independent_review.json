@@ -1,0 +1,155 @@
+{
+  "cover_checks": [
+    {
+      "counts": {
+        "excluded": 1,
+        "retained": 0,
+        "split": 0,
+        "unresolved": 0
+      },
+      "dual_vertex_recomputations": 0,
+      "exact_row_vertex_inequalities": 0,
+      "file": "adaptive_checks/far_distance_certificate.json",
+      "forward_replays": 1,
+      "nodes": 1
+    },
+    {
+      "counts": {
+        "excluded": 0,
+        "retained": 0,
+        "split": 3,
+        "unresolved": 4
+      },
+      "dual_vertex_recomputations": 0,
+      "exact_row_vertex_inequalities": 0,
+      "file": "adaptive_checks/full_prior_certificate.json",
+      "forward_replays": 3,
+      "nodes": 7
+    },
+    {
+      "counts": {
+        "excluded": 0,
+        "retained": 1,
+        "split": 0,
+        "unresolved": 0
+      },
+      "dual_vertex_recomputations": 0,
+      "exact_row_vertex_inequalities": 0,
+      "file": "adaptive_checks/small_box_certificate.json",
+      "forward_replays": 1,
+      "nodes": 1
+    },
+    {
+      "counts": {
+        "excluded": 0,
+        "retained": 0,
+        "split": 0,
+        "unresolved": 1
+      },
+      "dual_vertex_recomputations": 0,
+      "exact_row_vertex_inequalities": 0,
+      "file": "adaptive_checks/zero_budget_certificate.json",
+      "forward_replays": 0,
+      "nodes": 1
+    },
+    {
+      "counts": {
+        "excluded": 0,
+        "retained": 0,
+        "split": 0,
+        "unresolved": 1
+      },
+      "dual_vertex_recomputations": 1,
+      "exact_row_vertex_inequalities": 32000,
+      "file": "adaptive_checks/zero_pivots_certificate.json",
+      "forward_replays": 1,
+      "nodes": 1
+    }
+  ],
+  "coverage_tamper_rejections": {
+    "altered_leaf_endpoint": true,
+    "altered_split_midpoint": true,
+    "changed_observation_input": true,
+    "deleted_leaf": true,
+    "unsupported_recovery_claim": true,
+    "unsupported_retention": true
+  },
+  "dataset_count": 1,
+  "dataset_provenance": "synthetic_fullvector_proof_spotcheck",
+  "fixture_sha256": "1c83fb2ce416e7e52971e0feb0c7e2f70d91e5d92088d516a3b3ce8aad99de9c",
+  "independent_checker_sha256": "a0f585f3524854516d1843fd61cd0c8bb0a0d4ff629a039e405e84dee1ce0332",
+  "new_observation_generation": false,
+  "optimizer_independent_sparse_replays": 1,
+  "original_engine_and_interval_sources_unchanged": true,
+  "original_project_execution": false,
+  "rational_lp_units": {
+    "dual_tamper_rejections": 3,
+    "individually_nonexcluding_rows": 2,
+    "nonzero_residual_support_penalty": "-1",
+    "residual_corrected_lower_bound": "-1/2",
+    "shared_conflict_lower_bound": "1/4",
+    "strict_equality_excludes_only_strict_systems": true,
+    "weak_equality_not_excluded": true,
+    "zero_pivot_budget_retains_unresolved_optimizer": true
+  },
+  "remaining": "Unresolved boxes preserved; no exact fallback, full-prior solved cover, or real-record recovery",
+  "scope": "Independent finite code and certificate audit, not formal verification or global inverse completion",
+  "source_sha256": {
+    "adaptive.py": "c151b1d0b7ceb6e01b7d46a8bcc13f502e1a7fa3fcd41fdf4b845c25f6fff38d",
+    "engine.py": "7cbce954039aa9cb93e00cedb6ae2b4d4a760de8eb46edc8f41a76c5637eba6b",
+    "interval.py": "3ddc0eaa3430028211d41962fcb2ce6d22c5c70dc24f89c3fae83245b8c90cbe",
+    "joint_lp.py": "16e4ff5a90ce631ead97eb8f949ac0bd913a56887cbb2af7cc06d6997a10cb7b"
+  },
+  "sparse_bound_tamper_rejections": 1,
+  "standalone_joint_checks": [
+    {
+      "coverage": {
+        "complete_affine_rows": true,
+        "expected_observation_rows": 800,
+        "expected_traversal_rows": 1200,
+        "geometry_box_rows": 8,
+        "observation_rows": 800,
+        "scope": "Complete here refers only to available affine rows; outgoing critical normal and all other optical physical tests remain separate.",
+        "traversal_rows": 1200
+      },
+      "dual": {
+        "checked": true,
+        "lower_bound": "-27142547769968437299122402901578246399421785597665405780536006742183837/67936516931002615168451566371816298049586565063617500462690506117218304",
+        "normal_residual_nonzero": true,
+        "strict_equality_exclusion": false,
+        "support_size": 3
+      },
+      "file": "adaptive_checks/expanded_geometry_joint_certificate.json",
+      "lp_objective": "19937139369536538328673260017497545695586003694735668095065362335784151056526408009523240013/1038497433024393657447419004598076442497241186728547779600767539495584221533438612903661928448",
+      "lp_pivots": 32,
+      "lp_termination": "pivot_limit",
+      "row_vertex_inequalities": 32000,
+      "status": "unresolved"
+    },
+    {
+      "coverage": {
+        "complete_affine_rows": false,
+        "expected_observation_rows": 800,
+        "expected_traversal_rows": 1200,
+        "geometry_box_rows": 8,
+        "observation_rows": 4,
+        "scope": "Complete here refers only to available affine rows; outgoing critical normal and all other optical physical tests remain separate.",
+        "traversal_rows": 6
+      },
+      "dual": {
+        "checked": true,
+        "lower_bound": "318993470498614242301291614495377/120892581961462917470617600000000",
+        "normal_residual_nonzero": true,
+        "strict_equality_exclusion": false,
+        "support_size": 1
+      },
+      "file": "adaptive_checks/far_distance_joint_certificate.json",
+      "lp_objective": null,
+      "lp_pivots": 0,
+      "lp_termination": "sparse_certificate",
+      "row_vertex_inequalities": 160,
+      "status": "excluded"
+    }
+  ],
+  "status": "passed"
+}

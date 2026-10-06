@@ -1,0 +1,1455 @@
+RISLEY LEAN SUPPORT SOURCES v1
+Complete labeled package text. Existing evidence only; no compiler or tests rerun.
+
+===== BEGIN FILE: README.txt | bytes=4070 | sha256=2c5329b22ce44907d44e5c4366d20ca8ac90b22d4ce273454c08f8da3ae37d34 =====
+Risley Lean supporting sources and existing verification evidence, package v1
+
+This package preserves two previously compiled Lean sources and their successful
+verification evidence. Packaging performed file reads, byte copies, inventory
+checks and SHA256 comparisons only. No Lean compiler, check script, numerical
+test, proof search, dependency installation or update was run to make it.
+
+Recorded proof scope: 19 theorems, comprising 11 in RisleySupport.lean and 8 in
+CriticalMargin.lean. The saved successful compiler logs report, for every theorem,
+exactly [propext, Classical.choice, Quot.sound]. Existing verification records and
+independent audits report no admitted goals, sorryAx dependencies or custom axioms.
+These are earlier recorded results, not a new compilation or formal audit.
+
+RisleySupport contains source-transport determinant/factorization/inverse lemmas,
+a spatial recurrence identity, critical/external-flight algebraic sign lemmas,
+and a square-root difference bound. The sign lemmas check the stated algebraic
+derivative expressions; they do not formalize differentiation of the optical map.
+CriticalMargin proves the conditional final-prism observation-margin implication
+from explicit real-coordinate intersection, traversal, slope and observation
+hypotheses. It does not derive all those hypotheses from the full optical model.
+
+No full three-prism compiler, complete inverse, boundary compactification,
+corrector/contraction theorem, native accuracy certificate, or concrete 200-sample
+record is formalized by this package. The later chord and interval-domain work
+adds no Lean coverage. Standard logical axioms are distinct from optical premises.
+
+Layout:
+- formalization/: exact source bytes, original READMEs, successful compiler logs,
+  verification JSON, independent audit notes, and unexecuted original check scripts.
+- dependency-environment/: exact lakefile.toml, lean-toolchain and lake-manifest.json
+  snapshots from the existing environment used by the original direct-compiler
+  scripts. The lock records mathlib and its transitive dependency revisions.
+- MANIFEST.json: file sizes, SHA256 hashes, theorem names and recorded axiom scope.
+  Its file inventory excludes MANIFEST.json itself to avoid a circular self-hash.
+
+Frozen toolchain and dependency identity:
+- Lean 4.33.0, Windows x86_64, release commit
+  d8b18978322de05a8f3dba51ef03cf5461676c17.
+- mathlib v4.33.0, commit db584cd6d46c92f209a44c0f1c829460d327499d.
+
+Reproduction boundaries:
+The dependency snapshot is metadata, not a bundled Lean installation or mathlib
+checkout/build cache. Its default Lake target is the original environment's
+Risley library, whose unrelated source is deliberately absent. This archive is
+not a standalone default-Lake-build project. Restore the recorded compiler and
+locked dependencies in an appropriate separate environment before a future check.
+The original check.ps1 and check-critical-margin.ps1 show the exact historical
+direct compiler calls and LEAN_PATH construction; their absolute local paths
+must be reviewed/adapted for another machine. Neither script was run here.
+The original READMEs also retain their historical workspace-relative paths.
+
+Excluded deliberately: .olean objects, compiler/dependency binaries, build caches,
+unrelated optical/project sources, and superseded failed-draft logs. Original
+READMEs and verification JSON mention some excluded objects or failed drafts;
+those historical references are preserved, and do not assert archive membership.
+Saved logs contain the historical local compiler/workspace paths as provenance.
+
+The companion risley_lean_support_sources.txt concatenates every package text
+file with labeled byte-count/hash boundaries. Bytes between each BEGIN and END
+boundary are the complete corresponding file bytes, with a separate delimiter
+newline before END. The ZIP is the authoritative individually recoverable copy.
+
+This package preserves the originals and records existing evidence. It makes no
+new proof, physical validation, global uniqueness or practical recovery claim.
+
+===== END FILE: README.txt =====
+
+===== BEGIN FILE: formalization/RisleySupport.lean | bytes=6589 | sha256=402d3f1555dabe0639f54d8af43a770f30ed0a134ac6308846f4444e74d573e8 =====
+import Mathlib.Analysis.Real.Sqrt
+import Mathlib.LinearAlgebra.Matrix.Determinant.Basic
+import Mathlib.Tactic.FieldSimp
+import Mathlib.Tactic.FinCases
+import Mathlib.Tactic.LinearCombination
+import Mathlib.Tactic.Linarith
+import Mathlib.Tactic.Ring
+
+/-!
+Bounded supporting formalization for the reduced-algebra and boundary addenda.
+This file does not formalize the full optical model or its inverse theorem.
+The coordinate statements below expose every algebraic/positivity hypothesis.
+-/
+
+set_option autoImplicit false
+
+namespace RisleySupport
+
+/-- The determinant of I - a u^T in two transverse dimensions. -/
+theorem entrance_det (a₁ a₂ u₁ u₂ : ℝ) :
+    Matrix.det !![1 - a₁*u₁, -a₁*u₂; -a₂*u₁, 1-a₂*u₂] =
+      1 - (u₁*a₁ + u₂*a₂) := by
+  rw [Matrix.det_fin_two]
+  simp
+  ring
+
+/-- Coordinate representation of (I-vu^T)(I-au^T)⁻¹. -/
+noncomputable def transport (a₁ a₂ v₁ v₂ u₁ u₂ : ℝ) : Matrix (Fin 2) (Fin 2) ℝ :=
+  !![1 + (a₁-v₁)*u₁/(1-(u₁*a₁+u₂*a₂)),
+       (a₁-v₁)*u₂/(1-(u₁*a₁+u₂*a₂));
+       (a₂-v₂)*u₁/(1-(u₁*a₁+u₂*a₂)),
+     1 + (a₂-v₂)*u₂/(1-(u₁*a₁+u₂*a₂))]
+
+/-- The transport really factors the incoming/outgoing intersection matrices. -/
+theorem transport_factorization (a₁ a₂ v₁ v₂ u₁ u₂ : ℝ)
+    (ha : 1-(u₁*a₁+u₂*a₂) ≠ 0) :
+    transport a₁ a₂ v₁ v₂ u₁ u₂ *
+      !![1-a₁*u₁, -a₁*u₂; -a₂*u₁, 1-a₂*u₂] =
+      !![1-v₁*u₁, -v₁*u₂; -v₂*u₁, 1-v₂*u₂] := by
+  ext i j
+  fin_cases i <;> fin_cases j
+  all_goals simp only [Matrix.mul_apply, Fin.sum_univ_two]
+  all_goals dsimp [transport]
+  all_goals generalize hd : (1-(u₁*a₁+u₂*a₂)) = da at *
+  all_goals field_simp [ha]
+  all_goals rw [← hd]
+  all_goals ring
+
+/-- The source-transport determinant ratio; the entrance denominator is nonzero. -/
+theorem transport_det (a₁ a₂ v₁ v₂ u₁ u₂ : ℝ)
+    (ha : 1-(u₁*a₁+u₂*a₂) ≠ 0) :
+    Matrix.det (transport a₁ a₂ v₁ v₂ u₁ u₂) =
+      (1-(u₁*v₁+u₂*v₂))/(1-(u₁*a₁+u₂*a₂)) := by
+  rw [Matrix.det_fin_two]
+  dsimp [transport]
+  generalize hd : (1-(u₁*a₁+u₂*a₂)) = da at *
+  field_simp [ha]
+  rw [← hd]
+  ring
+
+/-- The proposed inverse is the reversed transport, with both physical normal guards. -/
+theorem transport_inverse (a₁ a₂ v₁ v₂ u₁ u₂ : ℝ)
+    (ha : 1-(u₁*a₁+u₂*a₂) ≠ 0)
+    (hv : 1-(u₁*v₁+u₂*v₂) ≠ 0) :
+    transport a₁ a₂ v₁ v₂ u₁ u₂ * transport v₁ v₂ a₁ a₂ u₁ u₂ = 1 := by
+  ext i j
+  fin_cases i <;> fin_cases j
+  all_goals simp only [Matrix.mul_apply, Fin.sum_univ_two, Matrix.one_apply, if_true]
+  all_goals dsimp [transport]
+  all_goals generalize hd : (1-(u₁*a₁+u₂*a₂)) = da at *
+  all_goals generalize he : (1-(u₁*v₁+u₂*v₂)) = dv at *
+  all_goals field_simp [ha, hv]
+  all_goals rw [← hd, ← he]
+  all_goals ring
+
+/-- Positive incoming and outgoing normal factors give a positive determinant. -/
+theorem transport_det_pos (a₁ a₂ v₁ v₂ u₁ u₂ : ℝ)
+    (ha : 0 < 1-(u₁*a₁+u₂*a₂))
+    (hv : 0 < 1-(u₁*v₁+u₂*v₂)) :
+    0 < Matrix.det (transport a₁ a₂ v₁ v₂ u₁ u₂) := by
+  rw [transport_det a₁ a₂ v₁ v₂ u₁ u₂ (ne_of_gt ha)]
+  exact div_pos hv ha
+
+/-- One component of the combined position numerator, using P=H-u·X.
+Here alpha=u·A and dotX=u·X; Xi and Yi are corresponding vector components. -/
+theorem combined_spatial_recurrence
+    (H Z dotX alpha Xi Yi Ai T ell : ℝ)
+    (hP : H-dotX ≠ 0) (hZ : Z ≠ 0) (hT : T ≠ 0) :
+    Ai/T + Xi*(3+alpha/T)/(H-dotX) +
+      (Yi/Z)*(ell - (alpha/T + dotX*(3+alpha/T)/(H-dotX))) =
+    (Z*(H-dotX)*Ai + (Z*Xi-H*Yi)*alpha +
+      3*(Z*Xi-dotX*Yi)*T + ell*(H-dotX)*Yi*T) /
+      (Z*(H-dotX)*T) := by
+  field_simp
+  ring
+
+/-- Algebraic critical inward derivative identity. The hypothesis is Delta=0.
+The quantity (H*b+a)/(1+b) is the critical outgoing axial direction Z. -/
+theorem critical_inward_identity (H a b nu : ℝ)
+    (hb : 1+b ≠ 0)
+    (hc : (H-a)^2 = (1+b)*nu) :
+    -2*(a*(H-a)+b*nu) = -2*(H-a)*((H*b+a)/(1+b)) := by
+  field_simp
+  linear_combination b*hc
+
+/-- The critical derivative is strictly negative when the physical guards hold. -/
+theorem critical_inward_negative (H a b nu : ℝ)
+    (hb : 1+b ≠ 0) (hc : (H-a)^2 = (1+b)*nu)
+    (hP : 0 < H-a) (hZ : 0 < (H*b+a)/(1+b)) :
+    -2*(a*(H-a)+b*nu) < 0 := by
+  rw [critical_inward_identity H a b nu hb hc]
+  nlinarith [mul_pos hP hZ]
+
+/-- At an active external flight constraint, its derivative simplifies to -H*ell/P. -/
+theorem external_flight_inward_identity (H a b ell : ℝ)
+    (hP : H-a ≠ 0) (hactive : ell = (H*b+3*a)/(H-a)) :
+    -H*(H*b+3*a)/(H-a)^2 = -H*ell/(H-a) := by
+  rw [hactive]
+  field_simp
+
+/-- The preceding derivative is strictly negative for positive internal H, flight, and P. -/
+theorem external_flight_inward_negative (H a b ell : ℝ)
+    (hP : 0 < H-a) (hH : 0 < H) (hell : 0 < ell)
+    (hactive : ell = (H*b+3*a)/(H-a)) :
+    -H*(H*b+3*a)/(H-a)^2 < 0 := by
+  rw [external_flight_inward_identity H a b ell (ne_of_gt hP) hactive]
+  exact div_neg_of_neg_of_pos (mul_neg_of_neg_of_pos (neg_neg_of_pos hH) hell) hP
+
+/-- The square-root modulus used by the hierarchical strictification and global modulus. -/
+theorem sqrt_difference_bound (s t : ℝ) (hs : 0 ≤ s) (ht : 0 ≤ t) :
+    |Real.sqrt s - Real.sqrt t| ≤ Real.sqrt |s-t| := by
+  have hs0 := Real.sqrt_nonneg s
+  have ht0 := Real.sqrt_nonneg t
+  have hd0 := Real.sqrt_nonneg |s-t|
+  have hss := Real.sq_sqrt hs
+  have htt := Real.sq_sqrt ht
+  have hdd := Real.sq_sqrt (abs_nonneg (s-t))
+  rcases le_total t s with hts | hst
+  · have hr : Real.sqrt t ≤ Real.sqrt s := Real.sqrt_le_sqrt hts
+    rw [abs_of_nonneg (sub_nonneg.mpr hr)]
+    rw [abs_of_nonneg (sub_nonneg.mpr hts)] at hd0 hdd ⊢
+    nlinarith [mul_nonneg ht0 (sub_nonneg.mpr hr)]
+  · have hr : Real.sqrt s ≤ Real.sqrt t := Real.sqrt_le_sqrt hst
+    rw [abs_of_nonpos (sub_nonpos.mpr hr)]
+    rw [abs_of_nonpos (sub_nonpos.mpr hst)] at hd0 hdd ⊢
+    nlinarith [mul_nonneg hs0 (sub_nonneg.mpr hr)]
+
+#print axioms entrance_det
+#print axioms transport_factorization
+#print axioms transport_det
+#print axioms transport_inverse
+#print axioms transport_det_pos
+#print axioms combined_spatial_recurrence
+#print axioms critical_inward_identity
+#print axioms critical_inward_negative
+#print axioms external_flight_inward_identity
+#print axioms external_flight_inward_negative
+#print axioms sqrt_difference_bound
+
+end RisleySupport
+
+===== END FILE: formalization/RisleySupport.lean =====
+
+===== BEGIN FILE: formalization/CriticalMargin.lean | bytes=6916 | sha256=d711b8b89cc89c9afc86c6426c0136a03c2295d598774f2b58c5133ebc49fdb7 =====
+import Mathlib.Analysis.Real.Sqrt
+import Mathlib.Tactic.FieldSimp
+import Mathlib.Tactic.Linarith
+import Mathlib.Tactic.Ring
+
+/-!
+Final-prism data-dependent critical-normal margin, in explicit real coordinates.
+Every geometry, weak-branch, and observation assumption is in the statements.
+No original-project module or other local formalization is imported.
+-/
+
+set_option autoImplicit false
+
+namespace RisleyCriticalMargin
+
+/-- The final-plane identity follows from the two outgoing intersection equations,
+the external axial flight B, and the outgoing normal component R. -/
+theorem final_plane_identity
+    (ux uy px py X Y Z B d R Fx Fy : ℝ)
+    (hZ : Z ≠ 0)
+    (hFx : Fx = px + (X/Z)*B)
+    (hFy : Fy = py + (Y/Z)*B)
+    (hB : B = d - (ux*px+uy*py))
+    (hR : R = Z - (ux*X+uy*Y)) :
+    Z*(d-(ux*Fx+uy*Fy)) = R*B := by
+  rw [hFx, hFy, hR, hB]
+  field_simp
+  ring
+
+/-- Weak internal and external traversal give the required flight interval. -/
+theorem weak_flight_bounds (ux uy px py B d : ℝ)
+    (hB : B = d-(ux*px+uy*py))
+    (hInternal : 0 ≤ 3+(ux*px+uy*py))
+    (hExternal : 0 ≤ B) :
+    0 ≤ B ∧ B ≤ 3+d := by
+  constructor
+  · exact hExternal
+  · linarith
+
+/-- The real two-dimensional Lagrange identity used for the screen-radius bound. -/
+theorem lagrange_identity (ux uy Fx Fy : ℝ) :
+    (ux*Fx+uy*Fy)^2 + (ux*Fy-uy*Fx)^2 =
+      (ux^2+uy^2)*(Fx^2+Fy^2) := by
+  ring
+
+/-- Componentwise screen bounds and the slope disk imply the exact dot-product bound. -/
+theorem screen_box_dot_bound (ux uy Fx Fy ax ay uStar : ℝ)
+    (huStar : 0 ≤ uStar)
+    (hu : ux^2+uy^2 ≤ uStar^2)
+    (hFx : |Fx| ≤ ax) (hFy : |Fy| ≤ ay) :
+    ux*Fx+uy*Fy ≤ uStar*Real.sqrt (ax^2+ay^2) := by
+  have hax : 0 ≤ ax := le_trans (abs_nonneg Fx) hFx
+  have hay : 0 ≤ ay := le_trans (abs_nonneg Fy) hFy
+  have hx2 : Fx^2 ≤ ax^2 := by
+    have habs2 := (sq_le_sq₀ (abs_nonneg Fx) hax).2 hFx
+    simpa only [sq_abs] using habs2
+  have hy2 : Fy^2 ≤ ay^2 := by
+    have habs2 := (sq_le_sq₀ (abs_nonneg Fy) hay).2 hFy
+    simpa only [sq_abs] using habs2
+  have hcs : (ux*Fx+uy*Fy)^2 ≤ (ux^2+uy^2)*(Fx^2+Fy^2) := by
+    have hid := lagrange_identity ux uy Fx Fy
+    nlinarith [sq_nonneg (ux*Fy-uy*Fx)]
+  have hnorm := mul_le_mul_of_nonneg_right hu
+    (add_nonneg (sq_nonneg Fx) (sq_nonneg Fy))
+  have hbox := mul_le_mul_of_nonneg_left (add_le_add hx2 hy2) (sq_nonneg uStar)
+  have hdot2 : (ux*Fx+uy*Fy)^2 ≤ uStar^2*(ax^2+ay^2) :=
+    le_trans hcs (le_trans hnorm hbox)
+  have hsqrt := Real.sq_sqrt (add_nonneg (sq_nonneg ax) (sq_nonneg ay))
+  have hM : 0 ≤ uStar*Real.sqrt (ax^2+ay^2) :=
+    mul_nonneg huStar (Real.sqrt_nonneg _)
+  have hdotM : (ux*Fx+uy*Fy)^2 ≤ (uStar*Real.sqrt (ax^2+ay^2))^2 := by
+    simpa only [mul_pow, hsqrt] using hdot2
+  have habs : |ux*Fx+uy*Fy| ≤ uStar*Real.sqrt (ax^2+ay^2) := by
+    apply (sq_le_sq₀ (abs_nonneg _) hM).1
+    simpa only [sq_abs] using hdotM
+  exact le_trans (le_abs_self _) habs
+
+/-- Scalar margin step: lower distance 50 and thickness 3 produce the divisor 53. -/
+theorem scalar_ratio_margin (kappa B d dot M : ℝ)
+    (hkappa : 0 ≤ kappa) (hM : 0 ≤ M) (hd : 50 ≤ d)
+    (hBupper : B ≤ 3+d)
+    (hIdentity : d-dot = kappa*B)
+    (hDot : dot ≤ M) :
+    max 0 ((50-M)/53) ≤ kappa := by
+  have hden : 0 < 3+d := by linarith
+  have hprod := mul_le_mul_of_nonneg_left hBupper hkappa
+  have hbound : (d-M)/(3+d) ≤ kappa := by
+    apply (div_le_iff₀ hden).2
+    nlinarith
+  have hmono : (50-M)/53 ≤ (d-M)/(3+d) := by
+    apply (div_le_div_iff₀ (by norm_num : (0:ℝ)<53) hden).2
+    nlinarith [mul_nonneg (sub_nonneg.mpr hd) (show 0 ≤ 3+M by linarith)]
+  exact max_le hkappa (le_trans hmono hbound)
+
+/-- Complete linked final-prism ratio certificate from the displayed physical
+intersection equations, weak traversal, and screen-coordinate bounds.
+uStar can be specialized to tan(pi/10), ax,ay to |y_x|+epsilon,|y_y|+epsilon.
+No conclusion about upstream prisms or all-sample feasibility is asserted here. -/
+theorem final_prism_ratio_margin
+    (ux uy px py X Y Z B d R Fx Fy ax ay uStar : ℝ)
+    (hZ : 0 < Z) (hRnonneg : 0 ≤ R)
+    (hFx : Fx = px + (X/Z)*B)
+    (hFy : Fy = py + (Y/Z)*B)
+    (hB : B = d-(ux*px+uy*py))
+    (hR : R = Z-(ux*X+uy*Y))
+    (hInternal : 0 ≤ 3+(ux*px+uy*py))
+    (hExternal : 0 ≤ B)
+    (hd : 50 ≤ d)
+    (huStar : 0 ≤ uStar)
+    (hu : ux^2+uy^2 ≤ uStar^2)
+    (hScreenX : |Fx| ≤ ax) (hScreenY : |Fy| ≤ ay) :
+    max 0 ((50-uStar*Real.sqrt (ax^2+ay^2))/53) ≤ R/Z := by
+  have hid := final_plane_identity ux uy px py X Y Z B d R Fx Fy
+    (ne_of_gt hZ) hFx hFy hB hR
+  have hflight := weak_flight_bounds ux uy px py B d hB hInternal hExternal
+  have hdot := screen_box_dot_bound ux uy Fx Fy ax ay uStar huStar hu hScreenX hScreenY
+  have hquot : d-(ux*Fx+uy*Fy) = (R/Z)*B := by
+    apply (mul_left_cancel₀ (ne_of_gt hZ))
+    calc
+      Z*(d-(ux*Fx+uy*Fy)) = R*B := hid
+      _ = Z*((R/Z)*B) := by field_simp
+  exact scalar_ratio_margin (R/Z) B d (ux*Fx+uy*Fy)
+    (uStar*Real.sqrt (ax^2+ay^2))
+    (div_nonneg hRnonneg (le_of_lt hZ))
+    (mul_nonneg huStar (Real.sqrt_nonneg _)) hd hflight.2 hquot hdot
+
+/-- A measured-coordinate residual bound implies the screen-coordinate box.
+Nonnegativity of epsilon is already implied by the hypothesis. -/
+theorem observation_screen_bound (F y epsilon : ℝ)
+    (hError : |F-y| ≤ epsilon) : |F| ≤ |y|+epsilon := by
+  calc
+    |F| = |(F-y)+y| := by congr 1; ring
+    _ ≤ |F-y|+|y| := abs_add_le _ _
+    _ ≤ |y|+epsilon := by linarith
+
+/-- The final-prism certificate stated directly in terms of measured y and a
+single shared componentwise error allowance epsilon. The two error hypotheses
+themselves imply epsilon>=0. The physical trace hypotheses are not suppressed. -/
+theorem final_prism_observation_margin
+    (ux uy px py X Y Z B d R Fx Fy yx yy epsilon uStar : ℝ)
+    (hZ : 0 < Z) (hRnonneg : 0 ≤ R)
+    (hFx : Fx = px + (X/Z)*B)
+    (hFy : Fy = py + (Y/Z)*B)
+    (hB : B = d-(ux*px+uy*py))
+    (hR : R = Z-(ux*X+uy*Y))
+    (hInternal : 0 ≤ 3+(ux*px+uy*py))
+    (hExternal : 0 ≤ B)
+    (hd : 50 ≤ d)
+    (huStar : 0 ≤ uStar)
+    (hu : ux^2+uy^2 ≤ uStar^2)
+    (hErrorX : |Fx-yx| ≤ epsilon) (hErrorY : |Fy-yy| ≤ epsilon) :
+    max 0 ((50-uStar*Real.sqrt ((|yx|+epsilon)^2+(|yy|+epsilon)^2))/53) ≤ R/Z := by
+  exact final_prism_ratio_margin ux uy px py X Y Z B d R Fx Fy
+    (|yx|+epsilon) (|yy|+epsilon) uStar
+    hZ hRnonneg hFx hFy hB hR hInternal hExternal hd huStar hu
+    (observation_screen_bound Fx yx epsilon hErrorX)
+    (observation_screen_bound Fy yy epsilon hErrorY)
+
+#print axioms final_plane_identity
+#print axioms weak_flight_bounds
+#print axioms lagrange_identity
+#print axioms screen_box_dot_bound
+#print axioms scalar_ratio_margin
+#print axioms final_prism_ratio_margin
+#print axioms observation_screen_bound
+#print axioms final_prism_observation_margin
+
+end RisleyCriticalMargin
+
+===== END FILE: formalization/CriticalMargin.lean =====
+
+===== BEGIN FILE: dependency-environment/lake-manifest.json | bytes=3140 | sha256=80fac8262177ad34366e8b132677d06e3f6c4f3dc027a2cf204df395b255baf3 =====
+{"version": "1.2.0",
+ "packagesDir": ".lake/packages",
+ "packages":
+ [{"url": "https://github.com/leanprover-community/mathlib4",
+   "type": "git",
+   "subDir": null,
+   "scope": "leanprover-community",
+   "rev": "db584cd6d46c92f209a44c0f1c829460d327499d",
+   "name": "mathlib",
+   "manifestFile": "lake-manifest.json",
+   "inputRev": "v4.33.0",
+   "inherited": false,
+   "configFile": "lakefile.lean"},
+  {"url": "https://github.com/leanprover-community/plausible",
+   "type": "git",
+   "subDir": null,
+   "scope": "leanprover-community",
+   "rev": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb",
+   "name": "plausible",
+   "manifestFile": "lake-manifest.json",
+   "inputRev": "main",
+   "inherited": true,
+   "configFile": "lakefile.toml"},
+  {"url": "https://github.com/leanprover-community/LeanSearchClient",
+   "type": "git",
+   "subDir": null,
+   "scope": "leanprover-community",
+   "rev": "5f4d51b81cbd3f6b32b156bfad9056621a040404",
+   "name": "LeanSearchClient",
+   "manifestFile": "lake-manifest.json",
+   "inputRev": "main",
+   "inherited": true,
+   "configFile": "lakefile.toml"},
+  {"url": "https://github.com/leanprover-community/import-graph",
+   "type": "git",
+   "subDir": null,
+   "scope": "leanprover-community",
+   "rev": "16f02aa7642864af59f1ff0e384a015994db9118",
+   "name": "importGraph",
+   "manifestFile": "lake-manifest.json",
+   "inputRev": "main",
+   "inherited": true,
+   "configFile": "lakefile.toml"},
+  {"url": "https://github.com/leanprover-community/ProofWidgets4",
+   "type": "git",
+   "subDir": null,
+   "scope": "leanprover-community",
+   "rev": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957",
+   "name": "proofwidgets",
+   "manifestFile": "lake-manifest.json",
+   "inputRev": "main",
+   "inherited": true,
+   "configFile": "lakefile.lean"},
+  {"url": "https://github.com/leanprover-community/aesop",
+   "type": "git",
+   "subDir": null,
+   "scope": "leanprover-community",
+   "rev": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e",
+   "name": "aesop",
+   "manifestFile": "lake-manifest.json",
+   "inputRev": "master",
+   "inherited": true,
+   "configFile": "lakefile.toml"},
+  {"url": "https://github.com/leanprover-community/quote4",
+   "type": "git",
+   "subDir": null,
+   "scope": "leanprover-community",
+   "rev": "92c15be17b7caf78c2ad767ec40f89052d908d81",
+   "name": "Qq",
+   "manifestFile": "lake-manifest.json",
+   "inputRev": "master",
+   "inherited": true,
+   "configFile": "lakefile.toml"},
+  {"url": "https://github.com/leanprover-community/batteries",
+   "type": "git",
+   "subDir": null,
+   "scope": "leanprover-community",
+   "rev": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d",
+   "name": "batteries",
+   "manifestFile": "lake-manifest.json",
+   "inputRev": "main",
+   "inherited": true,
+   "configFile": "lakefile.toml"},
+  {"url": "https://github.com/leanprover/lean4-cli",
+   "type": "git",
+   "subDir": null,
+   "scope": "leanprover",
+   "rev": "6130a47896ce867c6a4a55373441e59e565bad0f",
+   "name": "Cli",
+   "manifestFile": "lake-manifest.json",
+   "inputRev": "v4.33.0",
+   "inherited": true,
+   "configFile": "lakefile.toml"}],
+ "name": "risley",
+ "lakeDir": ".lake",
+ "fixedToolchain": false}
+
+===== END FILE: dependency-environment/lake-manifest.json =====
+
+===== BEGIN FILE: dependency-environment/lakefile.toml | bytes=347 | sha256=1710aff8ae902dffa2d8123fb542215c7270197f9bc8976dde0645e3b18f7746 =====
+name = "risley"
+version = "0.1.0"
+keywords = ["math"]
+defaultTargets = ["Risley"]
+
+[leanOptions]
+pp.unicode.fun = true # pretty-prints `fun a ↦ b`
+relaxedAutoImplicit = false
+weak.linter.mathlibStandardSet = true
+maxSynthPendingDepth = 3
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+rev = "v4.33.0"
+
+[[lean_lib]]
+name = "Risley"
+
+===== END FILE: dependency-environment/lakefile.toml =====
+
+===== BEGIN FILE: dependency-environment/lean-toolchain | bytes=25 | sha256=302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b =====
+leanprover/lean4:v4.33.0
+
+===== END FILE: dependency-environment/lean-toolchain =====
+
+===== BEGIN FILE: formalization/check-critical-margin.ps1 | bytes=1878 | sha256=283912886f459922a367ec6bf4ea74a4433fcc0dae79b3d167348a4b57fef401 =====
+$ErrorActionPreference = 'Stop'
+$proofRoot = $PSScriptRoot
+$compilerPath = 'C:\Users\josep\.elan\toolchains\leanprover--lean4---v4.33.0\bin\lean.exe'
+$cachedPackageRoot = 'C:\Users\josep\lean\risley\.lake\packages'
+$libraryPaths = Get-ChildItem -LiteralPath $cachedPackageRoot -Directory | ForEach-Object {
+    $candidate = Join-Path $_.FullName '.lake\build\lib\lean'
+    if (Test-Path -LiteralPath $candidate) { $candidate }
+}
+$env:LEAN_PATH = $libraryPaths -join ';'
+$proofSource = Join-Path $proofRoot 'CriticalMargin.lean'
+$proofObject = Join-Path $proofRoot 'CriticalMargin.olean'
+$proofLog = Join-Path $proofRoot 'critical-margin-compiler-output.txt'
+$sourceHashBefore = (Get-FileHash -LiteralPath $proofSource -Algorithm SHA256).Hash
+$compilerVersion = & $compilerPath --version
+$compilerOutput = & $compilerPath -o $proofObject $proofSource 2>&1
+$compilerExit = $LASTEXITCODE
+$sourceHashAfter = (Get-FileHash -LiteralPath $proofSource -Algorithm SHA256).Hash
+if ($sourceHashBefore -ne $sourceHashAfter) {
+    throw 'Proof source changed during compilation; result is not attributed to a single source.'
+}
+$objectHash = if ($compilerExit -eq 0) {
+    (Get-FileHash -LiteralPath $proofObject -Algorithm SHA256).Hash
+} else { 'No successful object hash claimed' }
+$lines = @(
+    $compilerVersion,
+    "Compiler: $compilerPath",
+    "Source: $proofSource",
+    "Output: $proofObject",
+    "Source SHA256 (unchanged during compile): $sourceHashAfter",
+    "Object SHA256: $objectHash",
+    'Command: lean.exe -o CriticalMargin.olean CriticalMargin.lean',
+    'Imports: pre-existing cached mathlib/package .olean files, read-only',
+    "Exit code: $compilerExit",
+    'Output below combines compiler stdout and stderr in order.',
+    '',
+    $compilerOutput
+)
+[IO.File]::WriteAllLines($proofLog, [string[]]$lines, [Text.UTF8Encoding]::new($false))
+$lines
+exit $compilerExit
+
+===== END FILE: formalization/check-critical-margin.ps1 =====
+
+===== BEGIN FILE: formalization/check.ps1 | bytes=1858 | sha256=ed69f8cb840f0de3d6177c9944b59397c9eb682f1bff473b877e04b3bc0bc2ea =====
+$ErrorActionPreference = 'Stop'
+$proofRoot = $PSScriptRoot
+$compilerPath = 'C:\Users\josep\.elan\toolchains\leanprover--lean4---v4.33.0\bin\lean.exe'
+$cachedPackageRoot = 'C:\Users\josep\lean\risley\.lake\packages'
+$libraryPaths = Get-ChildItem -LiteralPath $cachedPackageRoot -Directory | ForEach-Object {
+    $candidate = Join-Path $_.FullName '.lake\build\lib\lean'
+    if (Test-Path -LiteralPath $candidate) { $candidate }
+}
+$env:LEAN_PATH = $libraryPaths -join ';'
+$proofSource = Join-Path $proofRoot 'RisleySupport.lean'
+$proofObject = Join-Path $proofRoot 'RisleySupport.olean'
+$proofLog = Join-Path $proofRoot 'compiler-output.txt'
+$sourceHashBefore = (Get-FileHash -LiteralPath $proofSource -Algorithm SHA256).Hash
+$compilerVersion = & $compilerPath --version
+$compilerOutput = & $compilerPath -o $proofObject $proofSource 2>&1
+$compilerExit = $LASTEXITCODE
+$sourceHashAfter = (Get-FileHash -LiteralPath $proofSource -Algorithm SHA256).Hash
+if ($sourceHashBefore -ne $sourceHashAfter) {
+    throw 'Proof source changed during compilation; result is not attributed to a single source.'
+}
+$objectHash = if ($compilerExit -eq 0) {
+    (Get-FileHash -LiteralPath $proofObject -Algorithm SHA256).Hash
+} else { 'No successful object hash claimed' }
+$lines = @(
+    $compilerVersion,
+    "Compiler: $compilerPath",
+    "Source: $proofSource",
+    "Output: $proofObject",
+    "Source SHA256 (unchanged during compile): $sourceHashAfter",
+    "Object SHA256: $objectHash",
+    'Command: lean.exe -o RisleySupport.olean RisleySupport.lean',
+    'Imports: pre-existing cached mathlib/package .olean files, read-only',
+    "Exit code: $compilerExit",
+    'Output below combines compiler stdout and stderr in order.',
+    '',
+    $compilerOutput
+)
+[IO.File]::WriteAllLines($proofLog, [string[]]$lines, [Text.UTF8Encoding]::new($false))
+$lines
+exit $compilerExit
+
+===== END FILE: formalization/check.ps1 =====
+
+===== BEGIN FILE: formalization/compiler-output.txt | bytes=1873 | sha256=9502f23a92627676e8463aa4602683e4234a24555167c12a03e4c33242fe9778 =====
+Lean (version 4.33.0, x86_64-w64-windows-gnu, commit d8b18978322de05a8f3dba51ef03cf5461676c17, Release)
+Compiler: C:\Users\josep\.elan\toolchains\leanprover--lean4---v4.33.0\bin\lean.exe
+Source: C:\Users\josep\Documents\Codex\2026-10-02\task\full18_research\formalization\RisleySupport.lean
+Output: C:\Users\josep\Documents\Codex\2026-10-02\task\full18_research\formalization\RisleySupport.olean
+Source SHA256 (unchanged during compile): 402D3F1555DABE0639F54D8AF43A770F30ED0A134AC6308846F4444E74D573E8
+Object SHA256: 9BD201BD7D13E0C241A26EF1906E58C275717C31F755D89B992732AEF880E68B
+Command: lean.exe -o RisleySupport.olean RisleySupport.lean
+Imports: pre-existing cached mathlib/package .olean files, read-only
+Exit code: 0
+Output below combines compiler stdout and stderr in order.
+
+'RisleySupport.entrance_det' depends on axioms: [propext, Classical.choice, Quot.sound] 'RisleySupport.transport_factorization' depends on axioms: [propext, Classical.choice, Quot.sound] 'RisleySupport.transport_det' depends on axioms: [propext, Classical.choice, Quot.sound] 'RisleySupport.transport_inverse' depends on axioms: [propext, Classical.choice, Quot.sound] 'RisleySupport.transport_det_pos' depends on axioms: [propext, Classical.choice, Quot.sound] 'RisleySupport.combined_spatial_recurrence' depends on axioms: [propext, Classical.choice, Quot.sound] 'RisleySupport.critical_inward_identity' depends on axioms: [propext, Classical.choice, Quot.sound] 'RisleySupport.critical_inward_negative' depends on axioms: [propext, Classical.choice, Quot.sound] 'RisleySupport.external_flight_inward_identity' depends on axioms: [propext, Classical.choice, Quot.sound] 'RisleySupport.external_flight_inward_negative' depends on axioms: [propext, Classical.choice, Quot.sound] 'RisleySupport.sqrt_difference_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+===== END FILE: formalization/compiler-output.txt =====
+
+===== BEGIN FILE: formalization/critical_margin_independent_audit.md | bytes=9218 | sha256=583d2763bf7ed5aa148b8292927d909e0ca59ba87314317538fc1a92843c82c0 =====
+# Independent audit of the final-prism Lean margin certificate
+
+The separate [CriticalMargin.lean](CriticalMargin.lean) package passed terminal verification with **eight** theorem declarations, eight individual axiom inventories, compiler exit code **0**, and no compiler errors or warnings. This audit independently read the final source, [compiler output](critical-margin-compiler-output.txt), [check script](check-critical-margin.ps1), [verification metadata](critical-margin-verification.json), and mathematical [critical-margin memo](../theory/data_dependent_critical_margin.md). Source and object hashes match the successful log. No proof source was edited or rerun by this audit.
+
+All eight declarations depend exactly on `propext`, `Classical.choice` and `Quot.sound`. These are standard Lean/mathlib foundational axioms. There is no `sorry`, `admit`, custom axiom declaration, or `sorryAx` dependency in the claimed results. This is not a claim of axiom-free mathematics.
+
+## Exact result and noncircular proof chain
+
+For one final-prism sample, put \(u=(u_x,u_y)\), \(p=(p_x,p_y)\), and let \((X,Y,Z)\) be the outgoing direction. The main theorem assumes precisely:
+
+- \(Z>0\), \(R\ge0\), and \(R=Z-(u_xX+u_yY)\).
+- \(B=d-(u_xp_x+u_yp_y)\), \(B\ge0\), and \(3+u_xp_x+u_yp_y\ge0\).
+- \(F_x=p_x+(X/Z)B\), \(F_y=p_y+(Y/Z)B\).
+- \(d\ge50\), \(u_*\ge0\), \(u_x^2+u_y^2\le u_*^2\).
+- \(\lvert F_x-y_x\rvert\le\epsilon\) and \(\lvert F_y-y_y\rvert\le\epsilon\), with the same real \(\epsilon\). These inequalities already imply \(\epsilon\ge0\).
+
+From these hypotheses it proves
+\[
+\frac RZ\ge\max\!\left(0,\frac{50-u_*
+ \sqrt{(\lvert y_x\rvert+\epsilon)^2+
+       (\lvert y_y\rvert+\epsilon)^2}}{53}\right).
+\]
+
+The desired bound is not assumed. The proof first derives
+\[
+ Z(d-u\cdot F)=RB,\qquad 0\le B\le3+d.
+\]
+It then derives \(u\cdot F\le M\) from the two-dimensional Lagrange identity, the slope bound, and the measured-coordinate bounds. Finally it uses
+\[
+ \frac{d-M}{3+d}\ge\frac{50-M}{53},
+ \qquad (d-50)(M+3)\ge0,
+\]
+and \(R/Z\ge0\). The abstract scalar helper assumes a combined identity, but the final linked theorem discharges that hypothesis from the individual ray equations. No desired critical margin or positive lower bound on \(R\) appears among the premises; \(R=0\) is allowed when the observational bound permits it.
+
+The lack of an upper bound on \(d\) is deliberate: the statement holds for all \(d\ge50\), hence in particular for the original interval \([50,200]\). Likewise the proof is a general real-coordinate implication, not restricted to one fitted system.
+
+## Per-theorem hypotheses and axiom inventory
+
+All variables have type real. The exact Lean signatures are included below.
+
+| Theorem | Hypotheses and conclusion | Individual printed axioms |
+| --- | --- | --- |
+| `final_plane_identity` | \(Z\ne0\), both outgoing intersection equations, and the definitions of \(B,R\); derives \(Z(d-u\cdot F)=RB\). | `propext, Classical.choice, Quot.sound` |
+| `weak_flight_bounds` | Definition of \(B\), nonnegative internal height \(3+u\cdot p\), and \(B\ge0\); derives \(0\le B\le3+d\). | `propext, Classical.choice, Quot.sound` |
+| `lagrange_identity` | No hypotheses; proves \((u\cdot F)^2+(u_xF_y-u_yF_x)^2=(u_x^2+u_y^2)(F_x^2+F_y^2)\). | `propext, Classical.choice, Quot.sound` |
+| `screen_box_dot_bound` | \(u_*\ge0\), squared slope bound, \(\lvert F_x\rvert\le a_x\), \(\lvert F_y\rvert\le a_y\); derives \(u\cdot F\le u_*\sqrt{a_x^2+a_y^2}\). Nonnegative \(a_x,a_y\) are derived from these bounds. | `propext, Classical.choice, Quot.sound` |
+| `scalar_ratio_margin` | \(\kappa\ge0\), \(M\ge0\), \(d\ge50\), \(B\le3+d\), \(d-\mathrm{dot}=\kappa B\), and \(\mathrm{dot}\le M\); derives \(\max(0,(50-M)/53)\le\kappa\). This scalar helper does not require a lower bound on \(B\). | `propext, Classical.choice, Quot.sound` |
+| `final_prism_ratio_margin` | All physical/slope premises above, plus arbitrary screen-coordinate absolute bounds \(a_x,a_y\); derives the ratio bound with \(M=u_*\sqrt{a_x^2+a_y^2}\). | `propext, Classical.choice, Quot.sound` |
+| `observation_screen_bound` | One residual bound \(\lvert F-y\rvert\le\epsilon\); derives \(\lvert F\rvert\le\lvert y\rvert+\epsilon\). | `propext, Classical.choice, Quot.sound` |
+| `final_prism_observation_margin` | Exactly the complete list of physical/slope/observation premises above; derives the displayed record-dependent ratio bound. | `propext, Classical.choice, Quot.sound` |
+
+## Provenance and preserved work
+
+Compiler: Lean 4.33.0, Windows x86_64, commit `d8b18978322de05a8f3dba51ef03cf5461676c17`. Existing mathlib manifest: tag `v4.33.0`, revision `db584cd6d46c92f209a44c0f1c829460d327499d`. The direct command is `lean.exe -o CriticalMargin.olean CriticalMargin.lean` with absolute paths and the existing cached package search path; it imports no original-project or local theorem module.
+
+| New artifact | Independently verified SHA256 |
+| --- | --- |
+| `CriticalMargin.lean` | `D711B8B89CC89C9AFC86C6426C0136A03C2295D598774F2B58C5133EBC49FDB7` |
+| `CriticalMargin.olean` | `EBC3251B6A6118B94A75BA5C3D5183552BD447DCFE7A773DE5E96E92B5648B35` |
+| `critical-margin-compiler-output.txt` | `1A57194D1F3C66EA1FD89F2460134B23BEB41428D51D12CAAF36D630D20FD9F9` |
+| `check-critical-margin.ps1` | `283912886F459922A367EC6BF4EA74A4433FCC0DAE79B3D167348A4B57FEF401` |
+
+The earlier eleven-lemma package is preserved: independent hash checks confirmed that `RisleySupport.lean`, `RisleySupport.olean`, `compiler-output.txt`, `check.ps1`, and [independent_audit.md](independent_audit.md) still match their previously recorded values. The current package adds eight declarations; it does not replace or reclassify the earlier eleven.
+
+## Limits of the formalization
+
+This proves the final-prism implication under explicit, physically sound hypotheses. It does not formalize the full three-prism Snell trace or prove that every member of the native prior supplies these hypotheses. In particular, specializing \(u_*=\tan(\pi/10)\), deriving its slope bound from the wedge prior, and establishing the original branch/axial guards remain model-level instantiations outside this Lean file. The proof needs the normal definition and nonnegativity of \(R\); it does not independently derive those facts from a selected Snell square root.
+
+The theorem can be applied separately to every sample satisfying its premises. No particular 200-sample record, global compatible set, or positive resulting numerical margin has been certified. The exact noise-cutoff formulas, sharpened angular-sector support, upstream exposure inequalities, global boundary compactification, complete inverse and useful practical conditioning remain outside this bounded formalization.
+
+No numerical campaign, original-project execution, software installation or dependency update was performed for this audit.
+
+## Exact Lean theorem signatures
+
+The following signatures are extracted without alteration from the frozen successfully compiled source above; only the proof bodies are omitted.
+
+
+```lean
+theorem final_plane_identity
+    (ux uy px py X Y Z B d R Fx Fy : ℝ)
+    (hZ : Z ≠ 0)
+    (hFx : Fx = px + (X/Z)*B)
+    (hFy : Fy = py + (Y/Z)*B)
+    (hB : B = d - (ux*px+uy*py))
+    (hR : R = Z - (ux*X+uy*Y)) :
+    Z*(d-(ux*Fx+uy*Fy)) = R*B
+
+theorem weak_flight_bounds (ux uy px py B d : ℝ)
+    (hB : B = d-(ux*px+uy*py))
+    (hInternal : 0 ≤ 3+(ux*px+uy*py))
+    (hExternal : 0 ≤ B) :
+    0 ≤ B ∧ B ≤ 3+d
+
+theorem lagrange_identity (ux uy Fx Fy : ℝ) :
+    (ux*Fx+uy*Fy)^2 + (ux*Fy-uy*Fx)^2 =
+      (ux^2+uy^2)*(Fx^2+Fy^2)
+
+theorem screen_box_dot_bound (ux uy Fx Fy ax ay uStar : ℝ)
+    (huStar : 0 ≤ uStar)
+    (hu : ux^2+uy^2 ≤ uStar^2)
+    (hFx : |Fx| ≤ ax) (hFy : |Fy| ≤ ay) :
+    ux*Fx+uy*Fy ≤ uStar*Real.sqrt (ax^2+ay^2)
+
+theorem scalar_ratio_margin (kappa B d dot M : ℝ)
+    (hkappa : 0 ≤ kappa) (hM : 0 ≤ M) (hd : 50 ≤ d)
+    (hBupper : B ≤ 3+d)
+    (hIdentity : d-dot = kappa*B)
+    (hDot : dot ≤ M) :
+    max 0 ((50-M)/53) ≤ kappa
+
+theorem final_prism_ratio_margin
+    (ux uy px py X Y Z B d R Fx Fy ax ay uStar : ℝ)
+    (hZ : 0 < Z) (hRnonneg : 0 ≤ R)
+    (hFx : Fx = px + (X/Z)*B)
+    (hFy : Fy = py + (Y/Z)*B)
+    (hB : B = d-(ux*px+uy*py))
+    (hR : R = Z-(ux*X+uy*Y))
+    (hInternal : 0 ≤ 3+(ux*px+uy*py))
+    (hExternal : 0 ≤ B)
+    (hd : 50 ≤ d)
+    (huStar : 0 ≤ uStar)
+    (hu : ux^2+uy^2 ≤ uStar^2)
+    (hScreenX : |Fx| ≤ ax) (hScreenY : |Fy| ≤ ay) :
+    max 0 ((50-uStar*Real.sqrt (ax^2+ay^2))/53) ≤ R/Z
+
+theorem observation_screen_bound (F y epsilon : ℝ)
+    (hError : |F-y| ≤ epsilon) : |F| ≤ |y|+epsilon
+
+theorem final_prism_observation_margin
+    (ux uy px py X Y Z B d R Fx Fy yx yy epsilon uStar : ℝ)
+    (hZ : 0 < Z) (hRnonneg : 0 ≤ R)
+    (hFx : Fx = px + (X/Z)*B)
+    (hFy : Fy = py + (Y/Z)*B)
+    (hB : B = d-(ux*px+uy*py))
+    (hR : R = Z-(ux*X+uy*Y))
+    (hInternal : 0 ≤ 3+(ux*px+uy*py))
+    (hExternal : 0 ≤ B)
+    (hd : 50 ≤ d)
+    (huStar : 0 ≤ uStar)
+    (hu : ux^2+uy^2 ≤ uStar^2)
+    (hErrorX : |Fx-yx| ≤ epsilon) (hErrorY : |Fy-yy| ≤ epsilon) :
+    max 0 ((50-uStar*Real.sqrt ((|yx|+epsilon)^2+(|yy|+epsilon)^2))/53) ≤ R/Z
+```
+
+===== END FILE: formalization/critical_margin_independent_audit.md =====
+
+===== BEGIN FILE: formalization/critical-margin-compiler-output.txt | bytes=1637 | sha256=1a57194d1f3c66ea1fd89f2460134b23beb41428d51d12caaf36d630d20fd9f9 =====
+Lean (version 4.33.0, x86_64-w64-windows-gnu, commit d8b18978322de05a8f3dba51ef03cf5461676c17, Release)
+Compiler: C:\Users\josep\.elan\toolchains\leanprover--lean4---v4.33.0\bin\lean.exe
+Source: C:\Users\josep\Documents\Codex\2026-10-02\task\full18_research\formalization\CriticalMargin.lean
+Output: C:\Users\josep\Documents\Codex\2026-10-02\task\full18_research\formalization\CriticalMargin.olean
+Source SHA256 (unchanged during compile): D711B8B89CC89C9AFC86C6426C0136A03C2295D598774F2B58C5133EBC49FDB7
+Object SHA256: EBC3251B6A6118B94A75BA5C3D5183552BD447DCFE7A773DE5E96E92B5648B35
+Command: lean.exe -o CriticalMargin.olean CriticalMargin.lean
+Imports: pre-existing cached mathlib/package .olean files, read-only
+Exit code: 0
+Output below combines compiler stdout and stderr in order.
+
+'RisleyCriticalMargin.final_plane_identity' depends on axioms: [propext, Classical.choice, Quot.sound] 'RisleyCriticalMargin.weak_flight_bounds' depends on axioms: [propext, Classical.choice, Quot.sound] 'RisleyCriticalMargin.lagrange_identity' depends on axioms: [propext, Classical.choice, Quot.sound] 'RisleyCriticalMargin.screen_box_dot_bound' depends on axioms: [propext, Classical.choice, Quot.sound] 'RisleyCriticalMargin.scalar_ratio_margin' depends on axioms: [propext, Classical.choice, Quot.sound] 'RisleyCriticalMargin.final_prism_ratio_margin' depends on axioms: [propext, Classical.choice, Quot.sound] 'RisleyCriticalMargin.observation_screen_bound' depends on axioms: [propext, Classical.choice, Quot.sound] 'RisleyCriticalMargin.final_prism_observation_margin' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+===== END FILE: formalization/critical-margin-compiler-output.txt =====
+
+===== BEGIN FILE: formalization/critical-margin-README.md | bytes=5487 | sha256=be402be36dcd1aed6ee2ae4960534aa1e2eaca338b736f309ffce538f6a1b067 =====
+# Lean proof of the final-prism observation margin
+
+This separate package checks the main final-prism ratio inequality from `theory/data_dependent_critical_margin.md`. It preserves the previous eleven-lemma package without edits. It imports cached mathlib modules only, with no original-project or other local proof imports.
+
+Final verification passed: eight theorem declarations, compiler exit code 0, no errors or warnings. Every individual axiom inventory is exactly `[propext, Classical.choice, Quot.sound]`; there are no admitted goals or custom axioms. The superseded `critical-margin-failed-draft.txt` is development provenance only and is not verification evidence.
+
+Frozen source SHA256: `d711b8b89cc89c9afc86c6426c0136a03c2295d598774f2b58c5133ebc49fdb7`. Successful object SHA256: `ebc3251b6a6118b94a75ba5c3d5183552bd447dcfe7a773de5e96e92b5648b35`. Final compiler-log SHA256: `1a57194d1f3c66ea1fd89f2460134b23beb41428d51d12caaf36d630d20fd9f9`. The original package's source, object, compiler log and check script still match its previously recorded hashes.
+
+The main theorem `RisleyCriticalMargin.final_prism_observation_margin` proves
+
+```text
+R/Z >= max(0, (50-uStar*sqrt((|yx|+epsilon)^2+(|yy|+epsilon)^2))/53).
+```
+
+Every physical and observational assumption is explicit:
+
+- All quantities are real. `p_exit=(px,py)`, outgoing transverse direction is `(X,Y)`, its axial component is `Z`, and plane slope is `(ux,uy)`.
+- `Z>0`, `R>=0`, and `R=Z-(ux*X+uy*Y)`.
+- `B=d-(ux*px+uy*py)`; weak traversal is `B>=0` and `3+(ux*px+uy*py)>=0`.
+- The actual screen coordinates obey `Fx=px+(X/Z)*B` and `Fy=py+(Y/Z)*B`.
+- `d>=50`, `uStar>=0`, and `ux^2+uy^2<=uStar^2`.
+- The measured record obeys `|Fx-yx|<=epsilon` and `|Fy-yy|<=epsilon`, using the same symbolic epsilon. These hypotheses imply `epsilon>=0`; no additional sign premise is needed.
+
+The proof derives the combined identity `Z*(d-u·F)=R*B` from the two coordinate intersection equations; it does not assume that combined identity in the final theorem. It derives `B<=3+d` from traversal and derives the dot-product bound from the 2D Lagrange identity and the measured-coordinate bounds. The scalar step uses `(d-50)*(M+3)>=0` to prove the required monotonicity. No upper bound on `d` is needed, so the theorem applies in particular to the original interval `[50,200]`.
+
+## Theorem inventory and hypotheses
+
+The complete exact Lean signatures are in `CriticalMargin.lean`. There are eight declarations:
+
+| Theorem | Exact scope |
+| --- | --- |
+| `final_plane_identity` | Derives `Z*(d-(ux*Fx+uy*Fy))=R*B` from `Z!=0`, both intersection equations, and the displayed definitions of `B,R`. |
+| `weak_flight_bounds` | Derives `0<=B` and `B<=3+d` from the definition of `B`, internal weak traversal, and external weak traversal. |
+| `lagrange_identity` | Proves `(u·F)^2+(ux*Fy-uy*Fx)^2=(ux^2+uy^2)*(Fx^2+Fy^2)` for arbitrary real components. |
+| `screen_box_dot_bound` | Derives `u·F<=uStar*sqrt(ax^2+ay^2)` from `uStar>=0`, the squared slope-disk bound, and `\|Fx\|<=ax`, `\|Fy\|<=ay`. The latter premises imply nonnegative `ax,ay`. |
+| `scalar_ratio_margin` | From `kappa>=0`, `M>=0`, `d>=50`, `B<=3+d`, `d-dot=kappa*B`, and `dot<=M`, derives `max(0,(50-M)/53)<=kappa`. The lower bound on `B` is not required for this scalar implication. |
+| `final_prism_ratio_margin` | Links all physical equations and guards to the ratio conclusion using arbitrary screen-coordinate box bounds `ax,ay`. |
+| `observation_screen_bound` | From `\|F-y\|<=epsilon` derives `\|F\|<=\|y\|+epsilon`. |
+| `final_prism_observation_margin` | Links the original coordinatewise observation inequalities directly to the displayed main bound, with every physical hypothesis listed above. |
+
+Each declaration has its own `#print axioms` command. `critical-margin-compiler-output.txt` records their individual inventories and the terminal compiler status. `critical-margin-verification.json` records hashes, sizes and exact toolchain information.
+
+## Formal scope and limits
+
+This is a proof of the conditional final-prism certificate from explicit real-coordinate premises. It does not formalize the complete three-prism forward trace, prove all prior ray guards, or instantiate `uStar=tan(pi/10)` and its trigonometric positivity/prior slope bound. Those facts remain inputs supplied by the mathematical model. It proves a statement for every sample satisfying the stated premises; a concrete 200-sample trace or record has not been verified. Upstream exposure certificates, global inversion, threshold sharpness, useful conditioning, and physical validation remain outside this package.
+
+No numerical campaign, original project code, installation, or download is involved. The existing toolchain/cache is used read-only:
+
+- Lean 4.33.0, Windows x86_64, commit `d8b18978322de05a8f3dba51ef03cf5461676c17`.
+- mathlib manifest tag `v4.33.0`, commit `db584cd6d46c92f209a44c0f1c829460d327499d`.
+- Direct compiler path and all imported package locations are the same as the frozen earlier package.
+
+Reproduce from the workspace using:
+
+```powershell
+& '.\full18_research\formalization\check-critical-margin.ps1'
+```
+
+The script invokes `lean.exe -o CriticalMargin.olean CriticalMargin.lean` with absolute paths and a `LEAN_PATH` built from the pre-existing cached package build directories. It records combined stdout/stderr, exit code, source SHA256 before/after compilation, and successful object SHA256. It makes no elan or Lake resolution/update call.
+
+===== END FILE: formalization/critical-margin-README.md =====
+
+===== BEGIN FILE: formalization/critical-margin-verification.json | bytes=1718 | sha256=79cf88251f1be21abc21a493ba768c76ba4007b53aac385e21adb0f2687368e5 =====
+{
+  "status": "passed",
+  "compiler_exit_code": 0,
+  "utc": "2026-10-03T02:05:15.0639167Z",
+  "toolchain": "Lean 4.33.0",
+  "lean_commit": "d8b18978322de05a8f3dba51ef03cf5461676c17",
+  "mathlib_manifest_commit": "db584cd6d46c92f209a44c0f1c829460d327499d",
+  "theorem_count": 8,
+  "per_theorem_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "custom_axioms": false,
+  "admitted_goals": false,
+  "formal_scope": "Conditional final-prism critical-normal ratio certificate from explicit real-coordinate trace equations, weak traversal, slope bound, distance lower bound, and shared symbolic coordinatewise observation error; no complete-model formalization",
+  "files": [
+    {
+      "file": "CriticalMargin.lean",
+      "sha256": "d711b8b89cc89c9afc86c6426c0136a03c2295d598774f2b58c5133ebc49fdb7",
+      "bytes": 6916
+    },
+    {
+      "file": "CriticalMargin.olean",
+      "sha256": "ebc3251b6a6118b94a75ba5c3d5183552bd447dcfe7a773de5e96e92b5648b35",
+      "bytes": 481496
+    },
+    {
+      "file": "critical-margin-compiler-output.txt",
+      "sha256": "1a57194d1f3c66ea1fd89f2460134b23beb41428d51d12caaf36d630d20fd9f9",
+      "bytes": 1637
+    },
+    {
+      "file": "check-critical-margin.ps1",
+      "sha256": "283912886f459922a367ec6bf4ea74a4433fcc0dae79b3d167348a4b57fef401",
+      "bytes": 1878
+    }
+  ],
+  "original_package_integrity": [
+    {
+      "file": "RisleySupport.lean",
+      "unchanged": true
+    },
+    {
+      "file": "RisleySupport.olean",
+      "unchanged": true
+    },
+    {
+      "file": "compiler-output.txt",
+      "unchanged": true
+    },
+    {
+      "file": "check.ps1",
+      "unchanged": true
+    }
+  ]
+}
+===== END FILE: formalization/critical-margin-verification.json =====
+
+===== BEGIN FILE: formalization/independent_audit.md | bytes=8957 | sha256=81237f968ee4f9d4b6206f536ee2266d13e255e3a260dbd904ba439d4e60ba07 =====
+# Independent audit of the bounded Lean support
+
+The frozen [source](RisleySupport.lean) compiled successfully with Lean 4.33.0. The [compiler log](compiler-output.txt) records exit code 0 and no warnings or errors. This audit independently read the source, script, log and dependency manifest, matched the source/object hashes to the successful log, counted all theorem declarations and axiom listings, and checked the statements against the optical claims they support. It did not edit or rerun the proof source.
+
+There are **eleven** checked theorem declarations, not ten. Each has an individual `#print axioms` result. No `sorry`, `admit`, custom `axiom` declaration, `sorryAx` dependency, or other unproved custom axiom occurs in the claimed results. The failed draft log is superseded provenance and is not evidence of verification.
+
+## Compiler and evidence
+
+- Lean version: 4.33.0, x86_64-w64-windows-gnu, Release; compiler commit `d8b18978322de05a8f3dba51ef03cf5461676c17`.
+- Executable: `C:\Users\josep\.elan\toolchains\leanprover--lean4---v4.33.0\bin\lean.exe`.
+- Existing mathlib manifest: tag `v4.33.0`, revision `db584cd6d46c92f209a44c0f1c829460d327499d`.
+- Imports are standard mathlib modules for real square roots, matrix determinants and proof tactics. No original Risley-project theorem is imported.
+- [check.ps1](check.ps1) uses the existing cached package build paths and records unchanged source SHA256 across compilation plus object SHA256. No installation, dependency update, or numerical campaign is involved.
+- The actual successful command is the direct Lean invocation shown in the log, with absolute source/output paths. Standard output and error are combined in that log.
+
+| Artifact | Independently verified SHA256 |
+| --- | --- |
+| `RisleySupport.lean` | `402D3F1555DABE0639F54D8AF43A770F30ED0A134AC6308846F4444E74D573E8` |
+| `RisleySupport.olean` | `9BD201BD7D13E0C241A26EF1906E58C275717C31F755D89B992732AEF880E68B` |
+| `compiler-output.txt` | `9502F23A92627676E8463AA4602683E4234A24555167C12A03E4C33242FE9778` |
+| `check.ps1` | `ED69F8CB840F0DE3D6177C9944B59397C9EB682F1BFF473B877E04B3BC0BC2EA` |
+
+The axiom dependencies below are Lean/mathlib's standard foundational axioms: propositional extensionality, classical choice, and quotient soundness. They are not additional optical assumptions. Axiom-free verification is not claimed.
+
+## Per-theorem assumptions and dependencies
+
+Every scalar parameter has type real. Write \(d_a=1-u_1a_1-u_2a_2\), \(d_v=1-u_1v_1-u_2v_2\). The source defines the two-by-two matrix
+\[
+\operatorname{transport}(a,v,u)=I+(a-v)u^\top/d_a.
+\]
+The inverse interpretation of this expression is proved under its stated denominator hypotheses; its definition alone is not an optical-model axiom.
+
+| Theorem | Complete scalar hypotheses; conclusion scope | Printed axioms |
+| --- | --- | --- |
+| `entrance_det` | No hypotheses; determinant of \(I-au^\top\) is \(d_a\). | `propext, Classical.choice, Quot.sound` |
+| `transport_factorization` | \(d_a\ne0\); the transport multiplied by \(I-au^\top\) equals \(I-vu^\top\). | `propext, Classical.choice, Quot.sound` |
+| `transport_det` | \(d_a\ne0\); determinant of transport equals \(d_v/d_a\). | `propext, Classical.choice, Quot.sound` |
+| `transport_inverse` | \(d_a\ne0\), \(d_v\ne0\); transport times reversed transport equals the identity. The reverse product follows by swapping \(a,v\), rather than being a separately counted declaration. | `propext, Classical.choice, Quot.sound` |
+| `transport_det_pos` | \(d_a>0\), \(d_v>0\); transport determinant is positive. | `propext, Classical.choice, Quot.sound` |
+| `combined_spatial_recurrence` | \(H-\mathrm{dotX}\ne0\), \(Z\ne0\), \(T\ne0\); one scalar component of the two-segment expression equals the displayed combined rational numerator. Other scalar variables are unrestricted. | `propext, Classical.choice, Quot.sound` |
+| `critical_inward_identity` | \(1+b\ne0\), \((H-a)^2=(1+b)\nu\); the critical derivative expression equals \(-2(H-a)(Hb+a)/(1+b)\). | `propext, Classical.choice, Quot.sound` |
+| `critical_inward_negative` | The preceding two hypotheses, \(H-a>0\), \((Hb+a)/(1+b)>0\); that derivative expression is strictly negative. | `propext, Classical.choice, Quot.sound` |
+| `external_flight_inward_identity` | \(H-a\ne0\), \(\ell=(Hb+3a)/(H-a)\); \(-H(Hb+3a)/(H-a)^2=-H\ell/(H-a)\). | `propext, Classical.choice, Quot.sound` |
+| `external_flight_inward_negative` | \(H-a>0\), \(H>0\), \(\ell>0\), the same active-flight equality; the preceding expression is strictly negative. | `propext, Classical.choice, Quot.sound` |
+| `sqrt_difference_bound` | \(s\ge0\), \(t\ge0\); \(\lvert\sqrt{s}-\sqrt{t}\rvert\le\sqrt{\lvert s-t\rvert}\). | `propext, Classical.choice, Quot.sound` |
+
+The table's hypotheses are exactly those of the source; their complete Lean signatures are preserved below. No namespace-level variables or hidden instance assumptions add optical restrictions. `set_option autoImplicit false` disallows undeclared implicit variables.
+
+## What these checks do and do not establish
+
+The transport identities apply to arbitrary real transverse slopes under explicit denominator guards. Applying them to the optical model still requires identifying \(a=X_{\rm in}/H\), \(v=X_{\rm out}/Z\), and proving the branch guards. The combined spatial identity treats `alpha`, `dotX` and the vector components as arbitrary real scalars; identifying them with optical dot products is a separate substitution, so the algebraic theorem has fewer assumptions than its optical specialization.
+
+The critical and external-flight lemmas verify formulas and signs under their listed equalities and inequalities. They contain no `HasDerivAt` claim: the differentiation that produces those expressions is not formalized. In particular, \(b=|u|^2\) in the critical lemma and \(b=u\cdot p\) in the external-flight lemma are different optical substitutions; the abstract scalar \(b\) is not a globally identified model coordinate.
+
+The square-root modulus is a genuine inequality theorem, but the complete three-prism Hölder recurrence, hierarchical strictification, weak-set closure equality, projected covering/noise-cube theorem, five-root compiler degree bound, geometry-circuit elimination, collision construction and full inverse remain outside this Lean formalization. This audit establishes the stated supporting checks, not full-model proof-assistant verification, useful actual-record conditioning, practical inverse runtime, or publication readiness.
+
+## Exact Lean theorem signatures
+
+These signatures are extracted without alteration from the successfully compiled source whose hash is recorded above. The code block omits proof bodies only.
+
+
+```lean
+theorem entrance_det (a₁ a₂ u₁ u₂ : ℝ) :
+    Matrix.det !![1 - a₁*u₁, -a₁*u₂; -a₂*u₁, 1-a₂*u₂] =
+      1 - (u₁*a₁ + u₂*a₂)
+
+theorem transport_factorization (a₁ a₂ v₁ v₂ u₁ u₂ : ℝ)
+    (ha : 1-(u₁*a₁+u₂*a₂) ≠ 0) :
+    transport a₁ a₂ v₁ v₂ u₁ u₂ *
+      !![1-a₁*u₁, -a₁*u₂; -a₂*u₁, 1-a₂*u₂] =
+      !![1-v₁*u₁, -v₁*u₂; -v₂*u₁, 1-v₂*u₂]
+
+theorem transport_det (a₁ a₂ v₁ v₂ u₁ u₂ : ℝ)
+    (ha : 1-(u₁*a₁+u₂*a₂) ≠ 0) :
+    Matrix.det (transport a₁ a₂ v₁ v₂ u₁ u₂) =
+      (1-(u₁*v₁+u₂*v₂))/(1-(u₁*a₁+u₂*a₂))
+
+theorem transport_inverse (a₁ a₂ v₁ v₂ u₁ u₂ : ℝ)
+    (ha : 1-(u₁*a₁+u₂*a₂) ≠ 0)
+    (hv : 1-(u₁*v₁+u₂*v₂) ≠ 0) :
+    transport a₁ a₂ v₁ v₂ u₁ u₂ * transport v₁ v₂ a₁ a₂ u₁ u₂ = 1
+
+theorem transport_det_pos (a₁ a₂ v₁ v₂ u₁ u₂ : ℝ)
+    (ha : 0 < 1-(u₁*a₁+u₂*a₂))
+    (hv : 0 < 1-(u₁*v₁+u₂*v₂)) :
+    0 < Matrix.det (transport a₁ a₂ v₁ v₂ u₁ u₂)
+
+theorem combined_spatial_recurrence
+    (H Z dotX alpha Xi Yi Ai T ell : ℝ)
+    (hP : H-dotX ≠ 0) (hZ : Z ≠ 0) (hT : T ≠ 0) :
+    Ai/T + Xi*(3+alpha/T)/(H-dotX) +
+      (Yi/Z)*(ell - (alpha/T + dotX*(3+alpha/T)/(H-dotX))) =
+    (Z*(H-dotX)*Ai + (Z*Xi-H*Yi)*alpha +
+      3*(Z*Xi-dotX*Yi)*T + ell*(H-dotX)*Yi*T) /
+      (Z*(H-dotX)*T)
+
+theorem critical_inward_identity (H a b nu : ℝ)
+    (hb : 1+b ≠ 0)
+    (hc : (H-a)^2 = (1+b)*nu) :
+    -2*(a*(H-a)+b*nu) = -2*(H-a)*((H*b+a)/(1+b))
+
+theorem critical_inward_negative (H a b nu : ℝ)
+    (hb : 1+b ≠ 0) (hc : (H-a)^2 = (1+b)*nu)
+    (hP : 0 < H-a) (hZ : 0 < (H*b+a)/(1+b)) :
+    -2*(a*(H-a)+b*nu) < 0
+
+theorem external_flight_inward_identity (H a b ell : ℝ)
+    (hP : H-a ≠ 0) (hactive : ell = (H*b+3*a)/(H-a)) :
+    -H*(H*b+3*a)/(H-a)^2 = -H*ell/(H-a)
+
+theorem external_flight_inward_negative (H a b ell : ℝ)
+    (hP : 0 < H-a) (hH : 0 < H) (hell : 0 < ell)
+    (hactive : ell = (H*b+3*a)/(H-a)) :
+    -H*(H*b+3*a)/(H-a)^2 < 0
+
+theorem sqrt_difference_bound (s t : ℝ) (hs : 0 ≤ s) (ht : 0 ≤ t) :
+    |Real.sqrt s - Real.sqrt t| ≤ Real.sqrt |s-t|
+```
+
+===== END FILE: formalization/independent_audit.md =====
+
+===== BEGIN FILE: formalization/README.md | bytes=5202 | sha256=4628fb9ed66a526c5e27c81928afffaf9203d4e6a21c135f9208c2d4bffa1ee1 =====
+# Bounded Lean support for the Risley addenda
+
+This isolated folder contains supporting algebraic and inequality proofs for the reduced-algebra and global-boundary addenda. It does not formalize the complete optical model, boundary strictification, global inverse, continuation theorem, noise threshold algorithm, or collision construction. Inward-derivative lemmas verify the stated algebraic derivative expressions and their signs; differentiation itself is not part of those lemmas.
+
+The source imports standard cached mathlib modules only. It imports no theorem or generated code from the existing user Risley project. No original research file is modified and no reconstruction, sampling, or numerical campaign is run.
+
+Final verification passed: all eleven theorem declarations compiled with exit code 0, without errors or warnings. Every individual axiom listing is exactly `[propext, Classical.choice, Quot.sound]`, the standard Lean logical foundations used by mathlib. There are no admitted goals, `sorryAx` dependencies, or custom axioms. The earlier `compiler-output-failed-draft.txt` is retained as superseded development provenance only; its failed goals are not checked results.
+
+The final source SHA256 is `402d3f1555dabe0639f54d8af43a770f30ed0a134ac6308846f4444e74d573e8`; the successful `.olean` SHA256 is `9bd201bd7d13e0c241a26ef1906e58c275717c31f755d89b992732aef880e68b`; the final compiler log SHA256 is `9502f23a92627676e8463aa4602683e4234a24555167c12a03e4c33242fe9778`. The machine-readable `verification.json` also records file sizes, the check-script hash, and the verification timestamp. The script checked that the source hash stayed unchanged throughout compilation.
+
+## Toolchain and reproduction
+
+- Installed compiler: Lean 4.33.0, x86_64-w64-windows-gnu, commit `d8b18978322de05a8f3dba51ef03cf5461676c17` (Release).
+- Existing mathlib dependency: tag `v4.33.0`, manifest commit `db584cd6d46c92f209a44c0f1c829460d327499d`.
+- Compiler executable: `C:\Users\josep\.elan\toolchains\leanprover--lean4---v4.33.0\bin\lean.exe`.
+- Read-only package cache: `C:\Users\josep\lean\risley\.lake\packages`.
+- `check.ps1` sets `LEAN_PATH` from existing package build directories, invokes that executable directly, and writes all output here. It does not invoke elan resolution, Lake updates, installation, or downloads.
+
+Run from the research workspace in PowerShell:
+
+```powershell
+& '.\full18_research\formalization\check.ps1'
+```
+
+The effective compiler command is `lean.exe -o RisleySupport.olean RisleySupport.lean`; the script supplies absolute paths. The recorded compiler output is `compiler-output.txt`. Successful exit and the final axiom inventory are the evidence for the checked results. `#print axioms` is included for every theorem so custom assumptions cannot be hidden behind imported local theorem declarations.
+
+## Exact checked statements
+
+All scalar variables below range over the real numbers. The Lean source gives the complete statements and proofs. Let `a=(a1,a2)`, `v=(v1,v2)`, `u=(u1,u2)`, `d_a=1-u·a`, and `d_v=1-u·v`. The matrix `transport a v u` is `I+(a-v)uᵀ/d_a`, with this formula expanded componentwise in the source.
+
+| Lean theorem | Statement and assumptions |
+| --- | --- |
+| `entrance_det` | `det(I-a uᵀ)=1-u·a`, without assumptions. |
+| `transport_factorization` | `transport a v u * (I-a uᵀ)=I-v uᵀ`, assuming `d_a ≠ 0`. |
+| `transport_det` | `det(transport a v u)=d_v/d_a`, assuming `d_a ≠ 0`. |
+| `transport_inverse` | `transport a v u * transport v a u=I`, assuming `d_a ≠ 0` and `d_v ≠ 0`. Swapping `a,v` gives the reverse product too. |
+| `transport_det_pos` | The transport determinant is positive, assuming `d_a>0` and `d_v>0`. |
+| `combined_spatial_recurrence` | One exact scalar component of the two-segment position formula equals the combined rational numerator, assuming `H-dotX ≠ 0`, `Z ≠ 0`, and `T ≠ 0`. `alpha`, `dotX`, `Xi`, `Yi`, `Ai` are arbitrary real scalars representing `u·A`, `u·X`, and the corresponding vector components. The proof is therefore stronger than its optical specialization. |
+| `critical_inward_identity` | `-2(a(H-a)+b nu)=-2(H-a)(H b+a)/(1+b)`, assuming `1+b ≠ 0` and `(H-a)^2=(1+b)nu`. |
+| `critical_inward_negative` | The left side of the preceding identity is negative, additionally assuming `H-a>0` and `(H b+a)/(1+b)>0`. In the addendum, `a=u·X`, `b=|u|²`, and these are the critical branch guards. |
+| `external_flight_inward_identity` | `-H(H b+3a)/(H-a)^2=-H ell/(H-a)`, assuming `H-a ≠ 0` and `ell=(H b+3a)/(H-a)`. |
+| `external_flight_inward_negative` | The preceding quantity is negative, assuming `H-a>0`, `H>0`, `ell>0`, and the same active-flight equality. |
+| `sqrt_difference_bound` | `|sqrt(s)-sqrt(t)| ≤ sqrt(|s-t|)`, assuming `s≥0` and `t≥0`. This is the square-root modulus used by the boundary hierarchy and global error recurrence. |
+
+The optical interpretation still requires the separately proved model identities and physical guards. Lean does not infer those hypotheses for the full parameter prior here. These supporting proofs make no assertion about practical inverse runtime, an actual record's conditioning, or publication readiness.
+
+===== END FILE: formalization/README.md =====
+
+===== BEGIN FILE: formalization/verification.json | bytes=1179 | sha256=3457b70ed2bff9f029d12e443819b9dd73339eac4b00d76f03dffe6290888c43 =====
+{
+  "status": "passed",
+  "compiler_exit_code": 0,
+  "utc": "2026-10-03T01:28:33.3423923Z",
+  "toolchain": "Lean 4.33.0",
+  "lean_commit": "d8b18978322de05a8f3dba51ef03cf5461676c17",
+  "mathlib_manifest_commit": "db584cd6d46c92f209a44c0f1c829460d327499d",
+  "theorem_count": 11,
+  "per_theorem_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "custom_axioms": false,
+  "admitted_goals": false,
+  "scope": "Supporting algebraic and inequality lemmas only; no complete inverse formalization",
+  "files": [
+    {
+      "file": "RisleySupport.lean",
+      "sha256": "402d3f1555dabe0639f54d8af43a770f30ed0a134ac6308846f4444e74d573e8",
+      "bytes": 6589
+    },
+    {
+      "file": "RisleySupport.olean",
+      "sha256": "9bd201bd7d13e0c241a26ef1906e58c275717c31f755d89b992732aef880e68b",
+      "bytes": 1482880
+    },
+    {
+      "file": "compiler-output.txt",
+      "sha256": "9502f23a92627676e8463aa4602683e4234a24555167c12a03e4c33242fe9778",
+      "bytes": 1873
+    },
+    {
+      "file": "check.ps1",
+      "sha256": "ed69f8cb840f0de3d6177c9944b59397c9eb682f1bff473b877e04b3bc0bc2ea",
+      "bytes": 1858
+    }
+  ]
+}
+===== END FILE: formalization/verification.json =====
+
+===== BEGIN FILE: MANIFEST.json | bytes=10784 | sha256=46db682c1a3a114ad5b77242780ffd2ccad085c174aa69e841b49e2aa088d50f =====
+{
+  "package": "risley_lean_support_sources_v1",
+  "packaging_scope": "Existing source/evidence preservation only; no compiler, tests or new formalization run",
+  "toolchain": "leanprover/lean4:v4.33.0",
+  "lean_commit": "d8b18978322de05a8f3dba51ef03cf5461676c17",
+  "mathlib_commit": "db584cd6d46c92f209a44c0f1c829460d327499d",
+  "existing_theorem_count": 19,
+  "source_theorem_counts": {
+    "RisleySupport": 11,
+    "RisleyCriticalMargin": 8
+  },
+  "existing_recorded_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "theorem_inventory": [
+    {
+      "name": "RisleySupport.entrance_det",
+      "source": "formalization/RisleySupport.lean",
+      "existing_compiler_log": "formalization/compiler-output.txt",
+      "recorded_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "RisleySupport.transport_factorization",
+      "source": "formalization/RisleySupport.lean",
+      "existing_compiler_log": "formalization/compiler-output.txt",
+      "recorded_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "RisleySupport.transport_det",
+      "source": "formalization/RisleySupport.lean",
+      "existing_compiler_log": "formalization/compiler-output.txt",
+      "recorded_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "RisleySupport.transport_inverse",
+      "source": "formalization/RisleySupport.lean",
+      "existing_compiler_log": "formalization/compiler-output.txt",
+      "recorded_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "RisleySupport.transport_det_pos",
+      "source": "formalization/RisleySupport.lean",
+      "existing_compiler_log": "formalization/compiler-output.txt",
+      "recorded_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "RisleySupport.combined_spatial_recurrence",
+      "source": "formalization/RisleySupport.lean",
+      "existing_compiler_log": "formalization/compiler-output.txt",
+      "recorded_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "RisleySupport.critical_inward_identity",
+      "source": "formalization/RisleySupport.lean",
+      "existing_compiler_log": "formalization/compiler-output.txt",
+      "recorded_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "RisleySupport.critical_inward_negative",
+      "source": "formalization/RisleySupport.lean",
+      "existing_compiler_log": "formalization/compiler-output.txt",
+      "recorded_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "RisleySupport.external_flight_inward_identity",
+      "source": "formalization/RisleySupport.lean",
+      "existing_compiler_log": "formalization/compiler-output.txt",
+      "recorded_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "RisleySupport.external_flight_inward_negative",
+      "source": "formalization/RisleySupport.lean",
+      "existing_compiler_log": "formalization/compiler-output.txt",
+      "recorded_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "RisleySupport.sqrt_difference_bound",
+      "source": "formalization/RisleySupport.lean",
+      "existing_compiler_log": "formalization/compiler-output.txt",
+      "recorded_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "RisleyCriticalMargin.final_plane_identity",
+      "source": "formalization/CriticalMargin.lean",
+      "existing_compiler_log": "formalization/critical-margin-compiler-output.txt",
+      "recorded_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "RisleyCriticalMargin.weak_flight_bounds",
+      "source": "formalization/CriticalMargin.lean",
+      "existing_compiler_log": "formalization/critical-margin-compiler-output.txt",
+      "recorded_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "RisleyCriticalMargin.lagrange_identity",
+      "source": "formalization/CriticalMargin.lean",
+      "existing_compiler_log": "formalization/critical-margin-compiler-output.txt",
+      "recorded_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "RisleyCriticalMargin.screen_box_dot_bound",
+      "source": "formalization/CriticalMargin.lean",
+      "existing_compiler_log": "formalization/critical-margin-compiler-output.txt",
+      "recorded_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "RisleyCriticalMargin.scalar_ratio_margin",
+      "source": "formalization/CriticalMargin.lean",
+      "existing_compiler_log": "formalization/critical-margin-compiler-output.txt",
+      "recorded_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "RisleyCriticalMargin.final_prism_ratio_margin",
+      "source": "formalization/CriticalMargin.lean",
+      "existing_compiler_log": "formalization/critical-margin-compiler-output.txt",
+      "recorded_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "RisleyCriticalMargin.observation_screen_bound",
+      "source": "formalization/CriticalMargin.lean",
+      "existing_compiler_log": "formalization/critical-margin-compiler-output.txt",
+      "recorded_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "RisleyCriticalMargin.final_prism_observation_margin",
+      "source": "formalization/CriticalMargin.lean",
+      "existing_compiler_log": "formalization/critical-margin-compiler-output.txt",
+      "recorded_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "file_inventory_excludes_manifest_itself": true,
+  "files": [
+    {
+      "path": "dependency-environment/lake-manifest.json",
+      "bytes": 3140,
+      "sha256": "80fac8262177ad34366e8b132677d06e3f6c4f3dc027a2cf204df395b255baf3",
+      "provenance": "Unmodified metadata snapshot of the existing cached dependency environment"
+    },
+    {
+      "path": "dependency-environment/lakefile.toml",
+      "bytes": 347,
+      "sha256": "1710aff8ae902dffa2d8123fb542215c7270197f9bc8976dde0645e3b18f7746",
+      "provenance": "Unmodified metadata snapshot of the existing cached dependency environment"
+    },
+    {
+      "path": "dependency-environment/lean-toolchain",
+      "bytes": 25,
+      "sha256": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+      "provenance": "Unmodified metadata snapshot of the existing cached dependency environment"
+    },
+    {
+      "path": "formalization/check-critical-margin.ps1",
+      "bytes": 1878,
+      "sha256": "283912886f459922a367ec6bf4ea74a4433fcc0dae79b3d167348a4b57fef401",
+      "provenance": "Unmodified existing formalization source/evidence"
+    },
+    {
+      "path": "formalization/check.ps1",
+      "bytes": 1858,
+      "sha256": "ed69f8cb840f0de3d6177c9944b59397c9eb682f1bff473b877e04b3bc0bc2ea",
+      "provenance": "Unmodified existing formalization source/evidence"
+    },
+    {
+      "path": "formalization/compiler-output.txt",
+      "bytes": 1873,
+      "sha256": "9502f23a92627676e8463aa4602683e4234a24555167c12a03e4c33242fe9778",
+      "provenance": "Unmodified existing formalization source/evidence"
+    },
+    {
+      "path": "formalization/critical_margin_independent_audit.md",
+      "bytes": 9218,
+      "sha256": "583d2763bf7ed5aa148b8292927d909e0ca59ba87314317538fc1a92843c82c0",
+      "provenance": "Unmodified existing formalization source/evidence"
+    },
+    {
+      "path": "formalization/critical-margin-compiler-output.txt",
+      "bytes": 1637,
+      "sha256": "1a57194d1f3c66ea1fd89f2460134b23beb41428d51d12caaf36d630d20fd9f9",
+      "provenance": "Unmodified existing formalization source/evidence"
+    },
+    {
+      "path": "formalization/critical-margin-README.md",
+      "bytes": 5487,
+      "sha256": "be402be36dcd1aed6ee2ae4960534aa1e2eaca338b736f309ffce538f6a1b067",
+      "provenance": "Unmodified existing formalization source/evidence"
+    },
+    {
+      "path": "formalization/critical-margin-verification.json",
+      "bytes": 1718,
+      "sha256": "79cf88251f1be21abc21a493ba768c76ba4007b53aac385e21adb0f2687368e5",
+      "provenance": "Unmodified existing formalization source/evidence"
+    },
+    {
+      "path": "formalization/CriticalMargin.lean",
+      "bytes": 6916,
+      "sha256": "d711b8b89cc89c9afc86c6426c0136a03c2295d598774f2b58c5133ebc49fdb7",
+      "provenance": "Unmodified existing formalization source/evidence"
+    },
+    {
+      "path": "formalization/independent_audit.md",
+      "bytes": 8957,
+      "sha256": "81237f968ee4f9d4b6206f536ee2266d13e255e3a260dbd904ba439d4e60ba07",
+      "provenance": "Unmodified existing formalization source/evidence"
+    },
+    {
+      "path": "formalization/README.md",
+      "bytes": 5202,
+      "sha256": "4628fb9ed66a526c5e27c81928afffaf9203d4e6a21c135f9208c2d4bffa1ee1",
+      "provenance": "Unmodified existing formalization source/evidence"
+    },
+    {
+      "path": "formalization/RisleySupport.lean",
+      "bytes": 6589,
+      "sha256": "402d3f1555dabe0639f54d8af43a770f30ed0a134ac6308846f4444e74d573e8",
+      "provenance": "Unmodified existing formalization source/evidence"
+    },
+    {
+      "path": "formalization/verification.json",
+      "bytes": 1179,
+      "sha256": "3457b70ed2bff9f029d12e443819b9dd73339eac4b00d76f03dffe6290888c43",
+      "provenance": "Unmodified existing formalization source/evidence"
+    },
+    {
+      "path": "README.txt",
+      "bytes": 4070,
+      "sha256": "2c5329b22ce44907d44e5c4366d20ca8ac90b22d4ce273454c08f8da3ae37d34",
+      "provenance": "New packaging scope/readme; not new proof evidence"
+    }
+  ],
+  "exclusions": [
+    "Compiled .olean files",
+    "Compiler/dependency binaries and caches",
+    "Superseded failed-draft logs",
+    "Unrelated original project sources"
+  ]
+}
+
+===== END FILE: MANIFEST.json =====
+

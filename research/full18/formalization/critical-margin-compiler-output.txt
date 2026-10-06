@@ -1,0 +1,12 @@
+Lean (version 4.33.0, x86_64-w64-windows-gnu, commit d8b18978322de05a8f3dba51ef03cf5461676c17, Release)
+Compiler: C:\Users\josep\.elan\toolchains\leanprover--lean4---v4.33.0\bin\lean.exe
+Source: C:\Users\josep\Documents\Codex\2026-10-02\task\full18_research\formalization\CriticalMargin.lean
+Output: C:\Users\josep\Documents\Codex\2026-10-02\task\full18_research\formalization\CriticalMargin.olean
+Source SHA256 (unchanged during compile): D711B8B89CC89C9AFC86C6426C0136A03C2295D598774F2B58C5133EBC49FDB7
+Object SHA256: EBC3251B6A6118B94A75BA5C3D5183552BD447DCFE7A773DE5E96E92B5648B35
+Command: lean.exe -o CriticalMargin.olean CriticalMargin.lean
+Imports: pre-existing cached mathlib/package .olean files, read-only
+Exit code: 0
+Output below combines compiler stdout and stderr in order.
+
+'RisleyCriticalMargin.final_plane_identity' depends on axioms: [propext, Classical.choice, Quot.sound] 'RisleyCriticalMargin.weak_flight_bounds' depends on axioms: [propext, Classical.choice, Quot.sound] 'RisleyCriticalMargin.lagrange_identity' depends on axioms: [propext, Classical.choice, Quot.sound] 'RisleyCriticalMargin.screen_box_dot_bound' depends on axioms: [propext, Classical.choice, Quot.sound] 'RisleyCriticalMargin.scalar_ratio_margin' depends on axioms: [propext, Classical.choice, Quot.sound] 'RisleyCriticalMargin.final_prism_ratio_margin' depends on axioms: [propext, Classical.choice, Quot.sound] 'RisleyCriticalMargin.observation_screen_bound' depends on axioms: [propext, Classical.choice, Quot.sound] 'RisleyCriticalMargin.final_prism_observation_margin' depends on axioms: [propext, Classical.choice, Quot.sound]

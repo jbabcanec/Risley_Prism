@@ -1,0 +1,11 @@
+{
+  "mode": "profile",
+  "id": "random_02",
+  "input": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\combined_validation\\noise_1e4\\random_02.json",
+  "candidate_inputs": [],
+  "truth_in_solver_input": false,
+  "original_policy_source": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\low_frequency\\profile_bases.py",
+  "original_policy_sha256": "0cf696099c70d091ffeeb99eedbaa38ec87ea542a7ce6ac83824ae856adcc83a",
+  "private_driver_sha256": "f57ae71fa595addbf2db9373bc56173901e15a9e48ab790149e1ae06f76eb8e6",
+  "changes": "input/output paths, case identity, run budget; numerical proposal and fit code retained"
+}

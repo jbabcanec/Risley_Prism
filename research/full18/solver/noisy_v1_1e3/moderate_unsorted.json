@@ -1,0 +1,321 @@
+{
+  "status": "candidate_fit",
+  "certified": false,
+  "theta": [
+    1.6999999161120576,
+    -0.9300000140683443,
+    0.3699998677186381,
+    4.997513566446744,
+    -4.000128907142916,
+    3.000186441870097,
+    4.000184151752387,
+    -5.999965655739404,
+    9.000248837914368,
+    1.470227276316643,
+    1.6301098146673547,
+    1.7202913843524565,
+    111.94758642941791,
+    7.027343191238922,
+    3.000765292241517,
+    -2.007378458834841,
+    0.39806042854143725,
+    -0.5819922756098944
+  ],
+  "spectral_seconds": 0.18101910001132637,
+  "attempts": [
+    {
+      "tag": "basis=0/order=(0, 1, 2),d0=125,n0=1.55",
+      "mse": 4.487282391592264e-06,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(0, 1, 2),d0=80,n0=1.4",
+      "mse": 2.4940123698881984e-05,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(0, 1, 2),d0=180,n0=1.7",
+      "mse": 7.253672595024965e-06,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(0, 2, 1),d0=125,n0=1.55",
+      "mse": 1.4638071546300964e-05,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(0, 2, 1),d0=80,n0=1.4",
+      "mse": 5.8281482548926334e-05,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(0, 2, 1),d0=180,n0=1.7",
+      "mse": 1.5073855737573766e-05,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(1, 0, 2),d0=125,n0=1.55",
+      "mse": 2.5509187764887398e-05,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(1, 0, 2),d0=80,n0=1.4",
+      "mse": 4.8856217163601833e-05,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(1, 0, 2),d0=180,n0=1.7",
+      "mse": 2.6309469648179482e-05,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(1, 2, 0),d0=125,n0=1.55",
+      "mse": 3.9987839847713335e-05,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(1, 2, 0),d0=80,n0=1.4",
+      "mse": 8.306628263984716e-05,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(1, 2, 0),d0=180,n0=1.7",
+      "mse": 4.0885053162728044e-05,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(2, 0, 1),d0=125,n0=1.55",
+      "mse": 2.0698219432051367e-05,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(2, 0, 1),d0=80,n0=1.4",
+      "mse": 4.643410069077764e-05,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(2, 0, 1),d0=180,n0=1.7",
+      "mse": 7.210917305356112e-05,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(2, 1, 0),d0=125,n0=1.55",
+      "mse": 3.894011969851111e-05,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(2, 1, 0),d0=80,n0=1.4",
+      "mse": 6.369168398068498e-05,
+      "physical": true
+    },
+    {
+      "tag": "basis=0/order=(2, 1, 0),d0=180,n0=1.7",
+      "mse": 3.9179419846578157e-05,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=0/order=(0, 1, 2),d0=125,n0=1.55",
+      "mse": 3.4491605017711097e-06,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=0/order=(0, 1, 2),d0=180,n0=1.7",
+      "mse": 3.7277598015154585e-07,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=0/order=(0, 2, 1),d0=125,n0=1.55",
+      "mse": 7.512353810933125e-06,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=0/order=(0, 2, 1),d0=180,n0=1.7",
+      "mse": 7.512353810932749e-06,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=0/order=(2, 0, 1),d0=125,n0=1.55",
+      "mse": 2.0437781676233176e-05,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=0/order=(0, 1, 2),d0=80,n0=1.4",
+      "mse": 3.7277598015031553e-07,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(0, 1, 2),d0=125,n0=1.55",
+      "mse": 4.568648641988815e-05,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(0, 1, 2),d0=80,n0=1.4",
+      "mse": 2.6959806690653045,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(0, 1, 2),d0=180,n0=1.7",
+      "mse": 0.0002477810897317578,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(0, 2, 1),d0=125,n0=1.55",
+      "mse": 0.0006477669342145673,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(0, 2, 1),d0=80,n0=1.4",
+      "mse": 3.7520650107328772,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(0, 2, 1),d0=180,n0=1.7",
+      "mse": 0.00019842237648039272,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(1, 0, 2),d0=125,n0=1.55",
+      "mse": 6.034779049755626e-05,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(1, 0, 2),d0=80,n0=1.4",
+      "mse": 0.41500813221512545,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(1, 0, 2),d0=180,n0=1.7",
+      "mse": 0.0007521248749894999,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(1, 2, 0),d0=125,n0=1.55",
+      "mse": 0.0007084869457953169,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(1, 2, 0),d0=80,n0=1.4",
+      "mse": 3.661700418526375,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(1, 2, 0),d0=180,n0=1.7",
+      "mse": 0.00021400049506340487,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(2, 0, 1),d0=125,n0=1.55",
+      "mse": 4.551299411509871e-05,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(2, 0, 1),d0=80,n0=1.4",
+      "mse": 3.8373453040427252,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(2, 0, 1),d0=180,n0=1.7",
+      "mse": 8.031754818878816e-05,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(2, 1, 0),d0=125,n0=1.55",
+      "mse": 4.939639209738209e-05,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(2, 1, 0),d0=80,n0=1.4",
+      "mse": 2.540362943573082,
+      "physical": true
+    },
+    {
+      "tag": "basis=1/order=(2, 1, 0),d0=180,n0=1.7",
+      "mse": 5.2881327714045825e-05,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=1/order=(2, 0, 1),d0=125,n0=1.55",
+      "mse": 2.043778167622309e-05,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=1/order=(0, 1, 2),d0=125,n0=1.55",
+      "mse": 3.7277598015007625e-07,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=1/order=(2, 1, 0),d0=125,n0=1.55",
+      "mse": 3.837391965316437e-05,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=1/order=(2, 1, 0),d0=180,n0=1.7",
+      "mse": 3.859634947875242e-05,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=1/order=(1, 0, 2),d0=125,n0=1.55",
+      "mse": 2.4498244605511032e-05,
+      "physical": true
+    },
+    {
+      "tag": "polish/basis=1/order=(2, 0, 1),d0=180,n0=1.7",
+      "mse": 2.0437928578355753e-05,
+      "physical": true
+    }
+  ],
+  "spectral_speeds": [
+    1.7003965324460797,
+    -0.929581628100907,
+    0.3694983991783282
+  ],
+  "sampling_dt": 0.05,
+  "sample_count": 200,
+  "eta": 0.001,
+  "minimax_max_residuals": [
+    0.001008987047115717,
+    0.0010045271663399191,
+    0.0010008124132170337,
+    0.000993742673479403
+  ],
+  "method": "minimax/polish/basis=1/order=(0, 1, 2),d0=125,n0=1.55",
+  "seconds": 32.276148800039664,
+  "rms": 0.0006184549641700397,
+  "max_residual": 0.000993742673479403,
+  "hard_band_compatible": true,
+  "numerical_fit_tolerance": 1e-08,
+  "model_parity": 1.531308413404986e-10,
+  "compatibility_verification": {
+    "verified": false,
+    "reason": "candidate solver only; run full18 interval verification separately"
+  },
+  "alternative": {
+    "theta": [
+      1.6999999886480577,
+      -0.9299999600721579,
+      0.36999992954489774,
+      5.001032397040824,
+      -4.00218955704208,
+      3.0045805305374094,
+      4.000044478587151,
+      -6.000047469904683,
+      9.000084740635046,
+      1.4699054884785026,
+      1.6293570440505925,
+      1.7181697474995141,
+      112.11408445949814,
+      6.941179353835801,
+      2.999715399409004,
+      -1.9998112378539517,
+      0.40072242917367795,
+      -0.6004770224955998
+    ],
+    "smooth_rms": 0.0006105538306734929,
+    "max_residual": 0.001008987047115717,
+    "hard_band_compatible": false,
+    "numerical_fit": false,
+    "method": "polish/basis=1/order=(0, 1, 2),d0=125,n0=1.55"
+  },
+  "id": "moderate_unsorted",
+  "noise_amplitude": 0.001
+}

@@ -1,0 +1,14 @@
+{
+  "mode": "residual",
+  "id": "random_07",
+  "input": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\combined_validation\\noise_1e4\\random_07.json",
+  "candidate_inputs": [
+    "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\low_frequency\\noise_1e4\\random_07_lowcut.json",
+    "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\combined_validation\\noise_1e4\\random_07.json"
+  ],
+  "truth_in_solver_input": false,
+  "original_policy_source": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\low_frequency\\residual_release.py",
+  "original_policy_sha256": "7c91c99dea00613bfa6c2206e92429defd464a1d41662f6b7f9a53e237a4fa9b",
+  "private_driver_sha256": "44585892ffdc7a26c36546d4d9c0d424412c24eb43c39b46db369842a6fda53a",
+  "changes": "input/output paths, case identity, run budget; numerical proposal and fit code retained"
+}

@@ -1,0 +1,70 @@
+{
+  "original_source_hashes_unchanged": true,
+  "rows": [
+    {
+      "id": "random_03",
+      "theta": [
+        -3.2847141855467883,
+        -1.0873190335915428,
+        3.3439607603539665,
+        -7.086492075929508,
+        -13.723168563822313,
+        -10.609712867686111,
+        -6.151758138933618,
+        -1.8476791156871373,
+        4.588408885030097,
+        1.5011345122015443,
+        1.6421353449758942,
+        1.3978037286681355,
+        113.28213710654947,
+        3.6198035031332805,
+        2.6390384549986106,
+        22.307726674223293,
+        -2.1904621304568126,
+        2.428842589365966
+      ],
+      "native_error": {
+        "N1": 3.1086244689504383e-15,
+        "N2": 1.7763568394002505e-15,
+        "N3": 1.7763568394002505e-15,
+        "ax1": 8.819611707622244e-12,
+        "ax2": 1.4210854715202004e-13,
+        "ax3": 3.767652856367931e-12,
+        "ay1": 3.794298208958935e-12,
+        "ay2": 1.6611156894441592e-12,
+        "ay3": 8.402167850363185e-13,
+        "ng1": 6.445954880973659e-13,
+        "ng2": 1.0125233984581428e-13,
+        "ng3": 2.7045032879868813e-13,
+        "d_W": 3.9676706364843994e-11,
+        "gap": 1.545297223515263e-11,
+        "bm_ax": 1.1599610161283636e-12,
+        "bm_ay": 1.900701818158268e-12,
+        "bm_px": 4.4644288266226795e-12,
+        "bm_py": 1.049826892085548e-12
+      },
+      "max_native_error": 3.9676706364843994e-11,
+      "worst_coordinate": "d_W",
+      "passes_001": true,
+      "within_original_prior": true,
+      "canonical_max_residual": 1.2459366871553357e-11,
+      "canonical_axis_rms": [
+        2.5780768185846005e-12,
+        1.0058991984230825e-12
+      ],
+      "exact_model_vs_observed_interval_bound": 1.6715856102532212e-09,
+      "physical_margins": {
+        "tir": 0.3113897364563196,
+        "fwd": 0.6988413480353016,
+        "graze": 0.910342995425709
+      },
+      "global_exclusion_proved": false,
+      "truth_used_only_after_selection": true,
+      "result_file": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\solver\\fallback_fft\\remaining_development\\random_03.json",
+      "elapsed": 29.709924300084822
+    }
+  ],
+  "passed": 1,
+  "evaluated": 1,
+  "note": "Empirical per-coordinate verification against known synthetic truth. No global recovery guarantee."
+}

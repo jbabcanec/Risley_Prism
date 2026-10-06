@@ -1,0 +1,239 @@
+{
+  "status": "packaged and byte-verified; no compilation or mathematical execution",
+  "payload_file_count": 17,
+  "manifest_inventory_count": 16,
+  "theorem_count": 19,
+  "verified_original_formalization_files": 16,
+  "originals_unchanged": true,
+  "zip": {
+    "path": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\risley_lean_support_sources_v1.zip",
+    "bytes": 28370,
+    "sha256": "68c460f0ed85c2ea9c850b5a3abba5e14571c7ec8e18c964ac3f01da2dd4d3f2",
+    "verified_entries": 17
+  },
+  "combined_text": {
+    "path": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\risley_lean_support_sources.txt",
+    "bytes": 74460,
+    "sha256": "9459f4d367e558a0380f2caeef9f9c913824a3a6b0f159cb4c33c6faa01e6f47",
+    "verified_full_file_segments": 17
+  },
+  "source_hashes": [
+    {
+      "file": "RisleySupport.lean",
+      "sha256": "402d3f1555dabe0639f54d8af43a770f30ed0a134ac6308846f4444e74d573e8",
+      "theorems": 11
+    },
+    {
+      "file": "CriticalMargin.lean",
+      "sha256": "d711b8b89cc89c9afc86c6426c0136a03c2295d598774f2b58c5133ebc49fdb7",
+      "theorems": 8
+    }
+  ],
+  "inventory": [
+    {
+      "path": "dependency-environment/lake-manifest.json",
+      "bytes": 3140,
+      "sha256": "80fac8262177ad34366e8b132677d06e3f6c4f3dc027a2cf204df395b255baf3",
+      "provenance": "Unmodified metadata snapshot of the existing cached dependency environment"
+    },
+    {
+      "path": "dependency-environment/lakefile.toml",
+      "bytes": 347,
+      "sha256": "1710aff8ae902dffa2d8123fb542215c7270197f9bc8976dde0645e3b18f7746",
+      "provenance": "Unmodified metadata snapshot of the existing cached dependency environment"
+    },
+    {
+      "path": "dependency-environment/lean-toolchain",
+      "bytes": 25,
+      "sha256": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+      "provenance": "Unmodified metadata snapshot of the existing cached dependency environment"
+    },
+    {
+      "path": "formalization/check-critical-margin.ps1",
+      "bytes": 1878,
+      "sha256": "283912886f459922a367ec6bf4ea74a4433fcc0dae79b3d167348a4b57fef401",
+      "provenance": "Unmodified existing formalization source/evidence"
+    },
+    {
+      "path": "formalization/check.ps1",
+      "bytes": 1858,
+      "sha256": "ed69f8cb840f0de3d6177c9944b59397c9eb682f1bff473b877e04b3bc0bc2ea",
+      "provenance": "Unmodified existing formalization source/evidence"
+    },
+    {
+      "path": "formalization/compiler-output.txt",
+      "bytes": 1873,
+      "sha256": "9502f23a92627676e8463aa4602683e4234a24555167c12a03e4c33242fe9778",
+      "provenance": "Unmodified existing formalization source/evidence"
+    },
+    {
+      "path": "formalization/critical_margin_independent_audit.md",
+      "bytes": 9218,
+      "sha256": "583d2763bf7ed5aa148b8292927d909e0ca59ba87314317538fc1a92843c82c0",
+      "provenance": "Unmodified existing formalization source/evidence"
+    },
+    {
+      "path": "formalization/critical-margin-compiler-output.txt",
+      "bytes": 1637,
+      "sha256": "1a57194d1f3c66ea1fd89f2460134b23beb41428d51d12caaf36d630d20fd9f9",
+      "provenance": "Unmodified existing formalization source/evidence"
+    },
+    {
+      "path": "formalization/critical-margin-README.md",
+      "bytes": 5487,
+      "sha256": "be402be36dcd1aed6ee2ae4960534aa1e2eaca338b736f309ffce538f6a1b067",
+      "provenance": "Unmodified existing formalization source/evidence"
+    },
+    {
+      "path": "formalization/critical-margin-verification.json",
+      "bytes": 1718,
+      "sha256": "79cf88251f1be21abc21a493ba768c76ba4007b53aac385e21adb0f2687368e5",
+      "provenance": "Unmodified existing formalization source/evidence"
+    },
+    {
+      "path": "formalization/CriticalMargin.lean",
+      "bytes": 6916,
+      "sha256": "d711b8b89cc89c9afc86c6426c0136a03c2295d598774f2b58c5133ebc49fdb7",
+      "provenance": "Unmodified existing formalization source/evidence"
+    },
+    {
+      "path": "formalization/independent_audit.md",
+      "bytes": 8957,
+      "sha256": "81237f968ee4f9d4b6206f536ee2266d13e255e3a260dbd904ba439d4e60ba07",
+      "provenance": "Unmodified existing formalization source/evidence"
+    },
+    {
+      "path": "formalization/README.md",
+      "bytes": 5202,
+      "sha256": "4628fb9ed66a526c5e27c81928afffaf9203d4e6a21c135f9208c2d4bffa1ee1",
+      "provenance": "Unmodified existing formalization source/evidence"
+    },
+    {
+      "path": "formalization/RisleySupport.lean",
+      "bytes": 6589,
+      "sha256": "402d3f1555dabe0639f54d8af43a770f30ed0a134ac6308846f4444e74d573e8",
+      "provenance": "Unmodified existing formalization source/evidence"
+    },
+    {
+      "path": "formalization/verification.json",
+      "bytes": 1179,
+      "sha256": "3457b70ed2bff9f029d12e443819b9dd73339eac4b00d76f03dffe6290888c43",
+      "provenance": "Unmodified existing formalization source/evidence"
+    },
+    {
+      "path": "README.txt",
+      "bytes": 4070,
+      "sha256": "2c5329b22ce44907d44e5c4366d20ca8ac90b22d4ce273454c08f8da3ae37d34",
+      "provenance": "New packaging scope/readme; not new proof evidence"
+    },
+    {
+      "path": "MANIFEST.json",
+      "bytes": 10784,
+      "sha256": "46db682c1a3a114ad5b77242780ffd2ccad085c174aa69e841b49e2aa088d50f"
+    }
+  ],
+  "combined_text_sections": [
+    {
+      "path": "README.txt",
+      "offset": 237,
+      "bytes": 4070,
+      "sha256": "2c5329b22ce44907d44e5c4366d20ca8ac90b22d4ce273454c08f8da3ae37d34"
+    },
+    {
+      "path": "formalization/RisleySupport.lean",
+      "offset": 4486,
+      "bytes": 6589,
+      "sha256": "402d3f1555dabe0639f54d8af43a770f30ed0a134ac6308846f4444e74d573e8"
+    },
+    {
+      "path": "formalization/CriticalMargin.lean",
+      "offset": 11277,
+      "bytes": 6916,
+      "sha256": "d711b8b89cc89c9afc86c6426c0136a03c2295d598774f2b58c5133ebc49fdb7"
+    },
+    {
+      "path": "dependency-environment/lake-manifest.json",
+      "offset": 18404,
+      "bytes": 3140,
+      "sha256": "80fac8262177ad34366e8b132677d06e3f6c4f3dc027a2cf204df395b255baf3"
+    },
+    {
+      "path": "dependency-environment/lakefile.toml",
+      "offset": 21757,
+      "bytes": 347,
+      "sha256": "1710aff8ae902dffa2d8123fb542215c7270197f9bc8976dde0645e3b18f7746"
+    },
+    {
+      "path": "dependency-environment/lean-toolchain",
+      "offset": 22312,
+      "bytes": 25,
+      "sha256": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
+    },
+    {
+      "path": "formalization/check-critical-margin.ps1",
+      "offset": 22550,
+      "bytes": 1878,
+      "sha256": "283912886f459922a367ec6bf4ea74a4433fcc0dae79b3d167348a4b57fef401"
+    },
+    {
+      "path": "formalization/check.ps1",
+      "offset": 24627,
+      "bytes": 1858,
+      "sha256": "ed69f8cb840f0de3d6177c9944b59397c9eb682f1bff473b877e04b3bc0bc2ea"
+    },
+    {
+      "path": "formalization/compiler-output.txt",
+      "offset": 26678,
+      "bytes": 1873,
+      "sha256": "9502f23a92627676e8463aa4602683e4234a24555167c12a03e4c33242fe9778"
+    },
+    {
+      "path": "formalization/critical_margin_independent_audit.md",
+      "offset": 28771,
+      "bytes": 9218,
+      "sha256": "583d2763bf7ed5aa148b8292927d909e0ca59ba87314317538fc1a92843c82c0"
+    },
+    {
+      "path": "formalization/critical-margin-compiler-output.txt",
+      "offset": 38225,
+      "bytes": 1637,
+      "sha256": "1a57194d1f3c66ea1fd89f2460134b23beb41428d51d12caaf36d630d20fd9f9"
+    },
+    {
+      "path": "formalization/critical-margin-README.md",
+      "offset": 40087,
+      "bytes": 5487,
+      "sha256": "be402be36dcd1aed6ee2ae4960534aa1e2eaca338b736f309ffce538f6a1b067"
+    },
+    {
+      "path": "formalization/critical-margin-verification.json",
+      "offset": 45797,
+      "bytes": 1718,
+      "sha256": "79cf88251f1be21abc21a493ba768c76ba4007b53aac385e21adb0f2687368e5"
+    },
+    {
+      "path": "formalization/independent_audit.md",
+      "offset": 47733,
+      "bytes": 8957,
+      "sha256": "81237f968ee4f9d4b6206f536ee2266d13e255e3a260dbd904ba439d4e60ba07"
+    },
+    {
+      "path": "formalization/README.md",
+      "offset": 56884,
+      "bytes": 5202,
+      "sha256": "4628fb9ed66a526c5e27c81928afffaf9203d4e6a21c135f9208c2d4bffa1ee1"
+    },
+    {
+      "path": "formalization/verification.json",
+      "offset": 62277,
+      "bytes": 1179,
+      "sha256": "3457b70ed2bff9f029d12e443819b9dd73339eac4b00d76f03dffe6290888c43"
+    },
+    {
+      "path": "MANIFEST.json",
+      "offset": 63638,
+      "bytes": 10784,
+      "sha256": "46db682c1a3a114ad5b77242780ffd2ccad085c174aa69e841b49e2aa088d50f"
+    }
+  ]
+}

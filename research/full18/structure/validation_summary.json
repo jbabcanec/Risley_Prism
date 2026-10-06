@@ -1,0 +1,18 @@
+{
+  "checked_cases": [
+    "random_00",
+    "random_01",
+    "random_02",
+    "random_03",
+    "random_04",
+    "random_05",
+    "random_06",
+    "random_07",
+    "moderate_unsorted",
+    "wide_unsorted",
+    "exact_collision",
+    "weak_first"
+  ],
+  "all_numerical_checks_passed": true,
+  "scope": "Independent mathematical-model/derivative consistency, not accuracy certification"
+}

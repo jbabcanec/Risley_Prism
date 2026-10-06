@@ -1,0 +1,21 @@
+{
+  "eta": 0.0001,
+  "id": "random_07",
+  "candidate_check": {
+    "physical": true,
+    "interval_error_upper": 17.35204481559719,
+    "compatible_under_ivx_contract": false,
+    "margins": {
+      "tir": 0.07985535642440834,
+      "fwd": 0.3900676227762072,
+      "graze": 0.8979243292012222
+    },
+    "canonical_max_residual": 17.35204478527396
+  },
+  "status": "optimizer_unresolved_no_compatible_start",
+  "actual_record_pair_witness": null,
+  "complete_compatible_set_enumerated": false,
+  "source": "C:\\Users\\josep\\Documents\\Codex\\2026-10-02\\task\\full18_research\\combined_validation\\noise_1e4\\random_07.json",
+  "truth_inputs": false,
+  "global_coordinate_upper_bounds": null
+}
