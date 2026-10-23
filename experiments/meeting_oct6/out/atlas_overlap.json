@@ -1,0 +1,91 @@
+{
+ "rows": 713572,
+ "unique": 669589,
+ "multi": 34216,
+ "identical_outcome": 34036,
+ "atlas_combos": {
+  "atlas2+atlas4": 23393,
+  "atlas2+atlas3+atlas4": 9767,
+  "atlas2+atlas3": 121,
+  "atlas2+atlas5": 907,
+  "atlas3+atlas4": 28
+ },
+ "examples_differing": [
+  [
+   1653,
+   {
+    "atlas2": 10.0,
+    "atlas3": 20.0,
+    "atlas4": 10.0
+   }
+  ],
+  [
+   13618,
+   {
+    "atlas2": 20.0,
+    "atlas3": 10.0,
+    "atlas4": 20.0
+   }
+  ],
+  [
+   6232,
+   {
+    "atlas2": 40.0,
+    "atlas3": 10.0,
+    "atlas4": 10.0
+   }
+  ],
+  [
+   22484,
+   {
+    "atlas2": 10.0,
+    "atlas4": 20.0
+   }
+  ],
+  [
+   23479,
+   {
+    "atlas2": null,
+    "atlas4": 40.0
+   }
+  ],
+  [
+   9505,
+   {
+    "atlas2": 20.0,
+    "atlas3": 20.0,
+    "atlas4": 10.0
+   }
+  ],
+  [
+   14282,
+   {
+    "atlas2": 10.0,
+    "atlas3": 10.0,
+    "atlas4": 20.0
+   }
+  ],
+  [
+   15744,
+   {
+    "atlas2": 20.0,
+    "atlas4": 10.0
+   }
+  ],
+  [
+   26997,
+   {
+    "atlas2": 10.0,
+    "atlas4": 40.0
+   }
+  ],
+  [
+   9626,
+   {
+    "atlas2": 80.0,
+    "atlas3": 40.0,
+    "atlas4": 80.0
+   }
+  ]
+ ]
+}

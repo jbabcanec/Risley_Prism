@@ -1,0 +1,119 @@
+
+loaded 669,574 cases
+
+========================================================================
+A1  PRESCRIPTION VALIDATION -- does T_req predict?
+========================================================================
+
+rescue events (failed at some T, later recovered): 77,859
+  prescription SUFFICIENT (T_req <= T_solved): 30,962  39.77%  [39.42,40.11]
+  over-conservative (T_req >  T_solved): 46,897
+  censored at 9999 s: 920
+
+  T_solved / T_req  (1.0 = perfectly sharp):
+    p5       0.04
+    p25      0.38
+    p50      0.80
+    p75      1.25
+    p95      2.50
+  -> a median of 0.80 means the prescription is sharp; values <1 mean it under-prescribed
+
+unsolved at T=80: 18,402
+  with numeric T_req      : 9,902
+    T_req >  80  PREDICTED infeasible : 9,594  96.89%  [96.53,97.21]
+    T_req <= 80  certificate VIOLATED : 308   <-- said 80 s would suffice, it did not
+    median prescribed T_req: 9,999 s   (censored at 9999: 6,048)
+  no numeric T_req        : 8,500   (weak-prism / rank-deficient / basin state a detectability floor, not a time)
+
+========================================================================
+A2  PER-PARAMETER RECOVERY (x18 vs ground truth)
+========================================================================
+
+recovered cases with x18: 651,172
+
+  param         median         p90         p99         max   med/range
+  gap         5.75e-12    1.48e-10    1.13e-08    9.15e-04    4.42e-13
+  ng3         1.25e-13    4.42e-12    6.69e-10    8.88e-04    2.50e-13
+  ng2         8.82e-14    3.59e-12    8.38e-10    9.42e-04    1.76e-13
+  bm_py       1.42e-12    1.85e-11    9.44e-10    6.00e-04    1.42e-13
+  bm_px       1.41e-12    1.85e-11    9.38e-10    9.46e-04    1.41e-13
+  ng1         6.99e-14    3.53e-12    1.34e-09    9.36e-04    1.40e-13
+  d_W         1.07e-11    2.90e-10    2.17e-08    9.75e-04    7.12e-14
+  ax3         1.14e-12    2.20e-11    1.47e-09    1.14e-04    3.15e-14
+  ax2         9.57e-13    1.94e-11    1.89e-09    6.97e-04    2.66e-14
+  ax1         9.22e-13    2.01e-11    3.17e-09    9.79e-04    2.56e-14
+  ay3         3.06e-13    5.33e-12    1.26e-10    1.13e-04    8.49e-15
+  ay2         2.82e-13    4.95e-12    1.40e-10    7.80e-05    7.85e-15
+  bm_ax       3.73e-13    4.54e-12    1.91e-10    3.22e-04    7.46e-15
+  bm_ay       3.69e-13    4.54e-12    1.93e-10    2.35e-04    7.39e-15
+  ay1         2.47e-13    3.96e-12    9.36e-11    2.53e-05    6.86e-15
+  N3          1.11e-16    2.36e-15    5.30e-14    1.05e-07    1.59e-17
+  N2          5.55e-17    2.22e-15    5.72e-14    1.05e-07    7.93e-18
+  N1          0.00e+00    1.78e-15    3.82e-14    1.07e-08    0.00e+00
+
+  hardest (relative to its box): gap     easiest: N1
+  spread across parameters: infx
+
+  -> paper/figures/atlas_per_parameter.{pdf,png}
+
+========================================================================
+A3  2-D IDENTIFIABILITY ATLAS (pair_sep x cyc)
+========================================================================
+
+cases with both margins finite: 666,140
+  T<=10: 658 of 1600 cells have >=20 cases; median cell n=412
+  T<=80: 658 of 1600 cells have >=20 cases; median cell n=412
+
+  the 40-60% recovery band at T=10 sits near pair_sep ~ 10^-1.63 Hz, cyc ~ 10^0.77
+
+  -> paper/figures/atlas_2d_phase.{pdf,png}
+
+========================================================================
+A4  sigma_N SCALING -- theory says T^-3/2
+========================================================================
+
+  population: unsolved cases only, so the SAME cases appear at every T
+
+         T         n    median sigma_N  octave slope
+        10    18,402         1.653e-03
+        20    18,402         4.345e-04         -1.93
+        40    18,402         1.537e-04         -1.50
+        80    18,402         6.095e-05         -1.33
+
+  global log-log fit slope: -1.579   (theory -1.500)
+  CONSISTENT with the T^-3/2 Cramer-Rao prediction
+
+  -> paper/figures/atlas_sigmaN_scaling.{pdf,png}
+
+========================================================================
+A5  CERTIFICATE VALIDITY -- does each class fire where the
+    corresponding GROUND-TRUTH margin is actually small?
+========================================================================
+
+  class       margin                                cited  med(cited)    med(all)    ratio
+  close-pair  min pair separation (Hz)                 66      0.0041      0.3587     88.5x
+  relation    min lattice-relation gap (Hz)         9,900      0.0146      0.0514      3.5x
+  weak-prism  min |wedge tilt| (deg)                5,577      1.1532      3.7136      3.2x
+
+  ratio >> 1 means the class fires exactly where the true margin is small
+  (i.e. the certificate is diagnosing the right cause); ratio ~ 1 is a red flag.
+
+========================================================================
+A6  THE 'basin' POPULATION -- solver, not identifiability
+========================================================================
+
+  cases whose ONLY certificate is 'basin': 1,078
+  = 5.86% of failures, 0.1610% of all cases
+
+  the certificate states the spectral stage succeeded, so these
+  are recoverable in principle and lost to TRF initialisation.
+
+  margin                      basin-only     all cases    ratio
+  min pair sep (Hz)               0.0249        0.3587     0.07x
+  min relation gap (Hz)           0.0065        0.0514     0.13x
+  min |wedge tilt| (deg)          0.7442        3.7136     0.20x
+  min cycles at T_obs             6.3634        7.2239     0.88x
+
+  ratios near 1.0 across the board => basin failures are NOT concentrated in
+  a hard corner of parameter space; they are scattered, which points at the
+  optimiser rather than the problem geometry.

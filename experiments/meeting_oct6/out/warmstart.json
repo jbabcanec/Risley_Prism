@@ -1,0 +1,33 @@
+{
+ "population": {
+  "basin": 974,
+  "other": 14330
+ },
+ "groups": {
+  "basin": {
+   "jobs": 100,
+   "finished": 100,
+   "rescued": 6,
+   "wrong_accepted": 7,
+   "by_step": {
+    "10->20": 3,
+    "20->40": 1,
+    "40->80": 2
+   },
+   "prev_close": 28,
+   "prev_close_rescued": 3
+  },
+  "other": {
+   "jobs": 60,
+   "finished": 60,
+   "rescued": 4,
+   "wrong_accepted": 0,
+   "by_step": {
+    "40->80": 3,
+    "20->40": 1
+   },
+   "prev_close": 3,
+   "prev_close_rescued": 0
+  }
+ }
+}

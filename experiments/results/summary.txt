@@ -1,0 +1,25 @@
+loaded 669574 rows
+
+=== adaptive: 669574 tasks ===
+  [noiseless] n=669574  T<=10: 83.47% [83.38,83.56]  T<=20: 94.25% [94.19,94.30]  T<=40: 96.51% [96.46,96.55]  T<=80: 97.25% [97.21,97.29]
+      unsolved 18,402 (2.75% of n) -- share of failures citing each class (classes co-occur, so these sum past 100%):
+        relation            9,900   53.80%  [53.08,54.52]
+        glitch-floor        7,179   39.01%  [38.31,39.72]
+        weak-prism          5,577   30.31%  [29.65,30.97]
+        rank-deficient      1,139    6.19%  [5.85,6.55]
+        basin               1,078    5.86%  [5.53,6.21]
+        close-pair             66    0.36%  [0.28,0.46]
+      most common combinations (16 distinct):
+            5,778  relation
+            2,986  glitch-floor + relation
+            2,867  weak-prism
+            1,811  glitch-floor
+            1,605  glitch-floor + weak-prism
+            1,078  basin
+              736  rank-deficient
+              712  relation + weak-prism
+              397  glitch-floor + rank-deficient
+              360  glitch-floor + relation + weak-prism
+               26  close-pair + relation
+               24  close-pair + relation + weak-prism
+              ...  4 rarer combinations

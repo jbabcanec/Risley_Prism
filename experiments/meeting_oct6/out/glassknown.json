@@ -1,0 +1,53 @@
+{
+ "population": {
+  "look": 403,
+  "flat": 53571
+ },
+ "groups": {
+  "look": {
+   "jobs": 120,
+   "finished": 115,
+   "glass_unknown": {
+    "lookalike": 93,
+    "correct": 17,
+    "unsolved": 5
+   },
+   "glass_known": {
+    "correct": 107,
+    "unsolved": 5,
+    "lookalike": 3
+   },
+   "transitions": {
+    "lookalike -> correct": 86,
+    "lookalike -> unsolved": 4,
+    "correct -> correct": 17,
+    "unsolved -> correct": 4,
+    "lookalike -> lookalike": 3,
+    "unsolved -> unsolved": 1
+   },
+   "remaining_lookalike_worst": {
+    "ay1": 2,
+    "d_W": 1
+   }
+  },
+  "flat": {
+   "jobs": 50,
+   "finished": 49,
+   "glass_unknown": {
+    "correct": 31,
+    "unsolved": 18
+   },
+   "glass_known": {
+    "correct": 33,
+    "unsolved": 16
+   },
+   "transitions": {
+    "correct -> correct": 30,
+    "unsolved -> correct": 3,
+    "correct -> unsolved": 1,
+    "unsolved -> unsolved": 15
+   },
+   "remaining_lookalike_worst": {}
+  }
+ }
+}

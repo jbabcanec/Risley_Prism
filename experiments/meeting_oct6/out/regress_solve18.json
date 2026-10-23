@@ -1,0 +1,15 @@
+{
+ "battery_pairs": 30,
+ "identical_on_previously_solved": 26,
+ "changed_on_previously_solved": 0,
+ "newly_accepted": 1,
+ "solved_off": 26,
+ "solved_on": 27,
+ "g1_214731": [
+  {
+   "err": 1.1851883054969647e-06,
+   "mse": 3.643561294154709e-20,
+   "how": "primary"
+  }
+ ]
+}

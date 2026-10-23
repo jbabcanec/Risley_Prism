@@ -1,0 +1,184 @@
+Changes to Risley_Prism-main repository
+========================================
+Date: September 3, 2026
+
+
+1. experiments/sweep.py
+-----------------------
+CHANGE 1a — x18 output (original change):
+  Added the recovered 18-parameter vector (x18) to every result row as a list
+  of 18 floats (or null on failure). Allows downstream analysis of per-parameter
+  recovery accuracy, not just pass/fail.
+
+CHANGE 1b — Five new diagnostic fields (added later):
+  Five additional fields are now written into every row that solve_once() produces:
+
+  min_cycles  (every row, including successes)
+    = min(|N1|, |N2|, |N3|) * T
+    The fewest oscillation cycles completed by any prism at this observation
+    time. A key axis in the identifiability phase diagram: cases with
+    min_cycles < ~1.5 are almost always close-pair failures.
+
+  T_req  (failure rows only, when generators are detectable)
+    = max certified T_req across all failure reasons, parsed from
+      spectral_certificate() reason strings ("need T >= XXX s").
+    The quantitative time prescription: how long you'd need to observe to
+    resolve the failure. Validates the T^{-3/2} scaling law (Experiment E4).
+
+  sigma_N  (failure rows only)
+    = max(sig_g) from spectral_certificate() — the largest Fisher-information
+      uncertainty on any generator frequency (Hz). Measures how close the
+      failure is to the resolution limit.
+
+  min_amp  (failure rows only)
+    = min(amp) from spectral_fisher() — the smallest fundamental-line
+      amplitude across all detected prism generators. Near-zero means a
+      weak-prism failure; confirms the weak-prism certificate threshold.
+
+  (pair_sep, rel_gap, ax_min, cyc — already present at record level from
+   truth_margins(); unchanged.)
+
+  SPECIFIC CODE CHANGES in solve_once():
+    - Added `import re` at top of file
+    - Added `spectral_fisher` to the risley_lattice import line
+    - Added `'min_cycles': float(np.min(np.abs(tc[:3])) * T)` to row dict
+    - In failure branch: capture sig_g from spectral_certificate() return,
+      store sigma_N and parsed T_req; call spectral_fisher() separately for
+      min_amp
+    - _parse_t_req() helper added to extract max numeric T_req from reasons
+
+  IMPACT: Backward-compatible with existing JSONL files — new fields simply
+  absent in old rows. A fresh run with a new tag (e.g. "atlas2") is required
+  to get results with all fields.
+
+
+2. modal_sweep_continuous.py
+-----------------------------
+WHAT CHANGED: Complete rewrite of the Modal cloud runner for speed and
+reliability. The old version had two critical problems:
+
+  Problem 1 — 24-hour orchestrator ceiling:
+    The old script used a run_campaign() orchestrator function with a 24-hour
+    timeout. Any run longer than 24 hours would be cut off mid-campaign, even
+    with --detach. For 1,000,000 cases this was a hard blocker.
+
+  Problem 2 — Single CPU per container:
+    Each container ran one worker on 25 cases sequentially (cpu=1.0). This
+    left CPUs idle on Modal's machines.
+
+NEW BEHAVIOR:
+  - No orchestrator. Shards are submitted directly from main() using .spawn(),
+    so there is no 24-hour ceiling. The campaign runs until all shards finish,
+    no matter how long it takes.
+  - 4 CPUs per container (cpu=4.0), down from 8 after preemption testing.
+    8-CPU containers were preempted (killed mid-job) too frequently on Modal's
+    spot instances; 4-CPU is the sweet spot for reliability vs. throughput.
+  - ThreadPoolExecutor(4) instead of multiprocessing.Pool. Each container runs
+    4 workers in parallel. ThreadPoolExecutor is lighter-weight in containers
+    (no shared-memory segments or semaphores) and equally fast for numpy/scipy
+    work because numpy releases Python's GIL during C-level math.
+  - 100 cases per container (4 workers × 25 cases each).
+  - Resume-safe. Re-running is always safe; already-completed cases are
+    skipped automatically via the existing JSONL resume logic in sweep.py.
+  - --detach is required. Always run as:
+      modal run --detach modal_sweep_continuous.py --tag <tagname>
+
+
+HOW TO RUN THE FRESH 1M-CASE CAMPAIGN (with all new fields):
+=============================================================
+  cd /Users/deepthought/SPLab/Claude/Ben/Risley_Prism-main
+  modal run --detach modal_sweep_continuous.py --tag atlas2
+
+You can close your laptop immediately after. Monitor progress at:
+  https://modal.com/apps/riley-prisms
+
+NOTE: Raise your Modal spending limit at modal.com/settings/billing before
+launching — the previous run hit the $255 cap.
+
+Estimated time: ~12–24 hours.
+Estimated cost: ~$80–150.
+
+
+================================================================
+3. THE atlas4 STALL AND ITS FIX  (September 7, 2026)
+================================================================
+
+WHAT HAPPENED
+  atlas4 ran well for ~24 hours (~240,000 cases), then throughput fell to
+  zero while still billing ~$11.50/hour. Cause: every finished shard wrote 2
+  files into the single flat directory /results. That directory reached
+  52,295 files. Volume commits reconcile against the directory, so commits
+  grew steadily slower and eventually began failing -- a container would
+  compute for 25 minutes and then lose all 50 cases when the final commit
+  failed. Modal's own web file browser returns HTTP 500 on the same
+  directory, which is the identical limit seen from outside.
+
+  It was self-inflicted by success: each completed shard enlarged the
+  directory that the next commit had to traverse.
+
+FIXES
+
+  a) experiments/sweep.py -- resume across layouts
+     New module globals RESUME_DIRS and _LISTDIR_CACHE, plus helpers
+     _resume_paths() and _load_done(). A shard now builds its done-set from
+     its own file PLUS any file in RESUME_DIRS whose case range overlaps its
+     own. Filenames encode the start index, so overlap is a string parse --
+     no need to open 40,000 files. Directory listings are cached because the
+     legacy directory holds 50k+ entries.
+
+     Guard: a row only counts as done if trail[0] contains 'x18'. Rows from
+     the original pre-x18 atlas run are deliberately recomputed -- capturing
+     x18 was the entire reason for re-running.
+
+  b) modal_sweep_continuous.py -- three changes
+     SUB_SIZE   25 -> 100   one file per 100 cases: 10,000 files per 1M
+                            campaign instead of 40,000, and 5,000 containers
+                            instead of 20,000 (4x fewer commits). 10,000 is
+                            well inside the range atlas4 ran fine at for 24 h;
+                            it only degraded approaching ~52,000.
+     N_WORKERS   2 -> 2     UNCHANGED, deliberately. Three container sizes
+                            have now been tested on spot capacity: 8 CPU gave
+                            heavy preemption, 4 CPU gave atlas3 (110/112 calls
+                            failed), 2 CPU ran atlas4 for 24 h without a
+                            placement problem. 2 CPU is the only shape with
+                            demonstrated survival. A 4-CPU build was drafted
+                            and reverted -- it would buy ~7% on the memory-to-
+                            CPU ratio, not worth re-testing a configuration
+                            that already failed twice.
+     timeout  3600 -> 10800 SUB_SIZE drives worker lifetime, so it is the real
+                            safety knob: 100 cases x ~60 CPU-s = ~1.7 h per
+                            worker, and 3 h carries ~1.8x margin. (A SUB_SIZE
+                            of 250 would have cut files to 4,000 but stretched
+                            each worker to 4.2 h, widening the preemption
+                            exposure window -- rejected for that reason.)
+     INCREMENTAL COMMITS    a daemon thread commits every 900 s while the
+                            workers run, replacing the single end-of-shard
+                            commit. A preempted or timed-out container now
+                            loses <=15 minutes instead of its whole shard.
+                            This was the expensive failure mode in BOTH
+                            atlas3 and atlas4.
+     PER-TAG OUTPUT         results go to /results/<tag>/, so a campaign
+                            never inherits a previous one's file count.
+
+  c) modal_reorg_volume.py (new) -- moves the 52k legacy files from
+     /results into /results/_archive/<tag>/. Nothing is deleted; the runner
+     still resumes from _archive/. Dry-run by default.
+
+  d) modal_pack_results.py (new) -- tars a tag's results inside Modal so you
+     download ONE file. 52,000 individual downloads is not viable.
+
+  e) cost_check.py (new) -- reports measured CPU-seconds per case, split by
+     solved vs failed, and projects campaign cost from real data.
+
+MEASURED ECONOMICS (from atlas4, not estimated)
+  ~60 CPU-seconds per case averaged over the case mix.
+  Cost driver is the T-ladder: a case solving at T=10 costs ~1.5 s, while a
+  case failing all the way to T=80 costs ~130 s. Each rung roughly doubles
+  the previous one because the pattern doubles in length (200/400/800/1600
+  points), so the T=80 rung alone is over half of a failing case.
+  At $0.0575/CPU-hour: ~$0.92 per 1,000 cases, ~$920 per 1,000,000.
+
+RUN ORDER
+  modal run modal_reorg_volume.py                    # dry run
+  modal run modal_reorg_volume.py --apply            # tidy the volume
+  modal run --detach modal_sweep_continuous.py --tag atlas5

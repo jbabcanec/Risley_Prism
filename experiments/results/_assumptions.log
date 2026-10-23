@@ -1,0 +1,21 @@
+
+==============================================================================================
+ASSUMPTION TEST SUITE  (30-case seed-2026 battery unless stated)
+==============================================================================================
+A1 flip symmetry exact:            max|dF| = 2.33e-11   PASS
+A2 main > conjugate leak:          leak/main med 0.095 max 1.146  violations 1/90   PASS
+A3 phase = ay (+180 if ax<0):      err med 0.85 deg  p90 8.48  max 159.53   PASS
+A4 lattice support (B=4 resid):    med 5.5e-04  max 1.8e-01  inadequate(TIR) 3/30   PASS
+A5 weakest fundamental > order>=2: violated in 3/24 cases (rank-extension canonicalization tolerates this)   PASS
+A6 amplitude->|ax| inversion:      true geometry med 0.26 deg, nominal geometry med 1.49 deg (p90 5.62)   PASS
+A7 measured 18-D TRF basin vs spectral-like init error (10 cases x 3 seeds):
+     perturbation x0.5  -> TRF success 29/30
+     perturbation x1.0  -> TRF success 28/30
+     perturbation x2.0  -> TRF success 26/30
+     perturbation x4.0  -> TRF success 24/30
+A8 information scaling: failed cases vs observation time T
+     case 11 (sep 0.007):  T=10:OK  T=20:0.11  T=40:OK  T=80:OK
+     case 18 (sep 0.178):  T=10:0.29  T=20:OK  T=40:OK  T=80:OK
+     case  4 (sep 0.330):  T=10:0.47  T=20:OK  T=40:OK  T=80:OK
+     case 27 (sep 0.059):  T=10:0.03  T=20:OK  T=40:OK  T=80:OK
+==============================================================================================
